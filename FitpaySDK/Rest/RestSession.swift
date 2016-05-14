@@ -55,7 +55,7 @@ public class RestSession : NSObject
         return self.accessToken != nil
     }
     
-    public func setAuthorization(webViewSessionData:WebViewSessionData) {
+    public func setWebViewAuthorization(webViewSessionData:WebViewSessionData) {
         self.accessToken = webViewSessionData.token
         self.userId = webViewSessionData.userId
     }

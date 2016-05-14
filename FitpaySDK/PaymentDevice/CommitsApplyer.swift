@@ -97,7 +97,7 @@ internal class CommitsApplyer {
         
         let commitCompletion = { (error: ErrorType?) -> Void in
             if error == nil {
-                SyncManager.sharedInstance.syncStorage.lastCommitId = commit.commit
+                SyncManager.sharedInstance.commitCompleted(commit.commit!)
             }
             
             completion(error: error)
@@ -165,6 +165,32 @@ internal class CommitsApplyer {
         }
         
         SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.COMMIT_PROCESSED, params: ["commit":commit])
+
+        switch commit.commitType! {
+        case .CREDITCARD_CREATED:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.CARD_ADDED, params: ["commit":commit])
+            break;
+        case .CREDITCARD_DELETED:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.CARD_DELETED, params: ["commit":commit])
+            break;
+        case .CREDITCARD_ACTIVATED:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.CARD_ACTIVATED, params: ["commit":commit])
+            break;
+        case .CREDITCARD_DEACTIVATED:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.CARD_DEACTIVATED, params: ["commit":commit])
+            break;
+        case .CREDITCARD_REACTIVATED:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.CARD_REACTIVATED, params: ["commit":commit])
+            break;
+        case .SET_DEFAULT_CREDITCARD:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.SET_DEFAULT_CARD, params: ["commit":commit])
+            break;
+        case .RESET_DEFAULT_CREDITCARD:
+            SyncManager.sharedInstance.callCompletionForSyncEvent(SyncEventType.RESET_DEFAULT_CARD, params: ["commit":commit])
+            break;
+        default:
+            break;
+        }
         
         completion(error: nil)
     }
@@ -178,7 +204,7 @@ internal class CommitsApplyer {
         }
         
         var apdu = apduPackage.apduCommands![apduCommandIndex]
-        SyncManager.sharedInstance.paymentDevice.executeAPDUCommand(&apdu, completion:
+        SyncManager.sharedInstance.paymentDevice!.executeAPDUCommand(&apdu, completion:
         {
             [unowned self] (apduPack, error) -> Void in
 

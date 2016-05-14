@@ -160,7 +160,7 @@ class PaymentDeviceTests: XCTestCase
     {
         let expectation = super.expectationWithDescription("test sync with commit")
         
-        SyncManager.sharedInstance.syncStorage.lastCommitId = nil
+        SyncManager.sharedInstance.paymentDevice = self.paymentDevice
         
         SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.CONNECTING_TO_DEVICE)
         {
@@ -219,7 +219,7 @@ class PaymentDeviceTests: XCTestCase
             expectation.fulfill()
         }
         
-        SyncManager.sharedInstance.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.OnNotificationReceived, completion:
+        SyncManager.sharedInstance.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.OnNotificationReceived, completion:
         {
             (notificationData)->Void in
             print("notification:", notificationData)

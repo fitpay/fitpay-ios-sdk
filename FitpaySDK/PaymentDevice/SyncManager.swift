@@ -13,6 +13,14 @@ import ObjectMapper
     case APDU_COMMANDS_PROGRESS
     
     case COMMIT_PROCESSED
+
+    case CARD_ADDED
+    case CARD_DELETED
+    case CARD_ACTIVATED
+    case CARD_DEACTIVATED
+    case CARD_REACTIVATED
+    case SET_DEFAULT_CARD
+    case RESET_DEFAULT_CARD
     
     public func eventId() -> Int {
         return rawValue
@@ -37,15 +45,28 @@ import ObjectMapper
         case .APDU_COMMANDS_PROGRESS:
             return "APDU progress"
         case .COMMIT_PROCESSED:
-            return "Precessed commit"
+            return "Processed commit"
+        case .CARD_ADDED:
+            return "New card was added"
+        case .CARD_DELETED:
+            return "Card was deleted"
+        case .CARD_ACTIVATED:
+            return "Card was activated"
+        case .CARD_DEACTIVATED:
+            return "Card was deactivated"
+        case .CARD_REACTIVATED:
+            return "Card was reactivated"
+        case .SET_DEFAULT_CARD:
+            return "New default card was manually set"
+        case .RESET_DEFAULT_CARD:
+            return "New default card was automatically set"
         }
     }
 }
 
 public class SyncManager : NSObject {
     public static let sharedInstance = SyncManager()
-    
-    public let paymentDevice : PaymentDevice = PaymentDevice()
+    public var paymentDevice : PaymentDevice?
     
     
     internal let syncStorage : SyncStorage = SyncStorage()
@@ -55,6 +76,7 @@ public class SyncManager : NSObject {
     private var user : User?
     
     private var commitsApplyer = CommitsApplyer()
+    private var currentDeviceId : String?
     
     private weak var deviceConnectedBinding : FitpayEventBinding?
     private weak var deviceDisconnectedBinding : FitpayEventBinding?
@@ -112,20 +134,20 @@ public class SyncManager : NSObject {
         self.isSyncing = true
         self.user = user
         
-        if self.paymentDevice.isConnected {
+        if self.paymentDevice!.isConnected {
             startSync()
             return nil
         }
         
         if let binding = self.deviceConnectedBinding {
-            self.paymentDevice.removeBinding(binding: binding)
+            self.paymentDevice!.removeBinding(binding: binding)
         }
         
         if let binding = self.deviceDisconnectedBinding {
-            self.paymentDevice.removeBinding(binding: binding)
+            self.paymentDevice!.removeBinding(binding: binding)
         }
         
-        self.deviceConnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.OnDeviceConnected, completion:
+        self.deviceConnectedBinding = self.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.OnDeviceConnected, completion:
         {
             [unowned self] (event) in
             
@@ -146,29 +168,29 @@ public class SyncManager : NSObject {
             self.startSync()
             
             if let binding = self.deviceConnectedBinding {
-                self.paymentDevice.removeBinding(binding: binding)
+                self.paymentDevice!.removeBinding(binding: binding)
             }
             
             self.deviceConnectedBinding = nil
         })
         
-        self.deviceDisconnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.OnDeviceDisconnected, completion: {
+        self.deviceDisconnectedBinding = self.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.OnDeviceDisconnected, completion: {
             [unowned self] (event) in
             self.callCompletionForSyncEvent(SyncEventType.SYNC_FAILED, params: ["error": NSError.error(code: SyncManager.ErrorCode.ConnectionWithDeviceWasLost, domain: SyncManager.self)])
             
             if let binding = self.deviceConnectedBinding {
-                self.paymentDevice.removeBinding(binding: binding)
+                self.paymentDevice!.removeBinding(binding: binding)
             }
             
             if let binding = self.deviceDisconnectedBinding {
-                self.paymentDevice.removeBinding(binding: binding)
+                self.paymentDevice!.removeBinding(binding: binding)
             }
             
             self.deviceConnectedBinding = nil
             self.deviceDisconnectedBinding = nil
         })
         
-        self.paymentDevice.connect(self.paymentDeviceConnectionTimeoutInSecs)
+        self.paymentDevice!.connect(self.paymentDeviceConnectionTimeoutInSecs)
         
         self.callCompletionForSyncEvent(SyncEventType.CONNECTING_TO_DEVICE)
         
@@ -221,7 +243,7 @@ public class SyncManager : NSObject {
         
         self.callCompletionForSyncEvent(SyncEventType.SYNC_STARTED)
         
-        getCommits(self.syncStorage.lastCommitId)
+        getCommits()
         {
             [unowned self] (commits, error) -> Void in
             
@@ -230,9 +252,15 @@ public class SyncManager : NSObject {
                 return
             }
             
-            //TODO: delete this once approved
-            let commits = self.___debug_appendAPDUCommits(commits!)
-            let applayerStarted = self.commitsApplyer.apply(commits, completion:
+//            TODO: this is for testing purposes only. It should be removed once actual APDU packages are being received
+//            let cmts:[Commit]
+//            if commits?.count > 0 {
+//                cmts = self.___debug_appendAPDUCommits(commits!)
+//            } else {
+//                cmts = commits!
+//            }
+
+            let applayerStarted = self.commitsApplyer.apply(commits!, completion:
             {
                 [unowned self] (error) -> Void in
                 
@@ -266,7 +294,7 @@ public class SyncManager : NSObject {
             for deviceInfo in result!.results! {
                 // TODO: uncomment this once approved
                 // if deviceInfo.serialNumber == physicalDeviceInfo?.serialNumber {
-                if deviceInfo.deviceName == "PSPS" {
+                if deviceInfo.secureElementId != nil {
                     completion(deviceInfo: deviceInfo, error: nil)
                     return
                 }
@@ -281,12 +309,16 @@ public class SyncManager : NSObject {
         })
     }
     
-    private func getCommits(lastCommitId: String?, completion: (commits: [Commit]?, error: ErrorType?)->Void) {
+    private func getCommits(completion: (commits: [Commit]?, error: ErrorType?)->Void) {
         findDeviceInfo(20, searchOffset: 0)
         {
             (deviceInfo, error) -> Void in
             
             if let deviceInfo = deviceInfo {
+                self.currentDeviceId = deviceInfo.deviceIdentifier!
+
+                let lastCommitId = self.syncStorage.getLastCommitId(self.currentDeviceId!)
+
                 deviceInfo.listCommits(commitsAfter: lastCommitId, limit: 20, offset: 0, completion:
                 {
                     (result, error) -> Void in
@@ -334,6 +366,7 @@ public class SyncManager : NSObject {
 
     private func syncFinished(error error: ErrorType?) {
         self.isSyncing = false
+        self.currentDeviceId = nil
         
         if let error = error as? NSError {
             callCompletionForSyncEvent(SyncEventType.SYNC_FAILED, params: ["error": error])
@@ -342,15 +375,19 @@ public class SyncManager : NSObject {
         }
         
         if let binding = self.deviceConnectedBinding {
-            self.paymentDevice.removeBinding(binding: binding)
+            self.paymentDevice!.removeBinding(binding: binding)
         }
         
         if let binding = self.deviceDisconnectedBinding {
-            self.paymentDevice.removeBinding(binding: binding)
+            self.paymentDevice!.removeBinding(binding: binding)
         }
         
         self.deviceConnectedBinding = nil
         self.deviceDisconnectedBinding = nil
+    }
+
+    internal func commitCompleted(commitId:String) {
+        self.syncStorage.setLastCommitId(self.currentDeviceId!, commitId: commitId)
     }
     
     //TODO: delete this once approved

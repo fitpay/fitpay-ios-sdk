@@ -42,7 +42,14 @@ public class MockPaymentDeviceInterface : NSObject, PaymentDeviceBaseInterface {
     }
     
     public func sendAPDUData(data: NSData, sequenceNumber: UInt16) {
+        var score: Double = 0x90000000000000
+        let data = NSData(bytes: &score, length: sizeof(Double))
+        let packet = ApduResultMessage(msg: data)
         
+        if let apduResponseHandler = self.paymentDevice.apduResponseHandler {
+            self.paymentDevice.apduResponseHandler = nil
+            apduResponseHandler(apduResponse: packet, error: nil)
+        }
     }
     
     public func deviceInfo() -> DeviceInfo? {
