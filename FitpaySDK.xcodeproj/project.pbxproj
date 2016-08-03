@@ -834,12 +834,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AD922B11C1F7EFC007693AB /* Build configuration list for PBXNativeTarget "FitpaySDK" */;
 			buildPhases = (
-				79020079ABF1C988C76C29A6 /* Check Pods Manifest.lock */,
+				79020079ABF1C988C76C29A6 /* [CP] Check Pods Manifest.lock */,
 				0AD922981C1F7EFC007693AB /* Sources */,
 				0AD922991C1F7EFC007693AB /* Frameworks */,
 				0AD9229A1C1F7EFC007693AB /* Headers */,
 				0AD9229B1C1F7EFC007693AB /* Resources */,
-				449DF6A1184412BD75735649 /* Copy Pods Resources */,
+				449DF6A1184412BD75735649 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -854,12 +854,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AD922B41C1F7EFC007693AB /* Build configuration list for PBXNativeTarget "FitpaySDKTests" */;
 			buildPhases = (
-				DDCF2739CBC122419F728384 /* Check Pods Manifest.lock */,
+				DDCF2739CBC122419F728384 /* [CP] Check Pods Manifest.lock */,
 				0AD922A31C1F7EFC007693AB /* Sources */,
 				0AD922A41C1F7EFC007693AB /* Frameworks */,
 				0AD922A51C1F7EFC007693AB /* Resources */,
-				C50539A02244046BC4091165 /* Embed Pods Frameworks */,
-				E962622B61F74B67310CAD2E /* Copy Pods Resources */,
+				C50539A02244046BC4091165 /* [CP] Embed Pods Frameworks */,
+				E962622B61F74B67310CAD2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -876,13 +876,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8426D2691C96F4AA009AACFE /* Build configuration list for PBXNativeTarget "RTMClientApp" */;
 			buildPhases = (
-				FFE9B3840EC0474F5FAA7E84 /* Check Pods Manifest.lock */,
+				FFE9B3840EC0474F5FAA7E84 /* [CP] Check Pods Manifest.lock */,
 				8426D2541C96F4AA009AACFE /* Sources */,
 				8426D2551C96F4AA009AACFE /* Frameworks */,
 				8426D2561C96F4AA009AACFE /* Resources */,
 				8482FE8C1CA0338B00966742 /* Embed Frameworks */,
-				E34929AD64C35A83EEF4DAF0 /* Embed Pods Frameworks */,
-				8E83939B8ADCEC3EEA5B38F6 /* Copy Pods Resources */,
+				E34929AD64C35A83EEF4DAF0 /* [CP] Embed Pods Frameworks */,
+				8E83939B8ADCEC3EEA5B38F6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -898,13 +898,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A2E68E11CA14DE10061D5B3 /* Build configuration list for PBXNativeTarget "FitpaySDKDemo" */;
 			buildPhases = (
-				15CC29968B7BA0877FE3A393 /* Check Pods Manifest.lock */,
+				15CC29968B7BA0877FE3A393 /* [CP] Check Pods Manifest.lock */,
 				9A2E68BF1CA14DE10061D5B3 /* Sources */,
 				9A2E68C01CA14DE10061D5B3 /* Frameworks */,
 				9A2E68C11CA14DE10061D5B3 /* Resources */,
 				3A32D01A1CC7CA68000BB0D8 /* Embed Frameworks */,
-				A036C8D606BB12E4198BE23E /* Embed Pods Frameworks */,
-				E0F0FCE34C33AE6B4A434F25 /* Copy Pods Resources */,
+				A036C8D606BB12E4198BE23E /* [CP] Embed Pods Frameworks */,
+				E0F0FCE34C33AE6B4A434F25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -938,12 +938,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A2F7BA21CB7FB5D00696D45 /* Build configuration list for PBXNativeTarget "ObjCDemo" */;
 			buildPhases = (
-				3891A7696FF7605B69136A33 /* Check Pods Manifest.lock */,
+				3891A7696FF7605B69136A33 /* [CP] Check Pods Manifest.lock */,
 				9A2F7B7B1CB7FB5C00696D45 /* Sources */,
 				9A2F7B7C1CB7FB5C00696D45 /* Frameworks */,
 				9A2F7B7D1CB7FB5C00696D45 /* Resources */,
-				0449CB17E5F108BBF8B2F6A3 /* Embed Pods Frameworks */,
-				39F68889E224C90DC97969EA /* Copy Pods Resources */,
+				0449CB17E5F108BBF8B2F6A3 /* [CP] Embed Pods Frameworks */,
+				39F68889E224C90DC97969EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1136,14 +1136,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0449CB17E5F108BBF8B2F6A3 /* Embed Pods Frameworks */ = {
+		0449CB17E5F108BBF8B2F6A3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1151,14 +1151,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjCDemo/Pods-ObjCDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		15CC29968B7BA0877FE3A393 /* Check Pods Manifest.lock */ = {
+		15CC29968B7BA0877FE3A393 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1166,14 +1166,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3891A7696FF7605B69136A33 /* Check Pods Manifest.lock */ = {
+		3891A7696FF7605B69136A33 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1181,14 +1181,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		39F68889E224C90DC97969EA /* Copy Pods Resources */ = {
+		39F68889E224C90DC97969EA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1196,14 +1196,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjCDemo/Pods-ObjCDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		449DF6A1184412BD75735649 /* Copy Pods Resources */ = {
+		449DF6A1184412BD75735649 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1211,14 +1211,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDK/Pods-FitpaySDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		79020079ABF1C988C76C29A6 /* Check Pods Manifest.lock */ = {
+		79020079ABF1C988C76C29A6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1226,14 +1226,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8E83939B8ADCEC3EEA5B38F6 /* Copy Pods Resources */ = {
+		8E83939B8ADCEC3EEA5B38F6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1254,14 +1254,14 @@
 			shellPath = /bin/sh;
 			shellScript = "#fix bitcode issue\nunset TOOLCHAINS\n\n######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi";
 		};
-		A036C8D606BB12E4198BE23E /* Embed Pods Frameworks */ = {
+		A036C8D606BB12E4198BE23E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1269,14 +1269,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKDemo/Pods-FitpaySDKDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C50539A02244046BC4091165 /* Embed Pods Frameworks */ = {
+		C50539A02244046BC4091165 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1284,14 +1284,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DDCF2739CBC122419F728384 /* Check Pods Manifest.lock */ = {
+		DDCF2739CBC122419F728384 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1299,14 +1299,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E0F0FCE34C33AE6B4A434F25 /* Copy Pods Resources */ = {
+		E0F0FCE34C33AE6B4A434F25 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1314,14 +1314,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKDemo/Pods-FitpaySDKDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E34929AD64C35A83EEF4DAF0 /* Embed Pods Frameworks */ = {
+		E34929AD64C35A83EEF4DAF0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1329,14 +1329,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RTMClientApp/Pods-RTMClientApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E962622B61F74B67310CAD2E /* Copy Pods Resources */ = {
+		E962622B61F74B67310CAD2E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1344,14 +1344,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFE9B3840EC0474F5FAA7E84 /* Check Pods Manifest.lock */ = {
+		FFE9B3840EC0474F5FAA7E84 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1700,7 +1700,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FitpaySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1729,7 +1728,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FitpaySDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1749,7 +1747,6 @@
 			baseConfigurationReference = DB3B273A3D2DCC775DA1BEFD /* Pods-FitpaySDKTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = FitpaySDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
@@ -1763,7 +1760,6 @@
 			baseConfigurationReference = 58DBC1481B059BCF33878AA3 /* Pods-FitpaySDKTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = FitpaySDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
@@ -1779,7 +1775,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = RTMClientApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masterofcode-llc.FitpaySDK.RTMClientApp";
@@ -1795,7 +1790,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = RTMClientApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masterofcode-llc.FitpaySDK.RTMClientApp";
@@ -1825,8 +1819,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = FitpaySDKDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKDemo;
@@ -1842,8 +1834,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = FitpaySDKDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKDemo;
