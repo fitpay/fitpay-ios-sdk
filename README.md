@@ -6,7 +6,7 @@ Fitpay distributes the SDK via cocoapods. Documentation on using cocoapods can b
 ```ruby
 pod 'FitpaySDK'
 ```
-
+Important: Our CocoaPod has not yet made the update to 1.x, you must install/use CocoaPods 0.39.0 for now.
 
 ## Building the SDK locally
 Ensure you have cocoapods installed, and the repo checked out:
