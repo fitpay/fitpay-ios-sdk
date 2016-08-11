@@ -12,7 +12,7 @@
     
     func sendNotification(notificationData: NSData) -> NSError?
     
-    func sendAPDUData(data: NSData, sequenceNumber: UInt16)
+    func executeAPDUCommand(apduCommand: APDUCommand)
     
     func deviceInfo() -> DeviceInfo?
 

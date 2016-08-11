@@ -77,6 +77,17 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         return self._nfcState ?? SecurityNFCState.Disabled
     }
     
+    func executeAPDUCommand(apduCommand: APDUCommand) {
+        guard let commandData = apduCommand.command?.hexToData() else {
+            if let completion = self.paymentDevice.apduResponseHandler {
+                completion(apduResponse: nil, error: NSError.error(code: PaymentDevice.ErrorCode.APDUDataNotFull, domain: IPaymentDeviceConnector.self))
+            }
+            return
+        }
+        
+        sendAPDUData(commandData, sequenceNumber: UInt16(apduCommand.sequence))
+    }
+    
     func sendAPDUData(data: NSData, sequenceNumber: UInt16) {
         guard let wearablePeripheral = self.wearablePeripheral, apduControlCharacteristic = self.apduControlCharacteristic else {
             if let completion = self.paymentDevice.apduResponseHandler {

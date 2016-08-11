@@ -361,7 +361,7 @@ SWIFT_PROTOCOL("_TtP9FitpaySDK23IPaymentDeviceConnector_")
 - (NSError * _Nullable)writeSecurityState:(enum SecurityNFCState)state;
 - (NSError * _Nullable)sendDeviceControl:(enum DeviceControlState)state;
 - (NSError * _Nullable)sendNotification:(NSData * _Nonnull)notificationData;
-- (void)sendAPDUData:(NSData * _Nonnull)data sequenceNumber:(uint16_t)sequenceNumber;
+- (void)executeAPDUCommand:(APDUCommand * _Nonnull)apduCommand;
 - (DeviceInfo * _Nullable)deviceInfo;
 - (enum SecurityNFCState)nfcState;
 - (void)resetToDefaultState;
@@ -385,6 +385,7 @@ SWIFT_CLASS("_TtC9FitpaySDK26MockPaymentDeviceConnector")
 - (NSError * _Nullable)writeSecurityState:(enum SecurityNFCState)state;
 - (NSError * _Nullable)sendDeviceControl:(enum DeviceControlState)state;
 - (NSError * _Nullable)sendNotification:(NSData * _Nonnull)notificationData;
+- (void)executeAPDUCommand:(APDUCommand * _Nonnull)apduCommand;
 - (void)sendAPDUData:(NSData * _Nonnull)data sequenceNumber:(uint16_t)sequenceNumber;
 - (DeviceInfo * _Nullable)deviceInfo;
 - (enum SecurityNFCState)nfcState;
@@ -509,7 +510,7 @@ SWIFT_CLASS("_TtC9FitpaySDK10RestClient")
 /// \param email email of the user
 ///
 /// \param completion CreateUserHandler closure
-- (void)createUser:(NSString * _Nonnull)email password:(NSString * _Nonnull)password firstName:(NSString * _Nullable)firstName lastName:(NSString * _Nullable)lastName birthDate:(NSString * _Nullable)birthDate termsVersion:(NSString * _Nullable)termsVersion termsAccepted:(NSString * _Nullable)termsAccepted origin:(NSString * _Nullable)origin originAccountCreated:(NSString * _Nullable)originAccountCreated completion:(void (^ _Nonnull)(User * _Nullable, NSError * _Nullable))completion;
+- (void)createUser:(NSString * _Nonnull)email password:(NSString * _Nonnull)password firstName:(NSString * _Nullable)firstName lastName:(NSString * _Nullable)lastName birthDate:(NSString * _Nullable)birthDate termsVersion:(NSString * _Nullable)termsVersion termsAccepted:(NSString * _Nullable)termsAccepted origin:(NSString * _Nullable)origin originAccountCreated:(NSString * _Nullable)originAccountCreated clientId:(NSString * _Nonnull)clientId completion:(void (^ _Nonnull)(User * _Nullable, NSError * _Nullable))completion;
 
 /// Retrieves the details of an existing user. You need only supply the unique user identifier that was returned upon user creation
 ///
@@ -540,8 +541,9 @@ SWIFT_CLASS("_TtC9FitpaySDK9RtmConfig")
 @interface RtmConfig : NSObject
 @property (nonatomic, copy) NSString * _Nullable clientId;
 @property (nonatomic, copy) NSString * _Nullable redirectUri;
+@property (nonatomic, copy) NSString * _Nullable userEmail;
 @property (nonatomic, strong) DeviceInfo * _Nullable deviceInfo;
-- (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId redirectUri:(NSString * _Nonnull)redirectUri deviceInfo:(DeviceInfo * _Nullable)deviceInfo OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId redirectUri:(NSString * _Nonnull)redirectUri userEmail:(NSString * _Nullable)userEmail deviceInfo:(DeviceInfo * _Nullable)deviceInfo OBJC_DESIGNATED_INITIALIZER;
 @end
 
 typedef SWIFT_ENUM(NSInteger, SecurityNFCState) {

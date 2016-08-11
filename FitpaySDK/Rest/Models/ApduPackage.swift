@@ -68,7 +68,7 @@ public class ApduPackage : NSObject, Mappable
             }
             
             if let executed = self.executedEpoch {
-                dic["executedEpoch"] = executed
+                dic["executedTsEpoch"] = Int(executed)
             }
             
             if state == APDUPackageResponseState.EXPIRED {

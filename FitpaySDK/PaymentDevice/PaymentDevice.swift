@@ -264,24 +264,19 @@ public class PaymentDevice : NSObject
         self.deviceInterface = BluetoothPaymentDeviceConnector(paymentDevice: self)
     }
     
-    internal func sendAPDUData(data: NSData, sequenceNumber: UInt16, completion: APDUResponseHandler) {
+    internal func sendAPDUCommand(apduCommand:APDUCommand, completion: APDUResponseHandler) {
         guard isConnected else {
             completion(apduResponse: nil, error: NSError.error(code: PaymentDevice.ErrorCode.DeviceShouldBeConnected, domain: IPaymentDeviceConnector.self))
             return
         }
         
         self.apduResponseHandler = completion
-        self.deviceInterface.sendAPDUData(data, sequenceNumber: sequenceNumber)
+        self.deviceInterface.executeAPDUCommand(apduCommand)
     }
     
     internal typealias APDUExecutionHandler = (apduCommand:APDUCommand?, error:ErrorType?)->Void
     internal func executeAPDUCommand(inout apduCommand: APDUCommand, completion: APDUExecutionHandler) {
-        guard let commandData = apduCommand.command?.hexToData() else {
-            completion(apduCommand: nil, error: NSError.error(code: PaymentDevice.ErrorCode.APDUDataNotFull, domain: IPaymentDeviceConnector.self))
-            return
-        }
-        
-        self.sendAPDUData(commandData, sequenceNumber: UInt16(apduCommand.sequence))
+        self.sendAPDUCommand(apduCommand)
         {
             (apduResponse, error) -> Void in
             

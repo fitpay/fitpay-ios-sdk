@@ -4,7 +4,7 @@ import XCTest
 
 class RestClientTests: XCTestCase
 {
-    let clientId = "pagare"
+    let clientId = "fp_api_xMRFHdJh"
     let redirectUri = "https://demo.pagare.me"
     let password = "1029"
 

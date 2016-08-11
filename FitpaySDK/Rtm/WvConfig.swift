@@ -38,7 +38,7 @@ public class WvConfig : NSObject, WKScriptMessageHandler {
     
     public init(paymentDevice:PaymentDevice, userEmail:String?, SDKConfiguration: FitpaySDKConfiguration = FitpaySDKConfiguration.defaultConfiguration) {
         self.paymentDevice = paymentDevice
-        self.rtmConfig = RtmConfig(clientId: SDKConfiguration.clientId, redirectUri: SDKConfiguration.redirectUri, deviceInfo: nil)
+        self.rtmConfig = RtmConfig(clientId: SDKConfiguration.clientId, redirectUri: SDKConfiguration.redirectUri, userEmail: userEmail, deviceInfo: nil)
         self.restSession = RestSession(configuration: SDKConfiguration)
         self.restClient = RestClient(session: self.restSession!)
         self.paymentDevice!.deviceInfo?.client = self.restClient
