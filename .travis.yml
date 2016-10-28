@@ -1,7 +1,9 @@
 language: objective-c
 osx_image: xcode8
 rvm: 2.2.2
-before_install: gem install cocoapods
-
+before_install: 
+- rvm use system
+- gem install cocoapods -v '1.1.1'
+before_script: pod update
 script:
   - ./bin/test
