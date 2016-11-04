@@ -57,7 +57,7 @@ open class ResultCollection<T: Mappable> : NSObject, ClientModel, Mappable, Secr
                     }
                     else
                     {
-                        print("Failed to convert \(result) to ClientModel")
+                        log.error("Failed to convert \(result) to ClientModel")
                     }
                 }
             }

@@ -157,9 +157,9 @@ open class SyncManager : NSObject {
      - parameter user: user from API to whom device belongs to.
      */
     open func sync(_ user: User) -> NSError? {
-        print("--- [SyncManager] starting sync ---")
+        log.debug("--- [SyncManager] starting sync ---")
         if self.isSyncing {
-            print("--- [SyncManager] already syncing so can't sync ---")
+            log.warning("--- [SyncManager] already syncing so can't sync ---")
             return NSError.error(code: SyncManager.ErrorCode.syncAlreadyStarted, domain: SyncManager.self)
         }
         
@@ -167,7 +167,7 @@ open class SyncManager : NSObject {
         self.user = user
         
         if self.paymentDevice!.isConnected {
-            print("--- [SyncManager] validating device connection to sync ---")
+            log.verbose("--- [SyncManager] validating device connection to sync ---")
             self.paymentDevice?.validateConnection(completion: { (isValid, error) in
                 if let error = error {
                     self.syncFinished(error: error)
@@ -246,7 +246,7 @@ open class SyncManager : NSObject {
     }
     
     internal func syncWithDeviceConnection() {
-        print("--- [SyncManager] no connection to device so connecting before initing sync ---")
+        log.verbose("--- [SyncManager] no connection to device so connecting before initing sync ---")
         if let binding = self.deviceConnectedBinding {
             self.paymentDevice!.removeBinding(binding: binding)
         }
@@ -328,7 +328,7 @@ open class SyncManager : NSObject {
     }
     
     fileprivate func startSync() {
-        print("--- [SyncManager] sync preconditions validated, beginning process ---")
+        log.verbose("--- [SyncManager] sync preconditions validated, beginning process ---")
         
         self.callCompletionForSyncEvent(SyncEventType.syncStarted)
         
@@ -337,7 +337,7 @@ open class SyncManager : NSObject {
             [unowned self] (commits, error) -> Void in
             
             guard (error == nil && commits != nil) else {
-                print("--- [SyncManager] failed to get commits ---")
+                log.error("--- [SyncManager] failed to get commits error: \(error) ---")
                 self.syncFinished(error: NSError.error(code: SyncManager.ErrorCode.cantFetchCommits, domain: SyncManager.self))
                 return
             }
@@ -350,25 +350,25 @@ open class SyncManager : NSObject {
 //                cmts = commits!
 //            }
 
-            print("--- [SyncManager] \(commits?.count) commits successfully retrieved ---")
+            log.debug("--- [SyncManager] \(commits?.count) commits successfully retrieved ---")
 
             let applayerStarted = self.commitsApplyer.apply(commits!, completion:
             {
                 [unowned self] (error) -> Void in
                 
                 if let _ = error {
-                    print("--- [SyncManager] commit applier returned a failure ---")
+                    log.error("--- [SyncManager] commit applier returned a failure: \(error)---")
                     self.syncFinished(error: error)
                     return
                 }
 
-                print("--- [SyncManager] commit applier returned with out errors ---")
+                log.verbose("--- [SyncManager] commit applier returned with out errors ---")
                 
                 self.syncFinished(error: nil)
                 
                 self.getAllCardsWithToWAPDUCommands({ [unowned self] (cards, error) in
                     if let error = error {
-                        print("Can't get offline APDU commands. Error: \(error)")
+                        log.error("Can't get offline APDU commands. Error: \(error)")
                         return
                     }
                     
@@ -471,7 +471,7 @@ open class SyncManager : NSObject {
     }
 
     fileprivate func syncFinished(error: Error?) {
-        print("--- [SyncManager] called syncFinished ---")
+        log.debug("--- [SyncManager] called syncFinished ---")
         self.currentDeviceInfo?.updateNotificationTokenIfNeeded()
         
         self.isSyncing = false
@@ -481,7 +481,6 @@ open class SyncManager : NSObject {
         if let error = error {
             // TODO: it's a hack, because currently we can move to wallet screen only if we received SyncEventType.syncCompleted
             if (error as NSError).code == PaymentDevice.ErrorCode.tryLater.rawValue {
-                debugPrint("PaymentDevice.ErrorCode.tryLater")
                 callCompletionForSyncEvent(SyncEventType.syncCompleted, params: [:])
             } else {
                 callCompletionForSyncEvent(SyncEventType.syncFailed, params: ["error": error])
@@ -503,7 +502,7 @@ open class SyncManager : NSObject {
     }
 
     internal func commitCompleted(_ commitId:String) {
-        print("--- [SyncManager] setting new last commit ID ---")
+        log.debug("--- [SyncManager] setting new last commit ID(\(commitId)) ---")
         self.syncStorage.setLastCommitId(self.currentDeviceInfo!.deviceIdentifier!, commitId: commitId)
     }
     
