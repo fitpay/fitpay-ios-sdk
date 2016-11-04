@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import SwiftyBeaver
+
+internal let log = SwiftyBeaver.self
 
 open class FitpaySDKConfiguration {
     open static let defaultConfiguration = FitpaySDKConfiguration()
@@ -17,12 +20,25 @@ open class FitpaySDKConfiguration {
     open var baseAPIURL : String
     open var webViewURL : String
     
+    open var logLevel : SwiftyBeaver.Level {
+        set {
+            consoleLogsDestination.minLevel = newValue
+        }
+        get {
+            return consoleLogsDestination.minLevel
+        }
+    }
+    
+    fileprivate let consoleLogsDestination : ConsoleDestination = ConsoleDestination()
+    
     public init() {
         self.clientId = ""
         self.redirectUri = BASE_URL
         self.baseAuthURL = AUTHORIZE_BASE_URL
         self.baseAPIURL = API_BASE_URL
         self.webViewURL = BASE_URL
+        
+        self.setupLogs()
     }
     
     public init(clientId: String, redirectUri: String, baseAuthURL: String, baseAPIURL: String, webViewURL: String = BASE_URL) {
@@ -31,6 +47,16 @@ open class FitpaySDKConfiguration {
         self.baseAuthURL = baseAuthURL
         self.baseAPIURL = baseAPIURL
         self.webViewURL = webViewURL
+        
+        self.setupLogs()
+    }
+    
+    fileprivate func setupLogs() {
+        let file = FileDestination()  // log to default swiftybeaver.log file
+                
+        // add the destinations to SwiftyBeaver
+        log.addDestination(consoleLogsDestination)
+        log.addDestination(file)
     }
     
     enum EnvironmentLoadingErrors : Error {

@@ -37,7 +37,7 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
     }
     
     internal func confirmAPDU(_ completion:@escaping RestClient.ConfirmAPDUPackageHandler) {
-        print("in the confirmAPDU method")
+        log.verbose("in the confirmAPDU method")
         guard self.commitType == CommitType.APDU_PACKAGE else {
             completion(NSError.unhandledError(Commit.self))
             return
@@ -58,7 +58,7 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
             completion(NSError.unhandledError(Commit.self))
             return
         }
-        debugPrint("apdu package \(apduPackage)")
+        log.verbose("apdu package \(apduPackage)")
         client.confirmAPDUPackage(url, package: apduPackage, completion: completion)
     }
 }

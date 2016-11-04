@@ -296,7 +296,7 @@ open class PaymentDevice : NSObject
         }
         
         self.apduResponseHandler = completion
-        print("--- calling device interface to execute APDU's ---")
+        log.verbose("--- calling device interface to execute APDU's ---")
         self.deviceInterface.executeAPDUCommand(apduCommand)
     }
     
@@ -311,7 +311,7 @@ open class PaymentDevice : NSObject
                 return
             }
 
-            print("apduResponse \(apduResponse)")
+            log.debug("ExecuteAPDUCommand: response \(apduResponse)")
             
             apduCommand.responseData = apduResponse?.msg.hex
             apduCommand.responseCode = apduResponse?.responseCode.hex

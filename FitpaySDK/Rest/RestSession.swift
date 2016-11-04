@@ -116,7 +116,7 @@ open class RestSession : NSObject
                             DispatchQueue.main.async(execute: {
                                 [unowned self] () -> Void in
 
-                                debugPrint("successful login for user: \(userId)")
+                                log.verbose("successful login for user: \(userId)")
                                 self.userId = userId
                                 self.accessToken = accessToken
                                 completion(nil)
@@ -155,9 +155,6 @@ open class RestSession : NSObject
         ]
 
         let request = _manager.request(self.authorizeURL, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers)
-    
-        debugPrint(request)
-        
         request.validate().responseObject(queue: DispatchQueue.global())
         {
             (response: DataResponse<AuthorizationDetails>) -> Void in
