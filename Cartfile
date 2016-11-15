@@ -3,4 +3,3 @@ github "Hearst-DD/ObjectMapper" == 2.0.0
 github "tristanhimmelman/AlamofireObjectMapper" ~> 4.0
 github "auth0/JWTDecode.swift" == 2.0.0
 github "kishikawakatsumi/KeychainAccess" == 3.0.0
-github "SwiftyBeaver/SwiftyBeaver"

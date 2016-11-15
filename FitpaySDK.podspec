@@ -13,8 +13,6 @@ Pod::Spec.new do |s|
   s.dependency 'AlamofireObjectMapper', '4.0.0'
   s.dependency 'JWTDecode', '2.0.0'
   s.dependency 'KeychainAccess', '3.0.0'
-  s.dependency 'SwiftyBeaver', '1.1.1'
-
 
   s.ios.deployment_target = '9.0'
   s.ios.source_files        = 'Output/FitpaySDK-Release-iphoneuniversal/FitpaySDK.framework/**/*.h'

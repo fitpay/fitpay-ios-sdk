@@ -7,7 +7,6 @@ target 'FitpaySDK' do
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
     pod 'KeychainAccess', '3.0.0'
-    pod 'SwiftyBeaver', '1.1.1'
 end
 
 target 'FitpaySDKDemo' do
