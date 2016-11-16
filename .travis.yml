@@ -4,7 +4,7 @@ rvm: 2.2.2
 before_install: 
 - rvm use system
 - sudo gem install cocoapods -v '1.1.1'
-- pod repo update
+- pod repo update &> /dev/null
 
 script:
   - ./bin/test
