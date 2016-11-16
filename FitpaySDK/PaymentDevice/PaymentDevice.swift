@@ -316,7 +316,7 @@ open class PaymentDevice : NSObject
             apduCommand.responseData = apduResponse?.msg.hex
             apduCommand.responseCode = apduResponse?.responseCode.hex
             
-            if apduCommand.responseType == APDUResponseType.error {
+            if apduCommand.responseType == APDUResponseType.error && apduCommand.continueOnFailure == false {
                 completion(apduCommand, NSError.error(code: PaymentDevice.ErrorCode.apduErrorResponse, domain: IPaymentDeviceConnector.self))
                 return
             }
