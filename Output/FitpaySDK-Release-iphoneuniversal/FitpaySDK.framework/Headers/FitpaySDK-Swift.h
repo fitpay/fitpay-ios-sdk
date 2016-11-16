@@ -655,8 +655,7 @@ SWIFT_CLASS("_TtC9FitpaySDK9RtmConfig")
 
 SWIFT_CLASS("_TtC9FitpaySDK10RtmMessage")
 @interface RtmMessage : NSObject
-@property (nonatomic, copy) NSString * _Nullable callBackId;
-@property (nonatomic, copy) NSString * _Nullable data;
+@property (nonatomic) id _Nullable data;
 @property (nonatomic, copy) NSString * _Nullable type;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end

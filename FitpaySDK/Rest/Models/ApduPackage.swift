@@ -112,6 +112,7 @@ open class APDUCommand : NSObject, Mappable {
     open var sequence:Int = 0
     open var command:String?
     open var type:String?
+    open var continueOnFailure:Bool?
     
     open var responseCode:String?
     open var responseData:String?
@@ -175,6 +176,7 @@ open class APDUCommand : NSObject, Mappable {
         sequence <- map["sequence"]
         command <- map["command"]
         type <- map["type"]
+        continueOnFailure <- map["continueOnFailure"]
     }
     
     open var responseDictionary : [String:AnyObject] {
