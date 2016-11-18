@@ -75,6 +75,23 @@
             ReferencedContainer = "container:FitpaySDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "SDK_API_BASE_URL"
+            value = "$(FITPAY_SDK_API_BASE_URL)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SDK_AUTHORIZE_BASE_URL"
+            value = "$(FITPAY_SDK_AUTHORIZE_BASE_URL)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SDK_CLIENT_ID"
+            value = "$(FITPAY_SDK_CLIENT_ID)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
