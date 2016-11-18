@@ -130,14 +130,14 @@ open class RestClient : NSObject
         termsVersion:String?, termsAccepted:String?, origin:String?, originAccountCreated:String?,
         clientId:String, completion:@escaping CreateUserHandler
     ) {
-        debugPrint("request create user: \(email)")
+        log.verbose("request create user: \(email)")
 
         self.preparKeyHeader
             {
                 [unowned self](headers, error) -> Void in
                 if let headers = headers
                 {
-                    debugPrint("got headers: \(headers)")
+                    log.verbose("got headers: \(headers)")
                     var parameters:[String : Any] = [:]
                     if (termsVersion != nil) {
                         parameters += ["termsVersion": termsVersion!]
@@ -183,9 +183,9 @@ open class RestClient : NSObject
                         }
                     }
                     
-                    debugPrint("user creation url: \(self._session.baseAPIURL)/users")
-                    debugPrint("Headers: \(headers)")
-                    debugPrint("user creation json: \(parameters)")
+                    log.verbose("user creation url: \(self._session.baseAPIURL)/users")
+                    log.verbose("Headers: \(headers)")
+                    log.verbose("user creation json: \(parameters)")
                     
                     let request = self._manager.request(self._session.baseAPIURL + "/users", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
                     
@@ -454,7 +454,6 @@ open class RestClient : NSObject
                     "deviceId" : "\(deviceId)"
                 ]
                 let request = self._manager.request(url + "/relationships", method: .put, parameters: parameters, encoding: URLEncoding.queryString, headers: headers)
-                debugPrint(request)
                 request.validate().responseObject(
                 queue: DispatchQueue.global(), completionHandler:
                 {

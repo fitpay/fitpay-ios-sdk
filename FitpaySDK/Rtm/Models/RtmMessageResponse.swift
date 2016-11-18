@@ -16,7 +16,7 @@ open class RtmMessageResponse: RtmMessage {
     public required init(callbackId: Int? = nil, data: Any? = nil, type: String, success: Bool? = nil) {
         super.init()
         
-        self.callBackId = callBackId
+        self.callBackId = callbackId
         self.data = data
         self.type = type
         self.success = success
@@ -26,4 +26,9 @@ open class RtmMessageResponse: RtmMessage {
         fatalError("init(map:) has not been implemented")
     }
     
+    override open func mapping(map: Map) {
+        super.mapping(map: map)
+        
+        success <- map["isSuccess"]
+    }
 }

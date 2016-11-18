@@ -1,5 +1,6 @@
 github "Alamofire/Alamofire" "4.0.0"
 github "auth0/JWTDecode.swift" "2.0.0"
-github "kishikawakatsumi/KeychainAccess" "v3.0.0"
+github "kishikawakatsumi/KeychainAccess" "v3.0.1"
 github "Hearst-DD/ObjectMapper" "2.0.0"
+github "SwiftyBeaver/SwiftyBeaver" "1.1.1"
 github "tristanhimmelman/AlamofireObjectMapper" "4.0.0"

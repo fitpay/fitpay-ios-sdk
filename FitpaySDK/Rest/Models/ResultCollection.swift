@@ -57,7 +57,7 @@ open class ResultCollection<T: Mappable> : NSObject, ClientModel, Mappable, Secr
                     }
                     else
                     {
-                        print("Failed to convert \(result) to ClientModel")
+                        log.error("Failed to convert \(result) to ClientModel")
                     }
                 }
             }
@@ -104,6 +104,7 @@ open class ResultCollection<T: Mappable> : NSObject, ClientModel, Mappable, Secr
             self.collectAllAvailable(self.results!, nextUrl: nextUrl, completion: {
                 (results, error) -> Void in
                 self.results = results
+                completion(self.results, error)
             })
         } else {
             completion(nil, NSError.clientUrlError(domain:ResultCollection.self, code:0, client: client, url: nil, resource: self.nextResourse))
@@ -131,7 +132,7 @@ open class ResultCollection<T: Mappable> : NSObject, ClientModel, Mappable, Secr
                 if let nextUrlItr = resultCollection.links?.url(self.nextResourse) {
                     self.collectAllAvailable(newStorage, nextUrl: nextUrlItr, completion: completion)
                 } else {
-                    completion(storage, nil)
+                    completion(newStorage, nil)
                 }
             }
         } else {

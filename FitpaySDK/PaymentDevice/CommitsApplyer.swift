@@ -21,7 +21,7 @@ internal class CommitsApplyer {
     
     internal func apply(_ commits:[Commit], completion: @escaping ApplyerCompletionHandler) -> Bool {
         if isRunning {
-            print("--- [CommitApplier] cannot apply commints, applying already in progress ---")
+            log.warning("--- [CommitApplier] cannot apply commints, applying already in progress ---")
             return false
         }
         
@@ -101,19 +101,19 @@ internal class CommitsApplyer {
             
             completion(error)
         }
-        print("in commitApplyer with commitType \(commitType)")
+        log.verbose("in commitApplyer with commitType \(commitType)")
         switch (commitType) {
         case CommitType.APDU_PACKAGE:
-            print("--- [CommitApplier] processing APDU commit ---")
+            log.verbose("--- [CommitApplier] processing APDU commit ---")
             processAPDUCommit(commit, completion: commitCompletion)
         default:
-            print("--- [CommitApplier] processing non-APDU commit ---")
+            log.verbose("--- [CommitApplier] processing non-APDU commit ---")
             processNonAPDUCommit(commit, completion: commitCompletion)
         }
     }
     
     fileprivate func processAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
-        print("Processing APDU commit: \(commit.commit!).")
+        log.debug("Processing APDU commit: \(commit.commit!).")
         guard let apduPackage = commit.payload?.apduPackage else {
             completion(NSError.unhandledError(SyncManager.self))
             return
@@ -122,7 +122,7 @@ internal class CommitsApplyer {
         let applyingStartDate = Date().timeIntervalSince1970
         
         if apduPackage.isExpired {
-            print("packageExpired")
+            log.verbose("packageExpired")
             apduPackage.state = APDUPackageResponseState.EXPIRED
             
             // is this error?
@@ -145,11 +145,11 @@ internal class CommitsApplyer {
             apduPackage.executedEpoch = TimeInterval(currentTimestamp)
 
             if error != nil && error as? NSError != nil && (error as! NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
-                print("--- [CommitApplier] got a failed APDU response ---")
+                log.debug("--- [CommitApplier] got a failed APDU response ---")
                 apduPackage.state = APDUPackageResponseState.FAILED
             } else if error != nil {
                 // This will catch (error as! NSError).code == PaymentDevice.ErrorCode.apduSendingTimeout.rawValue
-                print("--- [CommitApplier] got failure on apdu ---")
+                log.debug("--- [CommitApplier] got failure on apdu ---")
                 apduPackage.state = APDUPackageResponseState.ERROR
             } else {
                 apduPackage.state = APDUPackageResponseState.PROCESSED
@@ -162,10 +162,10 @@ internal class CommitsApplyer {
                 realError = nil
             }
             
-            print("Processed APDU commit (\(commit.commit!)) with state: \(apduPackage.state) and error: \(realError).")
+            log.debug("Processed APDU commit (\(commit.commit!)) with state: \(apduPackage.state) and error: \(realError).")
             commit.confirmAPDU({
                 (confirmError) -> Void in
-                print("Apdu package confirmed with error: \(confirmError).")
+                log.debug("Apdu package confirmed with error: \(confirmError).")
                 completion(realError ?? confirmError)
             })
         }

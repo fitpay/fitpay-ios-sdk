@@ -28,11 +28,11 @@ class RestClientTests: XCTestCase
     {
         super.setUp()
         let config = FitpaySDKConfiguration(clientId:"pagare", redirectUri:"https://demo-qa.pagare.me", baseAuthURL: "https://demo-qa.pagare.me", baseAPIURL: "https://demo-qa.pagare.me/api")
-//        if let error = config.loadEnvironmentVariables() {
-//            print("Can't load config from environment. Error: \(error)")
-//        } else {
+        if let error = config.loadEnvironmentVariables() {
+            print("Can't load config from environment. Error: \(error)")
+        } else {
             clientId = config.clientId
-//        }
+        }
         
         self.session = RestSession(configuration: config)
         self.client = RestClient(session: self.session!)

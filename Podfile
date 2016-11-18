@@ -2,8 +2,8 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'FitpaySDK' do
-    pod 'Alamofire', '4.0.0'
-    pod 'ObjectMapper', '2.0.0'
+    pod 'Alamofire', '4.0.1'
+    pod 'ObjectMapper', '2.2.1'
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
     pod 'KeychainAccess', '3.0.0'

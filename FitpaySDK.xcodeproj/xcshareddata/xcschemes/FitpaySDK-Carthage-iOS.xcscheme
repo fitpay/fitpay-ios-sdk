@@ -28,7 +28,31 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0AD922A61C1F7EFC007693AB"
+               BuildableName = "FitpaySDKTests.xctest"
+               BlueprintName = "FitpaySDKTests"
+               ReferencedContainer = "container:FitpaySDK.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PaymentDeviceTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3A93A07F1DB8CA2C00A9FEB4"
+            BuildableName = "FitpaySDK.framework"
+            BlueprintName = "FitpaySDK-Carthage-iOS"
+            ReferencedContainer = "container:FitpaySDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
