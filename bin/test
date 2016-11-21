@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [ -z "$1" ]; then
-    echo "defaulting to iPhone 6s simulator"
-    xcodebuild -workspace FitpaySDK.xcworkspace -scheme FitpaySDK-Carthage-iOS -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6s' test
+    echo "defaulting to iPhone 7 simulator"
+    xcodebuild -workspace FitpaySDK.xcworkspace -scheme FitpaySDK-Carthage-iOS -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 7' test
 else
     xcodebuild -workspace FitpaySDK.xcworkspace -scheme FitpaySDK-Carthage-iOS -sdk iphonesimulator -destination "platform=iOS Simulator,name=$1" test
 fi
