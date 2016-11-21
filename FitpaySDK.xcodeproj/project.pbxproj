@@ -387,6 +387,13 @@
 			remoteGlobalIDString = 0AD9229C1C1F7EFC007693AB;
 			remoteInfo = FitpaySDK;
 		};
+		3A57BB4A1DE2EE26004DB0DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0AD922941C1F7EFC007693AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8426D2571C96F4AA009AACFE;
+			remoteInfo = RTMClientApp;
+		};
 		3AF3A8FC1DDCA3A10037E105 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0AD922941C1F7EFC007693AB /* Project object */;
@@ -1490,6 +1497,7 @@
 			);
 			dependencies = (
 				3AF3A8FD1DDCA3A10037E105 /* PBXTargetDependency */,
+				3A57BB4B1DE2EE26004DB0DD /* PBXTargetDependency */,
 			);
 			name = FitpaySDKTests;
 			productName = FitpaySDKTests;
@@ -1650,6 +1658,7 @@
 					0AD922A61C1F7EFC007693AB = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0800;
+						TestTargetID = 8426D2571C96F4AA009AACFE;
 					};
 					8426D2571C96F4AA009AACFE = {
 						CreatedOnToolsVersion = 7.2;
@@ -2219,6 +2228,11 @@
 			target = 0AD9229C1C1F7EFC007693AB /* FitpaySDK */;
 			targetProxy = 3A32D0181CC7CA68000BB0D8 /* PBXContainerItemProxy */;
 		};
+		3A57BB4B1DE2EE26004DB0DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8426D2571C96F4AA009AACFE /* RTMClientApp */;
+			targetProxy = 3A57BB4A1DE2EE26004DB0DD /* PBXContainerItemProxy */;
+		};
 		3AF3A8FD1DDCA3A10037E105 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A93A07F1DB8CA2C00A9FEB4 /* FitpaySDK-Carthage-iOS */;
@@ -2485,6 +2499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTMClientApp.app/RTMClientApp";
 			};
 			name = Debug;
 		};
@@ -2492,7 +2507,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = "";
@@ -2501,6 +2515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTMClientApp.app/RTMClientApp";
 			};
 			name = Release;
 		};
