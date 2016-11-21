@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode8.1
 before_install: 
-- carthage update --platform iOS
+- carthage update --platform iOS --no-use-binaries
 
 install: true
 

@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '9.3'
 use_frameworks!
 
 target 'FitpaySDK' do
@@ -6,13 +6,13 @@ target 'FitpaySDK' do
     pod 'ObjectMapper', '2.2.1'
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
-    pod 'KeychainAccess', '3.0.0'
+    pod 'KeychainAccess', '3.0.1'
 end
 
 target 'FitpaySDKDemo' do
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
-    pod 'KeychainAccess', '3.0.0'
+    pod 'KeychainAccess', '3.0.1'
 end
 
 target 'FitpaySDKTests' do
@@ -23,11 +23,11 @@ end
 target 'RTMClientApp' do
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
-    pod 'KeychainAccess', '3.0.0'
+    pod 'KeychainAccess', '3.0.1'
 end
 
 target 'ObjCDemo' do
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
-    pod 'KeychainAccess', '3.0.0'
+    pod 'KeychainAccess', '3.0.1'
 end
