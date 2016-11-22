@@ -378,7 +378,6 @@
 		CD038DC45BF133FC5A0D9A94 /* ResourceLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD038EC1AB0F5F167433FC52 /* ResourceLink.swift */; };
 		CD038E19C412D95ED6F9F036 /* Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD038236D1AEE3AC7A8155E3 /* Relationship.swift */; };
 		EBB028E91E44671448032AF6 /* Pods_ObjCDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9FB8DC454AB4FF464687E5 /* Pods_ObjCDemo.framework */; };
-		F676CFAF0825E934D88D8063 /* Pods_FitpaySDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D7D90E127FB891F225A406F /* Pods_FitpaySDKTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -388,13 +387,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0AD9229C1C1F7EFC007693AB;
 			remoteInfo = FitpaySDK;
-		};
-		3A57BB4A1DE2EE26004DB0DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0AD922941C1F7EFC007693AB /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8426D2571C96F4AA009AACFE;
-			remoteInfo = RTMClientApp;
 		};
 		3AF3A8FC1DDCA3A10037E105 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -660,7 +652,6 @@
 		9B65A33A1CDD1534007A7D7D /* MockPaymentDeviceConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentDeviceConnector.swift; sourceTree = "<group>"; };
 		9B65A33C1CDD2D78007A7D7D /* MockPaymentDeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentDeviceTests.swift; sourceTree = "<group>"; };
 		A306B4C91CEE457D007F093C /* ApduResultMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApduResultMessage.swift; sourceTree = "<group>"; };
-		AA2234E430570205B6911BE5 /* Pods-FitpaySDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitpaySDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B61B3847CDB84437C58BC687 /* Pods-ObjCDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjCDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjCDemo/Pods-ObjCDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		CD03815EA04C30427064A86B /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		CD038189D3974D4BCE4A2509 /* SecretApplyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretApplyable.swift; sourceTree = "<group>"; };
@@ -686,7 +677,6 @@
 		CD038E6F65A6788F30C11986 /* RestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		CD038EC1AB0F5F167433FC52 /* ResourceLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLink.swift; sourceTree = "<group>"; };
 		CEC6F18F0851D2461A5E86D8 /* Pods-FitpaySDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitpaySDKDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FitpaySDKDemo/Pods-FitpaySDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		CEEAF74E4C5B7D281644521B /* Pods-FitpaySDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitpaySDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		CFC258DC063A4C9A3C8E38B9 /* Pods-FitpaySDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitpaySDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-FitpaySDK/Pods-FitpaySDK.release.xcconfig"; sourceTree = "<group>"; };
 		DC9BEB6E19B0C27478180657 /* Pods_FitpaySDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FitpaySDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9FB8DC454AB4FF464687E5 /* Pods_ObjCDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ObjCDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -713,7 +703,6 @@
 				3AF3A9041DDDA1B30037E105 /* KeychainAccess.framework in Frameworks */,
 				3AF3A9001DDCB9DF0037E105 /* ObjectMapper.framework in Frameworks */,
 				0AD922A81C1F7EFC007693AB /* FitpaySDK.framework in Frameworks */,
-				F676CFAF0825E934D88D8063 /* Pods_FitpaySDKTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,8 +783,6 @@
 			children = (
 				CEC6F18F0851D2461A5E86D8 /* Pods-FitpaySDKDemo.debug.xcconfig */,
 				53675FEF2589612EDD58571C /* Pods-FitpaySDKDemo.release.xcconfig */,
-				AA2234E430570205B6911BE5 /* Pods-FitpaySDKTests.debug.xcconfig */,
-				CEEAF74E4C5B7D281644521B /* Pods-FitpaySDKTests.release.xcconfig */,
 				B61B3847CDB84437C58BC687 /* Pods-ObjCDemo.debug.xcconfig */,
 				257A6BE26A491B73F385488D /* Pods-ObjCDemo.release.xcconfig */,
 				582BF3C4F0F4BB7EEC6031C1 /* Pods-RTMClientApp.debug.xcconfig */,
@@ -1492,19 +1479,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AD922B41C1F7EFC007693AB /* Build configuration list for PBXNativeTarget "FitpaySDKTests" */;
 			buildPhases = (
-				4A658CDF7BBC64969B169A09 /* [CP] Check Pods Manifest.lock */,
 				3AF3A91A1DDDEA7E0037E105 /* Carthage */,
 				0AD922A31C1F7EFC007693AB /* Sources */,
 				0AD922A41C1F7EFC007693AB /* Frameworks */,
 				0AD922A51C1F7EFC007693AB /* Resources */,
-				E8C1FD1996E5B9E3956BDD44 /* [CP] Embed Pods Frameworks */,
-				7FA464ED2B6A70384A6ADEED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				3AF3A8FD1DDCA3A10037E105 /* PBXTargetDependency */,
-				3A57BB4B1DE2EE26004DB0DD /* PBXTargetDependency */,
 			);
 			name = FitpaySDKTests;
 			productName = FitpaySDKTests;
@@ -1668,7 +1651,6 @@
 					0AD922A61C1F7EFC007693AB = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0800;
-						TestTargetID = 8426D2571C96F4AA009AACFE;
 					};
 					8426D2571C96F4AA009AACFE = {
 						CreatedOnToolsVersion = 7.2;
@@ -1919,21 +1901,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		4A658CDF7BBC64969B169A09 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		4DFFD51D7F743A5A82E8853E /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1962,21 +1929,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjCDemo/Pods-ObjCDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7FA464ED2B6A70384A6ADEED /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8C8C5BB09E5BD1F6EA6DD153 /* [CP] Check Pods Manifest.lock */ = {
@@ -2050,21 +2002,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDK/Pods-FitpaySDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E8C1FD1996E5B9E3956BDD44 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FitpaySDKTests/Pods-FitpaySDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F565949A1E4D36690DAA23B5 /* [CP] Check Pods Manifest.lock */ = {
@@ -2328,11 +2265,6 @@
 			target = 0AD9229C1C1F7EFC007693AB /* FitpaySDK */;
 			targetProxy = 3A32D0181CC7CA68000BB0D8 /* PBXContainerItemProxy */;
 		};
-		3A57BB4B1DE2EE26004DB0DD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8426D2571C96F4AA009AACFE /* RTMClientApp */;
-			targetProxy = 3A57BB4A1DE2EE26004DB0DD /* PBXContainerItemProxy */;
-		};
 		3AF3A8FD1DDCA3A10037E105 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A93A07F1DB8CA2C00A9FEB4 /* FitpaySDK-Carthage-iOS */;
@@ -2586,7 +2518,6 @@
 		};
 		0AD922B51C1F7EFC007693AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AA2234E430570205B6911BE5 /* Pods-FitpaySDKTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2600,13 +2531,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTMClientApp.app/RTMClientApp";
 			};
 			name = Debug;
 		};
 		0AD922B61C1F7EFC007693AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEEAF74E4C5B7D281644521B /* Pods-FitpaySDKTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -2617,7 +2546,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RTMClientApp.app/RTMClientApp";
 			};
 			name = Release;
 		};

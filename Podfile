@@ -15,11 +15,6 @@ target 'FitpaySDKDemo' do
     pod 'KeychainAccess', '3.0.1'
 end
 
-target 'FitpaySDKTests' do
-    pod 'AlamofireObjectMapper', '4.0.0'
-    pod 'JWTDecode', '2.0.0'
-end
-
 target 'RTMClientApp' do
     pod 'AlamofireObjectMapper', '4.0.0'
     pod 'JWTDecode', '2.0.0'
