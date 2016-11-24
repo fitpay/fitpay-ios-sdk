@@ -95,7 +95,7 @@ open class SyncManager : NSObject {
         return user?.id
     }
     
-    internal let syncStorage : SyncStorage = SyncStorage()
+    internal let syncStorage : SyncStorage = SyncStorage.sharedInstance
     internal let paymentDeviceConnectionTimeoutInSecs : Int = 60
     
     internal var currentDeviceInfo : DeviceInfo?

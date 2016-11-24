@@ -121,6 +121,7 @@ internal class CommitsApplyer {
         
         let applyingStartDate = Date().timeIntervalSince1970
         
+        
         if apduPackage.isExpired {
             log.verbose("packageExpired")
             apduPackage.state = APDUPackageResponseState.EXPIRED
@@ -134,6 +135,8 @@ internal class CommitsApplyer {
             
             return
         }
+        
+        SyncStorage.sharedInstance.lastPackageId += 1
         
         self.applyAPDUPackage(apduPackage, apduCommandIndex: 0, retryCount: 0)
         {
