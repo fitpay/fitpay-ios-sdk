@@ -13,7 +13,7 @@
     case esePowerReset  = 0x01
 }
 
-public enum ConnectionState : Int {
+@objc public enum ConnectionState : Int {
     case new = 0
     case disconnected
     case connecting
@@ -162,6 +162,9 @@ open class PaymentDevice : NSObject
      
      - parameter secsTimeout: timeout for connection process in seconds. If nil then there is no timeout.
      */
+    @objc open func connectWithTimeout(_ secsTimeout: Int) {
+        connect(secsTimeout)
+    }
     open func connect(_ secsTimeout: Int? = nil) {
         if isConnected {
             self.deviceInterface.resetToDefaultState()
@@ -349,6 +352,10 @@ open class PaymentDevice : NSObject
     }
     
     open func callCompletionForEvent(_ eventType: FitpayEventTypeProtocol, params: [String:Any] = [:]) {
+        eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: params))
+    }
+    
+    open func callCompletionForPaymentDeviceEvent(_ eventType: PaymentDeviceEventTypes, params: [String:Any] = [:]) {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: params))
     }
 }
