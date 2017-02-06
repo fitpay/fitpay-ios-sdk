@@ -351,11 +351,7 @@ open class PaymentDevice : NSObject
         }
     }
     
-    open func callCompletionForEvent(_ eventType: FitpayEventTypeProtocol, params: [String:Any] = [:]) {
-        eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: params))
-    }
-    
-    open func callCompletionForPaymentDeviceEvent(_ eventType: PaymentDeviceEventTypes, params: [String:Any] = [:]) {
+    @objc open func callCompletionForEvent(_ eventType: PaymentDeviceEventTypes, params: [String:Any] = [:]) {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: params))
     }
 }

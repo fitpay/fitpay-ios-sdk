@@ -609,7 +609,7 @@ SWIFT_CLASS("_TtC9FitpaySDK13PaymentDevice")
 */
 - (NSError * _Nullable)changeDeviceInterface:(id <IPaymentDeviceConnector> _Nonnull)interface;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)callCompletionForPaymentDeviceEvent:(enum PaymentDeviceEventTypes)eventType params:(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)callCompletionForEvent:(enum PaymentDeviceEventTypes)eventType params:(NSDictionary<NSString *, id> * _Nonnull)params;
 @end
 
 typedef SWIFT_ENUM(NSInteger, PaymentDeviceEventTypes) {
