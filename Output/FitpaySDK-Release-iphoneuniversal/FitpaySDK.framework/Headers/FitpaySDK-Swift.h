@@ -721,6 +721,11 @@ SWIFT_CLASS("_TtC9FitpaySDK18RtmMessageResponse")
 @interface RtmMessageResponse : RtmMessage
 @end
 
+typedef SWIFT_ENUM(NSInteger, RtmProtocolVersion) {
+  RtmProtocolVersionVer1 = 1,
+  RtmProtocolVersionVer2 = 2,
+};
+
 typedef SWIFT_ENUM(NSInteger, SecurityNFCState) {
   SecurityNFCStateDisabled = 0x00,
   SecurityNFCStateEnabled = 0x01,
@@ -951,6 +956,13 @@ typedef SWIFT_ENUM(NSInteger, WVDeviceStatuses) {
   WVDeviceStatusesSyncError = 8,
 };
 
+typedef SWIFT_ENUM(NSInteger, WVMessageType) {
+  WVMessageTypeError = 0,
+  WVMessageTypeSuccess = 1,
+  WVMessageTypeProgress = 2,
+  WVMessageTypePending = 3,
+};
+
 @class WKWebView;
 @class WKWebViewConfiguration;
 @class WKUserContentController;
@@ -1004,6 +1016,7 @@ SWIFT_CLASS("_TtC9FitpaySDK8WvConfig")
 */
 - (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
 - (void)showStatusMessage:(enum WVDeviceStatuses)status message:(NSString * _Nullable)message error:(NSError * _Nullable)error;
+- (void)showCustomStatusMessage:(NSString * _Nonnull)message type:(enum WVMessageType)type;
 - (void)sendRtmMessageWithRtmMessage:(RtmMessageResponse * _Nonnull)rtmMessage;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
