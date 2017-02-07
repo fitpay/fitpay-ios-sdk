@@ -149,6 +149,16 @@ SWIFT_CLASS("_TtC9FitpaySDK11ApduPackage")
 @property (nonatomic, copy) NSArray<APDUCommand *> * _Nullable apduCommands;
 @property (nonatomic, copy) NSString * _Nullable validUntil;
 @property (nonatomic, copy) NSString * _Nullable apduPackageUrl;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateProcessed;)
++ (NSString * _Nonnull)APDUPackageResponseStateProcessed;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateFailed;)
++ (NSString * _Nonnull)APDUPackageResponseStateFailed;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateError;)
++ (NSString * _Nonnull)APDUPackageResponseStateError;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateExpired;)
++ (NSString * _Nonnull)APDUPackageResponseStateExpired;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateNotProcessed;)
++ (NSString * _Nonnull)APDUPackageResponseStateNotProcessed;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) BOOL isExpired;
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull responseDictionary;
@@ -608,6 +618,7 @@ SWIFT_CLASS("_TtC9FitpaySDK13PaymentDevice")
   Can be changed if device disconnected.
 */
 - (NSError * _Nullable)changeDeviceInterface:(id <IPaymentDeviceConnector> _Nonnull)interface;
+@property (nonatomic, copy) void (^ _Nullable apduResponseHandler)(ApduResultMessage * _Nullable, NSString * _Nullable, NSError * _Nullable);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)callCompletionForEvent:(enum PaymentDeviceEventTypes)eventType params:(NSDictionary<NSString *, id> * _Nonnull)params;
 @end

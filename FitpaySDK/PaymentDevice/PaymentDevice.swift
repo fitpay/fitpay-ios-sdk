@@ -52,7 +52,7 @@
     }
 }
 
-open class PaymentDevice : NSObject
+@objc open class PaymentDevice : NSObject
 {
     public enum ErrorCode : Int, Error, RawIntValue, CustomStringConvertible, CustomNSError
     {
@@ -127,7 +127,7 @@ open class PaymentDevice : NSObject
      - parameter eventType: type of event which you want to bind to
      - parameter completion: completion handler which will be called when event occurs
      */
-    open func bindToEvent(eventType: PaymentDeviceEventTypes, completion: @escaping PaymentDeviceEventBlockHandler) -> FitpayEventBinding? {
+    @objc open func bindToEvent(eventType: PaymentDeviceEventTypes, completion: @escaping PaymentDeviceEventBlockHandler) -> FitpayEventBinding? {
         return eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: completion), eventId: eventType)
     }
     
@@ -138,21 +138,21 @@ open class PaymentDevice : NSObject
      - parameter completion: completion handler which will be called when event occurs
      - parameter queue: queue in which completion will be called
      */
-    open func bindToEvent(eventType: PaymentDeviceEventTypes, completion: @escaping PaymentDeviceEventBlockHandler, queue: DispatchQueue) -> FitpayEventBinding? {
+    @objc open func bindToEvent(eventType: PaymentDeviceEventTypes, completion: @escaping PaymentDeviceEventBlockHandler, queue: DispatchQueue) -> FitpayEventBinding? {
         return eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: completion, queue: queue), eventId: eventType)
     }
     
     /**
      Removes bind with eventType.
      */
-    open func removeBinding(binding: FitpayEventBinding) {
+    @objc open func removeBinding(binding: FitpayEventBinding) {
         eventsDispatcher.removeBinding(binding)
     }
     
     /**
      Removes all bindings.
      */
-    open func removeAllBindings() {
+    @objc open func removeAllBindings() {
         eventsDispatcher.removeAllBindings()
     }
     
@@ -190,7 +190,7 @@ open class PaymentDevice : NSObject
     /**
      Close connection with payment device.
      */
-    open func disconnect() {
+    @objc open func disconnect() {
         self.connectionState = ConnectionState.disconnecting
         self.deviceInterface.disconnect()
     }
@@ -198,7 +198,7 @@ open class PaymentDevice : NSObject
     /**
      Returns state of connection.
      */
-    open var connectionState : ConnectionState = ConnectionState.new {
+    @objc open var connectionState : ConnectionState = ConnectionState.new {
         didSet {
             callCompletionForEvent(PaymentDeviceEventTypes.onConnectionStateChanged, params: ["state" : NSNumber(value: connectionState.rawValue as Int)])
         }
@@ -207,28 +207,28 @@ open class PaymentDevice : NSObject
     /**
      Returns true if phone connected to payment device and device info was collected.
      */
-    open var isConnected : Bool {
+    @objc open var isConnected : Bool {
         return self.deviceInterface.isConnected()
     }
     
     /**
      Tries to validate connection.
      */
-    open func validateConnection(completion : @escaping (_ isValid:Bool, _ error: NSError?) -> Void) {
+    @objc open func validateConnection(completion : @escaping (_ isValid:Bool, _ error: NSError?) -> Void) {
         self.deviceInterface.validateConnection(completion: completion)
     }
     
     /**
      Returns DeviceInfo if phone already connected to payment device.
      */
-    open var deviceInfo : DeviceInfo? {
+    @objc open var deviceInfo : DeviceInfo? {
         return self.deviceInterface.deviceInfo()
     }
     
     /**
      Returns NFC state on payment device.
      */
-    open var nfcState : SecurityNFCState {
+    @objc open var nfcState : SecurityNFCState {
         return self.deviceInterface.nfcState()
     }
     
@@ -238,7 +238,7 @@ open class PaymentDevice : NSObject
      
      - parameter state: desired security state
      */
-    open func sendDeviceControl(_ state: DeviceControlState) -> NSError? {
+    @objc open func sendDeviceControl(_ state: DeviceControlState) -> NSError? {
         return self.deviceInterface.sendDeviceControl(state)
     }
     
@@ -248,7 +248,7 @@ open class PaymentDevice : NSObject
      
      - parameter notificationData: //TODO:????
      */
-    open func sendNotification(_ notificationData: Data) -> NSError? {
+    @objc open func sendNotification(_ notificationData: Data) -> NSError? {
         return self.deviceInterface.sendNotification(notificationData)
     }
     
@@ -291,7 +291,7 @@ open class PaymentDevice : NSObject
      - parameter error: error which occurred during APDU command execution. If nil then there was no any error.
      */
     public typealias APDUResponseHandler = (_ apduResponse:ApduResultMessage?, _ responseState: APDUPackageResponseState?, _ error:Error?)->Void
-    open var apduResponseHandler : APDUResponseHandler?
+    @objc open var apduResponseHandler : ((_ apduResponse:ApduResultMessage?, _ responseState: String?, _ error:Error?)->Void)?
     
     override public init() {
         super.init()
@@ -315,7 +315,7 @@ open class PaymentDevice : NSObject
         }
     }
     
-    internal func sendAPDUCommand(_ apduCommand:APDUCommand, completion: @escaping APDUResponseHandler) {
+    internal func sendAPDUCommand(_ apduCommand:APDUCommand, completion: @escaping (ApduResultMessage?, String?, Error?)->Void) {
         guard isConnected else {
             completion(nil, nil, NSError.error(code: PaymentDevice.ErrorCode.deviceShouldBeConnected, domain: IPaymentDeviceConnector.self))
             return
