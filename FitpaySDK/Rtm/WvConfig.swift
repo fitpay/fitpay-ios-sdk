@@ -3,7 +3,7 @@ import Foundation
 import WebKit
 import ObjectMapper
 
-public enum WVMessageType : Int {
+@objc public enum WVMessageType : Int {
     case error = 0
     case success
     case progress
@@ -63,7 +63,7 @@ public enum WVMessageType : Int {
     }
 }
 
-public enum RtmProtocolVersion: Int {
+@objc public enum RtmProtocolVersion: Int {
     case ver1 = 1
     case ver2
     
@@ -147,7 +147,7 @@ internal enum WVResponse: Int {
 }
 
 
-open class WvConfig : NSObject, WKScriptMessageHandler {
+@objc open class WvConfig : NSObject, WKScriptMessageHandler {
     public enum ErrorCode : Int, Error, RawIntValue, CustomStringConvertible
     {
         case unknownError                   = 0
@@ -192,7 +192,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
     
     fileprivate var rtmVersionSent = false
     
-    open var demoModeEnabled : Bool {
+    @objc open var demoModeEnabled : Bool {
         get {
             if let isEnabled = self.rtmConfig?.demoMode {
                 return isEnabled
@@ -204,11 +204,11 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
         }
     }
     
-    public convenience init(clientId:String, redirectUri:String, paymentDevice:PaymentDevice, userEmail:String?, isNewAccount:Bool) {
+    @objc public convenience init(clientId:String, redirectUri:String, paymentDevice:PaymentDevice, userEmail:String?, isNewAccount:Bool) {
         self.init(paymentDevice: paymentDevice, rtmConfig: RtmConfig(clientId: clientId, redirectUri: redirectUri, userEmail: userEmail, deviceInfo: nil, hasAccount: !isNewAccount), SDKConfiguration: FitpaySDKConfiguration(clientId: clientId, redirectUri: redirectUri, baseAuthURL: AUTHORIZE_BASE_URL, baseAPIURL: API_BASE_URL))
     }
     
-    public init(paymentDevice:PaymentDevice, rtmConfig: RtmConfig, SDKConfiguration: FitpaySDKConfiguration = FitpaySDKConfiguration.defaultConfiguration) {
+    @objc public init(paymentDevice:PaymentDevice, rtmConfig: RtmConfig, SDKConfiguration: FitpaySDKConfiguration = FitpaySDKConfiguration.defaultConfiguration) {
         self.paymentDevice = paymentDevice
         self.rtmConfig = rtmConfig
         self.restSession = RestSession(configuration: SDKConfiguration)
@@ -235,7 +235,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
       that device. This will attempt to connect, and call the completion with either an error or nil if the connection 
       attempt is successful.
      */
-    open func openDeviceConnection(_ completion: @escaping (_ error:NSError?) -> Void) {
+    @objc open func openDeviceConnection(_ completion: @escaping (_ error:NSError?) -> Void) {
         self.connectionBinding = self.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected, completion: {
             (event) in
             
@@ -259,11 +259,11 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
         self.paymentDevice!.connect()
     }
     
-    open func setWebView(_ webview:WKWebView!) {
+    @objc open func setWebView(_ webview:WKWebView!) {
         self.webview = webview
     }
     
-    open func webViewPageLoaded() {
+    @objc open func webViewPageLoaded() {
         if !rtmVersionSent {
             sendVersion(version: RtmProtocolVersion.currentlySupportedVersion())
         }
@@ -273,7 +273,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
      This returns the configuration for a WKWebView that will enable the iOS rtm bridge in the web app. Note that
      the value "rtmBridge" is an agreeded upon value between this and the web-view.
      */
-    open func wvConfig() -> WKWebViewConfiguration {
+    @objc open func wvConfig() -> WKWebViewConfiguration {
         let config:WKWebViewConfiguration = WKWebViewConfiguration()
         config.userContentController.add(self, name: "rtmBridge")
         
@@ -283,7 +283,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
     /**
      This returns the request object clients will require in order to open a WKWebView
      */
-    open func wvRequest() -> URLRequest {
+    @objc open func wvRequest() -> URLRequest {
         let JSONString = Mapper().toJSONString(rtmConfig!)
         let utfString = JSONString!.data(using: String.Encoding.utf8, allowLossyConversion: true)
         let encodedConfig = utfString?.base64URLencoded()
@@ -313,7 +313,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
             }
         }
      */
-    open func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    @objc open func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let sentData = message.body as? [String : Any] else {
             log.error("WV_DATA: Received message from \(message.name), but can't convert it to dictionary type.")
             return
@@ -322,7 +322,7 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
         defaultMessagesHandler(sentData)
     }
     
-    open func showStatusMessage(_ status: WVDeviceStatuses, message: String? = nil, error: Error? = nil) {
+    @objc open func showStatusMessage(_ status: WVDeviceStatuses, message: String? = nil, error: Error? = nil) {
         var realMessage = message ?? status.defaultMessage()
         if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as? NSError) {
             realMessage = newMessage
@@ -331,11 +331,11 @@ open class WvConfig : NSObject, WKScriptMessageHandler {
         sendStatusMessage(realMessage, type: status.statusMessageType())
     }
     
-    open func showCustomStatusMessage(_ message:String, type: WVMessageType) {
+    @objc open func showCustomStatusMessage(_ message:String, type: WVMessageType) {
         sendStatusMessage(message, type: type)
     }
     
-    open func sendRtmMessage(rtmMessage: RtmMessageResponse) {
+    @objc open func sendRtmMessage(rtmMessage: RtmMessageResponse) {
         guard let jsonRepresentation = rtmMessage.toJSONString(prettyPrint: false) else {
             log.error("WV_DATA: Can't create json representation for rtm message.")
             return

@@ -27,6 +27,27 @@ open class ApduPackage : NSObject, Mappable
     open var validUntilEpoch:TimeInterval?
     open var apduPackageUrl:String?
     
+    @objc open static var APDUPackageResponseStateProcessed:String
+    {
+        return APDUPackageResponseState.processed.rawValue
+    }
+    @objc open static var APDUPackageResponseStateFailed:String
+    {
+        return APDUPackageResponseState.failed.rawValue
+    }
+    @objc open static var APDUPackageResponseStateError:String
+    {
+        return APDUPackageResponseState.error.rawValue
+    }
+    @objc open static var APDUPackageResponseStateExpired:String
+    {
+        return APDUPackageResponseState.expired.rawValue
+    }
+    @objc open static var APDUPackageResponseStateNotProcessed:String
+    {
+        return APDUPackageResponseState.notProcessed.rawValue
+    }
+    
     override init() {
         super.init()
     }

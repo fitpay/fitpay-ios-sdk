@@ -149,6 +149,16 @@ SWIFT_CLASS("_TtC9FitpaySDK11ApduPackage")
 @property (nonatomic, copy) NSArray<APDUCommand *> * _Nullable apduCommands;
 @property (nonatomic, copy) NSString * _Nullable validUntil;
 @property (nonatomic, copy) NSString * _Nullable apduPackageUrl;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateProcessed;)
++ (NSString * _Nonnull)APDUPackageResponseStateProcessed;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateFailed;)
++ (NSString * _Nonnull)APDUPackageResponseStateFailed;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateError;)
++ (NSString * _Nonnull)APDUPackageResponseStateError;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateExpired;)
++ (NSString * _Nonnull)APDUPackageResponseStateExpired;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull APDUPackageResponseStateNotProcessed;)
++ (NSString * _Nonnull)APDUPackageResponseStateNotProcessed;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @property (nonatomic, readonly) BOOL isExpired;
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull responseDictionary;
@@ -219,6 +229,15 @@ SWIFT_CLASS("_TtC9FitpaySDK6Commit")
 @property (nonatomic, copy) NSString * _Nullable commit;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
+
+typedef SWIFT_ENUM(NSInteger, ConnectionState) {
+  ConnectionStateNew = 0,
+  ConnectionStateDisconnected = 1,
+  ConnectionStateConnecting = 2,
+  ConnectionStateConnected = 3,
+  ConnectionStateDisconnecting = 4,
+  ConnectionStateInitialized = 5,
+};
 
 @class TermsAssetReferences;
 @class DeviceRelationships;
@@ -435,6 +454,21 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) FitpayNotifi
 - (void)removeAllSyncBindings;
 @end
 
+
+SWIFT_CLASS("_TtC9FitpaySDK22FitpaySDKConfiguration")
+@interface FitpaySDKConfiguration : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) FitpaySDKConfiguration * _Nonnull defaultConfiguration;)
++ (FitpaySDKConfiguration * _Nonnull)defaultConfiguration;
+@property (nonatomic, copy) NSString * _Nonnull clientId;
+@property (nonatomic, copy) NSString * _Nonnull redirectUri;
+@property (nonatomic, copy) NSString * _Nonnull baseAuthURL;
+@property (nonatomic, copy) NSString * _Nonnull baseAPIURL;
+@property (nonatomic, copy) NSString * _Nonnull webViewURL;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId redirectUri:(NSString * _Nonnull)redirectUri baseAuthURL:(NSString * _Nonnull)baseAuthURL baseAPIURL:(NSString * _Nonnull)baseAPIURL webViewURL:(NSString * _Nonnull)webViewURL OBJC_DESIGNATED_INITIALIZER;
+- (NSError * _Nullable)loadEnvironmentVariables;
+@end
+
 enum SecurityNFCState : NSInteger;
 
 SWIFT_PROTOCOL("_TtP9FitpaySDK23IPaymentDeviceConnector_")
@@ -533,9 +567,20 @@ SWIFT_CLASS("_TtC9FitpaySDK13PaymentDevice")
 */
 - (void)removeAllBindings;
 /**
+  Establishes BLE connection with payment device and collects DeviceInfo from it.
+  Calls OnDeviceConnected event.
+  \param secsTimeout timeout for connection process in seconds. If nil then there is no timeout.
+
+*/
+- (void)connectWithTimeout:(NSInteger)secsTimeout;
+/**
   Close connection with payment device.
 */
 - (void)disconnect;
+/**
+  Returns state of connection.
+*/
+@property (nonatomic) enum ConnectionState connectionState;
 /**
   Returns true if phone connected to payment device and device info was collected.
 */
@@ -573,7 +618,9 @@ SWIFT_CLASS("_TtC9FitpaySDK13PaymentDevice")
   Can be changed if device disconnected.
 */
 - (NSError * _Nullable)changeDeviceInterface:(id <IPaymentDeviceConnector> _Nonnull)interface;
+@property (nonatomic, copy) void (^ _Nullable apduResponseHandler)(ApduResultMessage * _Nullable, NSString * _Nullable, NSError * _Nullable);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)callCompletionForEvent:(enum PaymentDeviceEventTypes)eventType params:(NSDictionary<NSString *, id> * _Nonnull)params;
 @end
 
 typedef SWIFT_ENUM(NSInteger, PaymentDeviceEventTypes) {
@@ -642,6 +689,7 @@ SWIFT_CLASS("_TtC9FitpaySDK11RestSession")
 @interface RestSession : NSObject
 @property (nonatomic, copy) NSString * _Nullable userId;
 @property (nonatomic, readonly) BOOL isAuthorized;
+- (nonnull instancetype)initWithConfiguration:(FitpaySDKConfiguration * _Nonnull)configuration OBJC_DESIGNATED_INITIALIZER;
 - (void)loginWithUsername:(NSString * _Nonnull)username password:(NSString * _Nonnull)password completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
@@ -672,6 +720,11 @@ SWIFT_CLASS("_TtC9FitpaySDK10RtmMessage")
 SWIFT_CLASS("_TtC9FitpaySDK18RtmMessageResponse")
 @interface RtmMessageResponse : RtmMessage
 @end
+
+typedef SWIFT_ENUM(NSInteger, RtmProtocolVersion) {
+  RtmProtocolVersionVer1 = 1,
+  RtmProtocolVersionVer2 = 2,
+};
 
 typedef SWIFT_ENUM(NSInteger, SecurityNFCState) {
   SecurityNFCStateDisabled = 0x00,
@@ -903,6 +956,13 @@ typedef SWIFT_ENUM(NSInteger, WVDeviceStatuses) {
   WVDeviceStatusesSyncError = 8,
 };
 
+typedef SWIFT_ENUM(NSInteger, WVMessageType) {
+  WVMessageTypeError = 0,
+  WVMessageTypeSuccess = 1,
+  WVMessageTypeProgress = 2,
+  WVMessageTypePending = 3,
+};
+
 @class WKWebView;
 @class WKWebViewConfiguration;
 @class WKUserContentController;
@@ -920,6 +980,7 @@ SWIFT_CLASS("_TtC9FitpaySDK8WvConfig")
 @property (nonatomic, strong) DeviceInfo * _Nullable device;
 @property (nonatomic) BOOL demoModeEnabled;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId redirectUri:(NSString * _Nonnull)redirectUri paymentDevice:(PaymentDevice * _Nonnull)paymentDevice userEmail:(NSString * _Nullable)userEmail isNewAccount:(BOOL)isNewAccount;
+- (nonnull instancetype)initWithPaymentDevice:(PaymentDevice * _Nonnull)paymentDevice rtmConfig:(RtmConfig * _Nonnull)rtmConfig SDKConfiguration:(FitpaySDKConfiguration * _Nonnull)SDKConfiguration OBJC_DESIGNATED_INITIALIZER;
 /**
   In order to open a web-view the SDK must have a connection to the payment device in order to gather data about
   that device. This will attempt to connect, and call the completion with either an error or nil if the connection
@@ -955,6 +1016,7 @@ SWIFT_CLASS("_TtC9FitpaySDK8WvConfig")
 */
 - (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
 - (void)showStatusMessage:(enum WVDeviceStatuses)status message:(NSString * _Nullable)message error:(NSError * _Nullable)error;
+- (void)showCustomStatusMessage:(NSString * _Nonnull)message type:(enum WVMessageType)type;
 - (void)sendRtmMessageWithRtmMessage:(RtmMessageResponse * _Nonnull)rtmMessage;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
