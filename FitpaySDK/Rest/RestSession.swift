@@ -49,7 +49,7 @@ open class RestSession : NSObject
     fileprivate var redirectUri:String
 
     open var userId:String?
-    internal var accessToken:String?
+    open var accessToken:String?
     open var isAuthorized:Bool
     {
         return self.accessToken != nil
