@@ -688,6 +688,7 @@ SWIFT_CLASS("_TtC9FitpaySDK10RestClient")
 SWIFT_CLASS("_TtC9FitpaySDK11RestSession")
 @interface RestSession : NSObject
 @property (nonatomic, copy) NSString * _Nullable userId;
+@property (nonatomic, copy) NSString * _Nullable accessToken;
 @property (nonatomic, readonly) BOOL isAuthorized;
 - (nonnull instancetype)initWithConfiguration:(FitpaySDKConfiguration * _Nonnull)configuration OBJC_DESIGNATED_INITIALIZER;
 - (void)loginWithUsername:(NSString * _Nonnull)username password:(NSString * _Nonnull)password completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
@@ -704,6 +705,7 @@ SWIFT_CLASS("_TtC9FitpaySDK9RtmConfig")
 @property (nonatomic, copy) NSString * _Nullable version;
 @property (nonatomic, copy) NSString * _Nullable customCSSUrl;
 @property (nonatomic, copy) NSString * _Nullable demoCardGroup;
+@property (nonatomic, copy) NSString * _Nullable accessToken;
 - (nonnull instancetype)initWithClientId:(NSString * _Nonnull)clientId redirectUri:(NSString * _Nonnull)redirectUri userEmail:(NSString * _Nullable)userEmail deviceInfo:(DeviceInfo * _Nullable)deviceInfo hasAccount:(BOOL)hasAccount OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end

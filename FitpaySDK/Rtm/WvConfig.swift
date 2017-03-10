@@ -284,6 +284,9 @@ internal enum WVResponse: Int {
      This returns the request object clients will require in order to open a WKWebView
      */
     @objc open func wvRequest() -> URLRequest {
+        if let accessToken = self.restSession!.accessToken {
+            rtmConfig!.accessToken = accessToken
+        }
         let JSONString = Mapper().toJSONString(rtmConfig!)
         let utfString = JSONString!.data(using: String.Encoding.utf8, allowLossyConversion: true)
         let encodedConfig = utfString?.base64URLencoded()

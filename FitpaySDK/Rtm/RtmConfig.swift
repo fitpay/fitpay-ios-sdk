@@ -10,6 +10,7 @@ open class RtmConfig: NSObject, Mappable {
     open var demoMode: Bool?
     open var customCSSUrl: String?
     open var demoCardGroup: String?
+    open var accessToken: String?
     
     public init(clientId:String = FitpaySDKConfiguration.defaultConfiguration.clientId, redirectUri:String = FitpaySDKConfiguration.defaultConfiguration.redirectUri, userEmail:String?, deviceInfo:DeviceInfo?, hasAccount:Bool = false) {
         self.clientId = clientId
@@ -33,5 +34,6 @@ open class RtmConfig: NSObject, Mappable {
         demoMode <- map["demoMode"]
         customCSSUrl <- map["themeOverrideCssUrl"]
         demoCardGroup <- map["demoCardGroup"]
+        accessToken <- map["accessToken"]
     }
 }
