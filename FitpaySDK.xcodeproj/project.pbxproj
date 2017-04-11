@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		9A24EA1C1CE36AEF00460A77 /* FitpaySDK-Universal */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 9A24EA1F1CE36AEF00460A77 /* Build configuration list for PBXAggregateTarget "FitpaySDK-Universal" */;
-			buildPhases = (
-				9A24EA201CE36B0D00460A77 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "FitpaySDK-Universal";
-			productName = "FitpaySDK-Universal";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		00A6F88D23F8E833E029EE90 /* Pods_RTMClientApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F9FB4AE574F159FE7FA410 /* Pods_RTMClientApp.framework */; };
 		0A1B6A3D1CDBEBF700EBD014 /* RtmConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B6A3C1CDBEBF700EBD014 /* RtmConfig.swift */; };
@@ -1227,9 +1213,6 @@
 							};
 						};
 					};
-					9A24EA1C1CE36AEF00460A77 = {
-						CreatedOnToolsVersion = 7.3;
-					};
 					9A2E68C21CA14DE10061D5B3 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 52C5E9ZJ2D;
@@ -1264,6 +1247,7 @@
 			projectRoot = "";
 			targets = (
 				0AD9229C1C1F7EFC007693AB /* FitpaySDK */,
+				3A93A07F1DB8CA2C00A9FEB4 /* FitpaySDK-Carthage-iOS */,
 				0AD922A61C1F7EFC007693AB /* FitpaySDKTestsPods */,
 				3A46E1441DF023F9002D0270 /* FitpaySDKTestsCarthage */,
 				8426D2571C96F4AA009AACFE /* RTMClientApp */,
@@ -1272,8 +1256,6 @@
 				9A2F7B7E1CB7FB5C00696D45 /* ObjCDemo */,
 				9A2F7B961CB7FB5D00696D45 /* ObjCDemoTests */,
 				9B4127CD1CD95A5A00B12187 /* CombinedUserCreateAndLoginTests */,
-				9A24EA1C1CE36AEF00460A77 /* FitpaySDK-Universal */,
-				3A93A07F1DB8CA2C00A9FEB4 /* FitpaySDK-Carthage-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1549,19 +1531,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		9A24EA201CE36B0D00460A77 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#fix bitcode issue\nunset TOOLCHAINS\n\n######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=true\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      if [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\n                                                                      cp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      ######################\n                                                                      # On Release, copy the result to release directory\n                                                                      ######################\n                                                                      OUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n                                                                      \n                                                                      rm -rf \"$OUTPUT_DIR\"\n                                                                      mkdir -p \"$OUTPUT_DIR\"\n                                                                      \n                                                                      cp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n                                                                      \n                                                                      if [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\n                                                                      open \"${OUTPUT_DIR}/\"\n                                                                      fi";
 		};
 		A7103C206A847E9F8F6DB846 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2347,20 +2316,6 @@
 			};
 			name = Release;
 		};
-		9A24EA1D1CE36AEF00460A77 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9A24EA1E1CE36AEF00460A77 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		9A2E68DD1CA14DE10061D5B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEC6F18F0851D2461A5E86D8 /* Pods-FitpaySDKDemo.debug.xcconfig */;
@@ -2569,15 +2524,6 @@
 			buildConfigurations = (
 				8426D2671C96F4AA009AACFE /* Debug */,
 				8426D2681C96F4AA009AACFE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9A24EA1F1CE36AEF00460A77 /* Build configuration list for PBXAggregateTarget "FitpaySDK-Universal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A24EA1D1CE36AEF00460A77 /* Debug */,
-				9A24EA1E1CE36AEF00460A77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
