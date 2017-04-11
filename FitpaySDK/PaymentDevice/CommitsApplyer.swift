@@ -155,7 +155,7 @@ internal class CommitsApplyer {
                 apduPackage.executedEpoch = TimeInterval(currentTimestamp)
                 
                 if state == nil {
-                    if error != nil && error as NSError? != nil && (error as! NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
+                    if error != nil && error as NSError? != nil && (error! as NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
                         log.debug("SYNC_DATA: Got a failed APDU response.")
                         apduPackage.state = APDUPackageResponseState.failed
                     } else if error != nil {
