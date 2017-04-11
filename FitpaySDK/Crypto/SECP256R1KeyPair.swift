@@ -1,22 +1,40 @@
+import Security
 
 class SECP256R1KeyPair
 {
     static let sharedInstance = SECP256R1KeyPair()
 
-    fileprivate let keyPair = SECP256R1KeyPairContainer()
-
-    var publicKey:String?
-    {
-        return self.keyPair.publicKey
+    fileprivate let keys: (privateKey: Data, publicKey: Data)? = try? CC.EC.generateKeyPair(256)
+    fileprivate let unknownPrefix = "3059301306072a8648ce3d020106082a8648ce3d030107034200" // wtf? Bouncy Castle issue?
+    
+    // we should provide public key 
+    // with unknown prefix
+    var publicKey: String? {
+        guard let keys = self.keys else {
+            return nil
+        }
+        
+        return unknownPrefix + keys.publicKey.hex
     }
 
-    var privateKey:String?
-    {
-        return self.keyPair.privateKey
+    var privateKey: String? {
+        return self.keys?.privateKey.hex
     }
     
-    func generateSecretForPublicKey(_ publicKey:String) -> Data?
-    {
-        return self.keyPair.generateSecret(forPublicKey: publicKey)
+    func generateSecretForPublicKey(_ publicKey:String) -> Data? {
+        guard let keys = self.keys else {
+            return nil
+        }
+        
+        // removing prefix from public key
+        let start = publicKey.index(publicKey.startIndex, offsetBy: 0)
+        let end   = publicKey.index(publicKey.startIndex,
+                                    offsetBy: self.unknownPrefix.characters.count)
+        
+        let publicKeyWithoutPrefix = publicKey.replacingCharacters(in: start..<end, with: "")
+        
+        // compute secret for public key without prefix
+        return try? CC.EC.computeSharedSecret(keys.privateKey,
+                                              publicKey: publicKeyWithoutPrefix.hexToData()!)
     }
 }

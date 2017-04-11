@@ -168,7 +168,7 @@ open class FitpayNotificationsManager : NSObject {
                     SyncManager.sharedInstance.removeSyncBinding(binding: syncFailedBinding)
                 }
                 syncFailedBinding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed, completion: { (event) in
-                    log.error("NOTIFICATIONS_DATA: Sync from notification falied. Error: \((event.eventData as? [String:Any])?["error"])")
+                    log.error("NOTIFICATIONS_DATA: Sync from notification falied. Error: \(String(describing: (event.eventData as? [String:Any])?["error"]))")
                     self.currentNotification = nil
                     self.processNextNotificationIfAvailable()
                 })

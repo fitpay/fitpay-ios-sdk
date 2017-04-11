@@ -52,7 +52,7 @@ class TestHelpers {
             }
 
             XCTAssertNotNil(user, "user is nil")
-            debugPrint("created user: \(user?.info?.email)")
+            debugPrint("created user: \(String(describing: user?.info?.email))")
             if (user != nil) { self.userValid(user!) }
 
             //additional sanity checks that we created a meaningful user
@@ -277,7 +277,7 @@ class TestHelpers {
     }
 
     func acceptTermsForCreditCard(_ expectation:XCTestExpectation, card:CreditCard?, completion:@escaping (_ card:CreditCard?) -> Void) {
-        debugPrint("acceptingTerms for card: \(card)")
+        debugPrint("acceptingTerms for card: \(String(describing: card))")
         card?.acceptTerms {
             (pending, acceptedCard, error) in
 
@@ -364,7 +364,7 @@ class TestHelpers {
     }
 
     func waitForActive(_ pendingCard:CreditCard, retries:Int=0, completion:@escaping (_ activeCard:CreditCard) -> Void) {
-        debugPrint("pending card state is \(pendingCard.state)")
+        debugPrint("pending card state is \(String(describing: pendingCard.state))")
 
         if pendingCard.state == TokenizationState.ACTIVE {
             completion(pendingCard)

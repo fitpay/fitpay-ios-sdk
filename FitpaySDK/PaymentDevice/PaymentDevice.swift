@@ -340,7 +340,7 @@
             apduCommand.responseData = apduResponse?.msg.hex
             apduCommand.responseCode = apduResponse?.responseCode.hex
             
-            log.debug("APDU_DATA: ExecuteAPDUCommand: response \(apduResponse?.responseData.hex ?? "nil"). Response type - \(apduCommand.responseType). Commands continueOnFailure - \(apduCommand.continueOnFailure).")
+            log.debug("APDU_DATA: ExecuteAPDUCommand: response \(apduResponse?.responseData.hex ?? "nil"). Response type - \(String(describing: apduCommand.responseType)). Commands continueOnFailure - \(apduCommand.continueOnFailure).")
             
             if apduCommand.responseType == APDUResponseType.error && apduCommand.continueOnFailure == false {
                 completion(apduCommand, nil, NSError.error(code: PaymentDevice.ErrorCode.apduErrorResponse, domain: IPaymentDeviceConnector.self))

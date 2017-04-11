@@ -61,13 +61,7 @@ extension Data
     
     var SHA1:String?
     {
-        let SHA_DIGEST_LENGTH = OpenSSLHelper.sharedInstance().shaDigestLength()
-        let result = NSMutableData(length: Int(SHA_DIGEST_LENGTH*2))!
-        
-        guard OpenSSLHelper.sharedInstance().simpleSHA1((self as NSData).bytes, length: UInt(count), output: result.mutableBytes.bindMemory(to:Int8.self, capacity: Int(SHA_DIGEST_LENGTH*2))) else {
-            return nil
-        }
-        return String(data: result as Data, encoding: String.Encoding.utf8)
+        return String(data: CC.digest(self, alg: .sha1), encoding: String.Encoding.utf8)
     }
     
     var hex:String
@@ -96,3 +90,10 @@ extension Data
         return out
     }
 }
+
+extension Data {
+    func subdata(in range: ClosedRange<Index>) -> Data {
+        return subdata(in: range.lowerBound ..< range.upperBound + 1)
+    }
+}
+

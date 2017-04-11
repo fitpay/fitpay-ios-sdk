@@ -1,4 +1,3 @@
-
 import FitpaySDK
 import Foundation
 
@@ -8,30 +7,16 @@ public extension Transaction
     {
         if let transactionTimeEpoch = self.transactionTimeEpoch
         {
-            return NSNumber(longLong:Int64(transactionTimeEpoch))
+            return NSNumber(value:Int64(transactionTimeEpoch))
         }
         
         return nil
     }
 }
 
-public extension RestSession
-{
-    public typealias LoginHandlerObjC = (error:NSError!)->Void
-
-    @objc public func login(username:String, password:String, completion:LoginHandlerObjC)
-    {
-        self.login(username: username, password: password)
-        {
-            (error:ErrorType?) in
-            completion(error: error as? NSError)
-        }
-    }
-}
-
 public class ResultCollectionObjC : NSObject
 {
-    public typealias ResultCollectionHandler = (result:ResultCollectionObjC?, error:NSError?) -> Void
+    public typealias ResultCollectionHandler = (_ result:ResultCollectionObjC?, _ error:NSError?) -> Void
     
     public var rawCollection:AnyObject?
     
@@ -102,84 +87,84 @@ public class ResultCollectionObjC : NSObject
         return self.rawCollection as? ResultCollection<Commit>
     }
     
-    @objc public func next(completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func next(completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         if let creditCardsCollection = self.creditCardsCollection
         {
             creditCardsCollection.next
             {
-                (result:ResultCollection<CreditCard>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<CreditCard>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
         else if let devicesCollection = self.devicesCollection
         {
             devicesCollection.next
             {
-                (result:ResultCollection<DeviceInfo>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<DeviceInfo>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
         else if let transactionsCollection = self.transactionsCollection
         {
             transactionsCollection.next
             {
-                (result:ResultCollection<Transaction>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<Transaction>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
     }
     
-    @objc public func last(completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func last(completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         if let creditCardsCollection = self.creditCardsCollection
         {
             creditCardsCollection.last
             {
-                (result:ResultCollection<CreditCard>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<CreditCard>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
         else if let devicesCollection = self.devicesCollection
         {
             devicesCollection.last
             {
-                (result:ResultCollection<DeviceInfo>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<DeviceInfo>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
         else if let transactionsCollection = self.transactionsCollection
         {
             transactionsCollection.last
             {
-                (result:ResultCollection<Transaction>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<Transaction>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
     }
     
-    @objc public func previous(completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func previous(completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         if let commitsCollection = self.commitsCollection
         {
             commitsCollection.previous
             {
-                (result:ResultCollection<Commit>?, error:ErrorType?) in
-                completion(result: CreateCompatibleResultColletion(result), error: error as? NSError)
+                (result:ResultCollection<Commit>?, error:Error?) in
+                completion(CreateCompatibleResultColletion(resultCollection: result), error as NSError?)
             }
         }
     }
     
-    public typealias CollectAllAvailableCompletionObjC = (results: [AnyObject]!, error: NSError!) -> Void
+    public typealias CollectAllAvailableCompletionObjC = (_ results: [AnyObject]?, _ error: NSError?) -> Void
     
-    @objc public func collectAllAvailable(completion: ResultCollectionObjC.CollectAllAvailableCompletionObjC)
+    @objc public func collectAllAvailable(completion: @escaping ResultCollectionObjC.CollectAllAvailableCompletionObjC)
     {
         if let creditCardsCollection = self.creditCardsCollection
         {
             creditCardsCollection.collectAllAvailable
             {
                 (results, error) in
-                completion(results: results, error: error as? NSError )
+                completion(results, error as NSError? )
             }
         }
     }
@@ -191,28 +176,28 @@ public extension User
     {
         if let lastModifiedEpoch = self.lastModifiedEpoch
         {
-            return NSNumber(longLong: Int64(lastModifiedEpoch))
+            return NSNumber(value: Int64(lastModifiedEpoch))
         }
         
         return nil
     }
     
-    @objc public func listCreditCards(excludeState excludeState:[String], limit:Int, offset:Int, completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func listCreditCardsObjC(excludeState:[String], limit:Int, offset:Int, completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         self.listCreditCards(excludeState: excludeState, limit: limit, offset: offset)
         {
             (result:ResultCollection<CreditCard>?, error:NSError?) in
             
-            completion(result: CreateCompatibleResultColletion(result), error: error)
+            completion(CreateCompatibleResultColletion(resultCollection: result), error)
         }
     }
     
-    @objc public func listDevices(limit limit:Int, offset:Int, completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func listDevicesObjC(limit:Int, offset:Int, completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         self.listDevices(limit: limit, offset: offset)
         {
             (result:ResultCollection<DeviceInfo>?, error:NSError?) in
-            completion(result: CreateCompatibleResultColletion(result), error: error)
+            completion(CreateCompatibleResultColletion(resultCollection: result), error)
         }
     }
 }
@@ -234,10 +219,8 @@ internal func CreateCompatibleResultColletion<T>(resultCollection:ResultCollecti
             
             for item in results
             {
-                if let item = item as? AnyObject
-                {
-                    compResults.append(item)
-                }
+                let item = item as AnyObject
+                compResults.append(item)
             }
             
             compResultCollection.results = compResults
@@ -301,22 +284,22 @@ public extension ApduPackage
 {
     @objc public static var APDUPackageResponseState_PROCESSED:String
     {
-        return APDUPackageResponseState.PROCESSED.rawValue
+        return APDUPackageResponseState.processed.rawValue
     }
     
     @objc public static var APDUPackageResponseState_FAILED:String
     {
-        return APDUPackageResponseState.FAILED.rawValue
+        return APDUPackageResponseState.failed.rawValue
     }
     
     @objc public static var APDUPackageResponseState_ERROR:String
     {
-        return APDUPackageResponseState.ERROR.rawValue
+        return APDUPackageResponseState.error.rawValue
     }
     
     @objc public static var APDUPackageResponseState_EXPIRED:String
     {
-        return APDUPackageResponseState.EXPIRED.rawValue
+        return APDUPackageResponseState.expired.rawValue
     }
     
     public var stateObjC:String?
@@ -328,7 +311,7 @@ public extension ApduPackage
     {
         if let executedEpoch = self.executedEpoch
         {
-            return NSNumber(longLong: Int64(executedEpoch))
+            return NSNumber(value: Int64(executedEpoch))
         }
         
         return nil
@@ -338,7 +321,7 @@ public extension ApduPackage
     {
         if let validUntilEpoch = self.validUntilEpoch
         {
-            return NSNumber(longLong: Int64(validUntilEpoch))
+            return NSNumber(value: Int64(validUntilEpoch))
         }
         
         return nil
@@ -351,18 +334,18 @@ public extension DeviceInfo
     {
         if let createdEpoch = self.createdEpoch
         {
-            return NSNumber(longLong: Int64(createdEpoch))
+            return NSNumber(value: Int64(createdEpoch))
         }
         
         return nil
     }
     
-    @objc public func listCommits(commitsAfter commitsAfter:String?, limit:Int, offset:Int, completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func listCommitsObjC(commitsAfter:String?, limit:Int, offset:Int, completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         self.listCommits(commitsAfter: commitsAfter, limit: limit, offset: offset)
         {
             (result:ResultCollection<Commit>?, error) in
-            completion(result: CreateCompatibleResultColletion(result), error: error)
+            completion(CreateCompatibleResultColletion(resultCollection: result), error)
         }
     }
 }
@@ -479,7 +462,7 @@ public extension VerificationMethod
     {
         if let createdEpoch = self.createdEpoch
         {
-            return NSNumber(longLong: Int64(createdEpoch))
+            return NSNumber(value: Int64(createdEpoch))
         }
         
         return nil
@@ -562,28 +545,28 @@ public extension CreditCard
     {
         if let createdEpoch = self.createdEpoch
         {
-            return NSNumber(longLong: Int64(createdEpoch))
+            return NSNumber(value: Int64(createdEpoch))
         }
         
         return nil
     }
     
-    @objc public func deactivate(causedBy causedBy:String, reason:String, completion:RestClient.DeactivateHandler)
+    @objc public func deactivate(causedBy:String, reason:String, completion:@escaping RestClient.DeactivateHandler)
     {
         self.deactivate(causedBy: CreditCardInitiator(rawValue:causedBy)!, reason: reason, completion: completion)
     }
     
-    @objc public func reactivate(causedBy causedBy:String, reason:String, completion:RestClient.ReactivateHandler)
+    @objc public func reactivate(causedBy:String, reason:String, completion:@escaping RestClient.ReactivateHandler)
     {
         self.reactivate(causedBy: CreditCardInitiator(rawValue:causedBy)!, reason: reason, completion: completion)
     }
     
-    @objc public func listTransactions(limit limit:Int, offset:Int, completion:ResultCollectionObjC.ResultCollectionHandler)
+    @objc public func listTransactions(limit:Int, offset:Int, completion:@escaping ResultCollectionObjC.ResultCollectionHandler)
     {
         self.listTransactions(limit:limit, offset: offset)
         {
             (result:ResultCollection<Transaction>?, error:NSError?) in
-            completion(result: CreateCompatibleResultColletion(result), error: error)
+            completion(CreateCompatibleResultColletion(resultCollection: result), error)
         }
     }
 }
@@ -594,7 +577,7 @@ public extension EncryptionKey
     {
         if let createdEpoch = self.createdEpoch
         {
-            return NSNumber(longLong: Int64(createdEpoch))
+            return NSNumber(value: Int64(createdEpoch))
         }
         
         return nil
@@ -605,7 +588,7 @@ public extension EncryptionKey
 public extension FitpayEvent
 {
     public var eventIdObjC : NSNumber? {
-        return self.eventId.eventId()
+        return self.eventId.eventId() as NSNumber
     }
 }
 

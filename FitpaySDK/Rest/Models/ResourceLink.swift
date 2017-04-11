@@ -8,7 +8,7 @@ internal class ResourceLink : CustomStringConvertible
     
     var description: String
     {
-        return "\(ResourceLink.self)(\(target):\(href))"
+        return "\(ResourceLink.self)(\(target ?? "target nil"):\(href ?? "href nil"))"
     }
 }
 

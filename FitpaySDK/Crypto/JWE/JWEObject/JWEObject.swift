@@ -1,4 +1,5 @@
 
+
 enum JWEAlgorithm : String {
     case A256GCMKW = "A256GCMKW"
 }
@@ -51,7 +52,7 @@ class JWEObject {
         return jweObject
     }
     
-    static func createNewObject(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) throws -> JWEObject?
+    static func createNewObject(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) throws -> JWEObject
     {
         
         let jweObj = JWEObject()
@@ -159,64 +160,50 @@ class JWEObject {
     
     fileprivate func A256GCMDecryptData(_ cipherKey:Data, data:Data, iv:Data, tag:Data, aad:Data?) -> Data?
     {
-        let cipherKeyUInt8 = UnsafeMutablePointer<UInt8>(mutating: (cipherKey as NSData).bytes.bindMemory(to: UInt8.self, capacity: cipherKey.count))
-        let dataUInt8 = UnsafeMutablePointer<UInt8>(mutating: (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count))
-        let ivUInt8 = UnsafeMutablePointer<UInt8>(mutating: (iv as NSData).bytes.bindMemory(to: UInt8.self, capacity: iv.count))
-        let tagUInt8 = UnsafeMutablePointer<UInt8>(mutating: (tag as NSData).bytes.bindMemory(to: UInt8.self, capacity: tag.count))
+        // cryptAuth expects that data will be with tag
+        // so appending tag to data
+        var dataWithTag = data
+        dataWithTag.append(tag)
         
-        let aadUInt8 : UnsafeMutablePointer<UInt8>!
-        let aadLenght : Int
-        if (aad != nil) {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: (aad! as NSData).bytes.bindMemory(to: UInt8.self, capacity: aad!.count))
-            aadLenght = aad!.count
-        } else {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: "")
-            aadLenght = 0
+        var decryptedData: Data? = nil
+        do {
+            decryptedData = try CC.cryptAuth(.decrypt,
+                                             blockMode: .gcm,
+                                             algorithm: .aes,
+                                             data: dataWithTag,
+                                             aData: aad ?? Data(),
+                                             key: cipherKey,
+                                             iv: iv,
+                                             tagLength: JWEObject.AuthenticationTagSize)
+        } catch {
+            log.error("Can't decrypt data with a256gcm. Error: \(error).")
         }
         
-        let decryptResult = UnsafeMutablePointer<AESGCM_DecryptionResult>.allocate(capacity: MemoryLayout<AESGCM_DecryptionResult>.size)
-        
-        let openssl = OpenSSLHelper.sharedInstance()
-        
-        guard (openssl?.aes_GSM_decrypt(cipherKeyUInt8, keySize: Int32(cipherKey.count), iv: ivUInt8, ivSize: Int32(iv.count), aad: aadUInt8, aadSize: Int32(aadLenght), cipherText: dataUInt8, cipherTextSize: Int32(data.count), authTag: tagUInt8, authTagSize: Int32(tag.count), result: decryptResult))! else {
-            return nil
-        }
-        
-        let nsdata = Data(bytes: UnsafePointer<UInt8>(decryptResult.pointee.plain_text),
-                            count: Int(decryptResult.pointee.plain_text_size))
-        openssl?.aes_GSM_freeDecryptionResult(decryptResult)
-        
-        return nsdata
+        return decryptedData
     }
     
     fileprivate func A256GCMEncryptData(_ key: Data, data: Data, iv: Data, aad: Data?) -> (Data?, Data?)
     {
-        let cipherKeyUInt8 = UnsafeMutablePointer<UInt8>(mutating: (key as NSData).bytes.bindMemory(to: UInt8.self, capacity: key.count))
-        let dataUInt8 = UnsafeMutablePointer<UInt8>(mutating: (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count))
-        let ivUInt8 = UnsafeMutablePointer<UInt8>(mutating: (iv as NSData).bytes.bindMemory(to: UInt8.self, capacity: iv.count))
+        var encryptResult: (Data?, Data?) = (nil, nil)
         
-        let aadUInt8 : UnsafeMutablePointer<UInt8>!
-        let aadLenght : Int
-        if (aad != nil) {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: (aad! as NSData).bytes.bindMemory(to: UInt8.self, capacity: aad!.count))
-            aadLenght = aad!.count
-        } else {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: "")
-            aadLenght = 0
+        do {
+            let encryptedWithTag = try CC.cryptAuth(.encrypt,
+                                                    blockMode: .gcm,
+                                                    algorithm: .aes,
+                                                    data: data,
+                                                    aData: aad ?? Data(),
+                                                    key: key,
+                                                    iv: iv,
+                                                    tagLength: JWEObject.AuthenticationTagSize)
+            
+            let cipherText = encryptedWithTag.subdata(in: 0..<(encryptedWithTag.count-JWEObject.AuthenticationTagSize))
+            let tag = encryptedWithTag.subdata(in: (encryptedWithTag.count-JWEObject.AuthenticationTagSize)..<encryptedWithTag.count)
+            
+            encryptResult = (cipherText, tag)
+        } catch  {
+            log.error("Can't encrypt data with a256gcm. Error: \(error).")
         }
-        let encryptResult = UnsafeMutablePointer<AESGCM_EncryptionResult>.allocate(capacity: MemoryLayout<AESGCM_EncryptionResult>.size)
         
-        let openssl = OpenSSLHelper.sharedInstance()
-
-        openssl?.aes_GSM_encrypt(cipherKeyUInt8, keySize: Int32(key.count), iv: ivUInt8, ivSize: Int32(iv.count), aad: aadUInt8, aadSize: Int32(aadLenght), plainText: dataUInt8, plainTextSize: Int32(data.count), result: encryptResult)
-        
-        let cipherText = Data(bytes: UnsafePointer<UInt8>(encryptResult.pointee.cipher_text),
-                                count: Int(encryptResult.pointee.cipher_text_size))
-        let tag = Data(bytes: UnsafePointer<UInt8>(encryptResult.pointee.auth_tag),
-                         count: Int(encryptResult.pointee.auth_tag_size))
-
-        openssl?.aes_GSM_freeEncryptionResult(encryptResult)
-        
-        return (cipherText, tag)
+        return encryptResult
     }
 }

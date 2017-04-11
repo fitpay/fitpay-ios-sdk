@@ -275,14 +275,14 @@ open class DeviceInfo : NSObject, ClientModel, Mappable, SecretApplyable
                     update(nil, softwareRevision: nil, notifcationToken: newNotificationToken, completion: {
                         [weak self] (device, error) in
                         if error == nil && device != nil {
-                            log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken)")
+                            log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken ?? "null token")")
                             self?.notificationToken = device?.notificationToken
                         }
                     })
                 } else {
                     addNotificationToken(newNotificationToken, completion: {
                         [weak self] (device, error) in
-                        log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken)")
+                        log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken ?? "null token")")
                         if error == nil && device != nil {
                             self?.notificationToken = device?.notificationToken
                         }

@@ -341,7 +341,7 @@ open class SyncManager : NSObject {
             [unowned self] (commits, error) -> Void in
             
             guard (error == nil && commits != nil) else {
-                log.error("SYNC_DATA: failed to get commits error: \(error).")
+                log.error("SYNC_DATA: failed to get commits error: \(String(describing: error)).")
                 self.syncFinished(error: NSError.error(code: SyncManager.ErrorCode.cantFetchCommits, domain: SyncManager.self))
                 return
             }
@@ -355,7 +355,7 @@ open class SyncManager : NSObject {
                 [unowned self] (error) -> Void in
                 
                 if let _ = error {
-                    log.error("SYNC_DATA: Commit applier returned a failure: \(error)")
+                    log.error("SYNC_DATA: Commit applier returned a failure: \(String(describing: error))")
                     self.syncFinished(error: error)
                     return
                 }
