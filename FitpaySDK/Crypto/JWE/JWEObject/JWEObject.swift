@@ -1,9 +1,4 @@
 
-extension Data {
-    func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound ..< range.upperBound + 1)
-    }
-}
 
 enum JWEAlgorithm : String {
     case A256GCMKW = "A256GCMKW"
@@ -57,7 +52,7 @@ class JWEObject {
         return jweObject
     }
     
-    static func createNewObject(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) throws -> JWEObject?
+    static func createNewObject(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) throws -> JWEObject
     {
         
         let jweObj = JWEObject()
@@ -165,22 +160,50 @@ class JWEObject {
     
     fileprivate func A256GCMDecryptData(_ cipherKey:Data, data:Data, iv:Data, tag:Data, aad:Data?) -> Data?
     {
+        // cryptAuth expects that data will be with tag
+        // so appending tag to data
+        var dataWithTag = data
+        dataWithTag.append(tag)
         
-//        try CC.cryptAuth(.encrypt, blockMode: .gcm, algorithm: .aes, data: data, aData: aData, key: aesKey, iv: iv, tagLength: tagLength)
-        var dataCopy = data
-        dataCopy.append(tag)
-        let a = try? CC.cryptAuth(.decrypt, blockMode: .gcm, algorithm: .aes, data: dataCopy, aData: aad ?? Data(), key: cipherKey, iv: iv, tagLength: tag.count)
-        return a
+        var decryptedData: Data? = nil
+        do {
+            decryptedData = try CC.cryptAuth(.decrypt,
+                                             blockMode: .gcm,
+                                             algorithm: .aes,
+                                             data: dataWithTag,
+                                             aData: aad ?? Data(),
+                                             key: cipherKey,
+                                             iv: iv,
+                                             tagLength: JWEObject.AuthenticationTagSize)
+        } catch {
+            log.error("Can't decrypt data with a256gcm. Error: \(error).")
+        }
+        
+        return decryptedData
     }
     
     fileprivate func A256GCMEncryptData(_ key: Data, data: Data, iv: Data, aad: Data?) -> (Data?, Data?)
     {
-        let cryptedWithTag = try? CC.cryptAuth(.encrypt, blockMode: .gcm, algorithm: .aes, data: data, aData: aad ?? Data(), key: key, iv: iv, tagLength: 16)
-        if let cryptedWithTag = cryptedWithTag {
-            let cipherText = cryptedWithTag.subdata(in: 0..<(cryptedWithTag.count-16))
-            let tag = cryptedWithTag.subdata(in: (cryptedWithTag.count-16)..<cryptedWithTag.count)
-            return (cipherText, tag)
+        var encryptResult: (Data?, Data?) = (nil, nil)
+        
+        do {
+            let encryptedWithTag = try CC.cryptAuth(.encrypt,
+                                                    blockMode: .gcm,
+                                                    algorithm: .aes,
+                                                    data: data,
+                                                    aData: aad ?? Data(),
+                                                    key: key,
+                                                    iv: iv,
+                                                    tagLength: JWEObject.AuthenticationTagSize)
+            
+            let cipherText = encryptedWithTag.subdata(in: 0..<(encryptedWithTag.count-JWEObject.AuthenticationTagSize))
+            let tag = encryptedWithTag.subdata(in: (encryptedWithTag.count-JWEObject.AuthenticationTagSize)..<encryptedWithTag.count)
+            
+            encryptResult = (cipherText, tag)
+        } catch  {
+            log.error("Can't encrypt data with a256gcm. Error: \(error).")
         }
-        return (nil, nil)
+        
+        return encryptResult
     }
 }
