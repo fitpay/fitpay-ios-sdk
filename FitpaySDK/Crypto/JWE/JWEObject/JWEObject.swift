@@ -1,4 +1,10 @@
 
+extension Data {
+    func subdata(in range: ClosedRange<Index>) -> Data {
+        return subdata(in: range.lowerBound ..< range.upperBound + 1)
+    }
+}
+
 enum JWEAlgorithm : String {
     case A256GCMKW = "A256GCMKW"
 }
@@ -159,64 +165,22 @@ class JWEObject {
     
     fileprivate func A256GCMDecryptData(_ cipherKey:Data, data:Data, iv:Data, tag:Data, aad:Data?) -> Data?
     {
-        let cipherKeyUInt8 = UnsafeMutablePointer<UInt8>(mutating: (cipherKey as NSData).bytes.bindMemory(to: UInt8.self, capacity: cipherKey.count))
-        let dataUInt8 = UnsafeMutablePointer<UInt8>(mutating: (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count))
-        let ivUInt8 = UnsafeMutablePointer<UInt8>(mutating: (iv as NSData).bytes.bindMemory(to: UInt8.self, capacity: iv.count))
-        let tagUInt8 = UnsafeMutablePointer<UInt8>(mutating: (tag as NSData).bytes.bindMemory(to: UInt8.self, capacity: tag.count))
         
-        let aadUInt8 : UnsafeMutablePointer<UInt8>!
-        let aadLenght : Int
-        if (aad != nil) {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: (aad! as NSData).bytes.bindMemory(to: UInt8.self, capacity: aad!.count))
-            aadLenght = aad!.count
-        } else {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: "")
-            aadLenght = 0
-        }
-        
-        let decryptResult = UnsafeMutablePointer<AESGCM_DecryptionResult>.allocate(capacity: MemoryLayout<AESGCM_DecryptionResult>.size)
-        
-        let openssl = OpenSSLHelper.sharedInstance()
-        
-        guard (openssl?.aes_GSM_decrypt(cipherKeyUInt8, keySize: Int32(cipherKey.count), iv: ivUInt8, ivSize: Int32(iv.count), aad: aadUInt8, aadSize: Int32(aadLenght), cipherText: dataUInt8, cipherTextSize: Int32(data.count), authTag: tagUInt8, authTagSize: Int32(tag.count), result: decryptResult))! else {
-            return nil
-        }
-        
-        let nsdata = Data(bytes: UnsafePointer<UInt8>(decryptResult.pointee.plain_text),
-                            count: Int(decryptResult.pointee.plain_text_size))
-        openssl?.aes_GSM_freeDecryptionResult(decryptResult)
-        
-        return nsdata
+//        try CC.cryptAuth(.encrypt, blockMode: .gcm, algorithm: .aes, data: data, aData: aData, key: aesKey, iv: iv, tagLength: tagLength)
+        var dataCopy = data
+        dataCopy.append(tag)
+        let a = try? CC.cryptAuth(.decrypt, blockMode: .gcm, algorithm: .aes, data: dataCopy, aData: aad ?? Data(), key: cipherKey, iv: iv, tagLength: tag.count)
+        return a
     }
     
     fileprivate func A256GCMEncryptData(_ key: Data, data: Data, iv: Data, aad: Data?) -> (Data?, Data?)
     {
-        let cipherKeyUInt8 = UnsafeMutablePointer<UInt8>(mutating: (key as NSData).bytes.bindMemory(to: UInt8.self, capacity: key.count))
-        let dataUInt8 = UnsafeMutablePointer<UInt8>(mutating: (data as NSData).bytes.bindMemory(to: UInt8.self, capacity: data.count))
-        let ivUInt8 = UnsafeMutablePointer<UInt8>(mutating: (iv as NSData).bytes.bindMemory(to: UInt8.self, capacity: iv.count))
-        
-        let aadUInt8 : UnsafeMutablePointer<UInt8>!
-        let aadLenght : Int
-        if (aad != nil) {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: (aad! as NSData).bytes.bindMemory(to: UInt8.self, capacity: aad!.count))
-            aadLenght = aad!.count
-        } else {
-            aadUInt8 = UnsafeMutablePointer<UInt8>(mutating: "")
-            aadLenght = 0
+        let cryptedWithTag = try? CC.cryptAuth(.encrypt, blockMode: .gcm, algorithm: .aes, data: data, aData: aad ?? Data(), key: key, iv: iv, tagLength: 16)
+        if let cryptedWithTag = cryptedWithTag {
+            let cipherText = cryptedWithTag.subdata(in: 0..<(cryptedWithTag.count-16))
+            let tag = cryptedWithTag.subdata(in: (cryptedWithTag.count-16)..<cryptedWithTag.count)
+            return (cipherText, tag)
         }
-        let encryptResult = UnsafeMutablePointer<AESGCM_EncryptionResult>.allocate(capacity: MemoryLayout<AESGCM_EncryptionResult>.size)
-        
-        let openssl = OpenSSLHelper.sharedInstance()
-
-        openssl?.aes_GSM_encrypt(cipherKeyUInt8, keySize: Int32(key.count), iv: ivUInt8, ivSize: Int32(iv.count), aad: aadUInt8, aadSize: Int32(aadLenght), plainText: dataUInt8, plainTextSize: Int32(data.count), result: encryptResult)
-        
-        let cipherText = Data(bytes: UnsafePointer<UInt8>(encryptResult.pointee.cipher_text),
-                                count: Int(encryptResult.pointee.cipher_text_size))
-        let tag = Data(bytes: UnsafePointer<UInt8>(encryptResult.pointee.auth_tag),
-                         count: Int(encryptResult.pointee.auth_tag_size))
-
-        openssl?.aes_GSM_freeEncryptionResult(encryptResult)
-        
-        return (cipherText, tag)
+        return (nil, nil)
     }
 }

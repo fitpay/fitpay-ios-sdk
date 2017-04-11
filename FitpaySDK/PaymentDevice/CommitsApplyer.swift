@@ -95,7 +95,7 @@ internal class CommitsApplyer {
         }
         
         let commitCompletion = { (error: Error?) -> Void in
-            if error == nil || (error as? NSError)?.code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
+            if error == nil || (error as NSError?)?.code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
                 SyncManager.sharedInstance.commitCompleted(commit.commit!)
             }
             
@@ -155,7 +155,7 @@ internal class CommitsApplyer {
                 apduPackage.executedEpoch = TimeInterval(currentTimestamp)
                 
                 if state == nil {
-                    if error != nil && error as? NSError != nil && (error as! NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
+                    if error != nil && error as NSError? != nil && (error as! NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
                         log.debug("SYNC_DATA: Got a failed APDU response.")
                         apduPackage.state = APDUPackageResponseState.failed
                     } else if error != nil {
@@ -182,14 +182,14 @@ internal class CommitsApplyer {
                         return
                     }
                     
-                    log.debug("SYNC_DATA: Processed APDU commit (\(commit.commit ?? "nil")) with state: \(apduPackage.state?.rawValue ?? "nil") and error: \(realError).")
+                    log.debug("SYNC_DATA: Processed APDU commit (\(commit.commit ?? "nil")) with state: \(apduPackage.state?.rawValue ?? "nil") and error: \(String(describing: realError)).")
                     
                     if apduPackage.state == .notProcessed {
                         completion(realError)
                     } else {
                         commit.confirmAPDU({
                             (confirmError) -> Void in
-                            log.debug("SYNC_DATA: Apdu package confirmed with error: \(confirmError).")
+                            log.debug("SYNC_DATA: Apdu package confirmed with error: \(String(describing: confirmError)).")
                             completion(realError ?? confirmError)
                         })
                     }

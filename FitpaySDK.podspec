@@ -15,10 +15,8 @@ Pod::Spec.new do |s|
   s.dependency 'KeychainAccess', '3.0.0'
 
   s.ios.deployment_target = '9.0'
-  s.ios.source_files        = 'Output/FitpaySDK-Release-iphoneuniversal/FitpaySDK.framework/**/*.h'
-  s.ios.public_header_files = 'Output/FitpaySDK-Release-iphoneuniversal/FitpaySDK.framework/**/*.h'
-  s.ios.vendored_framework = 'Output/FitpaySDK-Release-iphoneuniversal/FitpaySDK.framework'
-  s.ios.header_dir = 'FitpaySDK'
+  s.source_files  = "{FitpaySDK,Common}/**/*.swift"
+
 
 end
 

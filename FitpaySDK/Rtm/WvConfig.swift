@@ -327,7 +327,7 @@ internal enum WVResponse: Int {
     
     @objc open func showStatusMessage(_ status: WVDeviceStatuses, message: String? = nil, error: Error? = nil) {
         var realMessage = message ?? status.defaultMessage()
-        if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as? NSError) {
+        if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as NSError?) {
             realMessage = newMessage
         }
         
@@ -362,7 +362,7 @@ internal enum WVResponse: Int {
         }
         
         guard let messageAction = RtmMessagesType(rawValue: rtmMessage.type ?? "") else {
-            log.error("WV_DATA: RtmMessage. Action is missing or unknown: \(rtmMessage.type)")
+            log.error("WV_DATA: RtmMessage. Action is missing or unknown: \(rtmMessage.type ?? "unk type")")
             return
         }
         
@@ -397,7 +397,7 @@ internal enum WVResponse: Int {
             break
         case .rtmVersion:
             guard let versionDictionary = rtmMessage.data as? [String:Int], let versionInt = versionDictionary["version"] else {
-                log.error("WV_DATA: Can't get version of rtm protocol. Data: \(rtmMessage.data).")
+                log.error("WV_DATA: Can't get version of rtm protocol. Data: \(String(describing: rtmMessage.data)).")
                 return
             }
             

@@ -1031,7 +1031,7 @@ class RestClientTests: XCTestCase
             self.testHelper.createEricCard(expectation, pan:"9999411122220\(i)33", expMonth:i, expYear:2019, user: masterUser!) {
                 (user, card) in
 
-                debugPrint("card creation done \(card)")
+                debugPrint("card creation done \(String(describing: card))")
 
                 self.testHelper.acceptTermsForCreditCard(expectation, card:card) {
                     card in
