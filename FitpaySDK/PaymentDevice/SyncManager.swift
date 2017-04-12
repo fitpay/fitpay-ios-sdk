@@ -421,12 +421,12 @@ open class SyncManager : NSObject {
     
     fileprivate func getCommits(_ completion: @escaping (_ commits: [Commit]?, _ error: Error?)->Void) {
         obtainDeviceInfo {
-            (deviceInfo, error) -> Void in
+            [weak self] (deviceInfo, error) in
             
-            if let deviceInfo = deviceInfo {
-                self.deviceInfo = deviceInfo
+            if let deviceInfo = deviceInfo, let strongSelf = self {
+                strongSelf.deviceInfo = deviceInfo
 
-                let lastCommitId = self.syncStorage.getLastCommitId(self.deviceInfo!.deviceIdentifier!)
+                let lastCommitId = strongSelf.syncStorage.getLastCommitId(strongSelf.deviceInfo!.deviceIdentifier!)
 
                 deviceInfo.listCommits(commitsAfter: lastCommitId, limit: 20, offset: 0, completion:
                 {

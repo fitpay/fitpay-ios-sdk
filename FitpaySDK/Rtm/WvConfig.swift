@@ -222,7 +222,9 @@ internal enum WVResponse: Int {
         
         super.init()
         
-        self.messagesHandler = defaultMessagesHandler
+        self.messagesHandler = { [weak self] (message) in
+            self?.defaultMessagesHandler(message)
+        }
 
         self.demoModeEnabled = false
 
@@ -230,6 +232,11 @@ internal enum WVResponse: Int {
         self.bindEvents()
     }
 
+    deinit {
+        self.notificationCenter.removeObserver(self)
+        self.webview?.configuration.userContentController.removeScriptMessageHandler(forName: "rtmBridge")
+    }
+    
     /**
       In order to open a web-view the SDK must have a connection to the payment device in order to gather data about 
       that device. This will attempt to connect, and call the completion with either an error or nil if the connection 
@@ -237,9 +244,13 @@ internal enum WVResponse: Int {
      */
     @objc open func openDeviceConnection(_ completion: @escaping (_ error:NSError?) -> Void) {
         self.connectionBinding = self.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected, completion: {
-            (event) in
+            [weak self] (event) in
             
-            self.paymentDevice!.removeBinding(binding: self.connectionBinding!)
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.paymentDevice!.removeBinding(binding: strongSelf.connectionBinding!)
 
             if let error = (event.eventData as! [String: Any])["error"] as? NSError {
                 completion(error)
@@ -247,7 +258,7 @@ internal enum WVResponse: Int {
             }
 
             if let deviceInfo = (event.eventData as! [String: Any])["deviceInfo"] as? DeviceInfo {
-                self.rtmConfig?.deviceInfo = deviceInfo
+                strongSelf.rtmConfig?.deviceInfo = deviceInfo
                 completion(nil)
                 return
             }
@@ -274,8 +285,22 @@ internal enum WVResponse: Int {
      the value "rtmBridge" is an agreeded upon value between this and the web-view.
      */
     @objc open func wvConfig() -> WKWebViewConfiguration {
+        
+        class LeakAvoider : NSObject, WKScriptMessageHandler {
+            weak var delegate : WKScriptMessageHandler?
+            init(delegate:WKScriptMessageHandler) {
+                self.delegate = delegate
+                super.init()
+            }
+            func userContentController(_ userContentController: WKUserContentController,
+                                       didReceive message: WKScriptMessage) {
+                self.delegate?.userContentController(
+                    userContentController, didReceive: message)
+            }
+        }
+
         let config:WKWebViewConfiguration = WKWebViewConfiguration()
-        config.userContentController.add(self, name: "rtmBridge")
+        config.userContentController.add(LeakAvoider(delegate: self), name: "rtmBridge")
         
         return config
     }
@@ -285,9 +310,10 @@ internal enum WVResponse: Int {
      */
     @objc open func wvRequest() -> URLRequest {
         if let accessToken = self.restSession!.accessToken {
-            rtmConfig!.accessToken = accessToken
+            self.rtmConfig!.accessToken = accessToken
         }
-        let JSONString = Mapper().toJSONString(rtmConfig!)
+        
+        let JSONString = Mapper().toJSONString(self.rtmConfig!)
         let utfString = JSONString!.data(using: String.Encoding.utf8, allowLossyConversion: true)
         let encodedConfig = utfString?.base64URLencoded()
         let configuredUrl = "\(url)?config=\(encodedConfig! as String)"
@@ -322,7 +348,7 @@ internal enum WVResponse: Int {
             return
         }
         
-        defaultMessagesHandler(sentData)
+        self.messagesHandler(sentData)
     }
     
     @objc open func showStatusMessage(_ status: WVDeviceStatuses, message: String? = nil, error: Error? = nil) {
@@ -411,7 +437,9 @@ internal enum WVResponse: Int {
             switch version {
             case .ver2:
                 log.debug("WV_DATA: using default message handler.")
-                self.messagesHandler = defaultMessagesHandler
+                self.messagesHandler = { [weak self] (message) in
+                    self?.defaultMessagesHandler(message)
+                }
                 break
             case .ver1:
                 log.error("WV_DATA: rtm version 1 not supported yet =(")
@@ -455,34 +483,34 @@ internal enum WVResponse: Int {
         self.restSession!.setWebViewAuthorization(webViewSessionData)
 
         let userAndDeviceReceived: (_ user: User?, _ device: DeviceInfo?, _ error: NSError?) -> Void =  {
-            (user, device, error) in
+            [weak self] (user, device, error) in
             guard error == nil else {
-                self.sendRtmMessage(rtmMessage: RtmMessageResponse(callbackId: self.sessionDataCallBack?.callBackId, data: WVResponse.failed.dictionaryRepresentation(param: error.debugDescription), type: .userData, success: false))
+                self?.sendRtmMessage(rtmMessage: RtmMessageResponse(callbackId: self?.sessionDataCallBack?.callBackId, data: WVResponse.failed.dictionaryRepresentation(param: error.debugDescription), type: .userData, success: false))
                 
-                self.showStatusMessage(.syncError, message: "Can't get user, error: \(error.debugDescription)", error: error)
+                self?.showStatusMessage(.syncError, message: "Can't get user, error: \(error.debugDescription)", error: error)
                 FitpayEventsSubscriber.sharedInstance.executeCallbacksForEvent(event: .getUserAndDevice, status: .failed, reason: error)
                 return
             }
             
-            self.user = user
-            self.device = device
+            self?.user = user
+            self?.device = device
             
-            if let delegate = self.rtmDelegate {
+            if let delegate = self?.rtmDelegate {
                 delegate.didAuthorizeWithEmail(user?.email)
             }
             
-            if self.rtmConfig?.hasAccount == false {
+            if self?.rtmConfig?.hasAccount == false {
                 FitpayEventsSubscriber.sharedInstance.executeCallbacksForEvent(event: .userCreated)
             }
             
             FitpayEventsSubscriber.sharedInstance.executeCallbacksForEvent(event: .getUserAndDevice)
             
-            self.sendRtmMessage(rtmMessage: RtmMessageResponse(callbackId: self.sessionDataCallBack?.callBackId, data: WVResponse.success.dictionaryRepresentation(), type: .resolve, success: true))
+            self?.sendRtmMessage(rtmMessage: RtmMessageResponse(callbackId: self?.sessionDataCallBack?.callBackId, data: WVResponse.success.dictionaryRepresentation(), type: .resolve, success: true))
             
         }
         
         restClient?.user(id: (self.webViewSessionData?.userId)!, completion: {
-            (user, error) in
+            [weak self] (user, error) in
             
             guard (error == nil || user == nil) else {
                 userAndDeviceReceived(nil, nil, error)
@@ -496,7 +524,7 @@ internal enum WVResponse: Int {
                 }
                 
                 for device in devicesColletion!.results! {
-                    if device.deviceIdentifier == self.webViewSessionData!.deviceId {
+                    if device.deviceIdentifier == self?.webViewSessionData!.deviceId {
                         userAndDeviceReceived(user!, device, nil)
                         return
                     }
@@ -509,7 +537,7 @@ internal enum WVResponse: Int {
                     }
                     
                     for device in devices! {
-                        if device.deviceIdentifier == self.webViewSessionData!.deviceId {
+                        if device.deviceIdentifier == self?.webViewSessionData!.deviceId {
                             userAndDeviceReceived(user!, device, nil)
                             return
                         }
@@ -562,37 +590,37 @@ internal enum WVResponse: Int {
 
     fileprivate func bindEvents() {
         let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncCompleted, completion: {
-            (event) in
+            [weak self] (event) in
             log.debug("WV_DATA: received sync complete from SyncManager.")
 
-            self.resolveSync()
-            self.showStatusMessage(.syncComplete)
+            self?.resolveSync()
+            self?.showStatusMessage(.syncComplete)
         })
 
         let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed, completion: {
-            (event) in
+            [weak self] (event) in
             log.error("WV_DATA: reveiced sync FAILED from SyncManager.")
             let error = (event.eventData as? [String:Any])?["error"] as? NSError
                 
             if error?.code == SyncManager.ErrorCode.cantConnectToDevice.rawValue {
-                self.showStatusMessage(.syncUpdatingConnectionFailed)
+                self?.showStatusMessage(.syncUpdatingConnectionFailed)
             } else {
-            	self.showStatusMessage(.syncError, error: (event.eventData as? [String:Any])?["error"] as? Error)
+            	self?.showStatusMessage(.syncError, error: (event.eventData as? [String:Any])?["error"] as? Error)
             }
 
-            self.rejectAndResetSyncCallbacks("SyncManager failed to complete the sync, all pending syncs have been rejected")
+            self?.rejectAndResetSyncCallbacks("SyncManager failed to complete the sync, all pending syncs have been rejected")
         })
         
         let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .commitsReceived, completion: {
-            (event) in
+            [weak self] (event) in
             guard let commits = (event.eventData as! [String:[Commit]])["commits"] else {
-                self.showStatusMessage(.syncNoUpdates)
+                self?.showStatusMessage(.syncNoUpdates)
                 return
             }
             if commits.count > 0 {
-                self.showStatusMessage(.syncUpdatingConnectingToDevice)
+                self?.showStatusMessage(.syncUpdatingConnectingToDevice)
             } else {
-                self.showStatusMessage(.syncNoUpdates)
+                self?.showStatusMessage(.syncNoUpdates)
             }
         })
     }
@@ -604,4 +632,3 @@ internal enum WVResponse: Int {
     }
 
 }
-
