@@ -282,8 +282,19 @@
                 
                 self?.apduResponseHandler = completion
                 log.verbose("APDU_DATA: Calling device interface to execute APDU's.")
-                self?.deviceInterface.executeAPDUCommand(apduCommand)
                 
+                var isCompleteExecute = false
+                DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(20), execute: {
+                    if !isCompleteExecute {
+                        self?.apduResponseHandler = nil
+                        log.verbose("APDU_DATA: Received timeout during execute APDU's.")
+                        completion(nil, nil, NSError.error(code: PaymentDevice.ErrorCode.apduSendingTimeout, domain: PaymentDevice.self))
+                    }
+                })
+
+                self?.deviceInterface.executeAPDUCommand(apduCommand)
+                isCompleteExecute = true
+
             }, completion: completion)
 
         } catch {

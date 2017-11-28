@@ -320,7 +320,7 @@ public extension ApduPackage
     {
         if let validUntilEpoch = self.validUntilEpoch
         {
-            return NSNumber(value: Int64(validUntilEpoch))
+            return NSNumber(value: validUntilEpoch.timeIntervalSince1970)
         }
         
         return nil

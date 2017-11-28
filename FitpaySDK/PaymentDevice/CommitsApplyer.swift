@@ -155,7 +155,9 @@ internal class CommitsApplyer {
         if apduPackage.isExpired {
             log.warning("SYNC_DATA: package ID(\(commit.commit ?? "nil")) expired. ")
             apduPackage.state = APDUPackageResponseState.expired
-
+            apduPackage.executedDuration = 0
+            apduPackage.executedEpoch = Date().timeIntervalSince1970
+            
             // is this error?
             commit.confirmAPDU { (error) -> Void in
                 completion(error)
@@ -194,7 +196,7 @@ internal class CommitsApplyer {
                 }
 
                 var realError: NSError? = nil
-                if apduPackage.state == .notProcessed {
+                if apduPackage.state == .notProcessed || apduPackage.state == .error {
                     realError = error as NSError?
                 }
 

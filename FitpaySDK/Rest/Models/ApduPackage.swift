@@ -24,7 +24,7 @@ open class ApduPackage : NSObject, Mappable
     open var executedDuration: Int64?
 
     open var validUntil: String?
-    open var validUntilEpoch: TimeInterval?
+    open var validUntilEpoch: Date?
     open var apduPackageUrl: String?
     
     @objc open static var APDUPackageResponseStateProcessed: String
@@ -66,7 +66,7 @@ open class ApduPackage : NSObject, Mappable
         seId <- map["seId"]
         apduCommands <- map["commandApdus"]
         validUntil <- map["validUntil"]
-        validUntilEpoch <- (map["validUntilEpoch"], NSTimeIntervalTransform())
+        validUntilEpoch <- (map["validUntil"], CustomDateFormatTransform(formatString: "yyyy-MM-dd'T'HH:mm:ss.SSSX"))
         apduPackageUrl <- map["apduPackageUrl"]
     }
 
@@ -75,7 +75,7 @@ open class ApduPackage : NSObject, Mappable
             return false
         }
         
-        return validUntilEpoch <= NSDate().timeIntervalSince1970
+        return validUntilEpoch <= Date()
     }
 
     open var responseDictionary: [String: Any] {
@@ -94,12 +94,13 @@ open class ApduPackage : NSObject, Mappable
                 dic["executedTsEpoch"] = Int64(executed * 1000)
             }
 
-            if state == APDUPackageResponseState.expired {
-                return dic
-            }
-
             if let executedDuration = self.executedDuration {
                 dic["executedDuration"] = executedDuration
+            }
+
+            if state == APDUPackageResponseState.expired {
+                dic["apduResponses"] = []
+                return dic
             }
 
             if let apduResponses = self.apduCommands {

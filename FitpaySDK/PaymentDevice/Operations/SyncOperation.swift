@@ -154,7 +154,7 @@ internal class SyncOperation {
                         return
                     }
                     
-                    log.verbose("SYNC_DATA: Commit applier returned with out errors.")
+                    log.verbose("SYNC_DATA: Commit applier returned without errors.")
                     
                     self?.state.value = .completed(nil)
                 }
