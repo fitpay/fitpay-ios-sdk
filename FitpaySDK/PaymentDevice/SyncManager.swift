@@ -198,12 +198,14 @@ open class SyncManager : NSObject, SyncManagerProtocol {
             throw ErrorCode.notEnoughData
         }
         
-        SyncRequestQueue.sharedInstance.updateLastEmptyRequestWith(request: lastSyncRequest)
+        let isAddedToQueue = SyncRequestQueue.sharedInstance.updateLastEmptyRequestWith(request: lastSyncRequest)
         
-        do {
-            try self.startSyncWith(request: lastSyncRequest)
-        } catch {
-            throw error
+        if !isAddedToQueue {
+            do {
+                try self.startSyncWith(request: lastSyncRequest)
+            } catch {
+                throw error
+            }
         }
     }
     

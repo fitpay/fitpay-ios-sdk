@@ -34,12 +34,14 @@ open class SyncRequestQueue {
         self.bind()
     }
     
-    internal func updateLastEmptyRequestWith(request: SyncRequest) {
+    internal func updateLastEmptyRequestWith(request: SyncRequest) -> Bool{
         if let queue = self.queueFor(syncRequest: SyncRequest()) {
             if let intRequest = queue.dequeue() {
                 add(request: request, completion: intRequest.completion)
+                return true
             }
         }
+        return false
     }
 
     deinit {
