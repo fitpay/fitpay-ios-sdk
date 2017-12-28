@@ -384,7 +384,7 @@ class TestHelpers {
             return
         }
 
-        let time = DispatchTime.now() + Double(Int64(Double(1000) * Double(NSEC_PER_MSEC))) / Double(NSEC_PER_SEC)
+        let time = DispatchTime.now() + 2
 
         DispatchQueue.main.asyncAfter(deadline: time) {
 
