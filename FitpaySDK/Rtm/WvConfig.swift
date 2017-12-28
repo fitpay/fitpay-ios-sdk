@@ -441,7 +441,7 @@ class WvConfigStorage {
         }
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed, completion: { [weak self] (event) in
-            log.error("WV_DATA: reveiced sync FAILED from SyncManager.")
+            log.error("WV_DATA: received sync FAILED from SyncManager.")
             let error = (event.eventData as? [String:Any])?["error"] as? NSError
             
             if error?.code == SyncManager.ErrorCode.cantConnectToDevice.rawValue {
