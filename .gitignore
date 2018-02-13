@@ -19,6 +19,10 @@ DerivedData
 
 # Carthage
 Carthage/Build/*
+Carthage/Checkouts/Alamofire/docs/*
+Carthage/Checkouts/Alamofire/Documentation/*
+Carthage/Checkouts/AlamofireObjectMapper/Carthage/Checkouts/Alamofire/docs/*
+Carthage/Checkouts/AlamofireObjectMapper/Carthage/Checkouts/Alamofire/Documentation/*
 
 # others
 *.swp

@@ -1,33 +1,33 @@
 PODS:
-  - Alamofire (4.1.0)
-  - AlamofireObjectMapper (4.0.0):
-    - Alamofire (~> 4.0)
-    - ObjectMapper (~> 2.0)
-  - JWTDecode (2.0.0)
-  - KeychainAccess (3.0.2)
-  - ObjectMapper (2.2.8)
-  - RxBlocking (3.5.0):
-    - RxSwift (~> 3.4)
-  - RxSwift (3.5.0)
+  - Alamofire (4.6.0)
+  - AlamofireObjectMapper (5.0.0):
+    - Alamofire (~> 4.1)
+    - ObjectMapper (~> 3.0)
+  - JWTDecode (2.1.1)
+  - KeychainAccess (3.1.0)
+  - ObjectMapper (3.1.0)
+  - RxBlocking (4.0.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
 
 DEPENDENCIES:
-  - Alamofire (= 4.1.0)
-  - AlamofireObjectMapper (= 4.0.0)
-  - JWTDecode (= 2.0.0)
-  - KeychainAccess (= 3.0.2)
-  - ObjectMapper (= 2.2.8)
+  - Alamofire (~> 4.1)
+  - AlamofireObjectMapper (~> 5.0)
+  - JWTDecode (= 2.1.1)
+  - KeychainAccess (= 3.1.0)
+  - ObjectMapper (~> 3.0)
   - RxBlocking
-  - RxSwift (~> 3.5)
+  - RxSwift (~> 4.0)
 
 SPEC CHECKSUMS:
-  Alamofire: e266cf991b933498df791e645e0d8ac294492153
-  AlamofireObjectMapper: 9faa3ce5a240efda1b209009a2d6e1e949227abc
-  JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
-  KeychainAccess: a986406022dfc7c634c691ad3bec670cc6a32002
-  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
-  RxBlocking: 471315e18b87c5ed4b9d0c69a57dfdbca5c01af1
-  RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
+  JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
+  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
+  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  RxBlocking: 923c2c8106d80d7c2d6b276afd66ce3b10824836
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
 
-PODFILE CHECKSUM: 5e68baee1eeebc06047ac1d280c6c15e1a43e09e
+PODFILE CHECKSUM: ee5f81dff629b36b4d6d91e3089c53d7ce798022
 
 COCOAPODS: 1.3.1

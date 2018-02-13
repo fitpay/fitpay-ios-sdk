@@ -1,7 +1,7 @@
 //
 //  SessionManager.swift
 //
-//  Copyright (c) 2014-2016 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2017 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -249,6 +249,7 @@ open class SessionManager {
     /// - parameter urlRequest: The URL request.
     ///
     /// - returns: The created `DataRequest`.
+    @discardableResult
     open func request(_ urlRequest: URLRequestConvertible) -> DataRequest {
         var originalRequest: URLRequest?
 
@@ -283,7 +284,7 @@ open class SessionManager {
         let request = DataRequest(session: session, requestTask: requestTask, error: underlyingError)
 
         if let retrier = retrier, error is AdaptError {
-            allowRetrier(retrier, toRetry: request, with: error)
+            allowRetrier(retrier, toRetry: request, with: underlyingError)
         } else {
             if startRequestsImmediately { request.resume() }
         }
@@ -429,7 +430,7 @@ open class SessionManager {
         download.downloadDelegate.destination = destination
 
         if let retrier = retrier, error is AdaptError {
-            allowRetrier(retrier, toRetry: download, with: error)
+            allowRetrier(retrier, toRetry: download, with: underlyingError)
         } else {
             if startRequestsImmediately { download.resume() }
         }
@@ -659,6 +660,8 @@ open class SessionManager {
             let formData = MultipartFormData()
             multipartFormData(formData)
 
+            var tempFileURL: URL?
+
             do {
                 var urlRequestWithContentType = try urlRequest.asURLRequest()
                 urlRequestWithContentType.setValue(formData.contentType, forHTTPHeaderField: "Content-Type")
@@ -681,6 +684,8 @@ open class SessionManager {
                     let directoryURL = tempDirectoryURL.appendingPathComponent("org.alamofire.manager/multipart.form.data")
                     let fileName = UUID().uuidString
                     let fileURL = directoryURL.appendingPathComponent(fileName)
+
+                    tempFileURL = fileURL
 
                     var directoryError: Error?
 
@@ -719,6 +724,15 @@ open class SessionManager {
                     }
                 }
             } catch {
+                // Cleanup the temp file in the event that the multipart form data encoding failed
+                if let tempFileURL = tempFileURL {
+                    do {
+                        try FileManager.default.removeItem(at: tempFileURL)
+                    } catch {
+                        // No-op
+                    }
+                }
+
                 DispatchQueue.main.async { encodingCompletion?(.failure(error)) }
             }
         }
@@ -756,7 +770,7 @@ open class SessionManager {
         let upload = UploadRequest(session: session, requestTask: uploadTask, error: underlyingError)
 
         if let retrier = retrier, error is AdaptError {
-            allowRetrier(retrier, toRetry: upload, with: error)
+            allowRetrier(retrier, toRetry: upload, with: underlyingError)
         } else {
             if startRequestsImmediately { upload.resume() }
         }
@@ -861,12 +875,16 @@ open class SessionManager {
                     return
                 }
 
-                let retrySucceeded = strongSelf.retry(request)
+                DispatchQueue.utility.after(timeDelay) {
+                    guard let strongSelf = self else { return }
 
-                if retrySucceeded, let task = request.task {
-                    strongSelf.delegate[task] = request
-                } else {
-                    if strongSelf.startRequestsImmediately { request.resume() }
+                    let retrySucceeded = strongSelf.retry(request)
+
+                    if retrySucceeded, let task = request.task {
+                        strongSelf.delegate[task] = request
+                    } else {
+                        if strongSelf.startRequestsImmediately { request.resume() }
+                    }
                 }
             }
         }
