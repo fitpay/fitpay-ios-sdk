@@ -123,13 +123,10 @@ internal class CommitsApplyer {
         }
 
         let commitCompletion = { (error: Error?) -> Void in
-
-            if error == nil || (error as NSError?)?.code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue || commit.commitType != CommitType.APDU_PACKAGE {
-                if let deviceId = self.deviceInfo.deviceIdentifier, let commit = commit.commit {
-                    self.saveLastCommitId(deviceIdentifier:  deviceId, commitId: commit)
-                } else {
-                    log.error("SYNC_DATA: Can't get deviceId or commitId.")
-                }
+            if let deviceId = self.deviceInfo.deviceIdentifier, let commit = commit.commit {
+                self.saveLastCommitId(deviceIdentifier:  deviceId, commitId: commit)
+            } else {
+                log.error("SYNC_DATA: Can't get deviceId or commitId.")
             }
 
             completion(error)

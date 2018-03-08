@@ -75,19 +75,19 @@ open class IdVerificationResponse: NSObject, Mappable {
     open var billingState: String?
     open var billingZip: String?
     
-    private var locale: String? //[language designator ISO-639-1]‌‌‌‌-[region designator ISO 3166-1 alpha-2]
+    private let locale: String? //[language designator ISO-639-1]‌‌‌‌-[region designator ISO 3166-1 alpha-2]
     
     public override init() {
-        super.init()
         if let languageCode = NSLocale.current.languageCode, let regionCode = NSLocale.current.regionCode {
             self.locale = languageCode + "-" + regionCode
         } else {
             self.locale = "en-US"
         }
+        super.init()
     }
     
-    public required init?(map: Map) {
-        super.init()
+    public required convenience init?(map: Map) {
+        self.init()
     }
     
     open func mapping(map: Map) {
@@ -115,6 +115,7 @@ open class IdVerificationResponse: NSObject, Mappable {
         billingCity <- map["billingCity"]
         billingState <- map["billingState"]
         billingZip <- map["billingZip"]
-        locale <- map["locale"]
     }
+
+    
 }

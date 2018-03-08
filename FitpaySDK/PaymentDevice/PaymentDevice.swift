@@ -331,27 +331,25 @@
     
     internal func processNonAPDUCommit(commit: Commit, completion: @escaping (_ state: NonAPDUCommitState?, _ error: NSError?) -> Void) {
         if let processNonAPDUCommit = self.deviceInterface.processNonAPDUCommit {
-            if self.connectionState == .connected {
-                self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected, completion: { (event) in
-                    log.error("APDU_DATA: Device is disconnected during process non-APDU commit.")
+            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected, completion: { (event) in
+                log.error("APDU_DATA: Device is disconnected during process non-APDU commit.")
+                self.removeDisconnectedBinding()
+                completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
+            })
+            
+            var isCompleteProcessing = false
+            DispatchQueue.global().asyncAfter(deadline: .now() + FitpaySDKConfiguration.defaultConfiguration.commitProcessingTimeoutSecs, execute: {
+                if !isCompleteProcessing {
+                    log.error("APDU_DATA: Received timeout during process non-APDU commit.")
                     self.removeDisconnectedBinding()
                     completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
-                })
-                
-                var isCompleteProcessing = false
-                DispatchQueue.global().asyncAfter(deadline: .now() + FitpaySDKConfiguration.defaultConfiguration.commitProcessingTimeoutSecs, execute: {
-                    if !isCompleteProcessing {
-                        log.error("APDU_DATA: Received timeout during process non-APDU commit.")
-                        self.removeDisconnectedBinding()
-                        completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
-                    }
-                })
-                
-                processNonAPDUCommit(commit) { (state, error) in
-                    isCompleteProcessing = true
-                    self.removeDisconnectedBinding()
-                    completion(state, error)
                 }
+            })
+            
+            processNonAPDUCommit(commit) { (state, error) in
+                isCompleteProcessing = true
+                self.removeDisconnectedBinding()
+                completion(state, error)
             }
         } else {
             completion(.skipped, nil)

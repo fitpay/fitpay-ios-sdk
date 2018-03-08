@@ -23,6 +23,14 @@ import ObjectMapper
         super.init()
     }
     
+    @objc open func setExpiryMonth(month: UInt) {
+        expiryMonth = month
+    }
+    
+    @objc open func setExpiryYear(year: UInt) {
+        expiryYear = year
+    }
+    
     open func mapping(map: Map) {
         self.cardNumber  <- map["cardNumber"]
         self.expiryMonth <- map["expiryMonth"]
