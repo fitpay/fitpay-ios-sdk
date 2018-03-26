@@ -20,6 +20,7 @@ protocol SyncManagerProtocol {
     func callCompletionForSyncEvent(_ event: SyncEventType, params: [String: Any])
 }
 
+@objcMembers
 open class SyncManager : NSObject, SyncManagerProtocol {
     open static let sharedInstance = SyncManager(syncFactory: DefaultSyncFactory())
     open var synchronousModeOn = true

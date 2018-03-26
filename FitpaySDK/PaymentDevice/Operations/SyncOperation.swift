@@ -175,7 +175,7 @@ internal class SyncOperation {
                 self?.sendCommitsMetric()
                 break
             }
-        }.addDisposableTo(disposeBag)
+        }.disposed(by: disposeBag)
         
     }
     

@@ -1,6 +1,7 @@
 
 import ObjectMapper
 
+@objcMembers
 open class Relationship : NSObject, ClientModel, Mappable
 {
     internal var links:[ResourceLink]?

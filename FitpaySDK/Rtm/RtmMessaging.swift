@@ -19,6 +19,7 @@ class RtmMessaging {
     weak var rtmDelegate: WvRTMDelegate?
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
     weak var cardScannerDataSource: FitpayCardScannerDataSource?
+    weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
     
     private(set) var messageHandler: RtmMessageHandler?
 
@@ -46,7 +47,7 @@ class RtmMessaging {
             completion?(false)
             return
         }
-        
+
         defer {
             if let delegate = self.rtmDelegate {
                 delegate.onWvMessageReceived?(message: rtmMessage)
@@ -86,6 +87,7 @@ class RtmMessaging {
             handler.outputDelegate = self.outputDelagate
             handler.cardScannerDataSource = self.cardScannerDataSource
             handler.cardScannerPresenterDelegate = self.cardScannerPresenterDelegate
+            handler.a2aVerificationDelegate = self.a2aVerificationDelegate
 
             self.messageHandler = handler
             

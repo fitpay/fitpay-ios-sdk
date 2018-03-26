@@ -1,5 +1,6 @@
 import RxSwift
 
+@objcMembers
 internal class CommitsApplyer {
 
     init(paymentDevice: PaymentDevice,

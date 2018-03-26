@@ -1,6 +1,7 @@
 
 import ObjectMapper
 
+@objcMembers
 open class DeviceInfo: NSObject, ClientModel, Mappable, SecretApplyable
 {
     internal var links: [ResourceLink]?
@@ -8,6 +9,7 @@ open class DeviceInfo: NSObject, ClientModel, Mappable, SecretApplyable
     open var deviceName: String?
     open var deviceType: String?
     open var manufacturerName: String?
+    open var state: String?
     open var serialNumber: String?
     open var modelNumber: String?
     open var hardwareRevision: String?
@@ -83,6 +85,7 @@ open class DeviceInfo: NSObject, ClientModel, Mappable, SecretApplyable
         deviceName <- map["deviceName"]
         deviceType <- map["deviceType"]
         manufacturerName <- map["manufacturerName"]
+        state <- map["state"]
         serialNumber <- map["serialNumber"]
         modelNumber <- map["modelNumber"]
         hardwareRevision <- map["hardwareRevision"]

@@ -310,6 +310,24 @@ class TestHelpers {
         }
     }
 
+    func editAcceptTermsUrlSuccess(_ card:CreditCard?){
+        let randomText = TestHelpers.randomStringWithLength(10)
+
+        //update acceptTerms url
+        do {
+            try card?.setAcceptTermsUrl(acceptTermsUrl: randomText)
+
+            //get acceptTerms url
+            let acceptTermsUrl = card?.getAcceptTermsUrl()
+            XCTAssertEqual(acceptTermsUrl, randomText)
+
+        } catch AcceptTermsError.NoTerms(let errorMessage) {
+            XCTFail(errorMessage)
+        } catch {
+            XCTFail("some error")
+        }
+    }
+
     func selectVerificationType(_ expectation:XCTestExpectation, card:CreditCard?, completion:@escaping (_ verificationMethod:VerificationMethod?) -> Void) {
         let verificationMethod = card?.verificationMethods?.first
 

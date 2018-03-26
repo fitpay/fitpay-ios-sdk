@@ -52,7 +52,7 @@
     }
 }
 
-@objc open class PaymentDevice : NSObject
+@objcMembers open class PaymentDevice : NSObject
 {
     public enum ErrorCode : Int, Error, RawIntValue, CustomStringConvertible, CustomNSError
     {

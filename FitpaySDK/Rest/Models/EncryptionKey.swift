@@ -1,6 +1,7 @@
 
 import ObjectMapper
 
+@objcMembers
 open class EncryptionKey: NSObject, Mappable
 {
     internal var links: [ResourceLink]?

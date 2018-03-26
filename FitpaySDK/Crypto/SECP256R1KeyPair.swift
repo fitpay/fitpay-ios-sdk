@@ -29,7 +29,7 @@ class SECP256R1KeyPair
         // removing prefix from public key
         let start = publicKey.index(publicKey.startIndex, offsetBy: 0)
         let end   = publicKey.index(publicKey.startIndex,
-                                    offsetBy: self.unknownPrefix.characters.count)
+                                    offsetBy: self.unknownPrefix.count)
         
         let publicKeyWithoutPrefix = publicKey.replacingCharacters(in: start..<end, with: "")
         

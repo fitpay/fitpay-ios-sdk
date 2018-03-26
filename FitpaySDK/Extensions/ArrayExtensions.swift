@@ -23,6 +23,14 @@ extension Array where Element : ResourceLink
     }
 }
 
+extension Array where Element : ResourceLink {
+    mutating func indexOf(_ target : String) -> Element? {
+        guard let index = self.index(where: {$0.target == target}) else { return nil }
+        let link = self[index]
+        return link
+    }
+}
+
 extension Array where Element : Equatable {
     mutating func removeObject(_ object : Element) {
         if let index = self.index(of: object) {

@@ -29,7 +29,7 @@ extension FitpayBlockEventListener : FitpayEventListener {
         }
         
         completionQueue.async {
-            _ in
+            
             self.blockCompletion(event)
         }
     }

@@ -10,6 +10,8 @@ import XCTest
 @testable import FitpaySDK
 
 class MockRtmMessageHandler: RtmMessageHandler {
+    var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
+
     weak var wvConfigStorage: WvConfigStorage!
     
     weak var outputDelegate: RtmOutputDelegate?

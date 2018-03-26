@@ -139,7 +139,7 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         timeoutTimer = nil
     }
     
-    func timeoutCheck() {
+    @objc func timeoutCheck() {
         if (self.sendingAPDU) {
             self.sendingAPDU = false
             

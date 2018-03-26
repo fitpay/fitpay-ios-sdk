@@ -8,6 +8,7 @@ public enum APDUPackageResponseState : String {
     case notProcessed = "NOT_PROCESSED"
 }
 
+@objcMembers
 open class ApduPackage : NSObject, Mappable
 {
     internal var links: [ResourceLink]?

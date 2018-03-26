@@ -36,7 +36,8 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
     weak var cardScannerDataSource: FitpayCardScannerDataSource?
-
+    weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
+    
     var wvConfigStorage: WvConfigStorage!
     var webViewSessionData: SessionData?
     var restClient: RestClient?

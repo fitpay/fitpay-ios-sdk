@@ -8,16 +8,16 @@
 
 import Foundation
 
-public func hex<T:Integer>( v:T) -> String {
+public func hex<T:BinaryInteger>( v:T) -> String {
     var v = v
     var s = ""
     for _ in 0..<MemoryLayout<T>.size * 2 {
-        s = String(format: "%X", (v & 0xf).toIntMax()) + s
-        v /= 16
+        s = String(format: "%X", Int64((v & 0xf))) + s
+         v /= 16
     }
     
     var firstZeroCounter = 0
-    for char in s.characters {
+    for char in s {
         if char != "0" {
             break
         }
@@ -32,10 +32,10 @@ public func hex<T:Integer>( v:T) -> String {
     return s
 }
 
-extension Integer {
+extension BinaryInteger {
     public func hex(preferableLength: Int) -> String {
         var s = FitpaySDK.hex(v: self)
-        let lenght = s.characters.count
+        let lenght = s.count
         if lenght < preferableLength {
             for _ in 0..<preferableLength - lenght {
                 s = "0" + s

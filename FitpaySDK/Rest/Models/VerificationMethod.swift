@@ -27,6 +27,7 @@ public enum VerificationResult: String {
         EXPIRED_SESSION                 = "EXPIRED_SESSION"
 }
 
+@objcMembers
 open class VerificationMethod: NSObject, ClientModel, Mappable
 {
     internal var links: [ResourceLink]?
@@ -41,6 +42,7 @@ open class VerificationMethod: NSObject, ClientModel, Mappable
     open var lastModifiedEpoch: TimeInterval?
     open var verified: String?
     open var verifiedEpoch: TimeInterval?
+    open var appToAppContext: A2AContext?
     fileprivate static let selectResource = "select"
     fileprivate static let verifyResource = "verify"
     fileprivate static let cardResource = "card"
@@ -75,6 +77,7 @@ open class VerificationMethod: NSObject, ClientModel, Mappable
         self.lastModifiedEpoch <- (map["lastModifiedTsEpoch"], NSTimeIntervalTransform())
         self.verified <- map["verifiedTs"]
         self.verifiedEpoch <- (map["verifiedTsEpoch"], NSTimeIntervalTransform())
+        self.appToAppContext <- map["appToAppContext"]
     }
 
     /**

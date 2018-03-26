@@ -73,7 +73,7 @@ open class FitpaySDKConfiguration : NSObject{
             return EnvironmentLoadingErrors.clientIdIsEmpty
         }
         
-        guard clientId.characters.count > 0 else {
+        guard clientId.isEmpty == false else {
             return EnvironmentLoadingErrors.clientIdIsEmpty
         }
         
@@ -82,7 +82,7 @@ open class FitpaySDKConfiguration : NSObject{
             return EnvironmentLoadingErrors.baseApiUrlIsEmpty
         }
         
-        guard baseAPIUrl.characters.count > 0 else {
+        guard baseAPIUrl.isEmpty == false else {
             return EnvironmentLoadingErrors.baseApiUrlIsEmpty
         }
         
@@ -91,7 +91,7 @@ open class FitpaySDKConfiguration : NSObject{
             return EnvironmentLoadingErrors.authorizeURLIsEmpty
         }
         
-        guard baseAuthBaseUrl.characters.count > 0 else {
+        guard baseAuthBaseUrl.isEmpty == false else {
             return EnvironmentLoadingErrors.authorizeURLIsEmpty
         }
         

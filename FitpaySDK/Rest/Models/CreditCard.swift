@@ -17,6 +17,11 @@ public enum TokenizationState: String
     DECLINED
 }
 
+enum AcceptTermsError: Error {
+    case NoTerms(String)
+}
+
+@objcMembers
 open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable
 {
     internal var links: [ResourceLink]?
@@ -172,6 +177,26 @@ open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable
         }
         
         return false
+    }
+
+    /**
+     Get acceptTerms url
+     - return acceptTerms url
+     */
+    @objc open func getAcceptTermsUrl() -> String? {
+     return self.links?.url(CreditCard.acceptTermsResource)
+    }
+
+    /**
+      Update acceptTerms url
+     - @param acceptTermsUrl url
+     */
+    @objc open func setAcceptTermsUrl(acceptTermsUrl: String) throws {
+        guard let link = self.links?.indexOf(CreditCard.acceptTermsResource) else {
+            throw  AcceptTermsError.NoTerms("The card is not in a state to accept terms anymore")
+        }
+        
+        link.href = acceptTermsUrl
     }
     
     /**

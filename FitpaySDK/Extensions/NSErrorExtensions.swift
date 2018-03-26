@@ -43,7 +43,7 @@ extension NSError
         }
                 
         let userInfo:[AnyHashable: Any] = alternativeError?.userInfo != nil ? alternativeError!.userInfo : [NSLocalizedDescriptionKey: "Failed to parse error message"]
-        return NSError(domain: "\(domain)", code:code, userInfo: userInfo )
+        return NSError(domain: "\(domain)", code:code, userInfo: userInfo as? [String : Any] )
     }
     
     class func errorWithData<T:RawIntValue>(errorCode:T, domain:AnyClass, data:Data?, alternativeError:NSError? = nil) -> NSError

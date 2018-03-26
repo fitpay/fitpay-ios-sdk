@@ -1,6 +1,0 @@
-framework module Pods_FitpaySDK {
-  umbrella header "Pods-FitpaySDK-umbrella.h"
-
-  export *
-  module * { export * }
-}

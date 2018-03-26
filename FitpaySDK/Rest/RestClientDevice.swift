@@ -274,7 +274,7 @@ extension RestClient {
             "offset": "\(offset)"
         ]
         
-        if (commitsAfter != nil && commitsAfter!.characters.count > 0) {
+        if (commitsAfter != nil && commitsAfter!.isEmpty == false) {
             parameters["commitsAfter"] = commitsAfter!
         }
         

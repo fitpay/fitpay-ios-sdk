@@ -701,7 +701,29 @@ class RestClientTests: XCTestCase
         
         super.waitForExpectations(timeout: 20, handler: nil)
     }
-    
+
+    func testCreditCardEditAcceptTermsUrl()
+    {
+        let expectation = super.expectation(description: "'creditCard' edit accept terms url")
+
+        self.testHelper.createAndLoginUser(expectation)
+        {
+            [unowned self](user) in
+
+            self.testHelper.createDevice(expectation, user: user)
+            {
+                (user, device) in
+                self.testHelper.createCreditCard(expectation, user: user)
+                {
+                    (user, creditCard) in
+                    self.testHelper.editAcceptTermsUrlSuccess(creditCard)
+                    self.testHelper.deleteUser(user, expectation: expectation)
+                }
+            }
+        }
+
+        super.waitForExpectations(timeout: 20, handler: nil)
+    }
     
     func testCreditCardDeclineTerms()
     {

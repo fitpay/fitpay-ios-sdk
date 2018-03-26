@@ -24,6 +24,7 @@ protocol RtmMessageHandler {
     weak var wvRtmDelegate: WvRTMDelegate? { get set }
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate? { get set }
     weak var cardScannerDataSource: FitpayCardScannerDataSource? { get set }
+    weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate? { get set }
 
     
     init(wvConfigStorage: WvConfigStorage)
