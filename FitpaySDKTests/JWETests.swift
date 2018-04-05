@@ -1,13 +1,11 @@
 import XCTest
 @testable import FitpaySDK
 
-class JWETests: XCTestCase
-{
+class JWETests: XCTestCase {
     let plainText = "{\"Hello world!\"}"
     let sharedSecret = "NFxCwmIncymviQp9-KKKgH_8McGHWGgwV-T-RNkMI-U".base64URLdecoded()
     
-    func testJWEEncryption()
-    {
+    func testJWEEncryption() {
         let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: plainText, keyId: nil)
         XCTAssertNotNil(jweObject as Any)
         

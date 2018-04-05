@@ -1,13 +1,4 @@
-//
-//  SyncOperationTests.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 12.07.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import XCTest
-import ObjectMapper
 import RxSwift
 import RxBlocking
 
@@ -27,7 +18,7 @@ class MockNonAPDUConfirm: NonAPDUConfirmOperationProtocol {
 
 class MockCommitsFetcher: FetchCommitsOperationProtocol {
     var deviceInfo: DeviceInfo!
-
+    
     var commits: [Commit] = []
     
     func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]> {
@@ -52,7 +43,7 @@ class MockCommitsFetcher: FetchCommitsOperationProtocol {
 
 class MocksFactory: SyncFactory {
     var commitsFetcher: MockCommitsFetcher!
-
+    
     func apduConfirmOperation() -> APDUConfirmOperationProtocol {
         return MockAPDUConfirm()
     }
@@ -83,7 +74,7 @@ class SyncOperationTests: XCTestCase {
             log.addOutput(output: ConsoleOutput())
         }
         log.minLogLevel = .debug
-
+        
         disposeBag = DisposeBag()
         
         mocksFactory.commitsFetcher = commitsFetcher
@@ -92,7 +83,7 @@ class SyncOperationTests: XCTestCase {
         connector = MockPaymentDeviceConnector(paymentDevice: paymentDevice)
         connector.apduExecuteDelayTime = 0.01
         _ = paymentDevice.changeDeviceInterface(connector)
-
+        
         syncOperation = SyncOperation(paymentDevice: paymentDevice, connector: connector, deviceInfo: DeviceInfo(), user: User(JSONString: "{\"id\":\"1\"}")!, syncFactory: mocksFactory)
     }
     
@@ -150,15 +141,15 @@ class SyncOperationTests: XCTestCase {
     func testParallelSync() {
         
         let expectation = super.expectation(description: "making parallel sync")
-
+        
         let paymentDevice = PaymentDevice()
         let secondConnector = MockPaymentDeviceConnector(paymentDevice: paymentDevice)
         _ = paymentDevice.changeDeviceInterface(secondConnector)
-
+        
         let secondSyncOperation = SyncOperation(paymentDevice: paymentDevice, connector: secondConnector, deviceInfo: DeviceInfo(), user: User(JSONString: "{\"id\":\"1\"}")!, syncFactory: mocksFactory)
         
         commitsFetcher.commits = [commitsFetcher.getCreateCardCommit(id: "1"), commitsFetcher.getAPDUCommit()]
-
+        
         secondConnector.connectDelayTime = 0.1 // second operation should work faster
         secondConnector.apduExecuteDelayTime = 0.01
         connector.connectDelayTime = 0.3
@@ -178,7 +169,7 @@ class SyncOperationTests: XCTestCase {
                 syncCompleteCounter += 1
             }
         }).disposed(by: self.disposeBag)
-
+        
         super.waitForExpectations(timeout: 5, handler: nil)
     }
     

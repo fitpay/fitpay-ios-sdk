@@ -2,8 +2,7 @@
 import Foundation
 import ObjectMapper
 
-public enum TokenizationState: String
-{
+public enum TokenizationState: String {
     case NEW,
     NOT_ELIGIBLE,
     ELIGIBLE,
@@ -22,8 +21,7 @@ enum AcceptTermsError: Error {
 }
 
 @objcMembers
-open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable
-{
+open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable {
     internal var links: [ResourceLink]?
     internal var encryptedData: String?
 
@@ -348,9 +346,12 @@ open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable
     }
 }
 
-open class CardMetadata: NSObject, ClientModel, Mappable
-{
+open class CardMetadata: NSObject, ClientModel, Mappable {
+    
+    @available(*, deprecated, message: "Use foregroundColor instead")
     open var labelColor: String?
+    
+    open var foregroundColor: String?
     open var issuerName: String?
     open var shortDescription: String?
     open var longDescription: String?
@@ -367,8 +368,8 @@ open class CardMetadata: NSObject, ClientModel, Mappable
     open var icon: [Image]?
     open var issuerLogo: [Image]?
     fileprivate var _client: RestClient?
-    public var client: RestClient?
-    {
+    
+    public var client: RestClient? {
         get {
             return self._client
         }
@@ -424,7 +425,7 @@ open class CardMetadata: NSObject, ClientModel, Mappable
     }
 
     open func mapping(map: Map) {
-        self.labelColor <- map["labelColor"]
+        self.foregroundColor <- map["foregroundColor"]
         self.issuerName <- map["issuerName"]
         self.shortDescription <- map["shortDescription"]
         self.longDescription <- map["longDescription"]
@@ -443,8 +444,7 @@ open class CardMetadata: NSObject, ClientModel, Mappable
     }
 }
 
-open class TermsAssetReferences: NSObject, ClientModel, Mappable, AssetRetrivable
-{
+open class TermsAssetReferences: NSObject, ClientModel, Mappable, AssetRetrivable {
     internal var links: [ResourceLink]?
     open var mimeType: String?
     public var client: RestClient?
@@ -470,8 +470,7 @@ open class TermsAssetReferences: NSObject, ClientModel, Mappable, AssetRetrivabl
     }
 }
 
-internal class TermsAssetReferencesTransformType: TransformType
-{
+internal class TermsAssetReferencesTransformType: TransformType {
     typealias Object = [TermsAssetReferences]
     typealias JSON = [[String: AnyObject]]
 
@@ -496,8 +495,7 @@ internal class TermsAssetReferencesTransformType: TransformType
     }
 }
 
-open class DeviceRelationships: NSObject, ClientModel, Mappable
-{
+open class DeviceRelationships: NSObject, ClientModel, Mappable {
     open var deviceType: String?
     internal var links: [ResourceLink]?
     open var deviceIdentifier: String?
@@ -547,8 +545,7 @@ open class DeviceRelationships: NSObject, ClientModel, Mappable
     }
 }
 
-internal class DeviceRelationshipsTransformType: TransformType
-{
+internal class DeviceRelationshipsTransformType: TransformType {
     typealias Object = [DeviceRelationships]
     typealias JSON = [[String: AnyObject]]
 
@@ -574,8 +571,7 @@ internal class DeviceRelationshipsTransformType: TransformType
 }
 
 
-open class CardInfo: Mappable
-{
+open class CardInfo: Mappable {
     open var pan: String?
     open var expMonth: Int?
     open var expYear: Int?

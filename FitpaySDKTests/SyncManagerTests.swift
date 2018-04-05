@@ -1,13 +1,6 @@
-//
-//  SyncManagerTests.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 13.12.2017.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import XCTest
 import RxSwift
+
 @testable import FitpaySDK
 
 class SyncManagerTests: XCTestCase {
@@ -25,14 +18,10 @@ class SyncManagerTests: XCTestCase {
         syncManager = SyncManager(syncFactory: syncFactory)
         syncQueue = SyncRequestQueue(syncManager: syncManager)
     }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
+
     func testMake1SuccessfullSync() {
         let expectation = super.expectation(description: "making 1 successfull sync")
-
+        
         fetcher.commits = [fetcher.getAPDUCommit(), fetcher.getCreateCardCommit()]
         
         self.syncQueue.add(request: getSyncRequest1()) { (status, error) in
@@ -55,7 +44,7 @@ class SyncManagerTests: XCTestCase {
                 self.syncQueue.add(request: SyncRequest()) { (status, error) in
                     XCTAssertEqual(status, .success)
                     XCTAssertNil(error)
-
+                    
                     expectation.fulfill()
                 }
             }
@@ -183,7 +172,7 @@ class SyncManagerTests: XCTestCase {
             }
             isFirstSync = false
         }
-
+        
         self.syncQueue.add(request: getSyncRequest1(device: connector.paymentDevice)) { (status, error) in
             XCTAssertEqual(status, .failed)
             XCTAssertNotNil(error)
@@ -203,7 +192,7 @@ class SyncManagerTests: XCTestCase {
         connector.connectDelayTime = 0.1
         connector.disconnectDelayTime = 0.1
         _ = device.changeDeviceInterface(connector)
-
+        
         FitpaySDKConfiguration.defaultConfiguration.commitProcessingTimeoutSecs = 0.2
         
         self.syncQueue.add(request: getSyncRequest1(device: device)) { (status, error) in
@@ -320,7 +309,7 @@ extension SyncManagerTests {
             if !self.connected {
                 return
             }
-
+            
             self.disconnect()
         }
     }

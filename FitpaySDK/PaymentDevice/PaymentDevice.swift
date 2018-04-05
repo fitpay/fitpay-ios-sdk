@@ -295,7 +295,19 @@
             self.deviceDisconnectedBinding = nil
         }
     }
-    
+
+    internal func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping  (_ error: Error?) -> Void) {
+        if let executeAPDUPackage = self.deviceInterface.executeAPDUPackage {
+            executeAPDUPackage(apduPackage, completion)
+        } else {
+            completion(nil)
+        }
+    }
+
+    internal func executeAPDUPackageAllowed() -> Bool {
+        return self.deviceInterface.executeAPDUPackage != nil
+    }
+
     internal typealias APDUExecutionHandler = (_ apduCommand:APDUCommand?, _ state: APDUPackageResponseState?, _ error:Error?)->Void
     internal func executeAPDUCommand(_ apduCommand: APDUCommand, completion: @escaping APDUExecutionHandler) {
         do {

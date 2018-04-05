@@ -1,17 +1,9 @@
-//
-//  WVRtmTest.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 18.07.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import XCTest
 @testable import FitpaySDK
 
 class MockRtmMessageHandler: RtmMessageHandler {
     var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
-
+    
     weak var wvConfigStorage: WvConfigStorage!
     
     weak var outputDelegate: RtmOutputDelegate?
@@ -55,27 +47,23 @@ class MockRtmMessageHandler: RtmMessageHandler {
     func versionResponseMessage(version: RtmProtocolVersion) -> RtmMessageResponse? {
         return nil
     }
-
+    
 }
 
 class RtmMessagingTests: XCTestCase {
     
     var rtmMessaging: RtmMessaging!
     let wvConfigStorage = WvConfigStorage()
-
+    
     override func setUp() {
         super.setUp()
         
         rtmMessaging = RtmMessaging(wvConfigStorage: wvConfigStorage)
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     func testSuccessVersionNegotiating() {
         let expectation = super.expectation(description: "rtm messaging")
-
+        
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [RtmProtocolVersion.ver3: handler]
         
@@ -88,7 +76,7 @@ class RtmMessagingTests: XCTestCase {
         })
         
         rtmMessaging.received(message: ["type":"ping","callBackId":1])
-
+        
         super.waitForExpectations(timeout: 5, handler: nil)
     }
     
@@ -141,14 +129,14 @@ class RtmMessagingTests: XCTestCase {
         handler.completion = { (message) in
             expectation.fulfill()
         }
-
+        
         rtmMessaging.received(message: ["type":"UnknownType","callBackId":21,"data":["string parameter":"Some Details", "number parameter": 99]])
-
+        
         rtmMessaging.received(message: ["type":"version","callBackId":0,"data":["version":2]], completion: { (success) in
             XCTAssertTrue(success)
         })
         
         super.waitForExpectations(timeout: 5, handler: nil)
     }
-
+    
 }

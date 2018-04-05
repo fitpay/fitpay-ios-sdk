@@ -188,62 +188,76 @@ internal class CommitsApplyer {
                 return
             }
 
-            self?.applyAPDUPackage(apduPackage, apduCommandIndex: 0, retryCount: 0) { (state, error) in
-                let currentTimestamp = Date().timeIntervalSince1970
-
-                apduPackage.executedDuration = Int((currentTimestamp - applyingStartDate)*1000)
-                apduPackage.executedEpoch = TimeInterval(currentTimestamp)
-
-                if state == nil {
-                    if error != nil && error as NSError? != nil && (error! as NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
-                        log.debug("SYNC_DATA: Got a failed APDU response.")
-                        apduPackage.state = APDUPackageResponseState.failed
-                    } else if error != nil {
-                        // This will catch (error as! NSError).code == PaymentDevice.ErrorCode.apduSendingTimeout.rawValue
-                        log.debug("SYNC_DATA: Got failure on apdu.")
-                        apduPackage.state = APDUPackageResponseState.error
-                    } else {
-                        apduPackage.state = APDUPackageResponseState.processed
-                    }
-                } else {
-                    apduPackage.state = state
-                }
-
-                var realError: NSError? = nil
-                if apduPackage.state == .notProcessed || apduPackage.state == .error {
-                    realError = error as NSError?
-                }
-
-                self?.eventsPublisher.onNext(SyncEvent(event: .apduPackageComplete, data: ["package": apduPackage, "error": realError ?? "nil"]))
-
-                self?.paymentDevice.apduPackageProcessingFinished(apduPackage, completion: { (error) in
-                    guard error == nil else {
-                        completion(error)
-                        return
-                    }
-
-                    log.debug("SYNC_DATA: Processed APDU commit (\(commit.commit ?? "nil")) with state: \(apduPackage.state?.rawValue ?? "nil") and error: \(String(describing: realError)).")
-
-                    if apduPackage.state == .notProcessed {
-                        completion(realError)
-                    } else {
-                        self?.apduConfirmOperation.startWith(commit: commit).subscribe() { (e) in
-                            switch e {
-                            case .completed:
-                                completion(realError)
-                                break
-                            case .error(let error):
-                                log.debug("SYNC_DATA: Apdu package confirmed with error: \(error).")
-                                completion(error)
-                                break
-                            case .next:
-                                break
-                            }
-                        }.disposed(by: self?.disposeBag ?? DisposeBag())
-                    }
+            if self?.paymentDevice.executeAPDUPackageAllowed() == true {
+                self?.paymentDevice.executeAPDUPackage(apduPackage, completion: { (error) in
+                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: nil, error: error, applyingStartDate: applyingStartDate, completion: { commitError in
+                        completion(commitError)
+                    })
                 })
+            } else {
+                self?.applyAPDUPackage(apduPackage, apduCommandIndex: 0, retryCount: 0) { (state, error) in
+                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: state, error: error, applyingStartDate: applyingStartDate, completion: { commitError in
+                        completion(commitError)
+                    })
+                }
             }
         }
+    }
+
+    private func packageProcessingFinished(commit: Commit, apduPackage: ApduPackage, state: APDUPackageResponseState?, error: Error?, applyingStartDate: TimeInterval, completion: @escaping CommitCompletion) {
+        let currentTimestamp = Date().timeIntervalSince1970
+
+        apduPackage.executedDuration = Int((currentTimestamp - applyingStartDate)*1000)
+        apduPackage.executedEpoch = TimeInterval(currentTimestamp)
+
+        if state == nil {
+            if error != nil && error as NSError? != nil && (error! as NSError).code == PaymentDevice.ErrorCode.apduErrorResponse.rawValue {
+                log.debug("SYNC_DATA: Got a failed APDU response.")
+                apduPackage.state = APDUPackageResponseState.failed
+            } else if error != nil {
+                // This will catch (error as! NSError).code == PaymentDevice.ErrorCode.apduSendingTimeout.rawValue
+                log.debug("SYNC_DATA: Got failure on apdu.")
+                apduPackage.state = APDUPackageResponseState.error
+            } else {
+                apduPackage.state = APDUPackageResponseState.processed
+            }
+        } else {
+            apduPackage.state = state
+        }
+
+        var realError: NSError? = nil
+        if apduPackage.state == .notProcessed || apduPackage.state == .error {
+            realError = error as NSError?
+        }
+
+        self.eventsPublisher.onNext(SyncEvent(event: .apduPackageComplete, data: ["package": apduPackage, "error": realError ?? "nil"]))
+
+        self.paymentDevice.apduPackageProcessingFinished(apduPackage, completion: { (error) in
+            guard error == nil else {
+                completion(error)
+                return
+            }
+
+            log.debug("SYNC_DATA: Processed APDU commit (\(commit.commit ?? "nil")) with state: \(apduPackage.state?.rawValue ?? "nil") and error: \(String(describing: realError)).")
+
+            if apduPackage.state == .notProcessed {
+                completion(realError)
+            } else {
+                self.apduConfirmOperation.startWith(commit: commit).subscribe() { (e) in
+                    switch e {
+                    case .completed:
+                        completion(realError)
+                        break
+                    case .error(let error):
+                        log.debug("SYNC_DATA: Apdu package confirmed with error: \(error).")
+                        completion(error)
+                        break
+                    case .next:
+                        break
+                    }
+                    }.disposed(by: self.disposeBag)
+            }
+        })
     }
 
     fileprivate func processNonAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {

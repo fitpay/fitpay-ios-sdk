@@ -39,7 +39,33 @@ open class SyncRequest {
         } else if deviceInfo?.client != nil {
             self.restClient = deviceInfo?.client
         }
+    }
 
+    /// Internal init in the SDK
+    internal convenience init() {
+        self.init(notificationAsc: nil, initiator: .NotDefined)
+    }
+
+    internal init(notificationAsc: NotificationDetail? = nil, initiator: SyncInitiator = .NotDefined) {
+        self.requestTime = Date()
+        self.user = nil
+        self.deviceInfo = nil
+        self.paymentDevice = nil
+        self.syncInitiator = initiator
+        self.notificationAsc = notificationAsc
+
+        if SyncRequest.syncManager.synchronousModeOn == false {
+            if (user != nil && deviceInfo != nil && paymentDevice != nil) == false {
+                assert(false, "You should pass all params to SyncRequest in parallel sync mode.")
+            }
+        }
+
+        // capture restClient reference
+        if user?.client != nil {
+            self.restClient = user?.client
+        } else if deviceInfo?.client != nil {
+            self.restClient = deviceInfo?.client
+        }
     }
     
     /// Creates sync request. If you are using parallel sync mode,

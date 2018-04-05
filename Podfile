@@ -1,5 +1,6 @@
 platform :ios, '9.0'
 use_frameworks!
+inhibit_all_warnings!
 
 abstract_target 'all' do
   pod 'AlamofireObjectMapper', '~> 5.0'
@@ -16,10 +17,4 @@ abstract_target 'all' do
     pod 'RxBlocking'
   end
 
-  target 'FitpaySDKDemo'
-
-end
-
-target 'FitpaySDKAuthenticationTests' do
-    pod 'RxSwift', '~> 4.1’
 end

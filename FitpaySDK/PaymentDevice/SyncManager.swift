@@ -254,18 +254,13 @@ open class SyncManager : NSObject, SyncManagerProtocol {
 
     internal typealias ToWAPDUCommandsHandler = (_ cards:[CreditCard]?, _ error:Error?)->Void
     
-    internal func getAllCardsWithToWAPDUCommands(_ completion:@escaping ToWAPDUCommandsHandler) {
-        var user = self.user
-        if user == nil {
-            user = SyncRequestQueue.sharedInstance.lastFullSyncRequest?.user
-        }
-        
+    internal func getAllCardsWithToWAPDUCommands(user: User?,_ completion:@escaping ToWAPDUCommandsHandler) {
         if user == nil {
             completion(nil, NSError.error(code: SyncManager.ErrorCode.unknownError, domain: SyncManager.self))
             return
         }
     
-        self.user?.listCreditCards(excludeState: [""], limit: 20, offset: 0, completion: { (result, error) in
+        user?.listCreditCards(excludeState: [""], limit: 20, offset: 0, completion: { (result, error) in
             if let error = error {
                 completion(nil, error)
                 return
@@ -301,7 +296,7 @@ open class SyncManager : NSObject, SyncManagerProtocol {
             callCompletionForSyncEvent(SyncEventType.syncCompleted, params: eventParams)
         }
         
-        self.getAllCardsWithToWAPDUCommands({ [unowned self] (cards, error) in
+        self.getAllCardsWithToWAPDUCommands(user: request.user) { [unowned self] (cards, error) in
             if let error = error {
                 log.error("SYNC_DATA: Can't get offline APDU commands. Error: \(error)")
                 return
@@ -310,7 +305,7 @@ open class SyncManager : NSObject, SyncManagerProtocol {
             if let cards = cards {
                 self.callCompletionForSyncEvent(SyncEventType.receivedCardsWithTowApduCommands, params: ["cards":cards])
             }
-        })
+        }
     }
 }
 

@@ -1,11 +1,3 @@
-//
-//  CommitsStorageTests.swift
-//  FitpaySDKTestsPods
-//
-//  Created by Aleksandr on 12/20/17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import XCTest
 import RxSwift
 @testable import FitpaySDK
@@ -34,10 +26,6 @@ class CommitsStorageTests: XCTestCase {
         let syncStorage = MockSyncStorage.sharedMockInstance
         syncManager = SyncManager(syncFactory: syncFactory, syncStorage: syncStorage)
         syncQueue = SyncRequestQueue(syncManager: syncManager)
-    }
-    
-    override func tearDown() {
-        super.tearDown()
     }
     
     func testCheckLoadCommitIdFromDevice() {

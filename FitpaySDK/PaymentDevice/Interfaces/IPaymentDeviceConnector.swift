@@ -46,6 +46,13 @@
     ///
     /// - Parameter apduCommand: apduCommand object
     func executeAPDUCommand(_ apduCommand: APDUCommand)
+
+    /// Should execute APDU package on payment device.
+    ///
+    /// - Parameters:
+    /// - Parameter apduPackage: apduPackage object
+    ///   - completion: call completion when your task is done
+    @objc optional func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping  (_ error: Error?) -> Void)
     
     /// Do what you need after executing apdu package
     ///

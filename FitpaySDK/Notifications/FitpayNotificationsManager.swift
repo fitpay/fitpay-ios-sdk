@@ -163,7 +163,7 @@ open class FitpayNotificationsManager : NSObject {
             switch notificationType {
             case .WithSync:
                 let notificationDetail = self.notificationDetailFromNotification(currentNotification)
-                SyncRequestQueue.sharedInstance.add(request: SyncRequest(initiator: SyncInitiator.Notification, notificationAsc: notificationDetail), completion: { (status, error) in
+                SyncRequestQueue.sharedInstance.add(request: SyncRequest(notificationAsc: notificationDetail, initiator: SyncInitiator.Notification), completion: { (status, error) in
                     self.currentNotification = nil
                     self.processNextNotificationIfAvailable()
                 })
