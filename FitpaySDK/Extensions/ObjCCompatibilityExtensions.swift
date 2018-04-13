@@ -550,12 +550,12 @@ public extension CreditCard
         return nil
     }
     
-    @objc public func deactivate(causedBy:String, reason:String, completion:@escaping RestClient.DeactivateHandler)
+    @objc public func deactivate(causedBy:String, reason:String, completion:@escaping RestClient.CreditCardTransitionHandler)
     {
         self.deactivate(causedBy: CreditCardInitiator(rawValue:causedBy)!, reason: reason, completion: completion)
     }
     
-    @objc public func reactivate(causedBy:String, reason:String, completion:@escaping RestClient.ReactivateHandler)
+    @objc public func reactivate(causedBy:String, reason:String, completion:@escaping RestClient.CreditCardTransitionHandler)
     {
         self.reactivate(causedBy: CreditCardInitiator(rawValue:causedBy)!, reason: reason, completion: completion)
     }

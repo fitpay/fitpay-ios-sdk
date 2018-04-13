@@ -1,11 +1,3 @@
-//
-//  IdVerificationResponse.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 30.08.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 import ObjectMapper
 
@@ -42,7 +34,6 @@ open class IdVerificationResponse: NSObject, Mappable {
     /// Only needed if your device is NOT nfcCapable
     open var nfcCapable: Bool?
     
-    
     /// Country of user's billing address in ISO 3166-1 alpha-2 format, e.g., US; maximum 2 characters
     open var billingCountryCode: String?
     
@@ -61,8 +52,8 @@ open class IdVerificationResponse: NSObject, Mappable {
     /// Time Zone Abbreviation. Example: PDT, MST
     open var deviceTimeZone: String?
     
-    /// 1 - Time Zone Set by Network; 
-    /// 2 - Time Zone Set by User; 
+    /// 1 - Time Zone Set by Network
+    /// 2 - Time Zone Set by User
     /// 3 - Time Zone set by Device Location.
     open var deviceTimeZoneSetBy: Int?
     
@@ -75,15 +66,11 @@ open class IdVerificationResponse: NSObject, Mappable {
     open var billingState: String?
     open var billingZip: String?
     
-    private let locale: String? //[language designator ISO-639-1]‌‌‌‌-[region designator ISO 3166-1 alpha-2]
+    private var locale: String? //[language designator ISO-639-1]‌‌‌‌-[region designator ISO 3166-1 alpha-2]
     
     public override init() {
-        if let languageCode = NSLocale.current.languageCode, let regionCode = NSLocale.current.regionCode {
-            self.locale = languageCode + "-" + regionCode
-        } else {
-            self.locale = "en-US"
-        }
         super.init()
+        updateLocale()
     }
     
     public required convenience init?(map: Map) {
@@ -115,6 +102,22 @@ open class IdVerificationResponse: NSObject, Mappable {
         billingCity <- map["billingCity"]
         billingState <- map["billingState"]
         billingZip <- map["billingZip"]
+        locale <- map["locale"]
+        
+        updateLocale() //needed to override locale when creating from JSON
+    }
+    
+    private func updateLocale() {
+        guard var preferredLanguage = NSLocale.preferredLanguages.first else { return }
+        
+        if (preferredLanguage.count == 2) {
+            guard let region = NSLocale.current.regionCode else { return }
+            preferredLanguage.append("-\(region)")
+            locale = preferredLanguage
+        } else {
+            locale = preferredLanguage
+        }
+
     }
 
     

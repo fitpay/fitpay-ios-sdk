@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+git fetch
+git checkout develop
+pod install
+pod spec lint FitpaySDK.podspec --allow-warnings

@@ -275,9 +275,7 @@ class WvConfigStorage {
         self.connectionBinding = self.configStorage.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected, completion: {
             [weak self] (event) in
             
-            guard let strongSelf = self else {
-                return
-            }
+            guard let strongSelf = self else { return }
             
             strongSelf.configStorage.paymentDevice!.removeBinding(binding: strongSelf.connectionBinding!)
 

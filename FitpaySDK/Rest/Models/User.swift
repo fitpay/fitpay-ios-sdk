@@ -1,60 +1,52 @@
-
 import ObjectMapper
 
-open class User : NSObject, ClientModel, Mappable, SecretApplyable
-{
-    internal var links:[ResourceLink]?
-    open var id:String?
-    open var created:String?
-    open var createdEpoch:TimeInterval? //iOS represents epoch as a double, but really represents it as an NSTimeInterval. Java is a long.
-    open var lastModified:String?
-    open var lastModifiedEpoch:TimeInterval?
-    internal var encryptedData:String?
-    internal var info:UserInfo?
-    fileprivate static let creditCardsResource = "creditCards"
-    fileprivate static let devicesResource = "devices"
-    fileprivate static let selfResource = "self"
+open class User: NSObject, ClientModel, Mappable, SecretApplyable {
     
-    open var firstName:String?
-    {
+    open var id: String?
+    open var created: String?
+    open var createdEpoch: TimeInterval?
+    open var lastModified: String?
+    open var lastModifiedEpoch: TimeInterval?
+    
+    internal var links: [ResourceLink]?
+    internal var encryptedData: String?
+    internal var info: UserInfo?
+    
+    private static let creditCardsResourceKey = "creditCards"
+    private static let devicesResourceKey = "devices"
+    private static let selfResourceKey = "self"
+    
+    open var firstName: String? {
         return self.info?.firstName
     }
     
-    open var lastName:String?
-    {
+    open var lastName: String? {
         return self.info?.lastName
     }
     
-    open var birthDate:String?
-    {
+    open var birthDate: String? {
         return self.info?.birthDate
     }
     
-    open var email:String?
-    {
+    open var email: String? {
         return self.info?.email
     }
     
-    open var listCreditCardsAvailable:Bool
-    {
-        return self.links?.url(User.creditCardsResource) != nil
+    open var listCreditCardsAvailable: Bool {
+        return self.links?.url(User.creditCardsResourceKey) != nil
     }
     
-    open var listDevicesAvailable:Bool
-    {
-        return self.links?.url(User.devicesResource) != nil
+    open var listDevicesAvailable: Bool {
+        return self.links?.url(User.devicesResourceKey) != nil
     }
     
-    public weak var client:RestClient?
-
+    public weak var client: RestClient?
     
-    public required init?(map: Map)
-    {
+    public required init?(map: Map) {
         
     }
     
-    open func mapping(map: Map)
-    {
+    open func mapping(map: Map) {
         links <- (map["_links"], ResourceLinkTransformType())
         id <- map["id"]
         created <- map["createdTs"]
@@ -62,11 +54,6 @@ open class User : NSObject, ClientModel, Mappable, SecretApplyable
         lastModified <- map["lastModifiedTs"]
         lastModifiedEpoch <- (map["lastModifiedTsEpoch"], NSTimeIntervalTransform())
         encryptedData <- map["encryptedData"]
-    }
-    
-    internal func applySecret(_ secret:Data, expectedKeyId:String?)
-    {
-        self.info = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
     /**
@@ -86,21 +73,17 @@ open class User : NSObject, ClientModel, Mappable, SecretApplyable
      - parameter country:    country
      - parameter completion: CreateCreditCardHandler closure
      */
-    @objc open func createCreditCard(pan:String, expMonth:Int, expYear:Int, cvv:String, name:String,
-        street1:String, street2:String, street3:String, city:String, state:String, postalCode:String, country:String,
-        completion:@escaping RestClient.CreateCreditCardHandler)
-    {
-        let resource = User.creditCardsResource
+    @objc open func createCreditCard(pan: String, expMonth: Int, expYear: Int, cvv: String, name: String,
+                                     street1: String, street2: String, street3: String, city: String, state: String, postalCode: String, country: String,
+                                     completion: @escaping RestClient.CreditCardHandler) {
+        let resource = User.creditCardsResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if  let url = url, let client = self.client {
             client.createCreditCard(url, pan: pan, expMonth: expMonth, expYear: expYear, cvv: cvv, name: name, street1: street1, street2: street2, street3: street3, city: city, state: state, postalCode: postalCode, country: country, completion: completion)
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
         }
-        else
-        {
-            completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
-        }
-
+        
     }
     
     /**
@@ -111,17 +94,13 @@ open class User : NSObject, ClientModel, Mappable, SecretApplyable
      - parameter offset:       start index position for list of entities returned
      - parameter completion:   CreditCardsHandler closure
      */
-    open func listCreditCards(excludeState:[String], limit:Int, offset:Int, completion:@escaping RestClient.CreditCardsHandler)
-    {
-        let resource = User.creditCardsResource
+    open func listCreditCards(excludeState: [String], limit: Int, offset: Int, completion: @escaping RestClient.CreditCardsHandler) {
+        let resource = User.creditCardsResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if  let url = url, let client = self.client {
             client.creditCards(url, excludeState: excludeState, limit: limit, offset: offset, completion: completion)
-        }
-        else
-        {
-            completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
         }
     }
     
@@ -132,17 +111,13 @@ open class User : NSObject, ClientModel, Mappable, SecretApplyable
      - parameter offset:     start index position for list of entities returned
      - parameter completion: DevicesHandler closure
      */
-    open func listDevices(limit:Int, offset:Int, completion:@escaping RestClient.DevicesHandler)
-    {
-        let resource = User.devicesResource
+    open func listDevices(limit: Int, offset: Int, completion: @escaping RestClient.DevicesHandler) {
+        let resource = User.devicesResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if  let url = url, let client = self.client {
             client.devices(url, limit: limit, offset: offset, completion: completion)
-        }
-        else
-        {
-            completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
         }
     }
     
@@ -165,83 +140,94 @@ open class User : NSObject, ClientModel, Mappable, SecretApplyable
      - parameter pairing:          pairing date [MM-DD-YYYY]
      - parameter completion:       CreateNewDeviceHandler closure
      */
-    @objc open func createNewDevice(_ deviceType:String, manufacturerName:String, deviceName:String,
-        serialNumber:String, modelNumber:String, hardwareRevision:String, firmwareRevision:String,
-        softwareRevision:String, systemId:String, osName:String, licenseKey:String, bdAddress:String,
-        secureElementId:String, pairing:String, completion:@escaping RestClient.CreateNewDeviceHandler)
-    {
-        let resource = User.devicesResource
+    @available(*, deprecated, message: "Use createDevice(_ device:)")
+    @objc open func createNewDevice(_ deviceType: String, manufacturerName: String, deviceName: String,
+                                    serialNumber: String, modelNumber: String, hardwareRevision: String, firmwareRevision: String,
+                                    softwareRevision: String, systemId: String, osName: String, licenseKey: String, bdAddress: String,
+                                    secureElementId: String, pairing: String, completion: @escaping RestClient.DeviceHandler) {
+        let resource = User.devicesResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
-            client.createNewDevice(url, deviceType: deviceType, manufacturerName: manufacturerName, deviceName: deviceName, serialNumber: serialNumber, modelNumber: modelNumber, hardwareRevision: hardwareRevision, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, systemId: systemId, osName: osName, licenseKey: licenseKey, bdAddress: bdAddress, secureElementId: secureElementId, pairing: pairing, completion: completion)
-        }
-        else
-        {
-            completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
+        if  let url = url, let client = self.client {
+            client.createNewDevice(url, deviceType: deviceType, manufacturerName: manufacturerName, deviceName: deviceName, serialNumber: serialNumber,
+                                   modelNumber: modelNumber, hardwareRevision: hardwareRevision, firmwareRevision: firmwareRevision,
+                                   softwareRevision: softwareRevision, notificationToken: nil, systemId: systemId, osName: osName,
+                                   secureElementId: secureElementId, casd: nil, completion: completion)
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
         }
     }
     
-    @objc open func createRelationship(creditCardId:String, deviceId:String, completion:@escaping RestClient.CreateRelationshipHandler)
-    {
-        let resource = User.selfResource
+    /**
+     For a single user, create a new device in their profile
+     
+     - parameter device: DeviceInfo
+     */
+    @objc open func createDevice(_ device: DeviceInfo, completion: @escaping RestClient.DeviceHandler) {
+        let resource = User.devicesResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if let url = url, let client = self.client {
+            client.createNewDevice(url, deviceType: device.deviceType!, manufacturerName: device.manufacturerName!, deviceName: device.deviceName!,
+                                   serialNumber: device.serialNumber, modelNumber: device.modelNumber, hardwareRevision: device.hardwareRevision,
+                                   firmwareRevision: device.firmwareRevision, softwareRevision: device.softwareRevision,
+                                   notificationToken: device.notificationToken, systemId: device.systemId, osName: device.osName,
+                                   secureElementId: device.secureElementId, casd: device.casd, completion: completion)
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
+        }
+    }
+    
+    @objc open func createRelationship(creditCardId: String, deviceId: String, completion: @escaping RestClient.RelationshipHandler) {
+        let resource = User.selfResourceKey
+        let url = self.links?.url(resource)
+        if  let url = url, let client = self.client {
             client.createRelationship(url, creditCardId: creditCardId, deviceId: deviceId, completion: completion)
-        }
-        else
-        {
-            completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
+        } else {
+            completion(nil, NSError.clientUrlError(domain: User.self, code: 0, client: client, url: url, resource: resource))
         }
     }
     
-    @objc open func deleteUser(_ completion:@escaping RestClient.DeleteUserHandler)
-    {
-        let resource = User.selfResource
+    @objc open func deleteUser(_ completion: @escaping RestClient.DeleteHandler) {
+        let resource = User.selfResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if  let url = url, let client = self.client {
             client.deleteUser(url, completion: completion)
-        }
-        else
-        {
+        } else {
             completion(NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
         }
     }
     
-    @objc open func updateUser(firstName:String?, lastName:String?, birthDate:String?, originAccountCreated:String?, termsAccepted:String?, termsVersion:String?, completion:@escaping RestClient.UpdateUserHandler)
-    {
-        let resource = User.selfResource
+    @objc open func updateUser(firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion:@escaping RestClient.UserHandler) {
+        let resource = User.selfResourceKey
         let url = self.links?.url(resource)
-        if  let url = url, let client = self.client
-        {
+        if  let url = url, let client = self.client {
             client.updateUser(url, firstName: firstName, lastName: lastName, birthDate: birthDate, originAccountCreated: originAccountCreated, termsAccepted: termsAccepted, termsVersion: termsVersion, completion: completion)
-        }
-        else
-        {
+        } else {
             completion(nil, NSError.clientUrlError(domain:User.self, code:0, client: client, url: url, resource: resource))
         }
     }
-}
-
-internal class UserInfo : Mappable
-{
-    var firstName:String?
-    var lastName:String?
-    var birthDate:String?
-    var email:String?
     
-    required init?(map: Map)
-    {
-
+    //MARK: - Private Helpers
+    internal func applySecret(_ secret: Data, expectedKeyId: String?) {
+        self.info = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
-    func mapping(map: Map)
-    {
+}
+
+internal class UserInfo: Mappable {
+    var firstName: String?
+    var lastName: String?
+    var birthDate: String?
+    var email: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
         self.firstName <- map["firstName"]
         self.lastName <- map["lastName"]
         self.birthDate <- map["birthDate"]
         self.email <- map["email"]
     }
+    
 }

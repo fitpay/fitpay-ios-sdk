@@ -5,7 +5,7 @@ class RestSessionTests: XCTestCase {
     
     var session: RestSession!
     var client: RestClient!
-    var testHelper: TestHelpers!
+    var testHelper: TestHelper!
     var clientId = "fp_webapp_pJkVp2Rl"
     let redirectUri = "https://webapp.fit-pay.com"
     let password = "1029"
@@ -22,7 +22,7 @@ class RestSessionTests: XCTestCase {
         
         self.session = RestSession(configuration: config)
         self.client = RestClient(session: self.session!)
-        self.testHelper = TestHelpers(clientId: clientId, redirectUri: redirectUri, session: self.session, client: self.client)
+        self.testHelper = TestHelper(clientId: clientId, redirectUri: redirectUri, session: self.session, client: self.client)
     }
     
     override func tearDown() {
@@ -31,7 +31,7 @@ class RestSessionTests: XCTestCase {
     }
     
     func testAcquireAccessTokenRetrievesToken() {
-        let email = TestHelpers.randomEmail()
+        let email = TestHelper.randomEmail()
         let expectation = super.expectation(description: "'acquireAccessToken' retrieves auth details")
         
         self.client.createUser(
@@ -59,7 +59,7 @@ class RestSessionTests: XCTestCase {
     }
     
     func testLoginRetrievesUserId() {
-        let email = TestHelpers.randomEmail()
+        let email = TestHelper.randomEmail()
         let expectation = super.expectation(description: "'login' retrieves user id")
         
         self.client.createUser(

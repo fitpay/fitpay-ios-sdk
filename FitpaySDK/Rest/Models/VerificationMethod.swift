@@ -83,9 +83,9 @@ open class VerificationMethod: NSObject, ClientModel, Mappable
     /**
      When an issuer requires additional authentication to verfiy the identity of the cardholder, this indicates the user has selected the specified verification method by the indicated verificationTypeId
      
-     - parameter completion:         SelectVerificationTypeHandler closure
+     - parameter completion:    VerifyHandler closure
      */
-    @objc open func selectVerificationType(_ completion: @escaping RestClient.SelectVerificationTypeHandler) {
+    @objc open func selectVerificationType(_ completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.selectResource
         let url = self.links?.url(resource)
         if let url = url, let client = self.client {
@@ -98,7 +98,7 @@ open class VerificationMethod: NSObject, ClientModel, Mappable
     /**
      If a verification method is selected that requires an entry of a pin code, this transition will be available. Not all verification methods will include a secondary verification step through the FitPay API
      
-     - parameter completion:         VerifyHandler closure
+     - parameter completion:    VerifyHandler closure
      */
     @objc open func verify(_ verificationCode: String, completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.verifyResource
@@ -113,7 +113,7 @@ open class VerificationMethod: NSObject, ClientModel, Mappable
     /**
      Retrieves the details of an existing credit card. You need only supply the uniqueidentifier that was returned upon creation.
      
-     - parameter completion:   CreditCardHandler closure
+     - parameter completion:    CreditCardHandler closure
      */
     @objc open func retrieveCreditCard(_ completion: @escaping RestClient.CreditCardHandler) {
         let resource = VerificationMethod.cardResource
