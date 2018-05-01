@@ -18,15 +18,14 @@ protocol RtmMessageTypeWithHandler {
 }
 
 protocol RtmMessageHandler {
-    weak var wvConfigStorage: WvConfigStorage! { get }
+    var wvConfigStorage: WvConfigStorage! { get }
     
-    weak var outputDelegate: RtmOutputDelegate? { get set }
-    weak var wvRtmDelegate: WvRTMDelegate? { get set }
-    weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate? { get set }
-    weak var cardScannerDataSource: FitpayCardScannerDataSource? { get set }
-    weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate? { get set }
+    var outputDelegate: RtmOutputDelegate? { get set }
+    var wvRtmDelegate: WvRTMDelegate? { get set }
+    var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate? { get set }
+    var cardScannerDataSource: FitpayCardScannerDataSource? { get set }
+    var a2aVerificationDelegate: FitpayA2AVerificationDelegate? { get set }
 
-    
     init(wvConfigStorage: WvConfigStorage)
     
     func handle(message: [String: Any])

@@ -63,7 +63,7 @@ class TestHelper {
                 self.client.user(id: self.session.userId!) { (user, userError) in
                     
                     XCTAssertNotNil(user)
-                    if (user !=  nil) { self.userValid(user!) }
+                    if (user != nil) { self.userValid(user!) }
                     XCTAssertEqual(user?.email, email, "Want emails to match up after logging in")
                     
                     XCTAssertNil(userError)

@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RestClient Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/RestClient" class="dashAnchor"></a>
+    <a title="RestClient Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">FitpaySDK Docs</a> (12% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">FitpaySDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RestClient Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/A2AContext.html">A2AContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/A2AIssuerRequest.html">A2AIssuerRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/A2AVerificationRequest.html">A2AVerificationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/APDUCommand.html">APDUCommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ApduPackage.html">ApduPackage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ApduResultMessage.html">ApduResultMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Asset.html">Asset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseLogsOutput.html">BaseLogsOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInfo.html">CardInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardMetadata.html">CardMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardRelationship.html">CardRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Commit.html">Commit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommitMetrics.html">CommitMetrics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommitStatistic.html">CommitStatistic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConnectDeviceOperation.html">ConnectDeviceOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsoleOutput.html">ConsoleOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CreditCard.html">CreditCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceInfo.html">DeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceRelationships.html">DeviceRelationships</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EncryptionKey.html">EncryptionKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventSource.html">EventSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FetchCommitsOperation.html">FetchCommitsOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FetchCommitsOperation/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayBlockEventListener.html">FitpayBlockEventListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEvent.html">FitpayEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventBinding.html">FitpayEventBinding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventDispatcher.html">FitpayEventDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventsSubscriber.html">FitpayEventsSubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventsSubscriber/EventType.html">– EventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayNotificationsManager.html">FitpayNotificationsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpaySDKConfiguration.html">FitpaySDKConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpaySDKLogger.html">FitpaySDKLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IdVerificationResponse.html">IdVerificationResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Image.html">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageWithOptions.html">ImageWithOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers.html">Issuers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers/Country.html">– Country</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers/CardNetwork.html">– CardNetwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockPaymentDeviceConnector.html">MockPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NotificationDetail.html">NotificationDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payload.html">Payload</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentDevice.html">PaymentDevice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentDevice/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Relationship.html">Relationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestClient.html">RestClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestClient/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession.html">RestSession</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession/ErrorEnum.html">– ErrorEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResultCollection.html">ResultCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmConfig.html">RtmConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmDeviceInfo.html">RtmDeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmMessage.html">RtmMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmMessageResponse.html">RtmMessageResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmSecureDeviceInfo.html">RtmSecureDeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ScannedCardInfo.html">ScannedCardInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SessionData.html">SessionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncManager.html">SyncManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncManager/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncRequest.html">SyncRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncRequestQueue.html">SyncRequestQueue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncStorage.html">SyncStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermsAssetReferences.html">TermsAssetReferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/User.html">User</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserEventStreamManager.html">UserEventStreamManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VerificationMethod.html">VerificationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WvConfig.html">WvConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WvConfig/ErrorCode.html">– ErrorCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:9FitpaySDK8BASE_URLSSvp">BASE_URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:9FitpaySDK0A10SDKVersionSSvp">FitpaySDKVersion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/A2AStepupResult.html">A2AStepupResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/APDUPackageResponseState.html">APDUPackageResponseState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/APDUResponseType.html">APDUResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AuthScope.html">AuthScope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CommitType.html">CommitType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ConnectionState.html">ConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditCardInitiator.html">CreditCardInitiator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DeviceControlState.html">DeviceControlState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EventSourceState.html">EventSourceState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EventStatus.html">EventStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ImageAssetOption.html">ImageAssetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NonAPDUCommitState.html">NonAPDUCommitState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NotificationsEventType.html">NotificationsEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NotificationsType.html">NotificationsType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentDeviceEventTypes.html">PaymentDeviceEventTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RtmConfigDafaultMappingKey.html">RtmConfigDafaultMappingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RtmProtocolVersion.html">RtmProtocolVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SecurityNFCState.html">SecurityNFCState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/StreamEventType.html">StreamEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncEventType.html">SyncEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncInitiator.html">SyncInitiator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncOperationConnectionState.html">SyncOperationConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TestingType.html">TestingType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TokenizationState.html">TokenizationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationMethodType.html">VerificationMethodType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationResult.html">VerificationResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationState.html">VerificationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WVDeviceStatuses.html">WVDeviceStatuses</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WVMessageType.html">WVMessageType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/BinaryInteger.html">BinaryInteger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:9FitpaySDK2eeoiSbAA0A12EventBindingC_ADtF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:9FitpaySDK3hexSSx1v_ts13BinaryIntegerRzlF">hex(v:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/APDUConfirmOperationProtocol.html">APDUConfirmOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/APDUResponseProtocol.html">APDUResponseProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetOption.html">AssetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetRetrivable.html">AssetRetrivable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetWithOptionsRerivable.html">AssetWithOptionsRerivable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ConnectDeviceOperationProtocol.html">ConnectDeviceOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FetchCommitsOperationProtocol.html">FetchCommitsOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayA2AVerificationDelegate.html">FitpayA2AVerificationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerDataSource.html">FitpayCardScannerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerDelegate.html">FitpayCardScannerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerPresenterDelegate.html">FitpayCardScannerPresenterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayEventListener.html">FitpayEventListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayEventTypeProtocol.html">FitpayEventTypeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IFitpayCardScanner.html">IFitpayCardScanner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IPaymentDeviceConnector.html">IPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LogsOutputProtocol.html">LogsOutputProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NonAPDUConfirmOperationProtocol.html">NonAPDUConfirmOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RtmConfigProtocol.html">RtmConfigProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SyncFactory.html">SyncFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SyncStorageProtocol.html">SyncStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/WvRTMDelegate.html">WvRTMDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:9FitpaySDK25ApplicationControlMessageV">ApplicationControlMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/StreamEvent.html">StreamEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK18MessageTypeHandlera">MessageTypeHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK14RtmMessageTypea">RtmMessageType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK21SyncEventBlockHandlera">SyncEventBlockHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK21SyncRequestCompletiona">SyncRequestCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RestClient</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">RestClient</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC9ErrorCodeO"></a>
+                    <a name="//apple_ref/swift/Enum/ErrorCode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC9ErrorCodeO">ErrorCode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>FitPay uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, etc.), and codes in the 5xx range indicate an error with FitPay servers.</p>
+
+<p>Not all errors map cleanly onto HTTP response codes, however. When a request is valid but does not complete successfully (e.g. a card is declined), we return a 402 error code.</p>
+
+<ul>
+<li>OK:               Everything worked as expected</li>
+<li>BadRequest:       Often missing a required parameter</li>
+<li>Unauthorized:     No valid API key provided</li>
+<li>RequestFailed:    Parameters were valid but request failed</li>
+<li>NotFound:         The requested item doesn&rsquo;t exist</li>
+<li>ServerError[0-3]: Something went wrong on FitPay&rsquo;s end</li>
+</ul>
+
+                        <a href="../Classes/RestClient/ErrorCode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ErrorCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">RawIntValue</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientCAcA0C7SessionC7session_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(session:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientCAcA0C7SessionC7session_tcfc">init(session:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt"><a href="../Classes/RestSession.html">RestSession</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC13DeleteHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/DeleteHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC13DeleteHandlera">DeleteHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeleteHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ErrorType?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC19RelationshipHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/RelationshipHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC19RelationshipHandlera">RelationshipHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">RelationshipHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt"><a href="../Classes/Relationship.html">Relationship</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>relationship</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides Relationship object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Completion%20Handlers"></a>
+                <a name="//apple_ref/swift/Section/Completion Handlers" class="dashAnchor"></a>
+                <a href="#/Completion%20Handlers">
+                  <h3 class="section-name">Completion Handlers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC16ListUsersHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/ListUsersHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC16ListUsersHandlera">ListUsersHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ListUsersHandler</span> <span class="o">=</span> <span class="p">(</span><span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/User.html">User</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ErrorType?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC11UserHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/UserHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UserHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>user</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides User object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Functions"></a>
+                <a name="//apple_ref/swift/Section/Functions" class="dashAnchor"></a>
+                <a href="#/Functions">
+                  <h3 class="section-name">Functions</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC9listUsersySi5limit_Si6offsetyAA16ResultCollectionCyAA4UserCGSg_s5Error_pSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/listUsers(limit:offset:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC9listUsersySi5limit_Si6offsetyAA16ResultCollectionCyAA4UserCGSg_s5Error_pSgtc10completiontF">listUsers(limit:offset:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a list of all users that belong to your organization. The customers are returned sorted by creation date, with the most recently created customers appearing first</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">listUsers</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC16ListUsersHandlera">ListUsersHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Max number of profiles per page</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Start index position for list of entities returned</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ListUsersHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC10createUserySS_SS8passwordSSSg9firstNameAF04lastI0AF9birthDateAF12termsVersionAF0M8AcceptedAF6originAF0P14AccountCreatedSS8clientIdyAA0F0CSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/createUser(_:password:firstName:lastName:birthDate:termsVersion:termsAccepted:origin:originAccountCreated:clientId:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC10createUserySS_SS8passwordSSSg9firstNameAF04lastI0AF9birthDateAF12termsVersionAF0M8AcceptedAF6originAF0P14AccountCreatedSS8clientIdyAA0F0CSg_So7NSErrorCSgtc10completiontF">createUser(_:password:firstName:lastName:birthDate:termsVersion:termsAccepted:origin:originAccountCreated:clientId:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new user within your organization</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">createUser</span><span class="p">(</span><span class="n">_</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">firstName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">birthDate</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                     <span class="nv">termsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">termsAccepted</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">origin</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">originAccountCreated</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                     <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>firstName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>first name of the user</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lastName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>last name of the user</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>birthDate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>birth date of the user in date format [YYYY-MM-DD]</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>email</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>email of the user</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>CreateUserHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)RestClient(im)userWithId:completion:"></a>
+                    <a name="//apple_ref/swift/Method/user(id:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)RestClient(im)userWithId:completion:">user(id:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the details of an existing user. You need only supply the unique user identifier that was returned upon user creation</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">user</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>user id</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UserHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC4userySS_yAA4UserCSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/user(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC4userySS_yAA4UserCSg_So7NSErrorCSgtc10completiontF">user(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">user</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Completion%20Handlers2"></a>
+                <a name="//apple_ref/swift/Section/Completion Handlers" class="dashAnchor"></a>
+                <a href="#/Completion%20Handlers2">
+                  <h3 class="section-name">Completion Handlers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC14DevicesHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/DevicesHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC14DevicesHandlera">DevicesHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DevicesHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>result</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides ResultCollection<DeviceInfo> object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC13DeviceHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/DeviceHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC13DeviceHandlera">DeviceHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeviceHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>device</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides existing DeviceInfo object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC14CommitsHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CommitsHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC14CommitsHandlera">CommitsHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>commits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides ResultCollection<Commit> object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC13CommitHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CommitHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC13CommitHandlera">CommitHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">commit</span><span class="p">:</span> <span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>commit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides Commit object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Functions2"></a>
+                <a name="//apple_ref/swift/Section/Functions" class="dashAnchor"></a>
+                <a href="#/Functions2">
+                  <h3 class="section-name">Functions</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/commits(_:commitsAfter:limit:offset:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_So7NSErrorCSgtc10completiontF">commits(_:commitsAfter:limit:offset:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">commits</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">commitsAfter</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC14CommitsHandlera">CommitsHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC20ConfirmCommitHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/ConfirmCommitHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC20ConfirmCommitHandlera">ConfirmCommitHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmCommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ErrorType?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultySo7NSErrorCSgc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/confirm(_:executionResult:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultySo7NSErrorCSgc10completiontF">confirm(_:executionResult:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">confirm</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">executionResult</span><span class="p">:</span> <span class="kt"><a href="../Enums/NonAPDUCommitState.html">NonAPDUCommitState</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC20ConfirmCommitHandlera">ConfirmCommitHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC25ConfirmAPDUPackageHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/ConfirmAPDUPackageHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC25ConfirmAPDUPackageHandlera">ConfirmAPDUPackageHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmAPDUPackageHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ErrorType?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageySo7NSErrorCSgc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAPDUPackage(_:package:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageySo7NSErrorCSgc10completiontF">confirmAPDUPackage(_:package:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Endpoint to allow for returning responses to APDU execution</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">confirmAPDUPackage</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">package</span><span class="p">:</span> <span class="kt"><a href="../Classes/ApduPackage.html">ApduPackage</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC25ConfirmAPDUPackageHandlera">ConfirmAPDUPackageHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>package</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ApduPackage object</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ConfirmAPDUPackageHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC19TransactionsHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/TransactionsHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC19TransactionsHandlera">TransactionsHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transactions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides ResultCollection<Transaction> object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC18TransactionHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/TransactionHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18TransactionHandlera">TransactionHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides Transaction object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC14IssuersHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/IssuersHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC14IssuersHandlera">IssuersHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">IssuersHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">issuers</span><span class="p">:</span> <span class="kt"><a href="../Classes/Issuers.html">Issuers</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_So7NSErrorCSgtc10completion_tF"></a>
+                    <a name="//apple_ref/swift/Method/issuers(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_So7NSErrorCSgtc10completion_tF">issuers(completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">issuers</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC14IssuersHandlera">IssuersHandler</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC13AssetsHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/AssetsHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC13AssetsHandlera">AssetsHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">AssetsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt"><a href="../Classes/Asset.html">Asset</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>asset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides Asset object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC11SyncHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/SyncHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC11SyncHandlera">SyncHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SyncHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC18CreditCardsHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CreditCardsHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18CreditCardsHandlera">CreditCardsHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>result</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides collection of credit cards, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC17CreditCardHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CreditCardHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC17CreditCardHandlera">CreditCardHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">creditCard</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>creditCard</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides credit card object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC27CreditCardTransitionHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/CreditCardTransitionHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC27CreditCardTransitionHandlera">CreditCardTransitionHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardTransitionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">card</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pending</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides pending flag, indicating that transition was accepted, but current status can be reviewed later. Note that CreditCard object is nil in this case</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>card?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides updated CreditCard object, or nil if pending (Bool) flag is true or if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error?</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10RestClientC13VerifyHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/VerifyHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC13VerifyHandlera">VerifyHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">VerifyHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">verificationMethod</span><span class="p">:</span> <span class="kt"><a href="../Classes/VerificationMethod.html">VerificationMethod</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pending</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides pending flag, indicating that transition was accepted, but current status can be reviewed later. Note that VerificationMethod object is nil in this case</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>verificationMethod</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides VerificationMethod object, or nil if pending (Bool) flag is true or if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/fitpay/fitpay-ios-sdk" target="_blank" rel="external">Fit Pay, Inc</a>. All rights reserved. (Last updated: 2018-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

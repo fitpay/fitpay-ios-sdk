@@ -4,8 +4,10 @@ import XCTest
 class MockSyncManager: SyncManagerProtocol {
     var synchronousModeOn: Bool = true
     var isSyncing: Bool = false
-    fileprivate let eventsDispatcher = FitpayEventDispatcher()
+    
     static var syncCompleteDelay: Double = 0.2
+    
+    private let eventsDispatcher = FitpayEventDispatcher()
     
     private var lastSyncRequest: SyncRequest?
     
@@ -80,10 +82,6 @@ class SyncRequestsQueueTests: XCTestCase {
         }
         self.mockSyncManager = MockSyncManager()
         self.requestsQueue = SyncRequestQueue(syncManager: self.mockSyncManager)
-    }
-    
-    override func tearDown() {
-        super.tearDown()
     }
     
     func getSyncRequest1() -> SyncRequest {

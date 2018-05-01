@@ -113,7 +113,7 @@ open class FetchCommitsOperation: FetchCommitsOperationProtocol {
     
     
     public var deviceInfo: DeviceInfo!
-    fileprivate var connector: IPaymentDeviceConnector?
+    private var connector: IPaymentDeviceConnector?
     
     // private
     private let syncStorage: SyncStorage

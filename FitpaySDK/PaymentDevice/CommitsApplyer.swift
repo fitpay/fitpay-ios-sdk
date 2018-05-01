@@ -56,24 +56,24 @@ internal class CommitsApplyer {
     internal var nonApduConfirmOperation: NonAPDUConfirmOperationProtocol
     
     // private
-    fileprivate var commits: [Commit]!
-    fileprivate let semaphore = DispatchSemaphore(value: 0)
-    fileprivate var thread: Thread?
-    fileprivate var applyerCompletionHandler: ApplyerCompletionHandler!
-    fileprivate var totalApduCommands = 0
-    fileprivate var appliedApduCommands = 0
-    fileprivate let maxCommitsRetries = 0
-    fileprivate let maxAPDUCommandsRetries = 0
-    fileprivate let paymentDevice: PaymentDevice
-    fileprivate var syncStorage: SyncStorage
-    fileprivate var deviceInfo: DeviceInfo
+    private var commits: [Commit]!
+    private let semaphore = DispatchSemaphore(value: 0)
+    private var thread: Thread?
+    private var applyerCompletionHandler: ApplyerCompletionHandler!
+    private var totalApduCommands = 0
+    private var appliedApduCommands = 0
+    private let maxCommitsRetries = 0
+    private let maxAPDUCommandsRetries = 0
+    private let paymentDevice: PaymentDevice
+    private var syncStorage: SyncStorage
+    private var deviceInfo: DeviceInfo
     internal var commitStatistics = [CommitStatistic]()
     
     // rx
-    fileprivate let eventsPublisher: PublishSubject<SyncEvent>
-    fileprivate var disposeBag = DisposeBag()
+    private let eventsPublisher: PublishSubject<SyncEvent>
+    private var disposeBag = DisposeBag()
 
-    @objc fileprivate func processCommits() {
+    @objc private func processCommits() {
         var commitsApplied = 0
         commitStatistics = []
         for commit in commits {
@@ -114,9 +114,9 @@ internal class CommitsApplyer {
         })
     }
 
-    fileprivate typealias CommitCompletion = (_ error: Error?) -> Void
+    private typealias CommitCompletion = (_ error: Error?) -> Void
 
-    fileprivate func processCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
+    private func processCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
         guard let commitType = commit.commitType else {
             log.error("SYNC_DATA: trying to process commit without commitType.")
             completion(NSError.unhandledError(CommitsApplyer.self))
@@ -143,7 +143,7 @@ internal class CommitsApplyer {
         }
     }
 
-    fileprivate func saveLastCommitId(deviceIdentifier: String?, commitId: String?) {
+    private func saveLastCommitId(deviceIdentifier: String?, commitId: String?) {
         if let deviceId = deviceIdentifier, let storedCommitId = commitId {
             if let setDeviceLastCommitId = self.paymentDevice.deviceInterface.setDeviceLastCommitId, let _ = self.paymentDevice.deviceInterface.getDeviceLastCommitId {
                 setDeviceLastCommitId(storedCommitId)
@@ -155,7 +155,7 @@ internal class CommitsApplyer {
         }
     }
     
-    fileprivate func processAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
+    private func processAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
         log.debug("SYNC_DATA: Processing APDU commit: \(commit.commit ?? "").")
         guard let apduPackage = commit.payload?.apduPackage else {
             log.error("SYNC_DATA: trying to process apdu commit without apdu package.")
@@ -260,7 +260,7 @@ internal class CommitsApplyer {
         })
     }
 
-    fileprivate func processNonAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
+    private func processNonAPDUCommit(_ commit: Commit, completion: @escaping CommitCompletion) {
         guard let commitType = commit.commitType else {
             return
         }
@@ -339,7 +339,7 @@ internal class CommitsApplyer {
         }
     }
 
-    fileprivate func applyAPDUPackage(_ apduPackage: ApduPackage,
+    private func applyAPDUPackage(_ apduPackage: ApduPackage,
                                       apduCommandIndex: Int,
                                       retryCount: Int,
                                       completion: @escaping (_ state: APDUPackageResponseState?, _ error: Error?) -> Void) {
@@ -375,7 +375,7 @@ internal class CommitsApplyer {
         }
     }
     
-    fileprivate func saveCommitStatistic(commit:Commit, error: Error?) {
+    private func saveCommitStatistic(commit:Commit, error: Error?) {
         guard let commitType = commit.commitType else {
             let statistic = CommitStatistic(commitId:commit.commit, total:0, average:0, errorDesc:error?.localizedDescription)
             self.commitStatistics.append(statistic)

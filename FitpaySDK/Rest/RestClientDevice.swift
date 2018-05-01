@@ -255,7 +255,7 @@ extension RestClient {
         }
     }
     
-    internal func commits(_ url: String, parameters: [String: AnyObject]?,  completion: @escaping CommitsHandler) {
+    internal func commits(_ url: String, parameters: [String: Any]?,  completion: @escaping CommitsHandler) {
         self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
                 DispatchQueue.main.async {  completion(nil, error) }

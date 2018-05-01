@@ -3,14 +3,14 @@ import Foundation
 import WebKit
 import ObjectMapper
 
-@objc public enum WVMessageType : Int {
+@objc public enum WVMessageType: Int {
     case error = 0
     case success
     case progress
     case pending
 }
 
-@objc public enum WVDeviceStatuses : Int {
+@objc public enum WVDeviceStatuses: Int {
     case disconnected
     case pairing
     case syncGettingUpdates
@@ -75,11 +75,11 @@ import ObjectMapper
     }
 }
 
-@objc public protocol WvRTMDelegate : NSObjectProtocol {
+@objc public protocol WvRTMDelegate: NSObjectProtocol {
     /**
      This method will be called after successful user authorization.
      */
-    func didAuthorizeWithEmail(_ email:String?)
+    func didAuthorizeWithEmail(_ email: String?)
     
     /**
      This method can be used for user messages customization.
@@ -93,7 +93,7 @@ import ObjectMapper
      
      - returns:                  Message string which will be shown on status board.
      */
-    @objc optional func willDisplayStatusMessage(_ status:WVDeviceStatuses, defaultMessage:String, error: NSError?) -> String
+    @objc optional func willDisplayStatusMessage(_ status: WVDeviceStatuses, defaultMessage: String, error: NSError?) -> String
     
     /**
      Called when the message from wv was delivered to SDK.
@@ -118,11 +118,11 @@ internal enum WVResponse: Int {
     func dictionaryRepresentation(param: Any? = nil) -> [String:Any]{
         switch self {
         case .success, .noSessionData:
-        	return ["status":rawValue]
+        	return ["status": rawValue]
         case .failed:
-            return ["status":rawValue, "reason":param ?? "unknown"]
+            return ["status": rawValue, "reason": param ?? "unknown"]
         case .successStillWorking:
-            return ["status":rawValue, "count":param ?? "unknown"]
+            return ["status": rawValue, "count": param ?? "unknown"]
         }
     }
 }
@@ -138,13 +138,12 @@ class WvConfigStorage {
     var rtmConfig: RtmConfigProtocol?
 }
 
-@objcMembers open class WvConfig : NSObject, WKScriptMessageHandler {
-    public enum ErrorCode : Int, Error, RawIntValue, CustomStringConvertible
-    {
-        case unknownError                   = 0
-        case deviceDataNotValid				= 10002
+@objcMembers open class WvConfig: NSObject, WKScriptMessageHandler {
+    public enum ErrorCode: Int, Error, RawIntValue, CustomStringConvertible {
+        case unknownError       = 0
+        case deviceDataNotValid = 10002
         
-        public var description : String {
+        public var description: String {
             switch self {
             case .unknownError:
                 return "Unknown error"
@@ -154,7 +153,7 @@ class WvConfigStorage {
         }
     }
     
-    weak open var rtmDelegate : WvRTMDelegate? {
+    weak open var rtmDelegate: WvRTMDelegate? {
         didSet {
             self.rtmMessaging.rtmDelegate = rtmDelegate
         }
@@ -224,9 +223,9 @@ class WvConfigStorage {
     
     private var bindings: [FitpayEventBinding] = []
 
-    fileprivate var rtmVersionSent = false
+    private var rtmVersionSent = false
     
-    @objc open var demoModeEnabled : Bool {
+    @objc open var demoModeEnabled: Bool {
         get {
             if let isEnabled = self.configStorage.rtmConfig?.jsonDict()[RtmConfigDafaultMappingKey.demoMode.rawValue] as? Bool {
                 return isEnabled
@@ -238,11 +237,11 @@ class WvConfigStorage {
         }
     }
     
-    @objc public convenience init(clientId:String, redirectUri:String, paymentDevice:PaymentDevice, userEmail:String?, isNewAccount:Bool) {
+    @objc public convenience init(clientId: String, redirectUri: String, paymentDevice: PaymentDevice, userEmail: String?, isNewAccount: Bool) {
         self.init(paymentDevice: paymentDevice, rtmConfig: RtmConfig(clientId: clientId, redirectUri: redirectUri, userEmail: userEmail, deviceInfo: nil, hasAccount: !isNewAccount), SDKConfiguration: FitpaySDKConfiguration(clientId: clientId, redirectUri: redirectUri, baseAuthURL: AUTHORIZE_BASE_URL, baseAPIURL: API_BASE_URL))
     }
     
-    @objc public init(paymentDevice:PaymentDevice, rtmConfig: RtmConfigProtocol, SDKConfiguration: FitpaySDKConfiguration = FitpaySDKConfiguration.defaultConfiguration) {
+    @objc public init(paymentDevice: PaymentDevice, rtmConfig: RtmConfigProtocol, SDKConfiguration: FitpaySDKConfiguration = FitpaySDKConfiguration.defaultConfiguration) {
         self.configStorage.paymentDevice = paymentDevice
         self.configStorage.rtmConfig = rtmConfig
         self.configStorage.sdkConfiguration = SDKConfiguration
@@ -271,7 +270,7 @@ class WvConfigStorage {
       that device. This will attempt to connect, and call the completion with either an error or nil if the connection 
       attempt is successful.
      */
-    @objc open func openDeviceConnection(_ completion: @escaping (_ error:NSError?) -> Void) {
+    @objc open func openDeviceConnection(_ completion: @escaping (_ error: NSError?) -> Void) {
         self.connectionBinding = self.configStorage.paymentDevice!.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected, completion: {
             [weak self] (event) in
             
@@ -325,16 +324,14 @@ class WvConfigStorage {
      */
     @objc open func wvConfig() -> WKWebViewConfiguration {
         
-        class LeakAvoider : NSObject, WKScriptMessageHandler {
-            weak var delegate : WKScriptMessageHandler?
-            init(delegate:WKScriptMessageHandler) {
+        class LeakAvoider: NSObject, WKScriptMessageHandler {
+            weak var delegate: WKScriptMessageHandler?
+            init(delegate: WKScriptMessageHandler) {
                 self.delegate = delegate
                 super.init()
             }
-            func userContentController(_ userContentController: WKUserContentController,
-                                       didReceive message: WKScriptMessage) {
-                self.delegate?.userContentController(
-                    userContentController, didReceive: message)
+            func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+                self.delegate?.userContentController(userContentController, didReceive: message)
             }
         }
 
@@ -386,7 +383,7 @@ class WvConfigStorage {
         }
      */
     @objc open func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let sentData = message.body as? [String : Any] else {
+        guard let sentData = message.body as? [String: Any] else {
             log.error("WV_DATA: Received message from \(message.name), but can't convert it to dictionary type.")
             return
         }
@@ -429,42 +426,42 @@ class WvConfigStorage {
         })
     }
     
-    fileprivate var rtmMessaging: RtmMessaging
+    private var rtmMessaging: RtmMessaging
     
-    fileprivate func sendStatusMessage(_ message: String, type: WVMessageType) {
+    private func sendStatusMessage(_ message: String, type: WVMessageType) {
         sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.statusResponseMessage(message: message, type: type) ?? RtmMessageResponse(data:["message":message, "type":type.rawValue], type: "deviceStatus"))
     }
 
-    fileprivate func resolveSync() {
+    private func resolveSync() {
         self.rtmMessaging.messageHandler?.resolveSync()
     }
     
-    fileprivate func sendVersion(version: RtmProtocolVersion) {
+    private func sendVersion(version: RtmProtocolVersion) {
         sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.versionResponseMessage(version: version) ?? RtmMessageResponse(data: ["version":version.rawValue], type: "version"))
         rtmVersionSent = true
     }
 
-    fileprivate func bindEvents() {
-        var binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncStarted, completion: { [weak self] (event) in
+    private func bindEvents() {
+        var binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncStarted) { [weak self] (event) in
             self?.showStatusMessage(.syncGettingUpdates)
-        })
+        }
         
         if let nonOptionalBinding = binding {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncCompleted, completion: { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncCompleted) { [weak self] (event) in
             log.debug("WV_DATA: received sync complete from SyncManager.")
             
             self?.resolveSync()
             self?.showStatusMessage(.syncComplete)
-        })
+        }
         
         if let nonOptionalBinding = binding {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed, completion: { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed) { [weak self] (event) in
             log.error("WV_DATA: received sync FAILED from SyncManager.")
             let error = (event.eventData as? [String:Any])?["error"] as? NSError
             
@@ -473,14 +470,13 @@ class WvConfigStorage {
             } else {
                 self?.showStatusMessage(.syncError, error: (event.eventData as? [String:Any])?["error"] as? Error)
             }
-            
-        })
+        }
         
         if let nonOptionalBinding = binding {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .commitsReceived, completion: { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .commitsReceived) { [weak self] (event) in
             guard let commits = (event.eventData as! [String:[Commit]])["commits"] else {
                 self?.showStatusMessage(.syncNoUpdates)
                 return
@@ -490,28 +486,28 @@ class WvConfigStorage {
             } else {
                 self?.showStatusMessage(.syncNoUpdates)
             }
-        })
+        }
         
         if let nonOptionalBinding = binding {
             self.bindings.append(nonOptionalBinding)
         }
 
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .connectingToDevice, completion: { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .connectingToDevice) { [weak self] (event) in
             self?.showStatusMessage(.syncUpdatingConnectingToDevice)
-        })
+        }
         
         if let nonOptionalBinding = binding {
             self.bindings.append(nonOptionalBinding)
         }
     }
     
-    fileprivate func unbindEvents() {
+    private func unbindEvents() {
         for binding in self.bindings {
             SyncManager.sharedInstance.removeSyncBinding(binding: binding)
         }
     }
 
-    @objc fileprivate func logout() {
+    @objc private func logout() {
         if let _ = self.configStorage.user {
             sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.logoutResponseMessage() ?? RtmMessageResponse(type: "logout"))
         }

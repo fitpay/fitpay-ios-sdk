@@ -14,7 +14,7 @@ open class FitpayBlockEventListener {
     var blockCompletion : BlockCompletion
     var completionQueue : DispatchQueue
 
-    fileprivate var isValid : Bool = true
+    private var isValid : Bool = true
     
     public init(completion: @escaping BlockCompletion, queue: DispatchQueue = DispatchQueue.main) {
         self.blockCompletion = completion

@@ -4,8 +4,7 @@ inhibit_all_warnings!
 
 abstract_target 'all' do
   pod 'AlamofireObjectMapper', '~> 5.0'
-  pod 'JWTDecode', '2.0.0'
-  pod 'KeychainAccess', '3.1'
+  pod 'JWTDecode', '~> 2.1'
     
   target 'FitpaySDK' do
     pod 'Alamofire', '~> 4.1'

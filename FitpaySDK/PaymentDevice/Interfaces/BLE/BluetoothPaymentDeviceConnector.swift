@@ -18,8 +18,8 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
     var continuation : Continuation = Continuation()
     var deviceInfoCollector : BLEDeviceInfoCollector?
     
-    fileprivate var _deviceInfo : DeviceInfo?
-    fileprivate var _nfcState : SecurityNFCState?
+    private var _deviceInfo : DeviceInfo?
+    private var _nfcState : SecurityNFCState?
     
     let maxPacketSize : Int = 20
     let apduSecsTimeout : Double = 5
@@ -184,7 +184,7 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         return nil
     }
     
-    fileprivate func sendAPDUContinuation(_ data: Data) {
+    private func sendAPDUContinuation(_ data: Data) {
         guard let continuationCharacteristicPacket = self.continuationCharacteristicPacket else {
             if let completion = self.paymentDevice.apduResponseHandler {
                 self.paymentDevice.apduResponseHandler = nil
@@ -222,7 +222,7 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         sendSignalAboutContiniationEnd(checkSumValue: data.CRC32HashValue)
     }
     
-    fileprivate func sendSignalAboutContiniationStart() {
+    private func sendSignalAboutContiniationStart() {
         guard let continuationCharacteristicControl = self.continuationCharacteristicControl else {
             if let completion = self.paymentDevice.apduResponseHandler {
                 self.paymentDevice.apduResponseHandler = nil
@@ -239,7 +239,7 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         self.wearablePeripheral?.writeValue(msg as Data, for: continuationCharacteristicControl, type: CBCharacteristicWriteType.withResponse)
     }
     
-    fileprivate func sendSignalAboutContiniationEnd(checkSumValue: Int) {
+    private func sendSignalAboutContiniationEnd(checkSumValue: Int) {
         guard let continuationCharacteristicControl = self.continuationCharacteristicControl else {
             if let completion = self.paymentDevice.apduResponseHandler {
                 self.paymentDevice.apduResponseHandler = nil
@@ -256,7 +256,7 @@ internal class BluetoothPaymentDeviceConnector : NSObject, IPaymentDeviceConnect
         wearablePeripheral?.writeValue(msg as Data, for: continuationCharacteristicControl, type: CBCharacteristicWriteType.withResponse)
     }
     
-    fileprivate func processAPDUResponse(_ packet:BLEApduResultMessage) {
+    private func processAPDUResponse(_ packet:BLEApduResultMessage) {
         stopAPDUTimeout()
         
         self.sendingAPDU = false

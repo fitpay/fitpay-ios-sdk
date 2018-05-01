@@ -1,17 +1,8 @@
-//
-//  FitpaySDKConfiguration.swift
-//  FitpaySDK
-//
-//  Created by Anton on 29.07.16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
-
 import Foundation
 
-public let FitpaySDKVersion = "0.5.0"
 internal let log = FitpaySDKLogger.sharedInstance
 
-open class FitpaySDKConfiguration : NSObject{
+open class FitpaySDKConfiguration: NSObject {
     open static let defaultConfiguration = FitpaySDKConfiguration()
     
     open var clientId: String
@@ -20,17 +11,11 @@ open class FitpaySDKConfiguration : NSObject{
     open var baseAPIURL: String
     open var webViewURL: String
     
-    @available(*, deprecated, message: "Use commitProcessingTimeoutSecs")
-    open var commitErrorTimeout: Int {
-        set {
-            commitProcessingTimeoutSecs = Double(newValue)
-        }
-        get {
-            return Int(commitProcessingTimeoutSecs)
-        }
-    }
-    
     open var commitProcessingTimeoutSecs: Double = 30.0
+    
+    open static let sdkVersion = Bundle(for: FitpaySDKConfiguration.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "unk"
+    
+    // MARK: - Lifecycle
     
     override public init() {
         self.clientId = ""
@@ -56,42 +41,23 @@ open class FitpaySDKConfiguration : NSObject{
         self.setupLogs()
     }
     
-    open static let sdkVersion: String = Bundle(for: FitpaySDKConfiguration.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? "unk"
-    
-    enum EnvironmentLoadingErrors : Error {
-        case clientIdIsEmpty
-        case clientSecretIsEmpty
-        case baseApiUrlIsEmpty
-        case authorizeURLIsEmpty
-    }
+    // MARK: - Functions
     
     open func loadEnvironmentVariables() -> Error? {
         let envDict = ProcessInfo.processInfo.environment
 
-        //cleintId checks
-        guard let clientId = envDict["SDK_CLIENT_ID"] else {
-            return EnvironmentLoadingErrors.clientIdIsEmpty
-        }
-        
-        guard clientId.isEmpty == false else {
+        //clientId checks
+        guard let clientId = envDict["SDK_CLIENT_ID"], !clientId.isEmpty else {
             return EnvironmentLoadingErrors.clientIdIsEmpty
         }
         
         //baseAPIUrl checks
-        guard let baseAPIUrl = envDict["SDK_API_BASE_URL"] else {
-            return EnvironmentLoadingErrors.baseApiUrlIsEmpty
-        }
-        
-        guard baseAPIUrl.isEmpty == false else {
+        guard let baseAPIUrl = envDict["SDK_API_BASE_URL"], !baseAPIUrl.isEmpty else {
             return EnvironmentLoadingErrors.baseApiUrlIsEmpty
         }
         
         //baseAuthBaseUrl checks
-        guard let baseAuthBaseUrl = envDict["SDK_AUTHORIZE_BASE_URL"] else {
-            return EnvironmentLoadingErrors.authorizeURLIsEmpty
-        }
-        
-        guard baseAuthBaseUrl.isEmpty == false else {
+        guard let baseAuthBaseUrl = envDict["SDK_AUTHORIZE_BASE_URL"], !baseAuthBaseUrl.isEmpty else {
             return EnvironmentLoadingErrors.authorizeURLIsEmpty
         }
         
@@ -102,7 +68,34 @@ open class FitpaySDKConfiguration : NSObject{
         return nil
     }
     
-    fileprivate func setupLogs() {
+    // MARK: - Internal / Private
+
+    private func setupLogs() {
         log.addOutput(output: ConsoleOutput())
     }
+    
+    // MARK: - Deprecated
+    
+    @available(*, deprecated, message: "Use commitProcessingTimeoutSecs")
+    open var commitErrorTimeout: Int {
+        set {
+            commitProcessingTimeoutSecs = Double(newValue)
+        }
+        get {
+            return Int(commitProcessingTimeoutSecs)
+        }
+    }
+    
+    //MARK: - Nested Objects
+    
+    enum EnvironmentLoadingErrors: Error {
+        case clientIdIsEmpty
+        case clientSecretIsEmpty
+        case baseApiUrlIsEmpty
+        case authorizeURLIsEmpty
+    }
+    
 }
+
+@available(*, deprecated, message: "Use FitpaySDKConfiguration sdkVersion")
+public let FitpaySDKVersion = "0.5.1"

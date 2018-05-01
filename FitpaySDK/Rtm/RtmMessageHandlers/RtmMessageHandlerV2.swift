@@ -63,7 +63,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     }
     
     func handlerFor(rtmMessage: RtmMessageType) -> MessageTypeHandler? {
-        guard let messageAction = RtmMessageTypeVer2(rawValue: rtmMessage ) else {
+        guard let messageAction = RtmMessageTypeVer2(rawValue: rtmMessage) else {
             log.error("WV_DATA: RtmMessage. Action is missing or unknown: \(rtmMessage)")
             return nil
         }
@@ -92,8 +92,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
         log.verbose("WV_DATA: Adding sync to rtm callback queue.")
         syncCallBacks.append(message)
         log.verbose("WV_DATA: initiating sync.")
-        SyncRequestQueue.sharedInstance.add(request: SyncRequest(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice, initiator: .Platform),
-                                            completion: nil)
+        SyncRequestQueue.sharedInstance.add(request: SyncRequest(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice, initiator: .Platform), completion: nil)
     }
     
     func handleSessionData(_ message: RtmMessage) {

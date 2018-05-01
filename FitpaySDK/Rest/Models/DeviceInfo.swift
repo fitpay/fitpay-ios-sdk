@@ -32,7 +32,7 @@ open class DeviceInfo: NSObject, ClientModel, Mappable, SecretApplyable {
     private static let selfResourceKey = "self"
     private static let lastAckCommitResourceKey = "lastAckCommit"
 
-    fileprivate weak var _client: RestClient?
+    private weak var _client: RestClient?
 
     // Extra metadata specific for a particural type of device
     open var metadata: [String: Any]?
@@ -326,7 +326,7 @@ open class CardRelationship: NSObject, ClientModel, Mappable, SecretApplyable {
     open var expYear: Int?
 
     internal var encryptedData: String?
-    fileprivate static let selfResource = "self"
+    private static let selfResource = "self"
     public weak var client: RestClient?
 
     public required init?(map: Map) {

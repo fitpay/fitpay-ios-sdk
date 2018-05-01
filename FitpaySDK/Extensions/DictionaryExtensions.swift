@@ -1,7 +1,7 @@
 
 extension Dictionary {
     var JSONString: String? {
-        return Foundation.JSONSerialization.JSONString(self as AnyObject)
+        return Foundation.JSONSerialization.JSONString(self)
     }
 }
 

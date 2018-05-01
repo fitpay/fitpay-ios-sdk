@@ -38,7 +38,7 @@ public class RtmDeviceInfo: DeviceInfo {
         bdAddress <- map["bdAddress"]
         pairing <- map["pairing"]
         
-        if let cardRelationships = map["cardRelationships"].currentValue as? [AnyObject] {
+        if let cardRelationships = map["cardRelationships"].currentValue as? [Any] {
             if cardRelationships.count > 0 {
                 self.cardRelationships = [CardRelationship]()
                 
@@ -50,7 +50,7 @@ public class RtmDeviceInfo: DeviceInfo {
             }
         }
         
-        metadata = map.JSON as [String: AnyObject]?
+        metadata = map.JSON
     }
     
     func copyFieldsFrom(deviceInfo: DeviceInfo) {

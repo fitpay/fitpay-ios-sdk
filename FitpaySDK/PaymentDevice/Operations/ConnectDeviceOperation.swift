@@ -66,14 +66,14 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
     internal static let paymentDeviceConnectionTimeoutInSecs: Int = 60
 
     // private
-    fileprivate var paymentDevice: PaymentDevice
+    private var paymentDevice: PaymentDevice
     // rx
-    fileprivate var publisher: BehaviorSubject<SyncOperationConnectionState>
+    private var publisher: BehaviorSubject<SyncOperationConnectionState>
     // bindings
-    fileprivate weak var deviceConnectedBinding : FitpayEventBinding?
-    fileprivate weak var deviceDisconnectedBinding : FitpayEventBinding?
+    private weak var deviceConnectedBinding : FitpayEventBinding?
+    private weak var deviceDisconnectedBinding : FitpayEventBinding?
     
-    fileprivate func connect(observable: BehaviorSubject<SyncOperationConnectionState>) {
+    private func connect(observable: BehaviorSubject<SyncOperationConnectionState>) {
         if let binding = self.deviceConnectedBinding {
             self.paymentDevice.removeBinding(binding: binding)
         }

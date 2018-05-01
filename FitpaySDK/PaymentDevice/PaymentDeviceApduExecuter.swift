@@ -23,7 +23,7 @@ internal class PaymentDeviceApduExecuter {
     var prevResponsesData: Data?
     
     // bindings
-    fileprivate weak var deviceDisconnectedBinding : FitpayEventBinding?
+    private weak var deviceDisconnectedBinding : FitpayEventBinding?
 
     typealias OnResponseReadyToHandle = (_ apduResultMessage: ApduResultMessage?, _ state: String?, _ error: Error?) -> Void
     typealias ExecutionBlock = (_ command: APDUCommand, _ completion: @escaping OnResponseReadyToHandle) -> Void

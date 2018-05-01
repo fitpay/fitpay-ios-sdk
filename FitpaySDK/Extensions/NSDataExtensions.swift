@@ -1,20 +1,17 @@
-
 import Foundation
 
-extension Data
-{
+extension Data {
+    
     var UTF8String: String? {
         return self.stringWithEncoding(String.Encoding.utf8)
     }
 
-    @inline(__always) func stringWithEncoding(_ encoding:String.Encoding) -> String?
-    {
+    @inline(__always) func stringWithEncoding(_ encoding: String.Encoding) -> String? {
         return String(data: self, encoding: encoding)
     }
 
-    var dictionary: Dictionary<String, AnyObject>? {
-        guard let dictionary:[String : AnyObject] = try? JSONSerialization.jsonObject(with: self, options:.mutableContainers) as! [String : AnyObject] else
-        {
+    var dictionary: Dictionary<String, Any>? {
+        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options:.mutableContainers) as! [String: Any] else {
             return nil
         }
 
@@ -25,49 +22,38 @@ extension Data
         return [UInt8](self)
     }
 
-    var errorMessages:[String]?
-    {
-        var messages:[String]?
-        if let dict:[String : AnyObject] = self.dictionary
-        {
-            if let errors = dict["errors"] as? [[String : String]]
-            {
-                messages = []
-                for error in errors
-                {
-                    if let message = error["message"]
-                    {
-                        messages!.append(message)
-                    }
-                }
-            }
+    var errorMessages: [String]? {
+        var messages: [String]? = []
+        
+        guard let dict: [String: Any] = self.dictionary,
+            let errors = dict["errors"] as? [[String: String]] else {
+                return messages
         }
-        return messages
-    }
-    
-    var errorMessage:String?
-    {
-        if let dict = self.dictionary
-        {
-            if let messageDict = dict as? [String : String]
-            {
-                if let message = messageDict["message"]
-                {
-                    return message
-                }
+        
+        for error in errors {
+            if let message = error["message"] {
+                messages!.append(message)
             }
         }
         
-        return nil
+        return messages
     }
     
-    var SHA1:String?
-    {
+    var errorMessage: String? {
+        guard let dict = self.dictionary,
+            let messageDict = dict as? [String: String],
+            let message = messageDict["message"] else {
+                return nil
+        }
+        
+        return message
+    }
+    
+    var SHA1: String? {
         return String(data: CC.digest(self, alg: .sha1), encoding: String.Encoding.utf8)
     }
     
-    var hex:String
-    {
+    var hex: String {
         var s = ""
         
         var byte: UInt8 = 0
@@ -79,7 +65,7 @@ extension Data
         return s
     }
     
-    var reverseEndian:Data {
+    var reverseEndian: Data {
         var inData = [UInt8](repeating: 0, count: self.count)
         (self as NSData).getBytes(&inData, length: self.count)
         var outData = [UInt8](repeating: 0, count: self.count)
@@ -95,7 +81,7 @@ extension Data
 
 extension Data {
     func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound ..< range.upperBound + 1)
+        return subdata(in: range.lowerBound..<range.upperBound + 1)
     }
 }
 

@@ -58,7 +58,7 @@ class SyncOperationStateToSyncEventAdapter {
         return syncEventsPublisher
     }
     
-    fileprivate var stateObservable: Observable<SyncOperation.SyncOperationState>
-    fileprivate var syncEventsPublisher: PublishSubject<SyncEvent>
-    fileprivate var disposeBag = DisposeBag()
+    private var stateObservable: Observable<SyncOperation.SyncOperationState>
+    private var syncEventsPublisher: PublishSubject<SyncEvent>
+    private var disposeBag = DisposeBag()
 }

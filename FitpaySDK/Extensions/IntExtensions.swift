@@ -1,14 +1,6 @@
-//
-//  IntExtensions.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 13.04.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 
-public func hex<T:BinaryInteger>( v:T) -> String {
+public func hex<T: BinaryInteger>(v: T) -> String {
     var v = v
     var s = ""
     for _ in 0..<MemoryLayout<T>.size * 2 {
@@ -18,9 +10,7 @@ public func hex<T:BinaryInteger>( v:T) -> String {
     
     var firstZeroCounter = 0
     for char in s {
-        if char != "0" {
-            break
-        }
+        if char != "0" { break }
         firstZeroCounter += 1
     }
     

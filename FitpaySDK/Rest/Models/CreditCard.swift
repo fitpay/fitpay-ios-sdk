@@ -51,15 +51,15 @@ open class CreditCard: NSObject, ClientModel, Mappable, SecretApplyable {
     open var address: Address?
     open var topOfWalletAPDUCommands: [APDUCommand]?
 
-    fileprivate static let selfResource         = "self"
-    fileprivate static let acceptTermsResource  = "acceptTerms"
-    fileprivate static let declineTermsResource = "declineTerms"
-    fileprivate static let deactivateResource   = "deactivate"
-    fileprivate static let reactivateResource   = "reactivate"
-    fileprivate static let makeDefaultResource  = "makeDefault"
-    fileprivate static let transactionsResource = "transactions"
+    private static let selfResource         = "self"
+    private static let acceptTermsResource  = "acceptTerms"
+    private static let declineTermsResource = "declineTerms"
+    private static let deactivateResource   = "deactivate"
+    private static let reactivateResource   = "reactivate"
+    private static let makeDefaultResource  = "makeDefault"
+    private static let transactionsResource = "transactions"
 
-    fileprivate weak var _client: RestClient?
+    private weak var _client: RestClient?
 
     public var client: RestClient? {
         get {
@@ -367,7 +367,7 @@ open class CardMetadata: NSObject, ClientModel, Mappable {
     open var coBrandLogo: [Image]?
     open var icon: [Image]?
     open var issuerLogo: [Image]?
-    fileprivate var _client: RestClient?
+    private var _client: RestClient?
     
     public var client: RestClient? {
         get {
@@ -448,7 +448,7 @@ open class TermsAssetReferences: NSObject, ClientModel, Mappable, AssetRetrivabl
     internal var links: [ResourceLink]?
     open var mimeType: String?
     public var client: RestClient?
-    fileprivate static let selfResource = "self"
+    private static let selfResource = "self"
 
     public required init?(map: Map) {
     }
@@ -472,10 +472,10 @@ open class TermsAssetReferences: NSObject, ClientModel, Mappable, AssetRetrivabl
 
 internal class TermsAssetReferencesTransformType: TransformType {
     typealias Object = [TermsAssetReferences]
-    typealias JSON = [[String: AnyObject]]
+    typealias JSON = [[String: Any]]
 
     func transformFromJSON(_ value: Any?) -> [TermsAssetReferences]? {
-        if let items = value as? [[String: AnyObject]] {
+        if let items = value as? [[String: Any]] {
             var list = [TermsAssetReferences]()
 
             for raw in items  {
@@ -490,14 +490,14 @@ internal class TermsAssetReferencesTransformType: TransformType {
         return nil
     }
 
-    func transformToJSON(_ value: [TermsAssetReferences]?) -> [[String: AnyObject]]? {
+    func transformToJSON(_ value: [TermsAssetReferences]?) -> [[String: Any]]? {
         return nil
     }
 }
 
 open class DeviceRelationships: NSObject, ClientModel, Mappable {
+    
     open var deviceType: String?
-    internal var links: [ResourceLink]?
     open var deviceIdentifier: String?
     open var manufacturerName: String?
     open var deviceName: String?
@@ -511,8 +511,11 @@ open class DeviceRelationships: NSObject, ClientModel, Mappable {
     open var osName: String?
     open var systemId: String?
 
-    fileprivate static let selfResource = "self"
     public var client: RestClient?
+    
+    internal var links: [ResourceLink]?
+
+    private static let selfResourceKey = "self"
 
     public required init?(map: Map) {
     }
@@ -535,7 +538,7 @@ open class DeviceRelationships: NSObject, ClientModel, Mappable {
     }
 
     @objc func relationship(_ completion: @escaping RestClient.RelationshipHandler) {
-        let resource = DeviceRelationships.selfResource
+        let resource = DeviceRelationships.selfResourceKey
         let url = self.links?.url(resource)
         if let url = url, let client = self.client {
             client.relationship(url, completion: completion)
@@ -547,10 +550,10 @@ open class DeviceRelationships: NSObject, ClientModel, Mappable {
 
 internal class DeviceRelationshipsTransformType: TransformType {
     typealias Object = [DeviceRelationships]
-    typealias JSON = [[String: AnyObject]]
+    typealias JSON = [[String: Any]]
 
     func transformFromJSON(_ value: Any?) -> [DeviceRelationships]? {
-        if let items = value as? [[String: AnyObject]] {
+        if let items = value as? [[String: Any]] {
             var list = [DeviceRelationships]()
 
             for raw in items {
@@ -565,7 +568,7 @@ internal class DeviceRelationshipsTransformType: TransformType {
         return nil
     }
 
-    func transformToJSON(_ value: [DeviceRelationships]?) -> [[String: AnyObject]]? {
+    func transformToJSON(_ value: [DeviceRelationships]?) -> [[String: Any]]? {
         return nil
     }
 }

@@ -13,7 +13,7 @@ internal class BLEDeviceInfoCollector {
         PAYMENT_CHARACTERISTIC_UUID_SECURE_ELEMENT_ID : "secureElementId"
     ]
     
-    fileprivate var deviceInfoMap : [String:AnyObject] = [:]
+    private var deviceInfoMap : [String:AnyObject] = [:]
     
     func collectDataFromCharacteristicIfPossible(_ characteristic: CBCharacteristic) {
         if let deviceInfoKey = BLEDeviceInfoCollector.characteristicBindings[characteristic.uuid],

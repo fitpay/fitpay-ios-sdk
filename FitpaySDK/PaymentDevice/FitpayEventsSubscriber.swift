@@ -229,9 +229,9 @@ open class FitpayEventsSubscriber {
         }
     }
     
-    fileprivate let eventsDispatcher = FitpayEventDispatcher()
+    private let eventsDispatcher = FitpayEventDispatcher()
     
-    fileprivate var subscribersWithBindings: [SubscriberWithBinding] = []
+    private var subscribersWithBindings: [SubscriberWithBinding] = []
     
     private func removeSubscriberIfBindingsEmpty(_ subscriberWithBinding: SubscriberWithBinding) {
         if subscriberWithBinding.bindings.count == 0 {

@@ -86,7 +86,7 @@ open class SyncRequestQueue {
         return queueFor(syncRequest: syncRequest)
     }
     
-    fileprivate func bind() {
+    private func bind() {
         var binding = self.syncManager.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (event) in
             guard let request = (event.eventData as? [String:Any])?["request"] as? SyncRequest else {
                 log.warning("Can't get request from sync event.")
@@ -119,7 +119,7 @@ open class SyncRequestQueue {
     }
     
     
-    fileprivate func unbind() {
+    private func unbind() {
         for binding in self.bindings {
             self.syncManager.removeSyncBinding(binding: binding)
         }

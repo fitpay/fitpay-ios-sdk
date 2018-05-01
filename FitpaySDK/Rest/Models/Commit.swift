@@ -1,21 +1,16 @@
-
 import ObjectMapper
 
-open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
-{
-    var links:[ResourceLink]?
+open class Commit: NSObject, ClientModel, Mappable, SecretApplyable {
+
     open var commitType:CommitType? {
         return CommitType(rawValue: commitTypeString ?? "") ?? .UNKNOWN
     }
     open var commitTypeString: String?
-    open var payload:Payload?
-    open var created:CLong?
-    open var previousCommit:String?
-    open var commit:String?
-    open var executedDuration:Int?
-    
-    fileprivate static let apduResponseResource = "apduResponse"
-    fileprivate static let confirmResource = "confirm"
+    open var payload: Payload?
+    open var created: CLong?
+    open var previousCommit: String?
+    open var commit: String?
+    open var executedDuration: Int?
     
     public weak var client: RestClient? {
         didSet {
@@ -23,7 +18,12 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
         }
     }
     
-    internal var encryptedData:String?
+    var links: [ResourceLink]?
+    
+    private static let apduResponseResourceKey = "apduResponse"
+    private static let confirmResourceKey = "confirm"
+    
+    internal var encryptedData: String?
     
     public required init?(map: Map) {
         
@@ -52,7 +52,7 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
             return
         }
         
-        let resource = Commit.confirmResource
+        let resource = Commit.confirmResourceKey
         guard let url = self.links?.url(resource) else {
             completion(nil)
             return
@@ -73,7 +73,7 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
             return
         }
         
-        let resource = Commit.apduResponseResource
+        let resource = Commit.apduResponseResourceKey
         guard let url = self.links?.url(resource) else {
             completion(NSError.clientUrlError(domain:Commit.self, code:0, client: client, url: nil, resource: resource))
             return
@@ -94,8 +94,7 @@ open class Commit : NSObject, ClientModel, Mappable, SecretApplyable
     }
 }
 
-public enum CommitType : String
-{
+public enum CommitType: String {
     case CREDITCARD_CREATED          = "CREDITCARD_CREATED"
     case CREDITCARD_DEACTIVATED      = "CREDITCARD_DEACTIVATED"
     case CREDITCARD_ACTIVATED        = "CREDITCARD_ACTIVATED"
@@ -109,30 +108,26 @@ public enum CommitType : String
     case UNKNOWN                     = "UNKNOWN"
 }
 
-open class Payload : NSObject, Mappable
-{
-    open var creditCard:CreditCard?
-    internal var payloadDictionary:[String : AnyObject]?
-    internal var apduPackage:ApduPackage?
+open class Payload: NSObject, Mappable {
     
-    public required init?(map: Map)
-    {
+    open var creditCard: CreditCard?
+    
+    internal var payloadDictionary: [String: Any]?
+    internal var apduPackage: ApduPackage?
+    
+    public required init?(map: Map) {
         
     }
     
-    open func mapping(map: Map)
-    {
+    open func mapping(map: Map) {
         let info = map.JSON
         
-        if let _ = info["creditCardId"]
-        {
+        if let _ = info["creditCardId"] {
             self.creditCard = Mapper<CreditCard>().map(JSON: info)
-        }
-        else if let _ = info["packageId"]
-        {
+        } else if let _ = info["packageId"] {
             self.apduPackage = Mapper<ApduPackage>().map(JSON: info)
         }
         
-        self.payloadDictionary = info as [String : AnyObject]?
+        self.payloadDictionary = info as [String :Any]?
     }
 }

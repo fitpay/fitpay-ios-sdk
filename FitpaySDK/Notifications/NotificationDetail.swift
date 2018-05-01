@@ -1,7 +1,6 @@
 import ObjectMapper
 
-open class NotificationDetail : Mappable
-{
+open class NotificationDetail: Mappable {
     open var ackSync: String?
     open var completeSync: String?
     open var type: String?
@@ -9,7 +8,7 @@ open class NotificationDetail : Mappable
     open var deviceId: String?
     open var userId: String?
     open var clientId: String?
-    var restClient:RestClient?
+    var restClient: RestClient?
 
     public required init?(map: Map) {
     }

@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CreditCard Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CreditCard" class="dashAnchor"></a>
+    <a title="CreditCard Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">FitpaySDK Docs</a> (12% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">FitpaySDK Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CreditCard Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/A2AContext.html">A2AContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/A2AIssuerRequest.html">A2AIssuerRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/A2AVerificationRequest.html">A2AVerificationRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/APDUCommand.html">APDUCommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ApduPackage.html">ApduPackage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ApduResultMessage.html">ApduResultMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Asset.html">Asset</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BaseLogsOutput.html">BaseLogsOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInfo.html">CardInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardMetadata.html">CardMetadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardRelationship.html">CardRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Commit.html">Commit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommitMetrics.html">CommitMetrics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CommitStatistic.html">CommitStatistic</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConnectDeviceOperation.html">ConnectDeviceOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ConsoleOutput.html">ConsoleOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CreditCard.html">CreditCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceInfo.html">DeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DeviceRelationships.html">DeviceRelationships</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EncryptionKey.html">EncryptionKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EventSource.html">EventSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FetchCommitsOperation.html">FetchCommitsOperation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FetchCommitsOperation/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayBlockEventListener.html">FitpayBlockEventListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEvent.html">FitpayEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventBinding.html">FitpayEventBinding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventDispatcher.html">FitpayEventDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventsSubscriber.html">FitpayEventsSubscriber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayEventsSubscriber/EventType.html">– EventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpayNotificationsManager.html">FitpayNotificationsManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpaySDKConfiguration.html">FitpaySDKConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FitpaySDKLogger.html">FitpaySDKLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IdVerificationResponse.html">IdVerificationResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Image.html">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ImageWithOptions.html">ImageWithOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers.html">Issuers</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers/Country.html">– Country</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Issuers/CardNetwork.html">– CardNetwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MockPaymentDeviceConnector.html">MockPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/NotificationDetail.html">NotificationDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payload.html">Payload</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentDevice.html">PaymentDevice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PaymentDevice/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Relationship.html">Relationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestClient.html">RestClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestClient/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession.html">RestSession</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession/ErrorEnum.html">– ErrorEnum</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RestSession/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResultCollection.html">ResultCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmConfig.html">RtmConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmDeviceInfo.html">RtmDeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmMessage.html">RtmMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmMessageResponse.html">RtmMessageResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RtmSecureDeviceInfo.html">RtmSecureDeviceInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ScannedCardInfo.html">ScannedCardInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SessionData.html">SessionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncManager.html">SyncManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncManager/ErrorCode.html">– ErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncRequest.html">SyncRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncRequestQueue.html">SyncRequestQueue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SyncStorage.html">SyncStorage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TermsAssetReferences.html">TermsAssetReferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/User.html">User</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserEventStreamManager.html">UserEventStreamManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VerificationMethod.html">VerificationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WvConfig.html">WvConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WvConfig/ErrorCode.html">– ErrorCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:9FitpaySDK8BASE_URLSSvp">BASE_URL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:9FitpaySDK0A10SDKVersionSSvp">FitpaySDKVersion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/A2AStepupResult.html">A2AStepupResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/APDUPackageResponseState.html">APDUPackageResponseState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/APDUResponseType.html">APDUResponseType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AuthScope.html">AuthScope</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CommitType.html">CommitType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ConnectionState.html">ConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditCardInitiator.html">CreditCardInitiator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DeviceControlState.html">DeviceControlState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EventSourceState.html">EventSourceState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EventStatus.html">EventStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ImageAssetOption.html">ImageAssetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NonAPDUCommitState.html">NonAPDUCommitState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NotificationsEventType.html">NotificationsEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/NotificationsType.html">NotificationsType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentDeviceEventTypes.html">PaymentDeviceEventTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RtmConfigDafaultMappingKey.html">RtmConfigDafaultMappingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RtmProtocolVersion.html">RtmProtocolVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SecurityNFCState.html">SecurityNFCState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/StreamEventType.html">StreamEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncEventType.html">SyncEventType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncInitiator.html">SyncInitiator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SyncOperationConnectionState.html">SyncOperationConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TestingType.html">TestingType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TokenizationState.html">TokenizationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationMethodType.html">VerificationMethodType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationResult.html">VerificationResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/VerificationState.html">VerificationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WVDeviceStatuses.html">WVDeviceStatuses</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WVMessageType.html">WVMessageType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/BinaryInteger.html">BinaryInteger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:9FitpaySDK2eeoiSbAA0A12EventBindingC_ADtF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:9FitpaySDK3hexSSx1v_ts13BinaryIntegerRzlF">hex(v:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/APDUConfirmOperationProtocol.html">APDUConfirmOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/APDUResponseProtocol.html">APDUResponseProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetOption.html">AssetOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetRetrivable.html">AssetRetrivable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/AssetWithOptionsRerivable.html">AssetWithOptionsRerivable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ConnectDeviceOperationProtocol.html">ConnectDeviceOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FetchCommitsOperationProtocol.html">FetchCommitsOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayA2AVerificationDelegate.html">FitpayA2AVerificationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerDataSource.html">FitpayCardScannerDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerDelegate.html">FitpayCardScannerDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayCardScannerPresenterDelegate.html">FitpayCardScannerPresenterDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayEventListener.html">FitpayEventListener</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/FitpayEventTypeProtocol.html">FitpayEventTypeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IFitpayCardScanner.html">IFitpayCardScanner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/IPaymentDeviceConnector.html">IPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/LogsOutputProtocol.html">LogsOutputProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/NonAPDUConfirmOperationProtocol.html">NonAPDUConfirmOperationProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RtmConfigProtocol.html">RtmConfigProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SyncFactory.html">SyncFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SyncStorageProtocol.html">SyncStorageProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/WvRTMDelegate.html">WvRTMDelegate</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:9FitpaySDK25ApplicationControlMessageV">ApplicationControlMessage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/StreamEvent.html">StreamEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK18MessageTypeHandlera">MessageTypeHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK14RtmMessageTypea">RtmMessageType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK21SyncEventBlockHandlera">SyncEventBlockHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:9FitpaySDK21SyncRequestCompletiona">SyncRequestCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CreditCard</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CreditCard</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Mappable</span><span class="p">,</span> <span class="kt">SecretApplyable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)creditCardId"></a>
+                    <a name="//apple_ref/swift/Property/creditCardId" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)creditCardId">creditCardId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">creditCardId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)userId"></a>
+                    <a name="//apple_ref/swift/Property/userId" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)userId">userId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">userId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC9isDefaultSbSgvp"></a>
+                    <a name="//apple_ref/swift/Property/isDefault" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC9isDefaultSbSgvp">isDefault</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">isDefault</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)created"></a>
+                    <a name="//apple_ref/swift/Property/created" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)created">created</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">created</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC12createdEpochSdSgvp"></a>
+                    <a name="//apple_ref/swift/Property/createdEpoch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC12createdEpochSdSgvp">createdEpoch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">createdEpoch</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC5stateAA17TokenizationStateOSgvp"></a>
+                    <a name="//apple_ref/swift/Property/state" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC5stateAA17TokenizationStateOSgvp">state</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums/TokenizationState.html">TokenizationState</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)cardType"></a>
+                    <a name="//apple_ref/swift/Property/cardType" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)cardType">cardType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">cardType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)cardMetaData"></a>
+                    <a name="//apple_ref/swift/Property/cardMetaData" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)cardMetaData">cardMetaData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">cardMetaData</span><span class="p">:</span> <span class="kt"><a href="../Classes/CardMetadata.html">CardMetadata</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)termsAssetId"></a>
+                    <a name="//apple_ref/swift/Property/termsAssetId" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)termsAssetId">termsAssetId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">termsAssetId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)termsAssetReferences"></a>
+                    <a name="//apple_ref/swift/Property/termsAssetReferences" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)termsAssetReferences">termsAssetReferences</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">termsAssetReferences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/TermsAssetReferences.html">TermsAssetReferences</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)eligibilityExpiration"></a>
+                    <a name="//apple_ref/swift/Property/eligibilityExpiration" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)eligibilityExpiration">eligibilityExpiration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">eligibilityExpiration</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC26eligibilityExpirationEpochSdSgvp"></a>
+                    <a name="//apple_ref/swift/Property/eligibilityExpirationEpoch" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC26eligibilityExpirationEpochSdSgvp">eligibilityExpirationEpoch</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">eligibilityExpirationEpoch</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)deviceRelationships"></a>
+                    <a name="//apple_ref/swift/Property/deviceRelationships" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)deviceRelationships">deviceRelationships</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">deviceRelationships</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/DeviceRelationships.html">DeviceRelationships</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)targetDeviceId"></a>
+                    <a name="//apple_ref/swift/Property/targetDeviceId" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)targetDeviceId">targetDeviceId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">targetDeviceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)targetDeviceType"></a>
+                    <a name="//apple_ref/swift/Property/targetDeviceType" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)targetDeviceType">targetDeviceType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">targetDeviceType</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)verificationMethods"></a>
+                    <a name="//apple_ref/swift/Property/verificationMethods" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)verificationMethods">verificationMethods</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">verificationMethods</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/VerificationMethod.html">VerificationMethod</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)externalTokenReference"></a>
+                    <a name="//apple_ref/swift/Property/externalTokenReference" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)externalTokenReference">externalTokenReference</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">externalTokenReference</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC4infoAA0D4InfoCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/info" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC4infoAA0D4InfoCSgvp">info</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">info</span><span class="p">:</span> <span class="kt"><a href="../Classes/CardInfo.html">CardInfo</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)pan"></a>
+                    <a name="//apple_ref/swift/Property/pan" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)pan">pan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">pan</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC8expMonthSiSgvp"></a>
+                    <a name="//apple_ref/swift/Property/expMonth" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC8expMonthSiSgvp">expMonth</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">expMonth</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC7expYearSiSgvp"></a>
+                    <a name="//apple_ref/swift/Property/expYear" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC7expYearSiSgvp">expYear</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">expYear</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)cvv"></a>
+                    <a name="//apple_ref/swift/Property/cvv" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)cvv">cvv</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">cvv</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)name"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)name">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC7addressAA7AddressCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/address" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC7addressAA7AddressCSgvp">address</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">address</span><span class="p">:</span> <span class="kt"><a href="../Classes/Address.html">Address</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)topOfWalletAPDUCommands"></a>
+                    <a name="//apple_ref/swift/Property/topOfWalletAPDUCommands" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)topOfWalletAPDUCommands">topOfWalletAPDUCommands</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">topOfWalletAPDUCommands</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/APDUCommand.html">APDUCommand</a></span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)client"></a>
+                    <a name="//apple_ref/swift/Property/client" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)client">client</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">client</span><span class="p">:</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)acceptTermsAvailable"></a>
+                    <a name="//apple_ref/swift/Property/acceptTermsAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)acceptTermsAvailable">acceptTermsAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">acceptTermsAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)declineTermsAvailable"></a>
+                    <a name="//apple_ref/swift/Property/declineTermsAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)declineTermsAvailable">declineTermsAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">declineTermsAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)deactivateAvailable"></a>
+                    <a name="//apple_ref/swift/Property/deactivateAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)deactivateAvailable">deactivateAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">deactivateAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)reactivateAvailable"></a>
+                    <a name="//apple_ref/swift/Property/reactivateAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)reactivateAvailable">reactivateAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">reactivateAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)makeDefaultAvailable"></a>
+                    <a name="//apple_ref/swift/Property/makeDefaultAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)makeDefaultAvailable">makeDefaultAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">makeDefaultAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(py)listTransactionsAvailable"></a>
+                    <a name="//apple_ref/swift/Property/listTransactionsAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(py)listTransactionsAvailable">listTransactionsAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">listTransactionsAvailable</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardCXeXecfc"></a>
+                    <a name="//apple_ref/swift/Method/init(map:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardCXeXecfc">init(map:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">map</span><span class="p">:</span> <span class="kt">Map</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC7mappingXeXeF"></a>
+                    <a name="//apple_ref/swift/Method/mapping(map:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC7mappingXeXeF">mapping(map:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">mapping</span><span class="p">(</span><span class="nv">map</span><span class="p">:</span> <span class="kt">Map</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)getCreditCard:"></a>
+                    <a name="//apple_ref/swift/Method/getCreditCard(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)getCreditCard:">getCreditCard(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the the credit card. This is useful for updated the card with the most recent data and some properties change asynchronously</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">getCreditCard</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>CreditCardHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)getIsDefault"></a>
+                    <a name="//apple_ref/swift/Method/getIsDefault()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)getIsDefault">getIsDefault()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">getIsDefault</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)getAcceptTermsUrl"></a>
+                    <a name="//apple_ref/swift/Method/getAcceptTermsUrl()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)getAcceptTermsUrl">getAcceptTermsUrl()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get acceptTerms url</p>
+
+<ul>
+<li>return acceptTerms url</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">getAcceptTermsUrl</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)setAcceptTermsUrlWithAcceptTermsUrl:error:"></a>
+                    <a name="//apple_ref/swift/Method/setAcceptTermsUrl(acceptTermsUrl:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)setAcceptTermsUrlWithAcceptTermsUrl:error:">setAcceptTermsUrl(acceptTermsUrl:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update acceptTerms url</p>
+
+<ul>
+<li>@param acceptTermsUrl url</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">setAcceptTermsUrl</span><span class="p">(</span><span class="nv">acceptTermsUrl</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)deleteCreditCard:"></a>
+                    <a name="//apple_ref/swift/Method/deleteCreditCard(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)deleteCreditCard:">deleteCreditCard(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete a single credit card from a user&rsquo;s profile. If you delete a card that is currently the default source, then the most recently added source will become the new default.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">deleteCreditCard</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">DeleteHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>DeleteCreditCardHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)updateWithName:street1:street2:city:state:postalCode:countryCode:completion:"></a>
+                    <a name="//apple_ref/swift/Method/update(name:street1:street2:city:state:postalCode:countryCode:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)updateWithName:street1:street2:city:state:postalCode:countryCode:completion:">update(name:street1:street2:city:state:postalCode:countryCode:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the details of an existing credit card</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">street1</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">street2</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">city</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">postalCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">countryCode</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+                       <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>name</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>street1</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>street2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>address</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>city</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>city</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>state</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>state</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>postalCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>postal code</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>countryCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>country code</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>UpdateCreditCardHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)acceptTerms:"></a>
+                    <a name="//apple_ref/swift/Method/acceptTerms(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)acceptTerms:">acceptTerms(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates a user has accepted the terms and conditions presented when the credit card was first added to the user&rsquo;s profile</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">acceptTerms</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>AcceptTermsHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)declineTerms:"></a>
+                    <a name="//apple_ref/swift/Method/declineTerms(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)declineTerms:">declineTerms(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates a user has declined the terms and conditions. Once declined the credit card will be in a final state, no other actions may be taken</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">declineTerms</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>DeclineTermsHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC10deactivateyAA0cD9InitiatorO8causedBy_SS6reasonySb_ACSgSo7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/deactivate(causedBy:reason:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC10deactivateyAA0cD9InitiatorO8causedBy_SS6reasonySb_ACSgSo7NSErrorCSgtc10completiontF">deactivate(causedBy:reason:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transition the credit card into a deactived state so that it may not be utilized for payment. This link will only be available for qualified credit cards that are currently in an active state.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">deactivate</span><span class="p">(</span><span class="nv">causedBy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CreditCardInitiator.html">CreditCardInitiator</a></span><span class="p">,</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>causedBy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>deactivation initiator</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reason</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>deactivation reason</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>DeactivateHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC10reactivateyAA0cD9InitiatorO8causedBy_SS6reasonySb_ACSgSo7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/reactivate(causedBy:reason:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC10reactivateyAA0cD9InitiatorO8causedBy_SS6reasonySb_ACSgSo7NSErrorCSgtc10completiontF">reactivate(causedBy:reason:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Transition the credit card into an active state where it can be utilized for payment. This link will only be available for qualified credit cards that are currently in a deactivated state.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">reactivate</span><span class="p">(</span><span class="nv">causedBy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CreditCardInitiator.html">CreditCardInitiator</a></span><span class="p">,</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>causedBy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>reactivation initiator</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reason</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>reactivation reason</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ReactivateHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)CreditCard(im)makeDefault:"></a>
+                    <a name="//apple_ref/swift/Method/makeDefault(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)CreditCard(im)makeDefault:">makeDefault(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mark the credit card as the default payment instrument. If another card is currently marked as the default, the default will automatically transition to the indicated credit card</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">makeDefault</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>MakeDefaultHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK10CreditCardC16listTransactionsySi5limit_Si6offsetyAA16ResultCollectionCyAA11TransactionCGSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="//apple_ref/swift/Method/listTransactions(limit:offset:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10CreditCardC16listTransactionsySi5limit_Si6offsetyAA16ResultCollectionCyAA11TransactionCGSg_So7NSErrorCSgtc10completiontF">listTransactions(limit:offset:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provides a transaction history (if available) for the user, results are limited by provider.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">listTransactions</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">TransactionsHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>max number of profiles per page</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offset</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>start index position for list of entities returned</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>TransactionsHandler closure</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_NEW"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_NEW" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_NEW">TokenizationState_NEW</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_NEW</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_NOT_ELIGIBLE"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_NOT_ELIGIBLE" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_NOT_ELIGIBLE">TokenizationState_NOT_ELIGIBLE</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_NOT_ELIGIBLE</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ELIGIBLE"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_ELIGIBLE" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ELIGIBLE">TokenizationState_ELIGIBLE</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_ELIGIBLE</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DECLINED_TERMS_AND_CONDITIONS"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_DECLINED_TERMS_AND_CONDITIONS" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DECLINED_TERMS_AND_CONDITIONS">TokenizationState_DECLINED_TERMS_AND_CONDITIONS</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_DECLINED_TERMS_AND_CONDITIONS</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_PENDING_ACTIVE"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_PENDING_ACTIVE" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_PENDING_ACTIVE">TokenizationState_PENDING_ACTIVE</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_PENDING_ACTIVE</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_PENDING_VERIFICATION"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_PENDING_VERIFICATION" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_PENDING_VERIFICATION">TokenizationState_PENDING_VERIFICATION</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_PENDING_VERIFICATION</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DELETED"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_DELETED" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DELETED">TokenizationState_DELETED</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_DELETED</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ACTIVE"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_ACTIVE" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ACTIVE">TokenizationState_ACTIVE</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_ACTIVE</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DEACTIVATED"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_DEACTIVATED" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DEACTIVATED">TokenizationState_DEACTIVATED</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_DEACTIVATED</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ERROR"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_ERROR" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_ERROR">TokenizationState_ERROR</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_ERROR</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DECLINED"></a>
+                    <a name="//apple_ref/swift/Variable/TokenizationState_DECLINED" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)TokenizationState_DECLINED">TokenizationState_DECLINED</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">TokenizationState_DECLINED</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)CreditCardInitiator_CARDHOLDER"></a>
+                    <a name="//apple_ref/swift/Variable/CreditCardInitiator_CARDHOLDER" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)CreditCardInitiator_CARDHOLDER">CreditCardInitiator_CARDHOLDER</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">CreditCardInitiator_CARDHOLDER</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)CreditCardInitiator_ISSUER"></a>
+                    <a name="//apple_ref/swift/Variable/CreditCardInitiator_ISSUER" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(cpy)CreditCardInitiator_ISSUER">CreditCardInitiator_ISSUER</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">CreditCardInitiator_ISSUER</span><span class="p">:</span><span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(py)stateObjC"></a>
+                    <a name="//apple_ref/swift/Property/stateObjC" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(py)stateObjC">stateObjC</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">stateObjC</span><span class="p">:</span><span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(py)createdEpochObjC"></a>
+                    <a name="//apple_ref/swift/Property/createdEpochObjC" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(py)createdEpochObjC">createdEpochObjC</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">createdEpochObjC</span><span class="p">:</span><span class="kt">NSNumber</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(im)deactivateWithCausedBy:reason:completion:"></a>
+                    <a name="//apple_ref/swift/Method/deactivate(causedBy:reason:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(im)deactivateWithCausedBy:reason:completion:">deactivate(causedBy:reason:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">deactivate</span><span class="p">(</span><span class="nv">causedBy</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">reason</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span><span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(im)reactivateWithCausedBy:reason:completion:"></a>
+                    <a name="//apple_ref/swift/Method/reactivate(causedBy:reason:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(im)reactivateWithCausedBy:reason:completion:">reactivate(causedBy:reason:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">reactivate</span><span class="p">(</span><span class="nv">causedBy</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">reason</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span><span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">CreditCardTransitionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@FitpaySDK@objc(cs)CreditCard(im)listTransactionsObjCWithLimit:offset:completion:"></a>
+                    <a name="//apple_ref/swift/Method/listTransactionsObjC(limit:offset:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)CreditCard(im)listTransactionsObjCWithLimit:offset:completion:">listTransactionsObjC(limit:offset:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">listTransactionsObjC</span><span class="p">(</span><span class="nv">limit</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span><span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a></span><span class="o">.</span><span class="kt">ResultCollectionHandler</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="https://github.com/fitpay/fitpay-ios-sdk" target="_blank" rel="external">Fit Pay, Inc</a>. All rights reserved. (Last updated: 2018-04-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,38 +1,29 @@
-
-extension Array
-{
-    var JSONString:String?
-    {
-        return Foundation.JSONSerialization.JSONString(self as AnyObject)
+extension Array {
+    var JSONString: String? {
+        return Foundation.JSONSerialization.JSONString(self)
     }
 }
 
-extension Array where Element : ResourceLink
-{
-    func url(_ resource:String) -> String?
-    {
-        for link in self
-        {
-            if let target = link.target , target == resource
-            {
+extension Array where Element: ResourceLink {
+    func url(_ resource: String) -> String? {
+        for link in self {
+            if let target = link.target, target == resource {
                 return link.href
             }
         }
         
         return nil
     }
-}
 
-extension Array where Element : ResourceLink {
-    mutating func indexOf(_ target : String) -> Element? {
+    mutating func indexOf(_ target: String) -> Element? {
         guard let index = self.index(where: {$0.target == target}) else { return nil }
         let link = self[index]
         return link
     }
 }
 
-extension Array where Element : Equatable {
-    mutating func removeObject(_ object : Element) {
+extension Array where Element: Equatable {
+    mutating func removeObject(_ object: Element) {
         if let index = self.index(of: object) {
             self.remove(at: index)
         }

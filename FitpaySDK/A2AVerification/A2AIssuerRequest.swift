@@ -18,7 +18,7 @@ public class A2AIssuerRequest: NSObject, Mappable  {
     private var response: A2AStepupResult?
     private var authCode: String?
 
-    public init(response: A2AStepupResult, authCode: String) {
+    public init(response: A2AStepupResult, authCode: String?) {
         self.response = response
         self.authCode = authCode
         super.init()
@@ -29,7 +29,7 @@ public class A2AIssuerRequest: NSObject, Mappable  {
     }
 
     open func mapping(map: Map) {
-        self.response  <- map["response"]
+        self.response <- map["response"]
         self.authCode <- map["authCode"]
     }
 

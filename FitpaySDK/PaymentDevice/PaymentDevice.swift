@@ -121,7 +121,7 @@
     }
 
     // bindings
-    fileprivate weak var deviceDisconnectedBinding : FitpayEventBinding?
+    private weak var deviceDisconnectedBinding : FitpayEventBinding?
 
     /**
      Completion handler
@@ -241,7 +241,7 @@
     }
     
     internal var deviceInterface : IPaymentDeviceConnector!
-    fileprivate let eventsDispatcher = FitpayEventDispatcher()
+    private let eventsDispatcher = FitpayEventDispatcher()
     
     /**
      Handler for APDU execution, should be called when apdu execution completed.
@@ -271,7 +271,7 @@
         self.deviceInterface = BluetoothPaymentDeviceConnector(paymentDevice: self)
     }
     
-    fileprivate var paymentDeviceApduExecuter: PaymentDeviceApduExecuter!
+    private var paymentDeviceApduExecuter: PaymentDeviceApduExecuter!
     
     internal func apduPackageProcessingStarted(_ package: ApduPackage, completion: @escaping (_ error: NSError?) -> Void) {
         if let onPreApduPackageExecute = self.deviceInterface.onPreApduPackageExecute {

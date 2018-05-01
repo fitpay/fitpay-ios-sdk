@@ -17,16 +17,17 @@ extension String {
     
     func base64URLdecoded() -> Data? {
         let base64EncodedString = convertBase64URLtoBase64(self)
-        if let decodedData = Data(base64Encoded: base64EncodedString, options:NSData.Base64DecodingOptions(rawValue: 0)){
+        if let decodedData = Data(base64Encoded: base64EncodedString, options:NSData.Base64DecodingOptions(rawValue: 0)) {
             return decodedData
         }
         return nil
     }
     
-    fileprivate func convertBase64URLtoBase64(_ encodedString: String) -> String {
-        var tempEncodedString = encodedString.replacingOccurrences(of: "-", with: "+", options: NSString.CompareOptions.literal, range: nil)
-        tempEncodedString = tempEncodedString.replacingOccurrences(of: "_", with: "/", options: NSString.CompareOptions.literal, range: nil)
-        let equalsToBeAdded = (encodedString as NSString).length % 4
+    private func convertBase64URLtoBase64(_ encodedString: String) -> String {
+        var tempEncodedString = encodedString.replacingOccurrences(of: "-", with: "+")
+        tempEncodedString = tempEncodedString.replacingOccurrences(of: "_", with: "/")
+        
+        let equalsToBeAdded = encodedString.count % 4
         if (equalsToBeAdded > 0) {
             for _ in 0..<equalsToBeAdded {
                 tempEncodedString += "="

@@ -27,7 +27,17 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0AD9229C1C1F7EFC007693AB"
+            BuildableName = "FitpaySDK.framework"
+            BlueprintName = "FitpaySDK"
+            ReferencedContainer = "container:FitpaySDK.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -41,6 +51,12 @@
             <SkippedTests>
                <Test
                   Identifier = "PaymentDeviceTests">
+               </Test>
+               <Test
+                  Identifier = "RestClientTests">
+               </Test>
+               <Test
+                  Identifier = "RestSessionTests">
                </Test>
             </SkippedTests>
          </TestableReference>

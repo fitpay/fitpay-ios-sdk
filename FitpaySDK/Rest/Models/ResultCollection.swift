@@ -8,9 +8,9 @@ open class ResultCollection<T: Mappable>: NSObject, ClientModel, Mappable, Secre
     open var totalResults: Int?
     open var results: [T]?
     internal var links: [ResourceLink]?
-    fileprivate let lastResourse = "last"
-    fileprivate let nextResourse = "next"
-    fileprivate let previousResource = "previous"
+    private let lastResourse = "last"
+    private let nextResourse = "next"
+    private let previousResource = "previous"
 
     open var nextAvailable: Bool {
         return self.links?.url(self.nextResourse) != nil
@@ -55,7 +55,7 @@ open class ResultCollection<T: Mappable>: NSObject, ClientModel, Mappable, Secre
         }
     }
     
-    fileprivate weak var _client: RestClient?
+    private weak var _client: RestClient?
 
     public required init?(map: Map){
     }
@@ -66,7 +66,7 @@ open class ResultCollection<T: Mappable>: NSObject, ClientModel, Mappable, Secre
         offset <- map["offset"]
         totalResults <- map["totalResults"]
 
-        if let objectsArray = map["results"].currentValue as? [AnyObject] {
+        if let objectsArray = map["results"].currentValue as? [Any] {
             results = [T]()
             for objectMap in objectsArray {
                 if let modelObject = Mapper<T>().map(JSON: objectMap as! [String: Any]) {
@@ -101,7 +101,7 @@ open class ResultCollection<T: Mappable>: NSObject, ClientModel, Mappable, Secre
         }
     }
 
-    fileprivate func collectAllAvailable(_ storage: [T], nextUrl: String, completion: @escaping CollectAllAvailableCompletion) {
+    private func collectAllAvailable(_ storage: [T], nextUrl: String, completion: @escaping CollectAllAvailableCompletion) {
         if let client = self.client {
             let _: T? = client.collectionItems(nextUrl)
             {
