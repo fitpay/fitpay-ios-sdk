@@ -10,7 +10,7 @@ public typealias SyncRequestCompletion = (EventStatus, Error?) -> Void
 
 open class SyncRequest {
     
-    // MARK: - Public
+    // MARK: - Public Variables
     
     public let requestTime: Date
     public private(set) var syncStartTime: Date?
@@ -21,6 +21,24 @@ open class SyncRequest {
             FitpayNotificationsManager.sharedInstance.updateRestClientForNotificationDetail(self.notificationAsc)
         }
     }
+    
+    // MARK: - Internal / Private Variables
+    
+    var isEmptyRequest: Bool {
+        return user == nil || deviceInfo == nil || paymentDevice == nil
+    }
+    
+    var user: User?
+    var deviceInfo: DeviceInfo?
+    var paymentDevice: PaymentDevice?
+    var completion: SyncRequestCompletion?
+    
+    private var state = SyncRequestState.pending
+    
+    // we should capture restClient to prevent deallocation
+    private var restClient: RestClient?
+    
+    static var syncManager: SyncManagerProtocol = SyncManager.sharedInstance
     
     /// Creates sync request.
     ///
@@ -49,27 +67,7 @@ open class SyncRequest {
         }
     }
     
-    // MARK: - / Private
-    
-    var isEmptyRequest: Bool {
-        return user == nil || deviceInfo == nil || paymentDevice == nil
-    }
-    
-    var user: User?
-    var deviceInfo: DeviceInfo?
-    var paymentDevice: PaymentDevice?
-    var completion: SyncRequestCompletion?
-    
-    private var state = SyncRequestState.pending
-    
-    // we should capture restClient to prevent deallocation
-    private var restClient: RestClient?
-    
-    convenience init() {
-        self.init(notificationAsc: nil, initiator: .notDefined)
-    }
-    
-    init(notificationAsc: NotificationDetail? = nil, initiator: SyncInitiator = .notDefined) {
+    public init(notificationAsc: NotificationDetail? = nil, initiator: SyncInitiator = .notDefined) {
         self.requestTime = Date()
         self.user = nil
         self.deviceInfo = nil
@@ -90,9 +88,7 @@ open class SyncRequest {
             self.restClient = deviceInfo?.client
         }
     }
-    
-    static var syncManager: SyncManagerProtocol = SyncManager.sharedInstance
-    
+
     func update(state: SyncRequestState) {
         if state == .inProgress {
             self.syncStartTime = Date()

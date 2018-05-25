@@ -1,11 +1,3 @@
-//
-//  NonAPDUConfirmOperation.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 16.08.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 import RxSwift
 

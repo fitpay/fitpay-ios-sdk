@@ -3,7 +3,6 @@ public class MockPaymentDeviceConnector: NSObject {
     
     var responseData: ApduResultMessage!
     var connected = false
-    var nfcState = PaymentDevice.SecurityNFCState.disabled
     var sendingAPDU: Bool = false
     
     var sequenceId: UInt16 = 0
@@ -62,21 +61,16 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
         log.verbose("connecting")
         DispatchQueue.main.asyncAfter(deadline: .now() + connectDelayTime) {
             self.connected = true
-            self.nfcState = PaymentDevice.SecurityNFCState.enabled
-            let deviceInfo = self.deviceInfo()
+            let deviceInfo = self.getDeviceInfo()
             log.verbose("triggering device data")
             self.paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])
             self.paymentDevice?.connectionState = PaymentDevice.ConnectionState.connected
         }
     }
     
-    public func isConnected() -> Bool {
+    public var isConnected: Bool {
         log.verbose("checking is connected")
         return connected
-    }
-    
-    public func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
-        completion(isConnected(), nil)
     }
     
     public func executeAPDUCommand(_ apduCommand: APDUCommand) {
@@ -90,7 +84,7 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
         sendAPDUData(commandData as Data, sequenceNumber: UInt16(apduCommand.sequence))
     }
     
-    public func deviceInfo() -> DeviceInfo? {
+    public func getDeviceInfo() -> DeviceInfo? {
         let deviceInfo = DeviceInfo()
         
         deviceInfo.deviceType = "WATCH"

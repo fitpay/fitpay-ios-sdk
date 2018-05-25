@@ -5,6 +5,7 @@
     private let eventsDispatcher = FitpayEventDispatcher()
     
     private var paymentDeviceApduExecuter: PaymentDeviceApduExecuter!
+    
     private weak var deviceDisconnectedBinding: FitpayEventBinding?
     
     var commitProcessingTimeout: Double = 30
@@ -67,10 +68,6 @@
      
      - parameter secsTimeout: timeout for connection process in seconds. If nil then there is no timeout.
      */
-    @objc open func connectWithTimeout(_ secsTimeout: Int) {
-        connect(secsTimeout)
-    }
-    
     open func connect(_ secsTimeout: Int? = nil) {
         if isConnected {
             self.deviceInterface.resetToDefaultState()
@@ -107,21 +104,14 @@
      Returns true if phone connected to payment device and device info was collected.
      */
     @objc open var isConnected: Bool {
-        return self.deviceInterface.isConnected()
+        return self.deviceInterface.isConnected
     }
-    
-    /**
-     Tries to validate connection.
-     */
-    @objc open func validateConnection(completion: @escaping (_ isValid:Bool, _ error: NSError?) -> Void) {
-        self.deviceInterface.validateConnection(completion: completion)
-    }
-    
+
     /**
      Returns DeviceInfo if phone already connected to payment device.
      */
     @objc open var deviceInfo: DeviceInfo? {
-        return self.deviceInterface.deviceInfo()
+        return self.deviceInterface.getDeviceInfo()
     }
     
     /**
@@ -321,26 +311,14 @@ extension PaymentDevice {
             return self.rawValue
         }
         
-        public var errorUserInfo: [String : Any] {
-            return [NSLocalizedDescriptionKey : self.description]
+        public var errorUserInfo: [String: Any] {
+            return [NSLocalizedDescriptionKey: self.description]
         }
         
         public static var errorDomain: String {
             return "\(PaymentDevice.self)"
         }
         
-    }
-    
-    @objc public enum SecurityNFCState: Int {
-        case disabled         = 0x00
-        case enabled          = 0x01
-        case doNotChangeState = 0xFF
-    }
-    
-    @objc public enum DeviceControlState: Int {
-        case esePowerOFF    = 0x00
-        case esePowerON     = 0x02
-        case esePowerReset  = 0x01
     }
     
     @objc public enum ConnectionState: Int {
@@ -356,7 +334,6 @@ extension PaymentDevice {
         case onDeviceConnected = 0
         case onDeviceDisconnected
         case onNotificationReceived
-        case onSecurityStateChanged
         case onApplicationControlReceived
         case onConnectionStateChanged
         
@@ -372,8 +349,6 @@ extension PaymentDevice {
                 return "On device disconnected."
             case .onNotificationReceived:
                 return "On notification received, returns ['notificationData':NSData]."
-            case .onSecurityStateChanged:
-                return "On security state changed, return ['securityState':Int]."
             case .onApplicationControlReceived:
                 return "On application control received"
             case .onConnectionStateChanged:

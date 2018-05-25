@@ -35,7 +35,6 @@ class PaymentDeviceApduExecuter {
             throw PaymentDeviceAPDUExecuterError.deviceShouldBeConnected
         }
         
-        
         self.isExecuting = true
         self.completion = { [weak self] (apduCommand, state, error) in
             self?.removeDisconnectedBinding()

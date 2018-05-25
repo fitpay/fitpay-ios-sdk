@@ -14,7 +14,7 @@
     <a title="RestClient Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">FitpaySDK Docs</a> (24% documented)</p>
+        <p><a href="../index.html">FitpaySDK Docs</a> (25% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -97,6 +97,9 @@
                 <a href="../Classes/EncryptionKey.html">EncryptionKey</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/ErrorResponse.html">ErrorResponse</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/FitpayBlockEventListener.html">FitpayBlockEventListener</a>
               </li>
               <li class="nav-group-task">
@@ -128,6 +131,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/FitpayWeb.html">FitpayWeb</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HendrixPaymentDeviceConnector.html">HendrixPaymentDeviceConnector</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/IdVerificationResponse.html">IdVerificationResponse</a>
@@ -164,12 +170,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PaymentDevice/ErrorCode.html">– ErrorCode</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/PaymentDevice/SecurityNFCState.html">– SecurityNFCState</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/PaymentDevice/DeviceControlState.html">– DeviceControlState</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/PaymentDevice/ConnectionState.html">– ConnectionState</a>
@@ -466,7 +466,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeleteHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeleteHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -516,7 +516,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">RelationshipHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt"><a href="../Classes/Relationship.html">Relationship</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">RelationshipHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">relationship</span><span class="p">:</span> <span class="kt"><a href="../Classes/Relationship.html">Relationship</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -557,9 +557,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC18createRelationshipySS_SS12creditCardIdSS06deviceI0yAA0F0CSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC18createRelationshipySS_SS12creditCardIdSS06deviceI0yAA0F0CSg_AA13ErrorResponseCSgtc10completiontF"></a>
                     <a name="//apple_ref/swift/Method/createRelationship(_:creditCardId:deviceId:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC18createRelationshipySS_SS12creditCardIdSS06deviceI0yAA0F0CSg_So7NSErrorCSgtc10completiontF">createRelationship(_:creditCardId:deviceId:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18createRelationshipySS_SS12creditCardIdSS06deviceI0yAA0F0CSg_AA13ErrorResponseCSgtc10completiontF">createRelationship(_:creditCardId:deviceId:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -713,7 +713,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UserHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">UserHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1175,7 +1175,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DevicesHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DevicesHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1233,7 +1233,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeviceHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeviceHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">device</span><span class="p">:</span> <span class="kt"><a href="../Classes/DeviceInfo.html">DeviceInfo</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1291,7 +1291,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1349,7 +1349,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">commit</span><span class="p">:</span> <span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">commit</span><span class="p">:</span> <span class="kt"><a href="../Classes/Commit.html">Commit</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1401,9 +1401,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_So7NSErrorCSgtc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtc10completiontF"></a>
                     <a name="//apple_ref/swift/Method/commits(_:commitsAfter:limit:offset:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_So7NSErrorCSgtc10completiontF">commits(_:commitsAfter:limit:offset:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtc10completiontF">commits(_:commitsAfter:limit:offset:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1449,7 +1449,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmCommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmCommitHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1478,9 +1478,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultySo7NSErrorCSgc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultyAA13ErrorResponseCSgc10completiontF"></a>
                     <a name="//apple_ref/swift/Method/confirm(_:executionResult:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultySo7NSErrorCSgc10completiontF">confirm(_:executionResult:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultyAA13ErrorResponseCSgc10completiontF">confirm(_:executionResult:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1522,7 +1522,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmAPDUPackageHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ConfirmAPDUPackageHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1551,9 +1551,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageySo7NSErrorCSgc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageyAA13ErrorResponseCSgc10completiontF"></a>
                     <a name="//apple_ref/swift/Method/confirmAPDUPackage(_:package:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageySo7NSErrorCSgc10completiontF">confirmAPDUPackage(_:package:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageyAA13ErrorResponseCSgc10completiontF">confirmAPDUPackage(_:package:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1630,7 +1630,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1688,7 +1688,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">TransactionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/Transaction.html">Transaction</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1750,7 +1750,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">IssuersHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">issuers</span><span class="p">:</span> <span class="kt"><a href="../Classes/Issuers.html">Issuers</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">IssuersHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">issuers</span><span class="p">:</span> <span class="kt"><a href="../Classes/Issuers.html">Issuers</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1760,9 +1760,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_So7NSErrorCSgtc10completion_tF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_AA13ErrorResponseCSgtc10completion_tF"></a>
                     <a name="//apple_ref/swift/Method/issuers(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_So7NSErrorCSgtc10completion_tF">issuers(completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_AA13ErrorResponseCSgtc10completion_tF">issuers(completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1808,7 +1808,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">AssetsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt"><a href="../Classes/Asset.html">Asset</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">AssetsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt"><a href="../Classes/Asset.html">Asset</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1870,7 +1870,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SyncHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">SyncHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1953,6 +1953,68 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9FitpaySDK10RestClientC14RequestHandlera"></a>
+                    <a name="//apple_ref/swift/Alias/RequestHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC14RequestHandlera">RequestHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion handler</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">RequestHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">resultValue</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resultValue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides request object, or nil if error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Provides error object, or nil if no error occurs</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9FitpaySDK10RestClientC18CreditCardsHandlera"></a>
                     <a name="//apple_ref/swift/Alias/CreditCardsHandler" class="dashAnchor"></a>
                     <a class="token" href="#/s:9FitpaySDK10RestClientC18CreditCardsHandlera">CreditCardsHandler</a>
@@ -1970,7 +2032,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardsHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResultCollection.html">ResultCollection</a></span><span class="o">&lt;</span><span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="o">&gt;</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -2028,7 +2090,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">creditCard</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">creditCard</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -2086,7 +2148,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardTransitionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">card</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">CreditCardTransitionHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">card</span><span class="p">:</span> <span class="kt"><a href="../Classes/CreditCard.html">CreditCard</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -2156,7 +2218,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">VerifyHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">verificationMethod</span><span class="p">:</span> <span class="kt"><a href="../Classes/VerificationMethod.html">VerificationMethod</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">VerifyHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">pending</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="n">_</span> <span class="nv">verificationMethod</span><span class="p">:</span> <span class="kt"><a href="../Classes/VerificationMethod.html">VerificationMethod</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -2211,7 +2273,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/fitpay/fitpay-ios-sdk" target="_blank" rel="external">Fit Pay, Inc</a>. All rights reserved. (Last updated: 2018-05-22)</p>
+          <p>&copy; 2018 <a class="link" href="https://github.com/fitpay/fitpay-ios-sdk" target="_blank" rel="external">Fit Pay, Inc</a>. All rights reserved. (Last updated: 2018-05-25)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

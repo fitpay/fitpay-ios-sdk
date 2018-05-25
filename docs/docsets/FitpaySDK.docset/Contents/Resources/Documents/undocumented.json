@@ -795,7 +795,7 @@
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
       "line": 3,
       "symbol": "StreamEvent",
-      "symbol_kind": "source.lang.swift.decl.struct",
+      "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {

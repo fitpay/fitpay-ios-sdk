@@ -1,6 +1,7 @@
 import CoreBluetooth
 
 class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
+    
     weak var paymentDevice: PaymentDevice!
     
     var centralManager: CBCentralManager?
@@ -26,8 +27,7 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
     let maxPacketSize: Int = 20
     let apduSecsTimeout: Double = 5
     
-    private var _deviceInfo: DeviceInfo?
-    private var _nfcState: PaymentDevice.SecurityNFCState?
+    private var deviceInfo: DeviceInfo?
     
     required init(paymentDevice device: PaymentDevice) {
         self.paymentDevice = device
@@ -57,29 +57,21 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
         centralManager?.stopScan()
         centralManager?.delegate = nil
         centralManager = nil
-        _deviceInfo = nil
+        deviceInfo = nil
         sequenceId = 0
         sendingAPDU = false
         deviceInfoCollector = nil
     }
     
-    func isConnected() -> Bool {
+    var isConnected: Bool {
         guard let wearablePeripheral = self.wearablePeripheral else {
             return false
         }
-        return wearablePeripheral.state == CBPeripheralState.connected && _deviceInfo != nil
+        return wearablePeripheral.state == CBPeripheralState.connected && deviceInfo != nil
     }
     
-    func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
-        completion(isConnected(), nil)
-    }
-    
-    func deviceInfo() -> DeviceInfo? {
-        return _deviceInfo
-    }
-    
-    func nfcState() -> PaymentDevice.SecurityNFCState {
-        return _nfcState ?? PaymentDevice.SecurityNFCState.disabled
+    func getDeviceInfo() -> DeviceInfo? {
+        return deviceInfo
     }
     
     func executeAPDUCommand(_ apduCommand: APDUCommand) {
@@ -153,33 +145,12 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
         }
     }
     
-    func sendDeviceControl(_ state: PaymentDevice.DeviceControlState) -> NSError? {
-        guard let deviceControlCharacteristic = self.deviceControlCharacteristic else {
-            return NSError.error(code: PaymentDevice.ErrorCode.deviceDataNotCollected, domain: BluetoothPaymentDeviceConnector.self)
-        }
-        
-        let msg = DeviceControlMessage.init(operation: state).msg
-        wearablePeripheral?.writeValue(msg as Data, for: deviceControlCharacteristic, type: CBCharacteristicWriteType.withResponse)
-        
-        return nil
-    }
-    
     func sendNotification(_ notificationData: Data) -> NSError? {
         guard let notificationCharacteristic = self.notificationCharacteristic else {
             return NSError.error(code: PaymentDevice.ErrorCode.deviceDataNotCollected, domain: BluetoothPaymentDeviceConnector.self)
         }
         
         wearablePeripheral?.writeValue(notificationData, for: notificationCharacteristic, type: CBCharacteristicWriteType.withResponse)
-        
-        return nil
-    }
-    
-    func writeSecurityState(_ state: PaymentDevice.SecurityNFCState) -> NSError? {
-        guard let wearablePeripheral = self.wearablePeripheral, let securityWriteCharacteristic = self.securityWriteCharacteristic else {
-            return NSError.error(code: PaymentDevice.ErrorCode.deviceDataNotCollected, domain: BluetoothPaymentDeviceConnector.self)
-        }
-        
-        wearablePeripheral.writeValue(Data(bytes: UnsafePointer<UInt8>([UInt8(state.rawValue)] as [UInt8]), count: 1), for: securityWriteCharacteristic, type: CBCharacteristicWriteType.withResponse)
         
         return nil
     }
@@ -195,7 +166,7 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
             return
         }
         
-        var packetNumber : UInt16 = 0
+        var packetNumber: UInt16 = 0
         let maxDataSize = maxPacketSize - MemoryLayout.size(ofValue: packetNumber)
         
         var bytesSent: Int = 0
@@ -382,12 +353,12 @@ extension BluetoothPaymentDeviceConnector: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if _deviceInfo == nil {
+        if deviceInfo == nil {
             if let deviceInfoCollector = self.deviceInfoCollector {
                 deviceInfoCollector.collectDataFromCharacteristicIfPossible(characteristic)
                 if deviceInfoCollector.isCollected {
-                    _deviceInfo = deviceInfoCollector.deviceInfo
-                    self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": _deviceInfo!])
+                    deviceInfo = deviceInfoCollector.deviceInfo
+                    self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])
                     self.deviceInfoCollector = nil
                 }
             }
@@ -451,20 +422,6 @@ extension BluetoothPaymentDeviceConnector: CBPeripheralDelegate {
         } else if characteristic.uuid == PAYMENT_CHARACTERISTIC_UUID_NOTIFICATION {
             self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onNotificationReceived, params: ["notificationData":characteristic.value as AnyObject])
         
-        } else if characteristic.uuid == PAYMENT_CHARACTERISTIC_UUID_SECURITY_READ {
-            if let value = characteristic.value {
-                let msg = SecurityStateMessage(msg: value)
-                if let securityState = PaymentDevice.SecurityNFCState(rawValue: Int(msg.nfcState)) {
-                    _nfcState = securityState
-                    
-                    self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onSecurityStateChanged, params: ["securityState": securityState.rawValue as AnyObject])
-                }
-            }
-            
-        } else if characteristic.uuid == PAYMENT_CHARACTERISTIC_UUID_APPLICATION_CONTROL {
-            if let value = characteristic.value {
-                self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onSecurityStateChanged, params: ["applicationControl": value as AnyObject])
-            }
         }
     }
 

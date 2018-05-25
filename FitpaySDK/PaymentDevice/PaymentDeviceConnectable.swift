@@ -37,14 +37,7 @@
     /// Connection check
     ///
     /// - Returns: true if phone connected to payment device and device info was collected
-    func isConnected() -> Bool
-
-    /// Async validation for connection between payment device and phone
-    ///
-    /// - Parameter completion: completion for async task.
-    /// isValid should be true if connection is valid
-    /// and device is ready for communications
-    func validateConnection(completion: @escaping (_ isValid: Bool, _ error: NSError?) -> Void)
+    var isConnected: Bool { get }
 
     /// Should execute APDU command on payment device.
     /// Should call PaymentDevice.apduResponseHandler when preocessed
@@ -53,7 +46,7 @@
     func executeAPDUCommand(_ apduCommand: APDUCommand)
 
     /// - Returns: DeviceInfo if phone already connected to payment device
-    func deviceInfo() -> DeviceInfo?
+    func getDeviceInfo() -> DeviceInfo?
     
     /// Reset to default state
     func resetToDefaultState()
@@ -92,7 +85,7 @@
     /// If you can handle id verification request, then you can handle it here
     ///
     /// - Parameter completion: when completion will be called, then the response will be sent to RTM
-    @objc optional func handleIdVerificationRequest(completion: @escaping (IdVerificationResponse)->Void)
+    @objc optional func handleIdVerificationRequest(completion: @escaping (IdVerificationResponse) -> Void)
     
     /// If you need to store lastCommitId on OEM device, then implement this method
     @objc optional func getDeviceLastCommitId() -> String

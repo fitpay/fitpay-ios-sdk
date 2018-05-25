@@ -21,24 +21,12 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
     open func start() -> Observable<SyncOperationConnectionState> {
         if self.paymentDevice.isConnected {
             log.verbose("SYNC_DATA: Validating device connection to sync.")
-            self.paymentDevice.validateConnection() { [weak self] (isValid, error) in
-                guard error == nil else {
-                    self?.publisher.onError(error!)
-                    return
-                }
-                
-                if isValid {
-                    self?.publisher.onNext(.connected)
-                } else if let publisher = self?.publisher {
-                    self?.connect(observable: publisher)
-                } else {
-                    log.warning("Can't validate connection. Object deleted?")
-                }
-            }
+            
+            publisher.onNext(.connected)
         } else {
-            self.connect(observable: self.publisher)
+            connect(observable: publisher)
         }
-
+        
         return publisher
     }
     
