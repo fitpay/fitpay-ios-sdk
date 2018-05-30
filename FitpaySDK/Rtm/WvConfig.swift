@@ -221,6 +221,23 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         return request
     }
     
+    func getURLAndConfig() -> (url: String, encodedConfig: String)? {
+        if let accessToken = self.configStorage.user?.client?._session.accessToken {
+            self.configStorage.rtmConfig!.accessToken = accessToken
+        }
+        
+        if self.configStorage.rtmConfig?.deviceInfo?.notificationToken == nil && FitpayNotificationsManager.sharedInstance.notificationsToken.isEmpty == false {
+            self.configStorage.rtmConfig?.deviceInfo?.notificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
+        }
+        
+        let JSONString = self.configStorage.rtmConfig?.jsonDict().JSONString
+        let utfString = JSONString?.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        
+        guard let encodedConfig = utfString?.base64URLencoded() else { return nil}
+        
+        return (url, encodedConfig)
+    }
+    
     func showStatusMessage(_ status: WVDeviceStatus, message: String? = nil, error: Error? = nil) {
         var realMessage = message ?? status.defaultMessage()
         if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as NSError?) {

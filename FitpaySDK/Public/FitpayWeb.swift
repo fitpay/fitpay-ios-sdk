@@ -43,7 +43,9 @@ import WebKit
     // MARK: - Functions
     
     /// Setup a Fitpay WKWebview for use
+    ///
     /// You must use WKWebview returned by this function
+    ///
     /// This must be called before any other methods
     ///
     /// - Parameters:
@@ -80,8 +82,26 @@ import WebKit
         wkWebView.load(wvConfig!.getRequest())
     }
     
+    /// Loads a specific page on Fitpay based on user variables
+    ///
+    /// Currently works with `/addCard`, `/privacyPolicy`, and `/terms`
+    @objc open func load(relativePath: String) {
+        guard let (url, encodedConfig) =  wvConfig.getURLAndConfig() else { return }
+        
+        let configuredUrl = "\(url)\(relativePath)?config=\(encodedConfig)"
+        
+        log.verbose(configuredUrl)
+        
+        let requestUrl = URL(string: configuredUrl)
+        let request = URLRequest(url: requestUrl!)
+        
+        wkWebView.load(request)
+    }
+    
     /// Should be called once the webview is loaded
+    ///
     /// This is called automatically unless you become the navigationDelegate in which case you must set it manually
+    ///
     /// You can use `WKNavigationDelegate.webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)` for managing page state
     @objc open func webViewPageLoaded() {
          wvConfig.webViewPageLoaded()
