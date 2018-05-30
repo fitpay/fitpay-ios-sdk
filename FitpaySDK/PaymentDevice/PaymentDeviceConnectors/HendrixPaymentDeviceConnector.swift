@@ -1,6 +1,19 @@
 import Foundation
 import CoreBluetooth
 
+enum HendrixCommand: UInt8 {
+    case ping = 0x01
+}
+
+enum HendrixPingResponse: UInt8 {
+    case serial = 0x00
+    case version = 0x01
+    case deviceId = 0x02
+    case deviceMode = 0x03
+    case bootVersion = 0x04
+    case ack = 0x06
+}
+
 @objc open class HendrixPaymentDeviceConnector: NSObject {
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
@@ -22,14 +35,84 @@ import CoreBluetooth
     private let dataCharacteristicId = CBUUID(string: "7DB2E528-ADF6-4F18-A110-61055D64B287")
     private let eventCharacteristicId = CBUUID(string: "7DB2AE05-ADF6-4F18-A110-61055D64B287")
     
-    var expectedDataSize = 0
-    var returnedData: [UInt8] = []
-
+    private var expectedDataSize = 0
+    private var returnedData: [UInt8] = []
+    private var lastCommand: HendrixCommand?
+    
     // MARK: - Lifecycle
     
     @objc public init(paymentDevice: PaymentDevice) {
         self.paymentDevice = paymentDevice
         super.init()
+    }
+    
+    // MARK: - Private Functions
+    private func runCommand(_ command: HendrixCommand) {
+        lastCommand = command
+        
+        guard let wearablePeripheral = wearablePeripheral else { return }
+        guard let deviceService = wearablePeripheral.services?.filter({ $0.uuid == deviceServiceId }).first else { return }
+        
+        guard let statusCharacteristic = deviceService.characteristics?.filter({ $0.uuid == statusCharacteristicId }).first else { return }
+        guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
+        guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
+        
+        wearablePeripheral.writeValue("03".hexToData()!, for: statusCharacteristic, type: .withResponse)
+        wearablePeripheral.writeValue("01".hexToData()!, for: statusCharacteristic, type: .withResponse)
+        wearablePeripheral.writeValue(command.rawValue.data, for: commandCharacteristic, type: .withResponse)
+        wearablePeripheral.writeValue("02".hexToData()!, for: statusCharacteristic, type: .withResponse)
+    }
+    
+    private func handlePingResponse() {
+        var index = 0
+        let deviceInfo = DeviceInfo()
+        
+        deviceInfo.deviceName = "Hendrix"
+        deviceInfo.deviceType = "ACTIVITY_TRACKER"
+        deviceInfo.manufacturerName = "Fitpay"
+
+        while index < expectedDataSize {
+            guard returnedData[index] == 0x24 else { return }
+            
+            let type = HendrixPingResponse(rawValue: returnedData[index + 1])
+            let length = Int(returnedData[index + 2])
+            let nextIndex = index + 3 + length
+            let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
+            
+            if (type == .serial) {
+                deviceInfo.serialNumber = hex
+                
+            } else if (type == .version) {
+                var version = "v"
+                for i in index + 3 ..< nextIndex {
+                    version += String(returnedData[i]) + "."
+                }
+                deviceInfo.firmwareRevision = String(version.dropLast())
+                
+            } else if (type == .deviceId) {
+                deviceInfo.deviceIdentifier = hex
+                
+            } else if (type == .deviceMode) {
+                guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
+
+            } else if (type == .bootVersion) {
+                deviceInfo.hardwareRevision = hex
+                
+            }
+            
+            index = nextIndex
+        }
+        
+        self.deviceInfo = deviceInfo
+        paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
+        
+        resetClassVariables()
+    }
+    
+    private func resetClassVariables() {
+        expectedDataSize = 0
+        returnedData = []
+        lastCommand = nil
     }
     
 }
@@ -92,8 +175,6 @@ import CoreBluetooth
     @objc open func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("connected")
         wearablePeripheral?.discoverServices([deviceServiceId])
-        
-        paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
     }
     
     public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -114,17 +195,12 @@ import CoreBluetooth
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
         guard let statusCharacteristic = service.characteristics?.filter({ $0.uuid == statusCharacteristicId }).first else { return }
-        guard let commandCharacteristic = service.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
         guard let dataCharacteristic = service.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
 
         peripheral.setNotifyValue(true, for: statusCharacteristic)
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
-        //reset, start, version, stop
-        peripheral.writeValue("03".hexToData()!, for: statusCharacteristic, type: .withResponse)
-        peripheral.writeValue("01".hexToData()!, for: statusCharacteristic, type: .withResponse)
-        peripheral.writeValue("01".hexToData()!, for: commandCharacteristic, type: .withResponse)
-        peripheral.writeValue("02".hexToData()!, for: statusCharacteristic, type: .withResponse)
+        runCommand(.ping)
         
     }
     
@@ -134,7 +210,7 @@ import CoreBluetooth
         switch characteristic.uuid {
             
         case statusCharacteristicId:
-            if (value.count == 1) {
+            if (value.count == 1) { //status
                 let status = Data(bytes: value).hex
                 if (status == "01") {
                     //success
@@ -142,7 +218,7 @@ import CoreBluetooth
                     //error
                 }
                 
-            } else if (value.count == 5) {
+            } else if (value.count == 5) { //length
                 let status = Data(bytes: Array([value[0]])).hex
                 if (status != "01") {
                     //error
@@ -152,8 +228,6 @@ import CoreBluetooth
                 let lengthData = Data(bytes: Array(value[1...4])).hex
                 expectedDataSize = Int(lengthData, radix: 16)!
                 returnedData = []
-                
-                print("size: \( Int(lengthData, radix: 16)!)")
             }
             
         case dataCharacteristicId:
@@ -162,6 +236,11 @@ import CoreBluetooth
             if (returnedData.count == expectedDataSize) {
                 let hexData = Data(bytes: returnedData).hex
                 print("all data received \(hexData)")
+                
+                if (lastCommand == .ping) {
+                   handlePingResponse()
+                }
+
             }
 
         default:
