@@ -22,7 +22,7 @@ open class ApduResultMessage : NSObject, APDUResponseProtocol {
             return nil
         }
         
-        let concatenationSize = responseCodeDataType.arrayOfBytes()[1]
+        let concatenationSize = responseCodeDataType.bytesArray[1]
         return Data(bytes: [0x00, 0xc0, 0x00, 0x00, concatenationSize])
     }
 }

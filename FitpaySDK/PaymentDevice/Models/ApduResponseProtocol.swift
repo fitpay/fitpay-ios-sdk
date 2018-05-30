@@ -81,7 +81,7 @@ extension APDUResponseProtocol {
             return nil
         }
         
-        return APDUResponseType(withCode: responseCode.arrayOfBytes())
+        return APDUResponseType(withCode: responseCode.bytesArray)
     }
     
     public var responseCode: Data? {
