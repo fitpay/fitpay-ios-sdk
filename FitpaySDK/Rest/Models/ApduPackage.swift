@@ -89,9 +89,9 @@ public enum APDUPackageResponseState: String {
         try? container.encode(targetDeviceType, forKey: .targetDeviceType)
         try? container.encode(targetDeviceId, forKey: .targetDeviceId)
         try? container.encode(packageId, forKey: .packageId)
+        try? container.encode(seId, forKey: .seId)
         try? container.encode(apduCommands, forKey: .apduCommands)
         try? container.encode(validUntil, forKey: .validUntil)
-        try? container.encode(validUntilEpoch, forKey: .validUntil, transformer: CustomDateFormatTransform(formatString: dateFormat))
         try? container.encode(apduPackageUrl, forKey: .apduPackageUrl)
     }
 

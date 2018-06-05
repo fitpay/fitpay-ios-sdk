@@ -129,6 +129,7 @@ class SyncOperationTests: XCTestCase {
         XCTAssertEqual(events.last?.event, SyncEventType.syncCompleted)
     }
     
+    
     func testSuccessSyncWithAPDUAndNonAPDUCommits() {
         connector.connectDelayTime = 0.001
         guard let commit1 = commitsFetcher.getCreateCardCommit(id: "1"), let commit2 = commitsFetcher.getAPDUCommit() else { XCTAssert(false, "Bad parsing."); return  }

@@ -16,6 +16,8 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
         case idVerification
         case supportsIssuerAppVerification
         case appToAppVerification
+        case navigationStart
+        case navigationSuccess
         
         func msgHandlerFor(handlerObject: RtmMessageHandler) -> MessageTypeHandler? {
             guard let handlerObject = handlerObject as? RtmMessageHandlerV5 else {
@@ -43,7 +45,9 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
                  .rtmVersion,
                  .cardScanned,
                  .sdkVersion,
-                 .idVerification:
+                 .idVerification,
+                 .navigationStart,
+                 .navigationSuccess:
                 return nil
             }
         }

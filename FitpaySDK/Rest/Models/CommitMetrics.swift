@@ -39,7 +39,7 @@ open class CommitMetrics: Serializable {
     }
 
     open func sendCompleteSync() {
-        guard let completeSync = self.notificationAsc?.completeSync else {
+        guard let completeSync = self.notificationAsc?.links?.url("completeSync") else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without URL.")
             return
         }

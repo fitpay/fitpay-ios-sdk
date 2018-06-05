@@ -100,10 +100,10 @@ class RtmMessaging {
             break
         default:
             if !receivedWrongVersion {
-                log.debug("Adding message to the buffer. Will be used after we will receive rtm version.")
+                log.debug("WV_DATA: Adding message to the buffer. Will be used after we will receive rtm version.")
                 preVersionBuffer.append(BufferedMessage(message: message, completion: completion))
             } else {
-                log.error("Can't handle message because version ack was failed.")
+                log.error("WV_DATA: Can't handle message because version ack was failed.")
                 completion?(false)
             }
             return

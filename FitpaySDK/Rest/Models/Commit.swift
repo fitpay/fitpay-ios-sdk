@@ -34,6 +34,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
         commitTypeString = try? container.decode(.commitTypeString)
         created = try? container.decode(.created)
@@ -44,6 +45,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+
         try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
         try? container.encode(commitTypeString, forKey: .commitTypeString)
         try? container.encode(created, forKey: .created)

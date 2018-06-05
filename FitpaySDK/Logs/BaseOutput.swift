@@ -52,8 +52,10 @@ open class BaseLogsOutput: NSObject, LogsOutputProtocol {
         switch level {
         case .verbose, .debug, .info:
             messageResult = "\(date) \(message)"
-        case .warning, .error:
-            messageResult = "\(date) \(level.string) - \(message)\t\(fileName).\(function):\(line)"
+        case .warning:
+            messageResult = "\(date) ⚠️ \(level.string) - \(message)\t\(fileName).\(function):\(line)"
+        case .error:
+            messageResult = "\(date) ❌ \(level.string) - \(message)\t\(fileName).\(function):\(line)"
         }
         
         return messageResult

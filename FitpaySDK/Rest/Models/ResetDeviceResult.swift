@@ -31,17 +31,18 @@ public enum DeviceResetStatus: String, Serializable {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
-        resetId = try container.decode(.resetId)
-        status = try container.decode(.status)
-        seStatus = try container.decode(.seStatus)
+        resetId = try? container.decode(.resetId)
+        status = try? container.decode(.status)
+        seStatus = try? container.decode(.seStatus)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
-        try container.encode(resetId, forKey: .resetId)
-        try container.encode(status, forKey: .status)
-        try container.encode(seStatus, forKey: .seStatus)
+        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encode(resetId, forKey: .resetId)
+        try? container.encode(status, forKey: .status)
+        try? container.encode(seStatus, forKey: .seStatus)
     }
 }

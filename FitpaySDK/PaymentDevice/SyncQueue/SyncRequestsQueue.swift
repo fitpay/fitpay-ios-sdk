@@ -72,7 +72,7 @@ open class SyncRequestQueue {
     }
     
     private func queueForDeviceWithoutDeviceIdentifier(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
-        log.warning("Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprycated)... ")
+        log.warning("Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
         guard let lastFullSyncRequest = self.lastFullSyncRequest else {
             log.error("Can't find queue for empty SyncRequest")
             return nil

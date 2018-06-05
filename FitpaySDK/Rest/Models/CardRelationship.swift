@@ -25,21 +25,21 @@ open class CardRelationship: NSObject, ClientModel, Serializable, SecretApplyabl
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
-        creditCardId = try container.decode(.creditCardId)
-        encryptedData = try container.decode(.encryptedData)
-        pan = try container.decode(.pan)
-        expMonth = try container.decode(.expMonth)
-        expYear = try container.decode(.expYear)
+        creditCardId = try? container.decode(.creditCardId)
+        encryptedData = try? container.decode(.encryptedData)
+        pan = try? container.decode(.pan)
+        expMonth = try? container.decode(.expMonth)
+        expYear = try? container.decode(.expYear)
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
-        try container.encode(creditCardId, forKey: .creditCardId)
-        try container.encode(encryptedData, forKey: .encryptedData)
-        try container.encode(pan, forKey: .pan)
-        try container.encode(expMonth, forKey: .expMonth)
-        try container.encode(expYear, forKey: .expYear)
+        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encode(creditCardId, forKey: .creditCardId)
+        try? container.encode(encryptedData, forKey: .encryptedData)
+        try? container.encode(pan, forKey: .pan)
+        try? container.encode(expMonth, forKey: .expMonth)
+        try? container.encode(expYear, forKey: .expYear)
     }
     
     func applySecret(_ secret: Data, expectedKeyId: String?) {

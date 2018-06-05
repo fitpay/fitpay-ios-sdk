@@ -28,6 +28,6 @@ open class RtmMessageResponse: RtmMessage {
         try super.encode(to: encoder)
         
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(success, forKey: .success)
+        try? container.encode(success, forKey: .success)
     }
 }

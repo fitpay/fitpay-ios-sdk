@@ -98,6 +98,7 @@ open class VerificationMethod: NSObject, ClientModel, Serializable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        
         try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
         try? container.encode(verificationId, forKey: .verificationId)
         try? container.encode(state, forKey: .state)

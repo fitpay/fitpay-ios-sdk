@@ -8,7 +8,7 @@ public class StreamEvent: Decodable {
         let container =  try decoder.container(keyedBy: CodingKeys.self)
         
         type = try container.decode(StreamEventType.self, forKey: .type)
-        payload = try container.decode([String: Any].self, forKey: .payload)
+        payload = try? container.decode([String: Any].self, forKey: .payload)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -20,6 +20,7 @@ public class StreamEvent: Decodable {
 
 public enum StreamEventType: String, Decodable {
     case connected = "STREAM_CONNECTED"
+    case disconnected = "STREAM_DISCONNECTED"
     case heartbeat = "STREAM_HEARTBEAT"
     case sync = "SYNC"
 }

@@ -60,6 +60,8 @@ class CommitsStorageTests: XCTestCase {
         let syncStorage = MockSyncStorage.sharedMockInstance
         let localCommitId = "654321"
         syncStorage.setLastCommitId(self.deviceInfo.deviceIdentifier!, commitId: localCommitId)
+        let lastCommit = syncStorage.getLastCommitId(self.deviceInfo.deviceIdentifier!)
+        XCTAssertEqual(lastCommit, localCommitId)
         
         let fetch1 = FetchCommitsOperation(deviceInfo: self.deviceInfo,
                                            shouldStartFromSyncedCommit: true,
@@ -129,7 +131,6 @@ class CommitsStorageTests: XCTestCase {
         
         super.waitForExpectations(timeout: 20, handler: nil)
     }
-
 }
 
 extension CommitsStorageTests { // Mocks

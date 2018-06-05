@@ -39,17 +39,14 @@ class EventSource: NSObject {
             if let lastEventID = newValue {
                 let defaults = UserDefaults.standard
                 defaults.set(lastEventID, forKey: lastEventIDKey)
-                defaults.synchronize()
             }
         }
         
         get {
             let defaults = UserDefaults.standard
+            let lastEventID = defaults.string(forKey: lastEventIDKey)
             
-            if let lastEventID = defaults.string(forKey: lastEventIDKey) {
-                return lastEventID
-            }
-            return nil
+            return lastEventID
         }
     }
     

@@ -45,10 +45,7 @@ import Foundation
     @objc public static func configure(clientId: String) {
         self.clientId = clientId
         
-        loadEnvironmentVariables()
-        log.addOutput(output: ConsoleOutput())
-        
-        log.debug("Fitpay configured successfully")
+        finishConfigure()
     }
     
     /**
@@ -68,31 +65,33 @@ import Foundation
         
         FitpayConfig.clientId = fitpayConfigModel.clientId
         
-        if let webURL = fitpayConfigModel.webURL {
-            FitpayConfig.webURL = webURL
-        }
-        if let redirectURL = fitpayConfigModel.redirectURL {
-            FitpayConfig.redirectURL = redirectURL
-        }
-        if let apiURL = fitpayConfigModel.apiURL {
-            FitpayConfig.apiURL = apiURL
-        }
-        if let authURL = fitpayConfigModel.authURL {
-            FitpayConfig.authURL = authURL
+        FitpayConfig.webURL = fitpayConfigModel.webURL ?? FitpayConfig.webURL
+        FitpayConfig.redirectURL = fitpayConfigModel.redirectURL ?? FitpayConfig.redirectURL
+        FitpayConfig.apiURL = fitpayConfigModel.apiURL ?? FitpayConfig.apiURL
+        FitpayConfig.authURL = fitpayConfigModel.authURL ?? FitpayConfig.authURL
+        
+        FitpayConfig.supportApp2App = fitpayConfigModel.supportApp2App ?? FitpayConfig.supportApp2App
+        FitpayConfig.minLogLevel = LogLevel(rawValue: fitpayConfigModel.minLogLevel ?? FitpayConfig.minLogLevel.rawValue) ?? LogLevel.info
+        
+        if let configModelWeb = fitpayConfigModel.web {
+            FitpayConfig.Web.demoMode = configModelWeb.demoMode ?? FitpayConfig.Web.demoMode
+            FitpayConfig.Web.demoCardGroup = configModelWeb.demoCardGroup
+            FitpayConfig.Web.cssURL = configModelWeb.cssURL
+            FitpayConfig.Web.baseLanguageURL = configModelWeb.baseLanguageURL
+            FitpayConfig.Web.supportCardScanner = configModelWeb.supportCardScanner ?? FitpayConfig.Web.supportCardScanner
         }
         
-        FitpayConfig.supportApp2App = fitpayConfigModel.supportApp2App
-        FitpayConfig.minLogLevel = LogLevel(rawValue: fitpayConfigModel.minLogLevel) ?? LogLevel.info
-        FitpayConfig.Web.demoMode = fitpayConfigModel.web.demoMode
-        FitpayConfig.Web.demoCardGroup = fitpayConfigModel.web.demoCardGroup
-        FitpayConfig.Web.cssURL = fitpayConfigModel.web.cssURL
-        FitpayConfig.Web.baseLanguageURL = fitpayConfigModel.web.baseLanguageURL
-        FitpayConfig.Web.supportCardScanner = fitpayConfigModel.web.supportCardScanner
-        
-        log.debug("Fitpay configured from file successfully")
+       finishConfigure()
     }
     
     // MARK: - Private
+    
+    private static func finishConfigure() {
+        loadEnvironmentVariables()
+        
+        log.addOutput(output: ConsoleOutput())
+        log.debug("CONFIG: Fitpay configured from file successfully")
+    }
     
     private static func loadEnvironmentVariables() {
         let envDict = ProcessInfo.processInfo.environment
@@ -140,6 +139,7 @@ import Foundation
          */
         @objc public static var baseLanguageURL: String?
         
+        // TODO: Remove
         /// Turn on when you are ready to implement card scanning methods
         @objc public static var supportCardScanner = false
         
@@ -157,17 +157,17 @@ extension FitpayConfig {
         var redirectURL: String?
         var apiURL: String?
         var authURL: String?
-        var supportApp2App: Bool
-        var minLogLevel: Int
-        var web: FitpayConfigWebModel
+        var supportApp2App: Bool?
+        var minLogLevel: Int?
+        var web: FitpayConfigWebModel?
     }
     
     private struct FitpayConfigWebModel: Serializable  {
-        var demoMode: Bool
+        var demoMode: Bool?
         var demoCardGroup: String?
         var cssURL: String?
         var baseLanguageURL: String?
-        var supportCardScanner: Bool
+        var supportCardScanner: Bool?
     }
     
 }

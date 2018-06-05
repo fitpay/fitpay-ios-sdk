@@ -42,14 +42,14 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        status = try container.decode(.status)
+        status = try? container.decode(.status)
         created = try container.decode(.created, transformer: NSTimeIntervalTypeTransform())
-        requestId = try container.decode(.requestId)
-        path = try container.decode(.path)
-        summary = try container.decode(.summary)
-        messageDescription = try container.decode(.messageDescription)
+        requestId = try? container.decode(.requestId)
+        path = try? container.decode(.path)
+        summary = try? container.decode(.summary)
+        messageDescription = try? container.decode(.messageDescription)
 
-        if let detailsString: String = try container.decode(.details), let data = detailsString.data(using: .utf8) {
+        if let detailsString: String = try? container.decode(.details), let data = detailsString.data(using: .utf8) {
             if let dict: [String: Any] = (try? JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]])?.first {
                 details = dict["message"] as? String
             } else {
@@ -59,7 +59,7 @@ import Foundation
             details = nil
         }
 
-        if let messageString: String = try container.decode(.message), let data = messageString.data(using: .utf8) {
+        if let messageString: String = try? container.decode(.message), let data = messageString.data(using: .utf8) {
             if let dict: [String: Any] = (try? JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]])?.first {
                 message = dict["message"] as? String
             } else {
@@ -70,7 +70,8 @@ import Foundation
         }
         
         super.init(domain: "", code: status ?? 0, userInfo: [NSLocalizedDescriptionKey: messageDescription ?? ""])
-        self.logError()
+        
+        logError()
     }
 
     init(domain: AnyClass, errorCode: Int?, errorMessage: String?) {
@@ -83,12 +84,15 @@ import Foundation
         details = nil
         message = nil
         super.init(domain: "\(domain)", code: status ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage ?? ""])
-        self.logError()
+        
+        logError()
     }
 
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Static Methods
 
     class func unhandledError(domain: AnyClass) -> ErrorResponse {
         return ErrorResponse(domain: domain, errorCode: 0, errorMessage: "Unhandled error")
@@ -105,6 +109,8 @@ import Foundation
         return nil
     }
 
+    // MARK: - Private
+    
     private func logError() {
         let status = "\(self.status ?? 0)"
         let messageDescription = "\(self.messageDescription ?? "")"
