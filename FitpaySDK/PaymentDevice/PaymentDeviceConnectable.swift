@@ -85,7 +85,7 @@
     /// If you can handle id verification request, then you can handle it here
     ///
     /// - Parameter completion: when completion will be called, then the response will be sent to RTM
-    @objc optional func handleIdVerificationRequest(completion: @escaping (IdVerificationResponse) -> Void)
+    @objc optional func handleIdVerificationRequest(completion: @escaping (IdVerification) -> Void)
     
     /// If you need to store lastCommitId on OEM device, then implement this method
     @objc optional func getDeviceLastCommitId() -> String

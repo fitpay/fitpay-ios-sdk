@@ -17,16 +17,13 @@
     <a name="//apple_ref/swift/Class/PaymentDevice" class="dashAnchor"></a>
 
     <a title="PaymentDevice Class Reference"></a>
-    <header>
-      <div class="content-wrapper">
-        <p><a href="../index.html">FitpaySDK Docs</a> (25% documented)</p>
-      </div>
-    </header>
-    <div class="content-wrapper">
-      <p id="breadcrumbs">
-        <a href="../index.html">FitpaySDK Reference</a>
-        <img id="carat" src="../img/carat.png" />
-        PaymentDevice Class Reference
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          FitpaySDK Docs
+        </a>
+         (28% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -129,10 +126,7 @@
                 <a class="nav-group-task-link" href="../Classes/FitpayBlockEventListener.html">FitpayBlockEventListener</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/ErrorResponse.html">ErrorResponse</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/FitpayBlockEventListener.html">FitpayBlockEventListener</a>
+                <a class="nav-group-task-link" href="../Classes/FitpayConfig.html">FitpayConfig</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/FitpayConfig/Web.html">– Web</a>
@@ -162,13 +156,13 @@
                 <a class="nav-group-task-link" href="../Classes/FitpayWeb.html">FitpayWeb</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendrixPaymentDeviceConnector.html">HendrixPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/IdVerification.html">IdVerification</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/HendrixPaymentDeviceConnector.html">HendrixPaymentDeviceConnector</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/IdVerificationResponse.html">IdVerificationResponse</a>
+                <a class="nav-group-task-link" href="../Classes/Image.html">Image</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ImageWithOptions.html">ImageWithOptions</a>
@@ -201,10 +195,10 @@
                 <a class="nav-group-task-link" href="../Classes/PaymentDevice/ErrorCode.html">– ErrorCode</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/PaymentDevice/SecurityNFCState.html">– SecurityNFCState</a>
+                <a class="nav-group-task-link" href="../Classes/PaymentDevice/ConnectionState.html">– ConnectionState</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/PaymentDevice/ConnectionState.html">– ConnectionState</a>
+                <a class="nav-group-task-link" href="../Classes/PaymentDevice/PaymentDeviceEventTypes.html">– PaymentDeviceEventTypes</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Relationship.html">Relationship</a>
@@ -229,9 +223,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResultCollection.html">ResultCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RtmDeviceInfo.html">RtmDeviceInfo</a>
@@ -692,9 +683,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FitpaySDK@objc(cs)PaymentDevice(im)connectWithTimeout:"></a>
-                    <a name="//apple_ref/swift/Method/connectWithTimeout(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)PaymentDevice(im)connectWithTimeout:">connectWithTimeout(_:)</a>
+                    <a name="/s:9FitpaySDK13PaymentDeviceC7connectySiSgF"></a>
+                    <a name="//apple_ref/swift/Method/connect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK13PaymentDeviceC7connectySiSgF">connect(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -710,7 +701,7 @@ Calls OnDeviceConnected event.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">connectWithTimeout</span><span class="p">(</span><span class="n">_</span> <span class="nv">secsTimeout</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">connect</span><span class="p">(</span><span class="n">_</span> <span class="nv">secsTimeout</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -732,33 +723,6 @@ Calls OnDeviceConnected event.</p>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9FitpaySDK13PaymentDeviceC7connectySiSgF"></a>
-                    <a name="//apple_ref/swift/Method/connect(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13PaymentDeviceC7connectySiSgF">connect(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">connect</span><span class="p">(</span><span class="n">_</span> <span class="nv">secsTimeout</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -1133,69 +1097,7 @@ Also implementation should call PaymentDevice.callCompletionForEvent() for event
                 </li>
               </ul>
             </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@FitpaySDK@objc(cs)PaymentDevice(im)connectObjC"></a>
-                    <a name="//apple_ref/swift/Method/connectObjC()" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)PaymentDevice(im)connectObjC">connectObjC()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">connectObjC</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@FitpaySDK@objc(cs)PaymentDevice(im)connectObjCWithTimeout:"></a>
-                    <a name="//apple_ref/swift/Method/connectObjC(timeout:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)PaymentDevice(im)connectObjCWithTimeout:">connectObjC(timeout:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">connectObjC</span><span class="p">(</span><span class="nv">timeout</span><span class="p">:</span><span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </section>
-        </section>
-        <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://github.com/fitpay/fitpay-ios-sdk" target="_blank" rel="external">Fit Pay, Inc</a>. All rights reserved. (Last updated: 2018-05-25)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          </div>
         </section>
 
       </article>
