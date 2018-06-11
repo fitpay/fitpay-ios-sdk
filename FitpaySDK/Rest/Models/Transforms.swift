@@ -70,3 +70,31 @@ class CustomDateFormatTransform: CodingContainerTransformer {
         return nil
     }
 }
+
+class DateToIntTransform: CodingContainerTransformer {
+    typealias Output = Date
+    typealias Input = Int
+    
+    func transform(_ decoded: Input?) -> Output? {
+        if let dateInt = decoded {
+            let calendar = Calendar.current
+            let today = Date()
+            return calendar.date(byAdding: .day, value: -dateInt, to: today)
+        }
+        return nil
+    }
+    
+    func transform(_ encoded: Output?) -> Input? {
+        if let date = encoded {
+            let calendar = Calendar.current
+            
+            let date1 = calendar.startOfDay(for: date)
+            let date2 = calendar.startOfDay(for: Date())
+            
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            return components.day
+        }
+        return nil
+    }
+}
+

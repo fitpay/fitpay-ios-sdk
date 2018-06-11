@@ -36,7 +36,7 @@ import RxSwift
         totalApduCommands = 0
         appliedApduCommands = 0
         for commit in commits {
-            if commit.commitType == CommitType.APDU_PACKAGE {
+            if commit.commitType == CommitType.apduPackage {
                 if let apduCommandsCount = commit.payload?.apduPackage?.apduCommands?.count {
                     totalApduCommands += apduCommandsCount
                 }
@@ -133,7 +133,7 @@ import RxSwift
         }
         
         switch (commitType) {
-        case CommitType.APDU_PACKAGE:
+        case CommitType.apduPackage:
             log.verbose("SYNC_DATA: processing APDU commit.")
             processAPDUCommit(commit, completion: commitCompletion)
         default:
@@ -284,37 +284,37 @@ import RxSwift
                     
                     var syncEvent: SyncEvent? = nil
                     switch commitType {
-                    case .CREDITCARD_CREATED:
+                    case .creditCardCreated:
                         syncEvent = SyncEvent(event: .cardAdded, data: eventData)
                         break
-                    case .CREDITCARD_DELETED:
+                    case .creditCardDeleted:
                         syncEvent = SyncEvent(event: .cardDeleted, data: eventData)
                         break
-                    case .CREDITCARD_ACTIVATED:
+                    case .creditCardActivated:
                         syncEvent = SyncEvent(event: .cardActivated, data: eventData)
                         break
-                    case .CREDITCARD_DEACTIVATED:
+                    case .creditCardDeactivated:
                         syncEvent = SyncEvent(event: .cardDeactivated, data: eventData)
                         break
-                    case .CREDITCARD_REACTIVATED:
+                    case .creditCardReactivated:
                         syncEvent = SyncEvent(event: .cardReactivated, data: eventData)
                         break
-                    case .SET_DEFAULT_CREDITCARD:
+                    case .setDefaultCreditCard:
                         syncEvent = SyncEvent(event: .setDefaultCard, data: eventData)
                         break
-                    case .RESET_DEFAULT_CREDITCARD:
+                    case .resetDefaultCreditCard:
                         syncEvent = SyncEvent(event: .resetDefaultCard, data: eventData)
                         break
-                    case .APDU_PACKAGE:
+                    case .apduPackage:
                         log.warning("Processed APDU package inside nonapdu handler.")
                         break
-                    case .CREDITCARD_PROVISION_FAILED:
+                    case .creditCardProvisionFailed:
                         syncEvent = SyncEvent(event: .cardProvisionFailed, data: eventData)
                         break
-                    case .CREDITCARD_METADATA_UPDATED:
+                    case .creditCardMetaDataUpdated:
                         syncEvent = SyncEvent(event: .cardMetadataUpdated, data: eventData)
                         break
-                    case .UNKNOWN:
+                    case .unknown:
                         log.warning("Received new (unknown) commit type - \(commit.commitTypeString ?? "").")
                         break
                     }
@@ -382,7 +382,7 @@ import RxSwift
         }
         
         switch (commitType) {
-        case CommitType.APDU_PACKAGE:
+        case CommitType.apduPackage:
             let total = commit.payload?.apduPackage?.executedDuration ?? 0
             let commandsCount = commit.payload?.apduPackage?.apduCommands?.count ?? 1
             

@@ -1,11 +1,12 @@
 import Foundation
 
-open class IdVerificationResponse: NSObject, Serializable {
+open class IdVerification: NSObject, Serializable {
     
     /// Most recent date this user updated their: Billing Address, Name, Email, password,
     /// or other Personally Identifiable Information associated to their account.
     open var oemAccountInfoUpdatedDate: Date?
     
+    /// Account Creation Date
     open var oemAccountCreatedDate: Date?
     
     /// If this user has multiple devices, 
@@ -18,13 +19,14 @@ open class IdVerificationResponse: NSObject, Serializable {
     /// Date this device was reported lost or stolen. Don't send if you don't have it.
     open var deviceLostModeDate: Date?
     
+    /// Number of devices that the token is on
     open var devicesWithIdenticalActiveToken: Int?
     
     /// If this user has multiple devices,
     /// how many cards are active in total across all devices?
     open var activeTokensOnAllDevicesForOemAccount: Int?
 
-    /// between 0-9
+    /// between 0-9. Lower scores are higher risk.
     open var oemAccountScore: UInt8?
     
     /// between 0-9
@@ -53,16 +55,24 @@ open class IdVerificationResponse: NSObject, Serializable {
     
     /// 1 - Time Zone Set by Network
     /// 2 - Time Zone Set by User
-    /// 3 - Time Zone set by Device Location.
     open var deviceTimeZoneSetBy: Int?
     
     /// Only needed if your payment device has a cell connection
     open var deviceIMEI: String?
     
+    /// billing line 1
     open var billingLine1: String?
+    
+    /// billing line 2
     open var billingLine2: String?
+    
+    /// billing city
     open var billingCity: String?
+    
+    /// billing state
     open var billingState: String?
+    
+    /// billing zip
     open var billingZip: String?
     
     /// [language designator ISO-639-1]‌‌‌‌-[region designator ISO 3166-1 alpha-2]
@@ -71,6 +81,7 @@ open class IdVerificationResponse: NSObject, Serializable {
     //Date format for date transformation
     private let dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
     
+    /// initializes an empty IdVerification except for locale calculated by device.
     public override init() {
         super.init()
         updateLocale()
@@ -79,12 +90,12 @@ open class IdVerificationResponse: NSObject, Serializable {
     private enum CodingKeys: String, CodingKey {
         case oemAccountInfoUpdatedDate
         case oemAccountCreatedDate
-        case suspendedCardsInOemAccount
-        case lastOemAccountActivityDate
-        case deviceLostModeDate
-        case devicesWithIdenticalActiveToken
-        case activeTokensOnAllDevicesForOemAccount
-        case oemAccountScore
+        case suspendedCardsInOemAccount = "suspendedCardsInAccount"
+        case lastOemAccountActivityDate = "daysSinceLastAccountActivity"
+        case deviceLostModeDate = "deviceLostMode"
+        case devicesWithIdenticalActiveToken = "deviceWithActiveTokens"
+        case activeTokensOnAllDevicesForOemAccount = "activeTokenOnAllDevicesForAccount"
+        case oemAccountScore = "accountScore"
         case deviceScore
         case nfcCapable
         case billingCountryCode
@@ -105,12 +116,13 @@ open class IdVerificationResponse: NSObject, Serializable {
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        oemAccountInfoUpdatedDate = try container.decode(.oemAccountInfoUpdatedDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
-        oemAccountCreatedDate = try container.decode(.oemAccountCreatedDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        let customDateFormatter = CustomDateFormatTransform(formatString: dateFormat)
+
+        oemAccountInfoUpdatedDate = try container.decode(.oemAccountInfoUpdatedDate, transformer: customDateFormatter)
+        oemAccountCreatedDate = try container.decode(.oemAccountCreatedDate, transformer: customDateFormatter)
         suspendedCardsInOemAccount = try? container.decode(.suspendedCardsInOemAccount)
-        lastOemAccountActivityDate = try container.decode(.lastOemAccountActivityDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
-        deviceLostModeDate = try container.decode(.deviceLostModeDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        lastOemAccountActivityDate = try container.decode(.lastOemAccountActivityDate, transformer: customDateFormatter)
+        deviceLostModeDate = try container.decode(.deviceLostModeDate, transformer: customDateFormatter)
         devicesWithIdenticalActiveToken = try? container.decode(.devicesWithIdenticalActiveToken)
         activeTokensOnAllDevicesForOemAccount = try? container.decode(.activeTokensOnAllDevicesForOemAccount)
         oemAccountScore = try? container.decode(.oemAccountScore)
@@ -120,7 +132,7 @@ open class IdVerificationResponse: NSObject, Serializable {
         oemAccountCountryCode = try? container.decode(.oemAccountCountryCode)
         deviceCountry = try? container.decode(.deviceCountry)
         oemAccountUserName = try? container.decode(.oemAccountUserName)
-        devicePairedToOemAccountDate = try container.decode(.devicePairedToOemAccountDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        devicePairedToOemAccountDate = try container.decode(.devicePairedToOemAccountDate, transformer: customDateFormatter)
         deviceTimeZone = try? container.decode(.deviceTimeZone)
         deviceTimeZoneSetBy = try? container.decode(.deviceTimeZoneSetBy)
         deviceIMEI = try? container.decode(.deviceIMEI)
@@ -129,7 +141,6 @@ open class IdVerificationResponse: NSObject, Serializable {
         billingCity = try? container.decode(.billingCity)
         billingState = try? container.decode(.billingState)
         billingZip = try? container.decode(.billingZip)
-        locale = try? container.decode(.locale)
 
         super.init()
         updateLocale() //needed to override locale when creating from JSON
@@ -137,11 +148,14 @@ open class IdVerificationResponse: NSObject, Serializable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try? container.encode(oemAccountInfoUpdatedDate, forKey: .oemAccountInfoUpdatedDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
-        try? container.encode(oemAccountCreatedDate, forKey: .oemAccountCreatedDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        let customDateFormatter = CustomDateFormatTransform(formatString: dateFormat)
+        
+        try? container.encode(oemAccountInfoUpdatedDate, forKey: .oemAccountInfoUpdatedDate, transformer: customDateFormatter)
+        try? container.encode(oemAccountCreatedDate, forKey: .oemAccountCreatedDate, transformer: customDateFormatter)
         try? container.encode(suspendedCardsInOemAccount, forKey: .suspendedCardsInOemAccount)
-        try? container.encode(lastOemAccountActivityDate, forKey: .lastOemAccountActivityDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
-        try? container.encode(deviceLostModeDate, forKey: .deviceLostModeDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        try? container.encode(lastOemAccountActivityDate, forKey: .lastOemAccountActivityDate, transformer: customDateFormatter)
+        try? container.encode(deviceLostModeDate, forKey: .deviceLostModeDate, transformer: customDateFormatter)
+        try? container.encode(deviceLostModeDate, forKey: .deviceLostModeDate, transformer: DateToIntTransform())
         try? container.encode(devicesWithIdenticalActiveToken, forKey: .devicesWithIdenticalActiveToken)
         try? container.encode(activeTokensOnAllDevicesForOemAccount, forKey: .activeTokensOnAllDevicesForOemAccount)
         try? container.encode(oemAccountScore, forKey: .oemAccountScore)
@@ -151,9 +165,10 @@ open class IdVerificationResponse: NSObject, Serializable {
         try? container.encode(oemAccountCountryCode, forKey: .oemAccountCountryCode)
         try? container.encode(deviceCountry, forKey: .deviceCountry)
         try? container.encode(oemAccountUserName, forKey: .oemAccountUserName)
-        try? container.encode(devicePairedToOemAccountDate, forKey: .devicePairedToOemAccountDate, transformer: CustomDateFormatTransform(formatString: dateFormat))
+        try? container.encode(devicePairedToOemAccountDate, forKey: .devicePairedToOemAccountDate, transformer: customDateFormatter)
         try? container.encode(deviceTimeZone, forKey: .deviceTimeZone)
         try? container.encode(deviceTimeZoneSetBy, forKey: .deviceTimeZoneSetBy)
+        try? container.encode(deviceIMEI, forKey: .deviceIMEI)
         try? container.encode(billingLine1, forKey: .billingLine1)
         try? container.encode(billingLine2, forKey: .billingLine2)
         try? container.encode(billingCity, forKey: .billingCity)
@@ -162,6 +177,8 @@ open class IdVerificationResponse: NSObject, Serializable {
         try? container.encode(locale, forKey: .locale)
     }
 
+    // MARK: - Private
+    
     private func updateLocale() {
         guard let preferredLanguage = NSLocale.preferredLanguages.first else { return }
         guard let languageCode = NSLocale.current.languageCode else { return }

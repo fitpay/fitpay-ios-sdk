@@ -59,15 +59,19 @@ class RtmMessageHandlerV4: RtmMessageHandlerV2 {
         }
     }
     
-    func handleSdkVersion(_ message: RtmMessage) {
+    // MARK: - Private
+    
+    private func handleSdkVersion(_ message: RtmMessage) {
         let result = [RtmMessageTypeVer4.sdkVersion.rawValue: "iOS-\(FitpayConfig.sdkVersion)"]
         if let delegate = self.outputDelegate {
             delegate.send(rtmMessage: RtmMessageResponse(data: result, type: RtmMessageTypeVer4.sdkVersion.rawValue, success: true), retries: 3)
         }
     }
+    
 }
 
 extension RtmMessageHandlerV4: FitpayCardScannerDelegate {
+    
     func scanned(card: ScannedCardInfo?, error: Error?) {
         if let delegate = self.outputDelegate {
             delegate.send(rtmMessage: RtmMessageResponse(data: card?.toJSON(), type: RtmMessageTypeVer4.cardScanned.rawValue, success: true), retries: 3)
@@ -83,4 +87,5 @@ extension RtmMessageHandlerV4: FitpayCardScannerDelegate {
             cardScannerPresenter.shouldDissmissCardScanner(scanner: cardScanner)
         }
     }
+
 }

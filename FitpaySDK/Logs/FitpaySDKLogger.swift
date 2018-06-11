@@ -46,9 +46,7 @@ let log = FitpaySDKLogger.sharedInstance
     }
     
     public func send(level: LogLevel, message: String, file: String, function: String, line: Int) {
-        if FitpayConfig.minLogLevel.rawValue > level.rawValue {
-            return
-        }
+        if FitpayConfig.minLogLevel.rawValue > level.rawValue { return }
         
         for output in outputs {
             output.send(level: level, message: message, file: file, function: function, line: line)

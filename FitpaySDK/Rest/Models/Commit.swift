@@ -2,7 +2,7 @@
 open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     
     open var commitType: CommitType? {
-        return CommitType(rawValue: commitTypeString ?? "") ?? .UNKNOWN
+        return CommitType(rawValue: commitTypeString ?? "") ?? .unknown
     }
     open var commitTypeString: String?
     open var payload: Payload?
@@ -63,7 +63,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     func confirmNonAPDUCommitWith(result: NonAPDUCommitState, completion: @escaping RestClient.ConfirmCommitHandler) {
         log.verbose("Confirming commit - \(self.commit ?? "")")
         
-        guard self.commitType != CommitType.APDU_PACKAGE else {
+        guard self.commitType != CommitType.apduPackage else {
             log.error("Trying send confirm for APDU commit but should be non APDU.")
             completion(ErrorResponse.unhandledError(domain: Commit.self))
             return
@@ -85,7 +85,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     
     func confirmAPDU(_ completion:@escaping RestClient.ConfirmAPDUPackageHandler) {
         log.verbose("in the confirmAPDU method")
-        guard self.commitType == CommitType.APDU_PACKAGE else {
+        guard self.commitType == CommitType.apduPackage else {
             completion(ErrorResponse.unhandledError(domain: Commit.self))
             return
         }
@@ -112,17 +112,17 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
 }
 
 public enum CommitType: String {
-    case CREDITCARD_CREATED          = "CREDITCARD_CREATED"
-    case CREDITCARD_DEACTIVATED      = "CREDITCARD_DEACTIVATED"
-    case CREDITCARD_ACTIVATED        = "CREDITCARD_ACTIVATED"
-    case CREDITCARD_REACTIVATED      = "CREDITCARD_REACTIVATED"
-    case CREDITCARD_DELETED          = "CREDITCARD_DELETED"
-    case RESET_DEFAULT_CREDITCARD    = "RESET_DEFAULT_CREDITCARD"
-    case SET_DEFAULT_CREDITCARD      = "SET_DEFAULT_CREDITCARD"
-    case APDU_PACKAGE                = "APDU_PACKAGE"
-    case CREDITCARD_PROVISION_FAILED = "CREDITCARD_PROVISION_FAILED"
-    case CREDITCARD_METADATA_UPDATED = "CREDITCARD_METADATA_UPDATED"
-    case UNKNOWN                     = "UNKNOWN"
+    case creditCardCreated          = "CREDITCARD_CREATED"
+    case creditCardDeactivated      = "CREDITCARD_DEACTIVATED"
+    case creditCardActivated        = "CREDITCARD_ACTIVATED"
+    case creditCardReactivated      = "CREDITCARD_REACTIVATED"
+    case creditCardDeleted          = "CREDITCARD_DELETED"
+    case resetDefaultCreditCard     = "RESET_DEFAULT_CREDITCARD"
+    case setDefaultCreditCard       = "SET_DEFAULT_CREDITCARD"
+    case apduPackage                = "APDU_PACKAGE"
+    case creditCardProvisionFailed  = "CREDITCARD_PROVISION_FAILED"
+    case creditCardMetaDataUpdated  = "CREDITCARD_METADATA_UPDATED"
+    case unknown                    = "UNKNOWN"
 }
 
 open class Payload: NSObject, Serializable {

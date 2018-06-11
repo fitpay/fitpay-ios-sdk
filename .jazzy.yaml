@@ -1,8 +1,6 @@
 #xcodebuild_arguments: 'workspace,FitpaySDK.xcworkspace,scheme,FitpaySDK'
 author: 'FitPay'
 author_url: 'https://www.fit-pay.com'
-hide_documentation_coverage: true
 copyright: 'FitPay 2018'
 github_url: 'https://github.com/fitpay/fitpay-ios-sdk/'
-skip_undocumented: true
 theme: 'fullwidth'

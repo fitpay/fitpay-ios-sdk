@@ -318,6 +318,7 @@ class ModelsParsingTests: XCTestCase {
         XCTAssertEqual(creditCard?.name, mockModels.someName)
         XCTAssertNotNil(creditCard?.address)
         XCTAssertNotNil(creditCard?.topOfWalletAPDUCommands)
+        XCTAssertEqual(creditCard?.tokenLastFour, "4321")
 
         let json = creditCard?.toJSON()
         XCTAssertNotNil(json?["_links"])
@@ -343,6 +344,7 @@ class ModelsParsingTests: XCTestCase {
         XCTAssertEqual(json?["expYear"] as? Int64, 2018)
         XCTAssertEqual(json?["cvv"] as? String, "123")
         XCTAssertEqual(json?["name"] as? String, mockModels.someName)
+        XCTAssertEqual(json?["tokenLastFour"] as? String, "4321")
         XCTAssertNotNil(json?["address"])
         XCTAssertNotNil(json?["offlineSeActions.topOfWallet.apduCommands"])
     }

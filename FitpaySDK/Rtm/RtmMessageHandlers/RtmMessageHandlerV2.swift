@@ -1,11 +1,3 @@
-//
-//  RtmMessageHandlerV2.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 30.05.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 
 class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
@@ -95,7 +87,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     
     func handleSessionData(_ message: RtmMessage) {
         guard let webViewSessionData = try? SessionData(message.data) else {
-            log.error("WV_DATA: Can't parse SessionData from rtmBridge message. Message: \(message.data)")
+            log.error("WV_DATA: Can't parse SessionData from rtmBridge message. Message: \(String(describing: message.data))")
             return
         }
 

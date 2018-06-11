@@ -38,6 +38,22 @@ extension RestClient {
      - parameter error:              Provides error object, or nil if no error occurs
      */
     public typealias VerifyHandler = (_ pending: Bool, _ verificationMethod: VerificationMethod?, _ error: ErrorResponse?) -> Void
+
+    /**
+     Completion handler
+
+     - parameter verificationMethods: Provides VerificationMethods objects, or nil if error occurs
+     - parameter error:              Provides error object, or nil if no error occurs
+     */
+    public typealias VerifyMethodsHandler = (_ verificationMethods: ResultCollection<VerificationMethod>?, _ error: ErrorResponse?) -> Void
+    
+    /**
+     Completion handler
+     
+     - parameter verificationMethod: Provides VerificationMethod object, or nil if error occurs
+     - parameter error:              Provides error object, or nil if no error occurs
+     */
+    public typealias VerifyMethodHandler = (_ verificationMethod: VerificationMethod?, _ error: ErrorResponse?) -> Void
     
     //MARK - Internal Functions
     
@@ -236,7 +252,45 @@ extension RestClient {
             }
         }
     }
+
+    func getVerificationMethods(_ url: String, completion: @escaping VerifyMethodsHandler) {
+        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+            guard let headers = headers  else {
+                DispatchQueue.main.async { completion(nil, error) }
+                return
+            }
+
+            let request = self?._manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
+            self?.makeRequest(request: request) { (resultValue, error) in
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
+                }
+                let verificationMethods = try? ResultCollection<VerificationMethod>(resultValue)
+                completion(verificationMethods, error)
+            }
+        }
+    }
     
+    func getVerificationMethod(_ url: String, completion: @escaping VerifyMethodHandler) {
+        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+            guard let headers = headers  else {
+                DispatchQueue.main.async { completion(nil, error) }
+                return
+            }
+            
+            let request = self?._manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
+            self?.makeRequest(request: request) { (resultValue, error) in
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
+                }
+                let verificationMethod = try? VerificationMethod(resultValue)
+                completion(verificationMethod, error)
+            }
+        }
+    }
+
     func selectVerificationType(_ url: String, completion: @escaping VerifyHandler) {
         self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers  else {

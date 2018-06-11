@@ -25,30 +25,26 @@ class TestHelper {
     }
     
     func createUser(_ expectation:XCTestExpectation, email: String, pin: String, completion: @escaping (User?) -> Void) {
-        let currentTime = Date().timeIntervalSince1970 //double or NSTimeInterval
         
-        self.client.createUser(email, password: pin, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil,
-            termsAccepted: nil, origin: nil, originAccountCreated: nil) { [unowned self] (user, error) in
-                
-                XCTAssertNil(error)
-                XCTAssertNotNil(user)
-                
-                debugPrint("created user: \(String(describing: user?.info?.email))")
-                self.userValid(user!)
-                
-                //additional sanity checks that we created a meaningful user
-                //PLAT-1388 has a bug on the number of links returned when creating a user. When that gets fixed, reenable this.
-                //XCTAssertEqual(user!.links!.count, 4, "Expect the number of links to be at least user, cards, devices") //could change. I'm violating HATEAOS
-                
-                //because there is such a thing as system clock variance (and I demonstrated it to Jakub), we check +/- 5 minutes.
-                let comparisonTime = currentTime - (150) //2.5 minutes.
-                let actualTime = user!.createdEpoch! //PGR-551 bug. Drop the /1000.0 when the bug is fixed.
-                debugPrint("actualTime created: \(actualTime), expected Time: \(currentTime)")
-                XCTAssertGreaterThan(actualTime, comparisonTime, "Want it to be created after the last 2.5 minutes")
-                XCTAssertLessThan(actualTime, comparisonTime+300, "Want it to be created no more than the last 2.5 min")
-                XCTAssertEqual(user?.email, email, "Want the emails to match up")
-                
-                completion(user)
+        let currentTime = Date().timeIntervalSince1970
+        
+        self.client.createUser(email, password: pin, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil, termsAccepted: nil, origin: nil, originAccountCreated: nil) { [unowned self] (user, error) in
+            
+            XCTAssertNil(error)
+            XCTAssertNotNil(user)
+            
+            debugPrint("created user: \(String(describing: user?.info?.email))")
+            self.userValid(user!)
+            
+            //because there is such a thing as system clock variance, we check +/- 5 minutes.
+            let comparisonTime = currentTime - (150) //2.5 minutes.
+            let actualTime = user!.createdEpoch!
+            debugPrint("actualTime created: \(actualTime), expected Time: \(currentTime)")
+            XCTAssertGreaterThan(actualTime, comparisonTime, "Want it to be created after the last 2.5 minutes")
+            XCTAssertLessThan(actualTime, comparisonTime + 300, "Want it to be created no more than the last 2.5 min")
+            XCTAssertEqual(user?.email, email, "Want the emails to match up")
+            
+            completion(user)
         }
         
     }
@@ -62,10 +58,11 @@ class TestHelper {
                 
                 self.client.user(id: self.session.userId!) { (user, userError) in
                     
-                    XCTAssertNotNil(user)
-                    if (user != nil) { self.userValid(user!) }
-                    XCTAssertEqual(user?.email, email, "Want emails to match up after logging in")
+                    XCTAssertNotNil(user, "user should not be nuil")
                     
+                    self.userValid(user!)
+                        
+                    XCTAssertEqual(user?.email, email, "Want emails to match up after logging in")
                     XCTAssertNil(userError)
                     
                     completion(user)
@@ -109,7 +106,7 @@ class TestHelper {
         }
     }
     
-    func assetCreditCard(_ card: CreditCard?) {
+    func assertCreditCard(_ card: CreditCard?) {
         XCTAssertNotNil(card?.links)
         XCTAssertNotNil(card?.creditCardId)
         XCTAssertNotNil(card?.userId)
@@ -136,7 +133,7 @@ class TestHelper {
             street2: "Ste. #209-A", street3: "underneath a bird's nest", city: "Boulder", state: "CO", postalCode: "80304-1111", country: "USA"
         ) { [unowned self](card, error) -> Void in
             debugPrint("creating credit card with \(pan)")
-            self.assetCreditCard(card)
+            self.assertCreditCard(card)
             
             XCTAssertNil(error)
             if card?.state == .PENDING_ACTIVE {
@@ -151,12 +148,12 @@ class TestHelper {
     
     func createCreditCard(_ expectation: XCTestExpectation, user: User?, completion: @escaping (_ user: User?, _ creditCard: CreditCard?) -> Void) {
         user?.createCreditCard(pan: "9999405454540004", expMonth: 10, expYear: 2018, cvv: "133", name: "TEST CARD", street1: "1035 Pearl St",
-            street2: "Street 2", street3: "Street 3", city: "Boulder", state: "CO", postalCode: "80302", country: "US"
+                               street2: "Street 2", street3: "Street 3", city: "Boulder", state: "CO", postalCode: "80302", country: "US"
         ) { [unowned self] (card, error) -> Void in
             
-            self.assetCreditCard(card)
+            self.assertCreditCard(card)
             XCTAssertNil(error)
-
+            
             if card?.state == .PENDING_ACTIVE {
                 self.waitForActive(card!) { (activeCard) in
                     completion(user, activeCard)
@@ -180,7 +177,7 @@ class TestHelper {
             
             if let results = result?.results {
                 for card in results {
-                    self.assetCreditCard(card)
+                    self.assertCreditCard(card)
                 }
             }
             
@@ -242,6 +239,15 @@ class TestHelper {
             completion(verificationMethod)
         }
     }
+
+    func getVerificationMethods(_ expectation: XCTestExpectation, card: CreditCard?, completion: @escaping (_ verificationMethod: ResultCollection<VerificationMethod>?) -> Void) {
+        card?.getVerificationMethods { (verificationMethods, error) in
+            XCTAssertNotNil(verificationMethods, "verification methods should not be nil")
+            XCTAssertNil(error)
+
+            completion(verificationMethods)
+        }
+    }
     
     func verifyCreditCard(_ expectation: XCTestExpectation, verificationMethod: VerificationMethod?, completion: @escaping (_ card: CreditCard?) -> Void) {
         verificationMethod?.verify("12345") { (pending, verificationMethod, error) -> Void in
@@ -300,12 +306,11 @@ class TestHelper {
     }
     
     func createAcceptVerifyAmExCreditCard(_ expectation: XCTestExpectation, pan: String, user: User?, completion: @escaping (_ creditCard: CreditCard?) -> Void) {
-        user?.createCreditCard(pan: pan, expMonth: 5, expYear: 2020, cvv: "434", name: "John Smith", street1: "Street 1", street2: "Street 2",
-            street3: "Street 3", city: "New York", state: "NY", postalCode: "80302", country: "USA") { [unowned self] (creditCard, error) in
+        user?.createCreditCard(pan: pan, expMonth: 5, expYear: 2020, cvv: "434", name: "John Smith", street1: "Street 1", street2: "Street 2", street3: "Street 3", city: "New York", state: "NY", postalCode: "80302", country: "USA") { [unowned self] (creditCard, error) in
             
             XCTAssertNil(error)
             
-            self.assetCreditCard(creditCard)
+            self.assertCreditCard(creditCard)
             
             self.acceptTermsForCreditCard(expectation, card: creditCard) { (card) in
                 self.selectVerificationType(expectation, card: card) { (verificationMethod) in

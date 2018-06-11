@@ -137,11 +137,11 @@
     /// Handles id verification request
     ///
     /// - Parameter completion: when completion will be called, then the response will be sent to RTM
-    public func handleIdVerificationRequest(completion: @escaping (IdVerificationResponse) -> Void) {
+    public func handleIdVerificationRequest(completion: @escaping (IdVerification) -> Void) {
         if let handleIdVerificationRequest = self.deviceInterface.handleIdVerificationRequest {
             handleIdVerificationRequest(completion)
         } else {
-            let onlyLocationResponse = IdVerificationResponse()
+            let onlyLocationResponse = IdVerification()
             completion(onlyLocationResponse)
         }
     }

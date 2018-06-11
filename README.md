@@ -92,6 +92,67 @@ Code example:
 
 ```
 
+# Migration from 0.x to 1.x
+Our strategy for major version changes includes the allowance of breaking changes. This helps us clean up obsolete code and refactor for better performance. We suggest you plan approximately 90 minutes of time to migrate, excluding any [updates to data models](#models) if you are subclassing. Add an extra 60 minutes if you are using the WebApp since most of the big changes are with the Web View interface. These times are approximate and conservative but will vary based on your integration.
+
+## Benefits of Upgrading
+* Unified Configuration
+* Simplified Web Usage
+* Increased Documentation
+* Long Term Support for New Features
+
+## Breaking Changes
+
+Deprecated methods have been removed.
+
+### Configuration Updates
+The top level Fitpay configuration object has changed
+
+* `FitpaySDKConfiguration.defaultConfiguration` > `FitpayConfig`
+* `.webViewURL` > `.webURL`
+* `.baseAPIURL` > `.apiURL`
+* `.baseAuthURL` > `.authURL`
+* `.redirectUri` > `.redirectURL`
+* `.commitProcessingTimeoutSecs` is moved to `PaymentDevice commitProcessingTimeout`
+
+Configuration can be set as you are doing today with the name changes or you can update to using a `fitpayconfig.json` file
+
+### Payment Connector
+* `IPaymentDeviceConnector` > `PaymentDeviceConnectable`
+* `PaymentDeviceEventTypes` > `PaymentDevice.PaymentDeviceEventTypes`
+* `device.changeDeviceInterface(MyPaymentDevice(paymentDevice: device))` > `let deviceConnector = MyPaymentDeviceConnector(paymentDevice: device)`
+
+
+### Models
+* Models are parsed with Swift4 Decodable instead of ObjectMapper so if you are subclassing a model you may need to update your parsing logic
+* Enums cases are moving to the Swift standard of camelCase. No logic changes. (~30% of enum variables have been updated. Estimated time commitment is 15 minutes)
+
+### Logging
+* ConsoleOutput is now added to the log output automatically and can not be manually added
+* `minLogLevel` is now on `FitpayConfig`
+
+------
+## Breaking changes below only apply to webview implementations
+------
+
+### Web View Interface
+
+There are many changes to how the web interface works. Many are highlighted below but to get a full view of the architecture read through the quickstart guide and jazzy docs.
+
+* `wvConfig` > `FitpayWeb.shared`
+* `self.webView!.load(self.wvConfig!.wvRequest())` >  `FitpayWeb.shared.load()`
+
+
+#### RTM Configuration
+RTMConfig is no longer a public object. `clientId`, `redirectUri`, `demoMode`, `demoCardGroup`, `customCSSUrl`, and `baseLanguageUrl` can all be found in with (some slightly different names) in `FitpayConfig`
+        
+#### RTMDelegate
+* `WvRTMDelegate` > `RTMDelegate`
+* `didAuthorizeWithEmail(_ email: String?)` > `didAuthorizeWith(email: String)`
+* `toJSONString()` is removed with no replacement
+* `showCustomStatusMessage` is removed with no replacement
+
+
 ## Contributing to the SDK
 We welcome contributions to the SDK. For your first few contributions please fork the repo, make your changes and submit a pull request. Internally we branch off of develop, test, and PR-review the branch before merging to develop (moderately stable). Releases to Master happen less frequently, undergo more testing, and can be considered stable. For more information, please read:  [http://nvie.com/posts/a-successful-git-branching-model/](http://nvie.com/posts/a-successful-git-branching-model/)
 

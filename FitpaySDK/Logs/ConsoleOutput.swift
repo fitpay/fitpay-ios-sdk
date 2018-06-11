@@ -6,4 +6,5 @@ class ConsoleOutput: BaseLogsOutput {
         let finalMessage = formMessage(level: level, message: message, file: file, function: function, line: line)
         print(finalMessage)
     }
+    
 }

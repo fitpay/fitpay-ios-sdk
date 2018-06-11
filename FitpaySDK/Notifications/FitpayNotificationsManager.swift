@@ -1,8 +1,8 @@
 import Foundation
 
 public enum NotificationsType: String {
-    case WithSync = "sync"
-    case WithoutSync = "withoutsync"
+    case withSync = "sync"
+    case withoutSync = "withoutsync"
 }
 
 public enum NotificationsEventType: Int, FitpayEventTypeProtocol {
@@ -149,23 +149,23 @@ open class FitpayNotificationsManager: NSObject {
         
         self.currentNotification = notificationsQueue.dequeue()
         if let currentNotification = self.currentNotification {
-            var notificationType = NotificationsType.WithoutSync
+            var notificationType = NotificationsType.withoutSync
 
             if (currentNotification["fpField1"] as? String)?.lowercased() == "sync" {
                 log.debug("NOTIFICATIONS_DATA: notification was of type sync.")
-                notificationType = NotificationsType.WithSync
+                notificationType = NotificationsType.withSync
             }
             
             callReceivedCompletion(currentNotification, notificationType: notificationType)
             switch notificationType {
-            case .WithSync:
+            case .withSync:
                 let notificationDetail = self.notificationDetailFromNotification(currentNotification)
                 SyncRequestQueue.sharedInstance.add(request: SyncRequest(notificationAsc: notificationDetail, initiator: SyncInitiator.notification), completion: { (status, error) in
                     self.currentNotification = nil
                     self.processNextNotificationIfAvailable()
                 })
                 break
-            case .WithoutSync: // just call completion
+            case .withoutSync: // just call completion
                 log.debug("NOTIFICATIONS_DATA: notif was non-sync.")
                 self.currentNotification = nil
                 processNextNotificationIfAvailable()
@@ -177,10 +177,10 @@ open class FitpayNotificationsManager: NSObject {
     private func callReceivedCompletion(_ payload: NotificationsPayload, notificationType: NotificationsType) {
         var eventType: NotificationsEventType
         switch notificationType {
-        case .WithSync:
+        case .withSync:
             eventType = .receivedSyncNotification
             break
-        case .WithoutSync:
+        case .withoutSync:
             eventType = .receivedSimpleNotification
             break
         }

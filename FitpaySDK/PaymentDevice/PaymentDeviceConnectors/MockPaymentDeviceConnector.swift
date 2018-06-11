@@ -1,3 +1,5 @@
+import Foundation
+
 public class MockPaymentDeviceConnector: NSObject {
     weak var paymentDevice: PaymentDevice!
     
@@ -27,8 +29,8 @@ public class MockPaymentDeviceConnector: NSObject {
             self.paymentDevice?.connectionState = PaymentDevice.ConnectionState.disconnected
         }
     }
-
-    private func sendAPDUData(_ data: Data, sequenceNumber: UInt16) {
+    
+    private func sendAPDUData(string: String, sequenceNumber: UInt16) {
         let response = "9000"
         let packet = ApduResultMessage(hexResult: response)
         
@@ -74,14 +76,14 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
     }
     
     public func executeAPDUCommand(_ apduCommand: APDUCommand) {
-        guard let commandData = apduCommand.command?.hexToData() else {
+        guard let command = apduCommand.command else {
             if let completion = self.paymentDevice.apduResponseHandler {
-                completion(nil, nil, NSError.error(code: PaymentDevice.ErrorCode.apduDataNotFull, domain: PaymentDeviceConnectable.self))
+                completion(nil, nil, NSError(domain: "\(PaymentDeviceConnectable.self)", code: PaymentDevice.ErrorCode.apduDataNotFull.rawValue, userInfo: nil))
             }
             return
         }
         
-        sendAPDUData(commandData as Data, sequenceNumber: UInt16(apduCommand.sequence))
+        sendAPDUData(string: command, sequenceNumber: UInt16(apduCommand.sequence))
     }
     
     public func getDeviceInfo() -> DeviceInfo? {
@@ -111,11 +113,10 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
     
 }
 
-
 //MARK: - Nested Objects
 
 extension MockPaymentDeviceConnector {
-
+    
     public enum TestingType: UInt64 {
         case partialSimulationMode = 0xBADC0FFEE000
         case fullSimulationMode    = 0xDEADBEEF0000
