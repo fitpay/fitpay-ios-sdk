@@ -67,6 +67,26 @@ open class SyncRequest {
         }
     }
     
+    // MARK: - / Private
+    
+    var isEmptyRequest: Bool {
+        return user == nil || deviceInfo == nil || paymentDevice == nil
+    }
+    
+    var user: User?
+    var deviceInfo: DeviceInfo?
+    var paymentDevice: PaymentDevice?
+    var completion: SyncRequestCompletion?
+    
+    private var state = SyncRequestState.pending
+    
+    // we should capture restClient to prevent deallocation
+    private var restClient: RestClientInterface?
+    
+    convenience init() {
+        self.init(notificationAsc: nil, initiator: .notDefined)
+    }
+    
     public init(notificationAsc: NotificationDetail? = nil, initiator: SyncInitiator = .notDefined) {
         self.requestTime = Date()
         self.user = nil

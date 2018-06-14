@@ -100,7 +100,7 @@ struct AuthorizationDetails: Serializable {
             DispatchQueue.main.async {
                 if let resultError = response.result.error {
                     completion(nil, NSError.errorWithData(code: response.response?.statusCode ?? 0, domain: RestSession.self, data: response.data, alternativeError: resultError as NSError?))
-                } else if let resultValue = response.result.value {
+                } else if let resultValue = response.result.value {                     
                     let authorizationDetails = try? AuthorizationDetails(resultValue)
                     completion(authorizationDetails, nil)
                 } else {

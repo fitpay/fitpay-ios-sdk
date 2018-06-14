@@ -23,7 +23,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         return self.links?.url(self.previousResource) != nil
     }
 
-    var client: RestClient? {
+    var client: RestClientInterface? {
         get {
             if _client != nil {
                 return _client
@@ -54,7 +54,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         }
     }
     
-    private weak var _client: RestClient?
+    private weak var _client: RestClientInterface?
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"

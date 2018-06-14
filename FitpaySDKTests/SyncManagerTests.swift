@@ -60,7 +60,7 @@ class SyncManagerTests: XCTestCase {
             fetchesDuring1Sync = 0
         }
         
-        super.waitForExpectations(timeout: 2, handler: nil)
+        super.waitForExpectations(timeout: 4, handler: nil)
     }
     
     func testMakeSyncWhenAlreadySyncing() {
@@ -90,7 +90,7 @@ class SyncManagerTests: XCTestCase {
             fetchesDuring1Sync = 0
         }
         
-        super.waitForExpectations(timeout: 2, handler: nil)
+        super.waitForExpectations(timeout: 4, handler: nil)
     }
     
     func testMakeFirstSyncWithEmptySyncRequest() {
@@ -185,7 +185,7 @@ class SyncManagerTests: XCTestCase {
             XCTAssertEqual((error as NSError?)?.code, PaymentDevice.ErrorCode.deviceWasDisconnected.rawValue)
         }
         
-        super.waitForExpectations(timeout: 2, handler: nil)
+        super.waitForExpectations(timeout: 4, handler: nil)
     }
     
     func testSyncAPDUTimeoutTest() {

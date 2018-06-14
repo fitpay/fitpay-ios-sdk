@@ -41,7 +41,7 @@ open class VerificationMethod: NSObject, ClientModel, Serializable {
     open var verifiedEpoch: TimeInterval?
     open var appToAppContext: A2AContext?
 
-    weak var client: RestClient?
+    weak var client: RestClientInterface?
     
     var links: [ResourceLink]?
 

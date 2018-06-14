@@ -6,7 +6,7 @@ open class Issuers: Serializable, ClientModel {
 
     var links: [ResourceLink]?
     
-    weak var client: RestClient?
+    weak var client: RestClientInterface?
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"

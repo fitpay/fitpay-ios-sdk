@@ -6,8 +6,8 @@ class RestClientTests: XCTestCase {
     let redirectUri = "https://webapp.fit-pay.com"
     let password = "1029"
 
-    var session: RestSession!
-    var client: RestClient!
+    var session: MockRestSession!
+    var client: MockRestClient!
     var testHelper: TestHelper!
     
     override func invokeTest() {
@@ -24,8 +24,8 @@ class RestClientTests: XCTestCase {
         super.setUp()
 
         FitpayConfig.configure(clientId: clientId)
-        self.session = RestSession()
-        self.client = RestClient(session: self.session!)
+        self.session = MockRestSession()
+        self.client = MockRestClient(session: self.session!)
         self.testHelper = TestHelper(session: self.session, client: self.client)
     }
     
@@ -36,10 +36,9 @@ class RestClientTests: XCTestCase {
     }
     
     func testCreateEncryptionKeyCreatesKey() {
-        let expectation = super.expectation(description: "'createEncryptionKey' creates key")
-        
+        let expectation = super.expectation(description: "'encryptionKey' create key")
         self.client.createEncryptionKey(clientPublicKey:self.client.keyPair.publicKey!) { (encryptionKey, error) -> Void in
-            
+
             XCTAssertNil(error)
             XCTAssertNotNil(encryptionKey)
             XCTAssertNotNil(encryptionKey?.links)
@@ -51,11 +50,9 @@ class RestClientTests: XCTestCase {
             XCTAssertNotNil(encryptionKey?.clientPublicKey)
             XCTAssertNotNil(encryptionKey?.active)
             XCTAssertNotEqual(encryptionKey?.links?.count, 0)
-            
             expectation.fulfill()
         }
-        
-        super.waitForExpectations(timeout: 10, handler: nil)
+          super.waitForExpectations(timeout: 10, handler: nil)
     }
     
     func testEncryptionKeyRetrievesKeyWithSameFieldsAsCreated() {
@@ -102,7 +99,7 @@ class RestClientTests: XCTestCase {
             expectation.fulfill()
         }
         
-        super.waitForExpectations(timeout: 100, handler: nil)
+        super.waitForExpectations(timeout: 10, handler: nil)
     }
     
     func testDeleteEncryptionKeyDeletesCreatedKey() {
@@ -117,13 +114,7 @@ class RestClientTests: XCTestCase {
                 
                 self.client.deleteEncryptionKey((retrievedEncryptionKey?.keyId)!) { (error) -> Void in
                     XCTAssertNil(error)
-                    
-                    self.client.encryptionKey((retrievedEncryptionKey?.keyId)!) { (againRetrievedEncryptionKey, againRetrievedError) -> Void in
-                        XCTAssertNil(againRetrievedEncryptionKey)
-                        XCTAssertNotNil(againRetrievedError)
-                        
-                        expectation.fulfill()
-                    }
+                    expectation.fulfill()
                 }
             }
             
@@ -138,8 +129,6 @@ class RestClientTests: XCTestCase {
             self.testHelper.createDevice(expectation, user: user) { [unowned self] (user, device) in
                 guard let resetUrlString = device?.deviceResetUrl else { XCTAssert(false, "No url."); return }
                 guard let resetUrl = URL(string: resetUrlString) else { XCTAssert(false, "Bad url."); return }
-                
-                sleep(5)  // resetDeviceTasks fails if called to quickly after createDevice
 
                 self.client.resetDeviceTasks(resetUrl) { (resetDeviceResult, error) in
                     XCTAssertNil(error)
@@ -168,16 +157,17 @@ class RestClientTests: XCTestCase {
         self.client.createUser(email, password: pin, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil, termsAccepted: nil, origin: nil, originAccountCreated: nil) { (user, error) -> Void in
             XCTAssertNotNil(user, "user is nil")
             XCTAssertNotNil(user?.info)
+            XCTAssertNotNil(user?.info?.email)
             XCTAssertNotNil(user?.created)
             XCTAssertNotNil(user?.links)
             XCTAssertNotNil(user?.createdEpoch)
             XCTAssertNotNil(user?.encryptedData)
-            XCTAssertNotNil(user?.info?.email)
+
             XCTAssertNil(error)
             expectation.fulfill()
         }
         
-        super.waitForExpectations(timeout: 10, handler: nil)
+        super.waitForExpectations(timeout: 100, handler: nil)
     }
     
     func testUserCreateLoginAndDeleteUser() {
@@ -274,7 +264,7 @@ class RestClientTests: XCTestCase {
         super.waitForExpectations(timeout: 20, handler: nil)
     }
     
-    func testUpdateUpdatesCreditCard() {
+   func testUpdateUpdatesCreditCard() {
         let expectation = super.expectation(description: "'update' updates credit card")
         
         self.testHelper.createAndLoginUser(expectation) { [unowned self] (user) in
@@ -282,9 +272,9 @@ class RestClientTests: XCTestCase {
                 sleep(1)
                 self.testHelper.createCreditCard(expectation, user: user) { (user, creditCard) in
                     
-                    let name = "User\(NSDate().timeIntervalSince1970)"
-                    let street1 = "Street1\(NSDate().timeIntervalSince1970)"
-                    let street2 = "Street2\(NSDate().timeIntervalSince1970)"
+                    let name = "NewUser"
+                    let street1 = "NewStreet1"
+                    let street2 = "NewStreet2"
                     let city = "Beverly Hills"
                     
                     let state = "MO"
@@ -562,13 +552,7 @@ class RestClientTests: XCTestCase {
                     
                     deviceInfo.deleteDeviceInfo { (error) in
                         XCTAssertNil(error)
-                        
-                        user?.listDevices(limit: 10, offset: 0) { (result, error) in
-                            XCTAssertNil(error)
-                            
-                            XCTAssertEqual(result?.totalResults, 0)
-                            self.testHelper.deleteUser(user, expectation: expectation)
-                        }
+                        expectation.fulfill()
                     }
                 }
             }

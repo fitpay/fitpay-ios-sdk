@@ -18,9 +18,8 @@ class CustomJSONArrayEncoding: ParameterEncoding {
     }
 }
 
-
-open class RestClient: NSObject {
-    /**
+open class RestClient: NSObject, RestClientInterface {
+      /**
      FitPay uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, etc.), and codes in the 5xx range indicate an error with FitPay servers.
      
      Not all errors map cleanly onto HTTP response codes, however. When a request is valid but does not complete successfully (e.g. a card is declined), we return a 402 error code.
@@ -53,6 +52,7 @@ open class RestClient: NSObject {
     
     var _session: RestSession
     var keyPair: SECP256R1KeyPair = SECP256R1KeyPair()
+    
     
     lazy var _manager: SessionManager = {
         let configuration = URLSessionConfiguration.default
@@ -105,26 +105,21 @@ open class RestClient: NSObject {
      - parameter ErrorType?: Provides error object, or nil if no error occurs
      */
     public typealias DeleteHandler = (_ error: ErrorResponse?) -> Void
-    
-}
 
-// MARK: - Confirm package
-
-extension RestClient {
     /**
      Completion handler
-     
+
      - parameter ErrorType?:   Provides error object, or nil if no error occurs
      */
     public typealias ConfirmCommitHandler = (_ error: ErrorResponse?) -> Void
-    
+
     public func confirm(_ url: String, executionResult: NonAPDUCommitState, completion: @escaping ConfirmCommitHandler) {
         self.prepareAuthAndKeyHeaders { (headers, error) in
             guard let headers = headers  else {
                 DispatchQueue.main.async { completion(error) }
                 return
             }
-            
+
             let params = ["result": executionResult.description]
             let request = self._manager.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
             self.makeRequest(request: request) { (resultValue, error) in
@@ -132,6 +127,13 @@ extension RestClient {
             }
         }
     }
+    
+}
+
+// MARK: - Confirm package
+
+extension RestClient {
+
     
     /**
      Completion handler
@@ -230,7 +232,7 @@ extension RestClient {
      - parameter clientPublicKey: client public key
      - parameter completion:      CreateEncryptionKeyHandler closure
      */
-    func createEncryptionKey(clientPublicKey: String, completion: @escaping CreateEncryptionKeyHandler) {
+ func createEncryptionKey(clientPublicKey: String, completion: @escaping CreateEncryptionKeyHandler) {
         let headers = self.defaultHeaders
         let parameters = ["clientPublicKey": clientPublicKey]
         
@@ -511,17 +513,12 @@ extension RestClient {
                 return
             }
             let request = self._manager.request(resetUrl, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers)
-            request.validate().responseJSON { (response) in
-                DispatchQueue.main.async {
-                    if response.result.error != nil {
-                        let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                        completion(nil, error)
-                    } else if let resultValue = response.result.value {
-                        completion(try? ResetDeviceResult(resultValue), nil)
-                    } else {
-                        completion(nil, NSError.unhandledError(RestClient.self))
-                    }
+            self.makeRequest(request: request) { (resultValue, error) in
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
                 }
+                completion(try? ResetDeviceResult(resultValue), error)
             }
         }
     }
@@ -536,17 +533,12 @@ extension RestClient {
         self.prepareAuthAndKeyHeaders { [unowned self] (headers, error) in
             if let headers = headers {
                 let request = self._manager.request(resetUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
-                request.validate().responseJSON { (response) in
-                    DispatchQueue.main.async {
-                        if response.result.error != nil {
-                            let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                            completion(nil, error)
-                        } else if let resultValue = response.result.value {
-                             completion(try? ResetDeviceResult(resultValue), nil)
-                        } else {
-                            completion(nil, NSError.unhandledError(RestClient.self))
-                        }
+                self.makeRequest(request: request) { (resultValue, error) in
+                    guard let resultValue = resultValue else {
+                        completion(nil, error)
+                        return
                     }
+                    completion(try? ResetDeviceResult(resultValue), error)
                 }
             } else {
                 DispatchQueue.main.async(execute: {
@@ -569,7 +561,8 @@ extension RestClient {
     
     func makeRequest(request: DataRequest?, completion: @escaping RequestHandler) {
         request?.validate().responseJSON(queue: DispatchQueue.global()) { (response) in
-            
+            print(response.description)
+            print(NSString(data: response.data!, encoding: String.Encoding.utf8.rawValue)!)
             DispatchQueue.main.async {
                 if response.result.error != nil && response.response?.statusCode != 202 {
                     let JSON = response.data!.UTF8String
@@ -578,7 +571,6 @@ extension RestClient {
                         error = ErrorResponse(domain: RestClient.self, errorCode: response.response?.statusCode ?? 0 , errorMessage: response.result.error?.localizedDescription)
                     }
                     completion(nil, error)
-                    
                 } else if let resultValue = response.result.value {
                     completion(resultValue, nil)
                 } else if response.response?.statusCode == 202 {

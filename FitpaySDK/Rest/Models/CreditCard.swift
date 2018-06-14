@@ -42,9 +42,9 @@ import Foundation
     private static let getVerificationMethodsKey    = "verificationMethods"
     private static let selectedVerificationKey      = "selectedVerification"
 
-    private weak var _client: RestClient?
+    private weak var _client: RestClientInterface?
 
-    var client: RestClient? {
+    var client: RestClientInterface? {
         get {
             return self._client
         }
@@ -437,9 +437,9 @@ open class CardMetadata: NSObject, ClientModel, Serializable {
     open var icon: [Image]?
     open var issuerLogo: [Image]?
     
-    private var _client: RestClient?
+    private var _client: RestClientInterface?
     
-    var client: RestClient? {
+    var client: RestClientInterface? {
         get {
             return self._client
         }
@@ -556,7 +556,7 @@ open class CardMetadata: NSObject, ClientModel, Serializable {
 open class TermsAssetReferences: NSObject, ClientModel, Serializable, AssetRetrivable {
     open var mimeType: String?
     
-    var client: RestClient?
+    var client: RestClientInterface?
     var links: [ResourceLink]?
 
     private static let selfResourceKey = "self"
@@ -608,7 +608,7 @@ open class DeviceRelationships: NSObject, ClientModel, Serializable {
     open var osName: String?
     open var systemId: String?
 
-    var client: RestClient?
+    var client: RestClientInterface?
     var links: [ResourceLink]?
 
     private static let selfResourceKey = "self"

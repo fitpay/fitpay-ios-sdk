@@ -5,7 +5,7 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
     open var height: Int?
     open var width: Int?
     
-    var client: RestClient?
+    var client: RestClientInterface?
     
     var links: [ResourceLink]?
     

@@ -11,7 +11,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     open var commit: String?
     open var executedDuration: Int?
     
-    weak var client: RestClient? {
+    weak var client: RestClientInterface? {
         didSet {
             payload?.creditCard?.client = self.client
         }

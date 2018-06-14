@@ -1,0 +1,5 @@
+{"_links":{"self":{"href":"https://api.fit-pay.com/users/1f1b76e1-8a2b-441f-9461-b7058c772a43/creditCards/ff47213e-a722-46d0-8d57-1f3651af7221/verificationMethods/60dd33da-ee14-4472-8138-c486d3597c5a"},"card":{"href":"https://api.fit-pay.com/users/1f1b76e1-8a2b-441f-9461-b7058c772a43/creditCards/ff47213e-a722-46d0-8d57-1f3651af7221"}},"verificationId":"60dd33da-ee14-4472-8138-c486d3597c5a","state":"VERIFIED","methodType":"CARDHOLDER_TO_CALL_AUTOMATED_NUMBER","value":"800-555-1212","verificationResult":"SUCCESS","lastModifiedTs":"2018-06-12T09:33:13.844Z","lastModifiedTsEpoch":1528795993844}
+
+
+
+

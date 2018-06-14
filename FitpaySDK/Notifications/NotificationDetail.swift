@@ -7,9 +7,8 @@ open class NotificationDetail: Serializable {
     open var userId: String?
     open var clientId: String?
     
+    var restClient: RestClientInterface?
     var links: [ResourceLink]?
-
-    var restClient: RestClient?
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
