@@ -1,12 +1,6 @@
+import Foundation
 
-public enum APDUPackageResponseState: String {
-    case processed    = "PROCESSED"
-    case failed       = "FAILED"
-    case error        = "ERROR"
-    case expired      = "EXPIRED"
-    case notProcessed = "NOT_PROCESSED"
-}
-
+/// A set of APDUCommands and associated data inside of some Commits
 @objcMembers open class ApduPackage: NSObject, Serializable {
 
     open var seIdType: String?
@@ -58,6 +52,7 @@ public enum APDUPackageResponseState: String {
         case packageId
         case seId
         case apduCommands = "commandApdus"
+        case state
         case validUntil
         case apduPackageUrl
     }
@@ -76,6 +71,7 @@ public enum APDUPackageResponseState: String {
         packageId = try? container.decode(.packageId)
         seId = try? container.decode(.seId)
         apduCommands = try? container.decode(.apduCommands)
+        state = try? container.decode(.state)
         validUntil = try? container.decode(.validUntil)
         validUntilEpoch = try container.decode(.validUntil, transformer: CustomDateFormatTransform(formatString: dateFormat))
         apduPackageUrl = try? container.decode(.apduPackageUrl)
@@ -91,6 +87,7 @@ public enum APDUPackageResponseState: String {
         try? container.encode(packageId, forKey: .packageId)
         try? container.encode(seId, forKey: .seId)
         try? container.encode(apduCommands, forKey: .apduCommands)
+        try? container.encode(state, forKey: .state)
         try? container.encode(validUntil, forKey: .validUntil)
         try? container.encode(apduPackageUrl, forKey: .apduPackageUrl)
     }

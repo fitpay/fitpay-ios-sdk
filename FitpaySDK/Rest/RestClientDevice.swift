@@ -142,25 +142,6 @@ extension RestClient {
     }
     
     func commit(_ url: String, completion: @escaping CommitHandler) {
-        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async {  completion(nil, error) }
-                return
-            }
-            
-            let request = self?.manager.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
-            self?.makeRequest(request: request) { (resultValue, error) in
-                guard let strongSelf = self else { return }
-                
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let commit = try? Commit(resultValue)
-                commit?.client = self
-                commit?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                completion(commit, error)
-            }
-        }
+        makeGetCall(url, parameters: nil, completion: completion)
     }
 }

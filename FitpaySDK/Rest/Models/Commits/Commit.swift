@@ -11,6 +11,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     open var previousCommit: String?
     open var commitId: String?
     open var executedDuration: Int?
+    open var source: SourceType?
     
     weak var client: RestClientInterface? {
         didSet {
@@ -30,6 +31,8 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
         case created = "createdTs"
         case previousCommit
         case commitId
+        case executedDuration
+        case source
         case encryptedData
     }
     
@@ -43,6 +46,8 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
         created = try? container.decode(.created)
         previousCommit = try? container.decode(.previousCommit)
         commitId = try? container.decode(.commitId)
+        executedDuration = try? container.decode(.executedDuration)
+        source = try? container.decode(.source)
         encryptedData = try? container.decode(.encryptedData)
     }
     
@@ -54,6 +59,8 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
         try? container.encode(created, forKey: .created)
         try? container.encode(previousCommit, forKey: .previousCommit)
         try? container.encode(commitId, forKey: .commitId)
+        try? container.encode(executedDuration, forKey: .executedDuration)
+        try? container.encode(source, forKey: .source)
         try? container.encode(encryptedData, forKey: .encryptedData)
     }
     

@@ -1,3 +1,4 @@
+import Foundation
 
 open class CommitStatistic: Serializable {
     open var commitId: String?

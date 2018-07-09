@@ -1,3 +1,6 @@
+import Foundation
+
+/// Individual commands inside a APDUPackage
 open class APDUCommand: NSObject, Serializable, APDUResponseProtocol {
     
     var links: [ResourceLink]?
