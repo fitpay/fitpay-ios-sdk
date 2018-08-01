@@ -6,7 +6,8 @@ import Alamofire
 
 class MockRestRequest: RestRequestable {
     
-    var lastCalledParams: [String: Any]?
+    var lastParams: [String: Any]?
+    var lastEncoding: ParameterEncoding?
     
     func makeRequest(url: URLConvertible, method: HTTPMethod, parameters: Parameters?, encoding: ParameterEncoding, headers: HTTPHeaders?, completion: @escaping RestRequestable.RequestHandler) {
         guard let urlString = try? url.asURL().absoluteString else {
@@ -14,7 +15,8 @@ class MockRestRequest: RestRequestable {
             return
         }
         
-        lastCalledParams =  parameters
+        lastParams = parameters
+        lastEncoding = encoding
         
         var data: Any? = nil
         
