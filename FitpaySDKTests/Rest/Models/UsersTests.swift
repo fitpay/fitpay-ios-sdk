@@ -78,7 +78,7 @@ class UsersTests: BaseTestProvider {
     }
     
     func testCreateCreditCardsWithDeviceId() {
-        let expectation = self.expectation(description: "getCreditCards")
+        let expectation = self.expectation(description: "createCreditCard")
         
         let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "Jeremiah Harris", address: address, riskData: nil)
