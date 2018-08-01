@@ -40,6 +40,7 @@ open class SyncRequestQueue {
         
         if !request.isEmptyRequest {
             lastFullSyncRequest = request
+            lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
         }
         
         queue.add(request: request)

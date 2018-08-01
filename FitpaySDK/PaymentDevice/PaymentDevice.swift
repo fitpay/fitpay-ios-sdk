@@ -234,11 +234,11 @@
     
     func processNonAPDUCommit(commit: Commit, completion: @escaping (_ state: NonAPDUCommitState?, _ error: NSError?) -> Void) {
         if let processNonAPDUCommit = self.deviceInterface.processNonAPDUCommit {
-            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected, completion: { (event) in
+            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected) { (event) in
                 log.error("APDU_DATA: Device is disconnected during process non-APDU commit.")
                 self.removeDisconnectedBinding()
                 completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
-            })
+            }
             
             var isCompleteProcessing = false
             DispatchQueue.global().asyncAfter(deadline: .now() + self.commitProcessingTimeout) {

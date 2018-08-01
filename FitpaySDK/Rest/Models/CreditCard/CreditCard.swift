@@ -22,6 +22,12 @@ import Foundation
     open var topOfWalletAPDUCommands: [APDUCommand]?
     open var tokenLastFour: String?
     
+    /// The credit card expiration month - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
+    open var expMonth: Int?
+    
+    /// The credit card expiration year in 4 digits - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
+    open var expYear: Int?
+    
     var links: [ResourceLink]?
     var encryptedData: String?
 
@@ -106,6 +112,8 @@ import Foundation
         case externalTokenReference
         case topOfWalletAPDUCommands = "offlineSeActions.topOfWallet.apduCommands"
         case tokenLastFour
+        case expMonth
+        case expYear
     }
 
     public required init(from decoder: Decoder) throws {
@@ -131,6 +139,8 @@ import Foundation
         externalTokenReference = try? container.decode(.externalTokenReference)
         topOfWalletAPDUCommands = try? container.decode(.topOfWalletAPDUCommands)
         tokenLastFour = try? container.decode(.tokenLastFour)
+        expMonth = try? container.decode(.expMonth)
+        expYear = try? container.decode(.expYear)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -156,6 +166,8 @@ import Foundation
         try? container.encode(externalTokenReference, forKey: .externalTokenReference)
         try? container.encode(topOfWalletAPDUCommands, forKey: .topOfWalletAPDUCommands)
         try? container.encode(tokenLastFour, forKey: .tokenLastFour)
+        try? container.encode(expMonth, forKey: .expMonth)
+        try? container.encode(expYear, forKey: .expYear)
     }
     
     func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
