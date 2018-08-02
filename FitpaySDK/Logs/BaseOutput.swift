@@ -1,13 +1,6 @@
-//
-//  BaseOutput.swift
-//  FitpaySDK
-//
-//  Created by Anton on 14.11.16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
-
 import Foundation
 
+//TODO: Where does LogLevel live?
 @objc public enum LogLevel: Int {
     case verbose = 0
     case debug
@@ -15,21 +8,21 @@ import Foundation
     case warning
     case error
     
-    var string : String {
-        var stringRepresentation = ""
+    var string: String {
+        
         switch self {
         case .verbose:
-            stringRepresentation = "VERBOSE"
+            return "VERBOSE"
         case .debug:
-            stringRepresentation = "DEBUG"
+            return "DEBUG"
         case .info:
-            stringRepresentation = "INFO"
+            return "INFO"
         case .warning:
-            stringRepresentation = "WARNING"
+            return "WARNING"
         case .error:
-            stringRepresentation = "ERROR"
+            return "ERROR"
         }
-        return stringRepresentation
+        
     }
 }
 
@@ -37,8 +30,9 @@ import Foundation
     func send(level: LogLevel, message: String, file: String, function: String, line: Int)
 }
 
-open class BaseLogsOutput : NSObject, LogsOutputProtocol {
+open class BaseLogsOutput: NSObject, LogsOutputProtocol {
     let formatter = DateFormatter()
+    
     var date: String {
         return formatter.string(from: Date())
     }
@@ -52,35 +46,32 @@ open class BaseLogsOutput : NSObject, LogsOutputProtocol {
         // send somewhere
     }
     
-    open func formMessage(level: LogLevel, message: String, file: String, function: String, line: Int) -> String {
+    func formMessage(level: LogLevel, message: String, file: String, function: String, line: Int) -> String {
         let fileName = fileNameWithoutSuffix(file)
         var messageResult = message
         switch level {
         case .verbose, .debug, .info:
             messageResult = "\(date) \(message)"
-        case .warning, .error:
-            messageResult = "\(date) \(level.string) - \(message)\t\(fileName).\(function):\(line)"
+        case .warning:
+            messageResult = "\(date) ⚠️ \(level.string) - \(message) - \(fileName).\(function):\(line)"
+        case .error:
+            messageResult = "\(date) ❌ \(level.string) - \(message) - \(fileName).\(function):\(line)"
         }
         
         return messageResult
     }
     
-    public func fileNameOfFile(_ file: String) -> String {
+    private func fileNameOfFile(_ file: String) -> String {
         let fileParts = file.components(separatedBy: "/")
-        if let lastPart = fileParts.last {
-            return lastPart
-        }
-        return ""
+        return fileParts.last ?? ""
     }
     
-    public func fileNameWithoutSuffix(_ file: String) -> String {
+    private func fileNameWithoutSuffix(_ file: String) -> String {
         let fileName = fileNameOfFile(file)
         
         if !fileName.isEmpty {
             let fileNameParts = fileName.components(separatedBy: ".")
-            if let firstPart = fileNameParts.first {
-                return firstPart
-            }
+            return fileNameParts.first ?? ""
         }
         return ""
     }

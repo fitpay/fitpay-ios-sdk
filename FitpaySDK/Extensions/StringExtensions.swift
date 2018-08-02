@@ -8,7 +8,7 @@ extension String {
         return data.SHA1
     }
     
-    public func hexToData() -> Data? {
+    func hexToData() -> Data? {
         let trimmedString = self.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
         let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .caseInsensitive)
         let found = regex.firstMatch(in: trimmedString, options: [], range: NSMakeRange(0, trimmedString.count))
@@ -29,4 +29,54 @@ extension String {
         
         return data as Data?
     }
+    
+    // MARK: - Used in JWE
+    static func random(_ size: Int) -> String {
+        var randomNum = ""
+        var randomBytes = [UInt8](repeating: 0, count: size)
+        
+        guard SecRandomCopyBytes(kSecRandomDefault, size, &randomBytes) == 0 else {
+            return ""
+        }
+        
+        // Turn randomBytes into array of hexadecimal strings
+        // Join array of strings into single string
+        randomNum = randomBytes.map({ String(format: "%02hhx", $0 )}).joined(separator: "")
+        
+        return randomNum.subString(0, length: size)
+    }
+    
+    func base64URLencoded() -> String? {
+        return self.data(using: String.Encoding.utf8)?.base64URLencoded()
+    }
+    
+    func base64URLdecoded() -> Data? {
+        let base64EncodedString = convertBase64URLtoBase64(self)
+        if let decodedData = Data(base64Encoded: base64EncodedString, options:NSData.Base64DecodingOptions(rawValue: 0)) {
+            return decodedData
+        }
+        return nil
+    }
+    
+    // MARK: - Private
+    
+    private func subString(_ startIndex: Int, length: Int) -> String {
+        let start = self.index(self.startIndex, offsetBy: startIndex)
+        let end = self.index(self.startIndex, offsetBy: startIndex + length)
+        return String(self[start ..< end])
+    }
+    
+    private func convertBase64URLtoBase64(_ encodedString: String) -> String {
+        var tempEncodedString = encodedString.replacingOccurrences(of: "-", with: "+")
+        tempEncodedString = tempEncodedString.replacingOccurrences(of: "_", with: "/")
+        
+        let equalsToBeAdded = encodedString.count % 4
+        if (equalsToBeAdded > 0) {
+            for _ in 0..<equalsToBeAdded {
+                tempEncodedString += "="
+            }
+        }
+        return tempEncodedString
+    }
+
 }

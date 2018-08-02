@@ -1,5 +1,3 @@
-
-protocol RawIntValue
-{
-    var rawValue:Int { get }
+protocol RawIntValue {
+    var rawValue: Int { get }
 }

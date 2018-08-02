@@ -1,14 +1,6 @@
-//
-//  APDUConfirmOperation.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 12.07.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import RxSwift
 
-public protocol APDUConfirmOperationProtocol {
+protocol APDUConfirmOperationProtocol {
     func startWith(commit: Commit) -> Observable<Void>
 }
 

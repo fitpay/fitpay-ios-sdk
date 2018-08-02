@@ -1,14 +1,5 @@
-//
-//  FitpayEventDispatcher.swift
-//  FitpaySDK
-//
-//  Created by Anton on 15.04.16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
-
-
 open class FitpayEventDispatcher {
-    internal var bindingsDictionary : [Int:[FitpayEventBinding]] = [:]
+    var bindingsDictionary: [Int: [FitpayEventBinding]] = [:]
     
     public init() {
     }

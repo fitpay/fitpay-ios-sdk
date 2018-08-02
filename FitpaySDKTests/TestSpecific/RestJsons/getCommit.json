@@ -1,0 +1,5 @@
+{"_links":{"self":{"href":"https://api.fit-pay.com/users/e0d330db-e1cf-4a9c-b4f6-c4de15a026cb/devices/38e65eff-500c-4b94-85d7-e360a80ce7bd/commits?limit=10&offset=0"}},"limit":10,"offset":0,"totalResults":1,"results":[{"_links":{"apduResponse":{"href":"https://api.fit-pay.com/apduPackages/f9af2b58-413f-485e-89fa-18ce367e4793/confirm?route=31"},"self":{"href":"https://api.fit-pay.com/users/e0d330db-e1cf-4a9c-b4f6-c4de15a026cb/devices/38e65eff-500c-4b94-85d7-e360a80ce7bd/commits/b433185ec5ed00bae5530ba45a1b3a4f99aac722"}},"commitType":"APDU_PACKAGE","commitId":"b433185ec5ed00bae5530ba45a1b3a4f99aac722","source":"gi_de","encryptedData":"eyJjdHkiOiJhcHBsaWNhdGlvbi9qc29uIiwiYWxnIjoiQTI1NkdDTUtXIiwia2lkIjoiYWFjZjdlNzktOWM3ZC00MGQyLThjNmQtODIzMDZhNGE5MGUyIiwiZW5jIjoiQTI1NkdDTSIsIml2IjoiTjJFNE56STNPVFJsT0dZeSIsInRhZyI6ImJvVks4N2VvRTJ0TkVRdUFmQzJaZGcifQ.M2G-HvyiPGuBNMrkac9J5QvTzsE7bzfiJbrov3lHXa8.Y2E4ZGVjODZmYTRiZTZmNg.HRruaNQRw39OpQynJjTlHT9AqkWQy2NwE-SkkNOXluBw0w6sLHvpZrGde0Dn.7IXTPk8loyTkK5OF3Onq2A","createdTs":1528720372515,"acknowledged":false}]}
+
+
+
+

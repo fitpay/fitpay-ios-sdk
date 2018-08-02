@@ -1,19 +1,10 @@
-//
-//  RtmMessageResponse.swift
-//  FitpaySDK
-//
-//  Created by Anton on 02.11.16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
-
-import UIKit
-import ObjectMapper
+import Foundation
 
 open class RtmMessageResponse: RtmMessage {
 
     var success: Bool?
     
-    public required init(callbackId: Int? = nil, data: Any? = nil, type: RtmMessageType, success: Bool? = nil) {
+    public required init(callbackId: Int? = nil, data: [String: Any]? = nil, type: String, success: Bool = true) {
         super.init()
         
         self.callBackId = callbackId
@@ -21,14 +12,22 @@ open class RtmMessageResponse: RtmMessage {
         self.type = type
         self.success = success
     }
-    
-    public required init?(map: Map) {
-        fatalError("init(map:) has not been implemented")
+
+    private enum CodingKeys: String, CodingKey {
+        case success = "isSuccess"
     }
-    
-    override open func mapping(map: Map) {
-        super.mapping(map: map)
+
+    public required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
         
-        success <- map["isSuccess"]
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        success = try? container.decode(.success)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try? container.encode(success, forKey: .success)
     }
 }

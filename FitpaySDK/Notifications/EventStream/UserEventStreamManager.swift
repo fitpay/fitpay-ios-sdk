@@ -8,14 +8,21 @@ public class UserEventStreamManager {
     
     public typealias userEventStreamHandler = (_ event: StreamEvent) -> Void
     
-    public func subscribe(userId: String, sessionData: SessionData, config: FitpaySDKConfiguration, completion: @escaping userEventStreamHandler) {
-        let session = RestSession(configuration: config, sessionData: sessionData)
+    public func subscribe(userId: String, sessionData: SessionData, completion: @escaping userEventStreamHandler) {
+        let session = RestSession(sessionData: sessionData)
         client = RestClient(session: session)
-
-        client!.user(id: userId) { (user, error) in
-            guard let user = user else { return }
+        
+        client!.getPlatformConfig() { (platformConfig, error) in
+            guard let isUserEventStreamsEnabled = platformConfig?.isUserEventStreamsEnabled, isUserEventStreamsEnabled else {
+                log.debug("userEventStreamsEnabled has been disabled at the platform level, skipping user event stream subscription")
+                return
+            }
             
-            self.userEventStream = UserEventStream(user: user, client: self.client!, completion: completion)
+            self.client!.user(id: userId) { (user, error) in
+                guard let user = user else { return }
+                
+                self.userEventStream = UserEventStream(user: user, client: self.client!, completion: completion)
+            }
         }
     }
 }

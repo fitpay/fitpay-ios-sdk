@@ -1,71 +1,81 @@
-//
-//  FitpayEventsSubscriber.swift
-//  FitpaySDK
-//
-//  Created by Anton on 25.11.16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
-
 import Foundation
-import ObjectMapper
 
 open class FitpayEventsSubscriber {
+    
     public static var sharedInstance = FitpayEventsSubscriber()
 
-    public enum EventType: Int, FitpayEventTypeProtocol {
-        case cardCreated = 0
-        case cardActivated
-        case cardDeactivated
-        case cardReactivated
-        case cardDeleted
-        case setDefaultCard
-        case resetDefaultCard
-        case cardProvisionFailed
-        case cardMetadataUpdated
-        
-        case userCreated
-        case getUserAndDevice
-        
-        case apduPackageProcessed
-        case syncCompleted
-        
-        public func eventId() -> Int {
-            return rawValue
+    private let eventsDispatcher = FitpayEventDispatcher()
+
+    private var subscribersWithBindings: [SubscriberWithBinding] = []
+    
+    public typealias EventCallback = (FitpayEvent) -> Void
+    
+    // MARK - Lifecycle
+    
+    private init() {
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardAdded) { event in
+            self.executeCallbacksForEvent(event: .cardCreated)
         }
         
-        public func eventDescription() -> String {
-            switch self {
-            case .cardCreated:
-                return "Card created event."
-            case .cardActivated:
-                return "Card activated event."
-            case .cardDeactivated:
-                return "Card deactivated event."
-            case .cardReactivated:
-                return "Card reactivated event."
-            case .cardDeleted:
-                return "Card deleted event."
-            case .setDefaultCard:
-                return "Set default card event."
-            case .resetDefaultCard:
-                return "Reset default card event."
-            case .cardProvisionFailed:
-                return "Card provision failed event."
-            case .cardMetadataUpdated:
-                return "Card metadata updated event."
-            case .userCreated:
-                return "User created event."
-            case .getUserAndDevice:
-                return "Get user and device event."
-            case .apduPackageProcessed:
-                return "Apdu package processed event."
-            case .syncCompleted:
-                return "Sync completed event."
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardActivated) { event in
+            self.executeCallbacksForEvent(event: .cardActivated)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeactivated) { event in
+            self.executeCallbacksForEvent(event: .cardDeactivated)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardReactivated) { event in
+            self.executeCallbacksForEvent(event: .cardReactivated)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeleted) { event in
+            self.executeCallbacksForEvent(event: .cardDeleted)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .setDefaultCard) { event in
+            self.executeCallbacksForEvent(event: .setDefaultCard)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .resetDefaultCard) { event in
+            self.executeCallbacksForEvent(event: .resetDefaultCard)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardMetadataUpdated) { event in
+            self.executeCallbacksForEvent(event: .cardMetadataUpdated)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardProvisionFailed) { event in
+            self.executeCallbacksForEvent(event: .cardProvisionFailed)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { event in
+            self.executeCallbacksForEvent(event: .syncCompleted)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { event in
+            var error: Error? = nil
+            if let nserror = (event.eventData as? [String: NSError])?["error"] {
+                error = SyncManager.ErrorCode(rawValue: nserror.code)
             }
+            
+            self.executeCallbacksForEvent(event: .syncCompleted, status: .failed, reason: error)
+        }
+        
+        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .apduPackageComplete) { event in
+            
+            var status = EventStatus.success
+            var error: Error? = nil
+            if let nserror = (event.eventData as? [String: NSError])?["error"] {
+                error = SyncManager.ErrorCode(rawValue: nserror.code)
+                status = .failed
+            }
+            
+            self.executeCallbacksForEvent(event: .apduPackageProcessed, status: status, reason: error, eventData: event.eventData)
         }
     }
     
-    public typealias EventCallback = (FitpayEvent) -> Void
+    // MARK: - Public Functions
     
     open func subscribeTo(event: EventType, subscriber: AnyObject, callback: @escaping EventCallback) {
         guard let binding = eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: callback), eventId: event) else {
@@ -123,82 +133,97 @@ open class FitpayEventsSubscriber {
         removeSubscriberIfBindingsEmpty(subscriberWithBindings)
     }
     
-    internal func executeCallbacksForEvent(event: EventType, status: EventStatus = .success, reason: Error? = nil, eventData: Any = "") {
+    // MARK: - Internal Functions
+    
+    func executeCallbacksForEvent(event: EventType, status: EventStatus = .success, reason: Error? = nil, eventData: Any = "") {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: event, eventData: eventData, status: status, reason: reason))
     }
     
-    private init() {
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardAdded, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardCreated)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardActivated, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardActivated)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeactivated, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardDeactivated)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardReactivated, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardReactivated)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeleted, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardDeleted)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .setDefaultCard, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .setDefaultCard)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .resetDefaultCard, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .resetDefaultCard)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardMetadataUpdated, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardMetadataUpdated)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardProvisionFailed, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .cardProvisionFailed)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted, completion: {
-            (event) in
-            self.executeCallbacksForEvent(event: .syncCompleted)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed, completion: {
-            (event) in
-            var error: Error? = nil
-            if let nserror = (event.eventData as? [String:NSError])?["error"] {
-                error = SyncManager.ErrorCode(rawValue: nserror.code)
-            }
-            
-            self.executeCallbacksForEvent(event: .syncCompleted, status: .failed, reason: error)
-        })
-        
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .apduPackageComplete) { (event) in
-            
-            var status = EventStatus.success
-            var error: Error? = nil
-            if let nserror = (event.eventData as? [String:NSError])?["error"] {
-                error = SyncManager.ErrorCode(rawValue: nserror.code)
-                status = .failed
-            }
+    // MARK: - Private Functions
 
-            self.executeCallbacksForEvent(event: .apduPackageProcessed, status: status, reason: error, eventData: event.eventData)
+    private func removeSubscriberIfBindingsEmpty(_ subscriberWithBinding: SubscriberWithBinding) {
+        if subscriberWithBinding.bindings.count == 0 {
+            for (i, subscriberItr) in subscribersWithBindings.enumerated() {
+                if subscriberItr.subscriber === subscriberWithBinding.subscriber {
+                    subscribersWithBindings.remove(at: i)
+                    break
+                }
+            }
         }
+    }
+    
+    private func unbind(_ binding: FitpayEventBinding) {
+       eventsDispatcher.removeBinding(binding)
+    }
+    
+    private func findSubscriberWithBindingsFor(subscriber: AnyObject) -> SubscriberWithBinding? {
+        for subscriberItr in subscribersWithBindings {
+            if subscriberItr.subscriber === subscriber {
+                return subscriberItr
+            }
+        }
+        
+        return nil
+    }
+
+}
+
+// MARK: - Nested Objects
+
+extension FitpayEventsSubscriber{
+    
+    public enum EventType: Int, FitpayEventTypeProtocol {
+        case cardCreated = 0
+        case cardActivated
+        case cardDeactivated
+        case cardReactivated
+        case cardDeleted
+        case setDefaultCard
+        case resetDefaultCard
+        case cardProvisionFailed
+        case cardMetadataUpdated
+        
+        case userCreated
+        case getUserAndDevice
+        
+        case apduPackageProcessed
+        case syncCompleted
+        
+        public func eventId() -> Int {
+            return rawValue
+        }
+        
+        public func eventDescription() -> String {
+            switch self {
+            case .cardCreated:
+                return "Card created event."
+            case .cardActivated:
+                return "Card activated event."
+            case .cardDeactivated:
+                return "Card deactivated event."
+            case .cardReactivated:
+                return "Card reactivated event."
+            case .cardDeleted:
+                return "Card deleted event."
+            case .setDefaultCard:
+                return "Set default card event."
+            case .resetDefaultCard:
+                return "Reset default card event."
+            case .cardProvisionFailed:
+                return "Card provision failed event."
+            case .cardMetadataUpdated:
+                return "Card metadata updated event."
+            case .userCreated:
+                return "User created event."
+            case .getUserAndDevice:
+                return "Get user and device event."
+            case .apduPackageProcessed:
+                return "Apdu package processed event."
+            case .syncCompleted:
+                return "Sync completed event."
+            }
+        }
+        
     }
     
     struct SubscriberWithBinding {
@@ -227,34 +252,7 @@ open class FitpayEventsSubscriber {
                 }
             }
         }
+   
     }
     
-    private let eventsDispatcher = FitpayEventDispatcher()
-    
-    private var subscribersWithBindings: [SubscriberWithBinding] = []
-    
-    private func removeSubscriberIfBindingsEmpty(_ subscriberWithBinding: SubscriberWithBinding) {
-        if subscriberWithBinding.bindings.count == 0 {
-            for (i, subscriberItr) in subscribersWithBindings.enumerated() {
-                if subscriberItr.subscriber === subscriberWithBinding.subscriber {
-                    subscribersWithBindings.remove(at: i)
-                    break
-                }
-            }
-        }
-    }
-    
-    private func unbind(_ binding: FitpayEventBinding) {
-       eventsDispatcher.removeBinding(binding)
-    }
-    
-    private func findSubscriberWithBindingsFor(subscriber: AnyObject) -> SubscriberWithBinding? {
-        for subscriberItr in subscribersWithBindings {
-            if subscriberItr.subscriber === subscriber {
-                return subscriberItr
-            }
-        }
-        
-        return nil
-    }
 }

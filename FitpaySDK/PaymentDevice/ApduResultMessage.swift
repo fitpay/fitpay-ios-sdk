@@ -1,12 +1,5 @@
-//
-//  ApduResultMessage.swift
-//  FitpaySDK
-//
-//  Created by Carol Bloch on 5/19/16.
-//  Copyright © 2016 Fitpay. All rights reserved.
-//
 
-open class ApduResultMessage : NSObject, APDUResponseProtocol {
+open class ApduResultMessage: NSObject, APDUResponseProtocol {
     open var responseData: Data?
 
     public init(hexResult: String) {
@@ -17,7 +10,7 @@ open class ApduResultMessage : NSObject, APDUResponseProtocol {
         super.init()
     }
     
-    internal var concatenationAPDUPayload: Data? {
+    var concatenationAPDUPayload: Data? {
         guard self.responseType == .concatenation, let responseCodeDataType = responseCode else {
             return nil
         }
@@ -27,7 +20,7 @@ open class ApduResultMessage : NSObject, APDUResponseProtocol {
     }
 }
 
-internal class BLEApduResultMessage: ApduResultMessage {
+class BLEApduResultMessage: ApduResultMessage {
     var msg: Data
     var resultCode: UInt8
     var sequenceId: UInt16
@@ -40,13 +33,12 @@ internal class BLEApduResultMessage: ApduResultMessage {
         
         super.init()
 
-        let range : NSRange = NSMakeRange(msg.count - 2, 2)
+        let range = NSMakeRange(msg.count - 2, 2)
         var buffer = [UInt8](repeating: 0x00, count: 2)
         (msg as NSData).getBytes(&buffer, range: range)
         
         responseCode = Data(bytes: UnsafePointer<UInt8>(buffer), count: 2)
         responseData = self.msg
-        print("responseCode \(responseCode ?? Data())")
     }
     
     public init(msg: Data) {

@@ -1,11 +1,3 @@
-//
-//  ApduResponseProtocol.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 15.05.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 
 public enum APDUResponseType: Int {
@@ -64,16 +56,16 @@ public enum APDUResponseType: Int {
         self = APDUResponseType.error
     }
     
-    internal static let successResponses : [[UInt8]] = [
+    static let successResponses : [[UInt8]] = [
         [0x90, 0x00],
     ]
     
-    internal static let warningResponses : [[UInt8]] = [
+    static let warningResponses : [[UInt8]] = [
         [0x62/*, XX */],
         [0x63/*, XX */],
     ]
     
-    internal static let concatenationResponse: UInt8 = 0x61
+    static let concatenationResponse: UInt8 = 0x61
 }
 
 

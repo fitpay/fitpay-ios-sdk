@@ -1,15 +1,9 @@
-//
-//  A2AVerificationError.swift
-//  FitpaySDK
-//
-//  Created by Illya Kyznetsov on 3/5/18.
-//
-
-/**
- Errors for A2AVerificationRequest
- */
-enum A2AVerificationError: String {
-    case CantProcess  = "cantProcessVerification"
-    case NotSupported = "appToAppNotSupported"
-    case Unknown      = "unknown"
+// Errors for A2AVerificationRequest
+public enum A2AVerificationError: String {
+    case cantProcess    = "cantProcessVerification"
+    case declined       = "appToAppDeclined"
+    case failure        = "appToAppFailure"
+    case notSupported   = "appToAppNotSupported"
+    case unknown        = "unknown"
+    case silentUnknown  = "silentUnknown"
 }

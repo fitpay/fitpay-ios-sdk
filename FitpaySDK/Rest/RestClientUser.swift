@@ -1,6 +1,5 @@
 import Foundation
 import Alamofire
-import AlamofireObjectMapper
 
 extension RestClient {
     
@@ -9,32 +8,12 @@ extension RestClient {
     /**
      Completion handler
      
-     - parameter ResultCollection<User>?: Provides ResultCollection<User> object, or nil if error occurs
-     - parameter ErrorType?: Provides error object, or nil if no error occurs
-     */
-    public typealias ListUsersHandler = (ResultCollection<User>?, Error?) -> Void
-    
-    /**
-     Completion handler
-     
      - parameter user: Provides User object, or nil if error occurs
      - parameter error: Provides error object, or nil if no error occurs
      */
-    public typealias UserHandler = (_ user: User?, _ error: NSError?) -> Void
+    public typealias UserHandler = (_ user: User?, _ error: ErrorResponse?) -> Void
     
-    //MARK: - Functions
-    
-    /**
-     Returns a list of all users that belong to your organization. The customers are returned sorted by creation date, with the most recently created customers appearing first
-     
-     - parameter limit:      Max number of profiles per page
-     - parameter offset:     Start index position for list of entities returned
-     - parameter completion: ListUsersHandler closure
-     */
-    open func listUsers(limit: Int, offset: Int, completion: ListUsersHandler) {
-        //TODO: Implement or remove this
-        assertionFailure("unimplemented functionality")
-    }
+    //MARK: - Public Functions
     
     /**
      Creates a new user within your organization
@@ -45,84 +24,77 @@ extension RestClient {
      - parameter email:      email of the user
      - parameter completion: CreateUserHandler closure
      */
-    open func createUser(_ email: String, password: String, firstName: String?, lastName: String?, birthDate: String?,
-                         termsVersion: String?, termsAccepted: String?, origin: String?, originAccountCreated: String?,
-                         clientId: String, completion: @escaping UserHandler) {
-        log.verbose("request create user: \(email)")
+    @objc public func createUser(_ email: String, password: String, firstName: String?, lastName: String?, birthDate: String?, termsVersion: String?, termsAccepted: String?, origin: String?, originAccountCreated: String?, completion: @escaping UserHandler) {
+        log.verbose("REST_CLIENT: request create user: \(email)")
         
-        self.preparKeyHeader { [weak self] (headers, error) in
+        preparKeyHeader { [weak self] (headers, error) in
             guard let strongSelf = self else { return }
             guard let headers = headers else {
                 DispatchQueue.main.async { completion(nil, error) }
                 return
             }
             
-            log.verbose("got headers: \(headers)")
+            log.verbose("REST_CLIENT: got headers: \(headers)")
+            
             var parameters: [String: Any] = [:]
             if (termsVersion != nil) {
                 parameters += ["termsVersion": termsVersion!]
             }
             
-            if (termsAccepted != nil) {
-                parameters += ["termsAcceptedTsEpoch": termsAccepted!]
+            if let termsVersion = termsVersion {
+                parameters["termsVersion"] = termsVersion
             }
             
-            if (origin != nil) {
-                parameters += ["origin": origin!]
+            if let termsAccepted = termsAccepted {
+                parameters["termsAcceptedTsEpoch"] = termsAccepted
             }
             
-            if (termsVersion != nil) {
-                parameters += ["originAccountCreatedTsEpoch": originAccountCreated!]
+            if let origin = origin {
+                parameters["origin"] = origin
             }
             
-            parameters["client_id"] = clientId
-            
-            var rawUserInfo: [String: Any] = ["email": email, "pin": password ]
-            
-            if (firstName != nil) {
-                rawUserInfo += ["firstName": firstName!]
+            if let originAccountCreated = originAccountCreated {
+                parameters["originAccountCreatedTsEpoch"] = originAccountCreated
             }
             
-            if (lastName != nil) {
-                rawUserInfo += ["lastName": lastName!]
+            parameters["client_id"] = FitpayConfig.clientId
+            
+            var rawUserInfo: [String: Any] = ["email": email, "pin": password]
+            
+            if let firstName = firstName {
+                rawUserInfo["firstName"] = firstName
             }
             
-            if (birthDate != nil) {
-                rawUserInfo += ["birthDate": birthDate!]
+            if let lastName = lastName {
+                rawUserInfo["lastName"] = lastName
             }
             
-            if let userInfoJSON = rawUserInfo.JSONString {
-                if let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW,
-                                                                  enc: JWEEncryption.A256GCM,
-                                                                  payload: userInfoJSON,
-                                                                  keyId: headers[RestClient.fpKeyIdKey]!) {
-                    if let encrypted = try? jweObject.encrypt(strongSelf.secret) {
-                        parameters["encryptedData"] = encrypted
-                    }
+            if let birthDate = birthDate {
+                rawUserInfo["birthDate"] = birthDate
+            }
+            
+            if let userInfoJSON = rawUserInfo.JSONString,
+                let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW,
+                                                               enc: JWEEncryption.A256GCM,
+                                                               payload: userInfoJSON,
+                                                               keyId: headers[RestClient.fpKeyIdKey]!),
+                let encrypted = try? jweObject.encrypt(strongSelf.secret) {
+                parameters["encryptedData"] = encrypted
+            }
+            
+            log.verbose("REST_CLIENT: user creation url: \(FitpayConfig.apiURL)/users")
+            log.verbose("REST_CLIENT: Headers: \(headers)")
+            log.verbose("REST_CLIENT: user creation json: \(parameters)")
+            
+            self?.restRequest.makeRequest(url: FitpayConfig.apiURL + "/users", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
                 }
-            }
-            
-            log.verbose("user creation url: \(strongSelf._session.baseAPIURL)/users")
-            log.verbose("Headers: \(headers)")
-            log.verbose("user creation json: \(parameters)")
-            
-            let request = strongSelf._manager.request(strongSelf._session.baseAPIURL + "/users", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            
-            request.validate().responseObject(queue: DispatchQueue.global()) { (response: DataResponse<User>) in
-                DispatchQueue.main.async {
-                    if response.result.error != nil {
-                        let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                        completion(nil, error)
-                        
-                    } else if let resultValue = response.result.value {
-                        resultValue.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                        resultValue.client = self
-                        completion(resultValue, nil)
-                        
-                    } else {
-                        completion(nil, NSError.unhandledError(RestClient.self))
-                    }
-                }
+                let user = try? User(resultValue)
+                user?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
+                user?.client = self
+                completion(user, error)
             }
         }
     }
@@ -134,35 +106,7 @@ extension RestClient {
      - parameter completion: UserHandler closure
      */
     @objc open func user(id: String, completion: @escaping UserHandler) {
-        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let strongSelf = self else { return }
-            
-            guard let headers = headers  else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            let request = strongSelf._manager.request(strongSelf._session.baseAPIURL + "/users/" + id,
-                                                      method: .get,
-                                                      parameters: nil,
-                                                      encoding: JSONEncoding.default,
-                                                      headers: headers)
-            request.validate().responseObject(queue: DispatchQueue.global()) { (response: DataResponse<User>) in
-                DispatchQueue.main.async {
-                    if let _ = response.result.error {
-                        let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                        completion(nil, error)
-                        
-                    } else if let resultValue = response.result.value {
-                        resultValue.client = self
-                        resultValue.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                        completion(resultValue, response.result.error as NSError?)
-                        
-                    } else {
-                        completion(nil, NSError.unhandledError(RestClient.self))
-                    }
-                }
-            }
-        }
+        makeGetCall(FitpayConfig.apiURL + "/users/" + id, parameters: nil, completion: completion)
     }
     
     /**
@@ -177,15 +121,8 @@ extension RestClient {
      - parameter termsVersion:         terms version formatted as [0.0.0]
      - parameter completion:           UpdateUserHandler closure
      */
-    internal func updateUser(_ url: String,
-                             firstName: String?,
-                             lastName: String?,
-                             birthDate: String?,
-                             originAccountCreated: String?,
-                             termsAccepted: String?,
-                             termsVersion: String?,
-                             completion: @escaping UserHandler) {
-        self.prepareAuthAndKeyHeaders { (headers, error) in
+    @objc public func updateUser(_ url: String,  firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion: @escaping UserHandler) {
+        prepareAuthAndKeyHeaders { (headers, error) in
             guard let headers = headers else {
                 completion(nil, error)
                 return
@@ -219,88 +156,25 @@ extension RestClient {
             
             var parameters = [String: Any]()
             
-            if let updateJSON = operations.JSONString {
-                if let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!) {
-                    if let encrypted = try? jweObject.encrypt(self.secret)! {
-                        parameters["encryptedData"] = encrypted
-                    }
-                }
+            if let updateJSON = operations.JSONString,
+                let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!),
+                let encrypted = try? jweObject.encrypt(self.secret)! {
+                parameters["encryptedData"] = encrypted
             }
             
-            let request = self._manager.request(url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            request.validate().responseObject(queue: DispatchQueue.global()) { [weak self] (response: DataResponse<User>) in
-                
-                DispatchQueue.main.async {
-                    if let _ = response.result.error {
-                        let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                        completion(nil, error)
-                        
-                    } else if let resultValue = response.result.value {
-                        resultValue.client = self
-                        if let secret = self?.secret {
-                            resultValue.applySecret(secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                        }
-                        completion(resultValue, response.result.error as NSError?)
-                        
-                    } else {
-                        completion(nil, NSError.unhandledError(RestClient.self))
-                    }
+            self.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { [weak self] (resultValue, error) in
+                guard let strongSelf = self else { return }
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
                 }
+                let user = try? User(resultValue)
+                user?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
+                user?.client = self
+                completion(user, error)
             }
         }
         
-    }
-    
-    /**
-     Delete a single user from your organization
-     
-     - parameter id:         user id
-     - parameter completion: DeleteHandler closure
-     */
-    internal func deleteUser(_ url: String, completion: @escaping DeleteHandler) {
-        self.prepareAuthAndKeyHeaders { (headers, error) in
-            guard let headers = headers else {
-                completion(error)
-                return
-            }
-            
-            let request = self._manager.request(url, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers)
-            request.validate().responseString { (response: DataResponse<String>) in
-                DispatchQueue.main.async {
-                    completion(response.result.error as NSError?)
-                }
-            }
-        }
-    }
-    
-    open func user(_ url: String, completion: @escaping UserHandler) {
-        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            
-            let request = self?._manager.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
-            request?.validate().responseObject(queue: DispatchQueue.global()) { [weak self] (response: DataResponse<User>) in
-                guard let strongSelf = self else { return }
-                
-                DispatchQueue.main.async {
-                    if response.result.error != nil {
-                        let error = NSError.errorWith(dataResponse: response, domain: RestClient.self)
-                        completion(nil, error)
-                        
-                    } else if let resultValue = response.result.value {
-                        resultValue.client = self
-                        resultValue.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                        completion(resultValue, response.result.error as NSError?)
-                        
-                    } else {
-                        completion(nil, NSError.unhandledError(RestClient.self))
-                    }
-                }
-            }
-            
-        }
     }
     
 }

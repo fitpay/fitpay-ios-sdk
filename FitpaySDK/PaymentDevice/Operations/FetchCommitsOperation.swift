@@ -1,34 +1,33 @@
-//
-//  FetchCommitsOperation.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 12.07.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 import RxSwift
 
-public protocol FetchCommitsOperationProtocol {
-    var deviceInfo: DeviceInfo! { get set }
+protocol FetchCommitsOperationProtocol {
+    var deviceInfo: Device! { get set }
     
     func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]>
 }
 
-open class FetchCommitsOperation: FetchCommitsOperationProtocol {
+class FetchCommitsOperation: FetchCommitsOperationProtocol {
     
-    public init(deviceInfo: DeviceInfo, shouldStartFromSyncedCommit: Bool = false, syncStorage: SyncStorage = SyncStorage.sharedInstance, connector: IPaymentDeviceConnector? = nil) {
+    var deviceInfo: Device!
+    
+    private var connector: PaymentDeviceConnectable?
+    private let syncStorage: SyncStorage
+    private let startFromSyncedCommit: Bool
+    private let disposeBag = DisposeBag()
+    
+    private let publisher = PublishSubject<[Commit]>()
+    
+    init(deviceInfo: Device, shouldStartFromSyncedCommit: Bool = false, syncStorage: SyncStorage = SyncStorage.sharedInstance, connector: PaymentDeviceConnectable? = nil) {
         self.deviceInfo = deviceInfo
         self.startFromSyncedCommit = shouldStartFromSyncedCommit
         self.syncStorage = syncStorage
         self.connector = connector
     }
     
-    public enum ErrorCode: Error {
-        case parsingError
-    }
+
     
-    public func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]> {
+    func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]> {
         func loadCommits(afterCommit commitId: String) {
             deviceInfo.listCommits(commitsAfter: commitId, limit: limit, offset: offset) { [weak self] (result, error) in
                 guard error == nil else {
@@ -79,7 +78,7 @@ open class FetchCommitsOperation: FetchCommitsOperationProtocol {
         return publisher
     }
     
-    open func generateCommitIdFromWhichWeShouldStart() -> Observable<String> {
+    func generateCommitIdFromWhichWeShouldStart() -> Observable<String> {
         var commitId = ""
         if self.startFromSyncedCommit {
             if let getDeviceLastCommitId = self.connector?.getDeviceLastCommitId, let _ = self.connector?.setDeviceLastCommitId {
@@ -97,7 +96,7 @@ open class FetchCommitsOperation: FetchCommitsOperationProtocol {
                         // anyway continue sync process from beginning
                         observer.onNext("")
                     } else {
-                        observer.onNext(commit?.commit ?? "")
+                        observer.onNext(commit?.commitId ?? "")
                     }
                     
                     observer.onCompleted()
@@ -111,15 +110,12 @@ open class FetchCommitsOperation: FetchCommitsOperationProtocol {
 
     }
     
-    
-    public var deviceInfo: DeviceInfo!
-    private var connector: IPaymentDeviceConnector?
-    
-    // private
-    private let syncStorage: SyncStorage
-    private let startFromSyncedCommit: Bool
-    private let disposeBag = DisposeBag()
-    
-    //rx
-    private let publisher = PublishSubject<[Commit]>()
+}
+
+// MARK: - Nested Objects
+
+extension FetchCommitsOperation {
+    enum ErrorCode: Error {
+        case parsingError
+    }
 }

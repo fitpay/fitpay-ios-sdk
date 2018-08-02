@@ -1,12 +1,11 @@
 import XCTest
-import ObjectMapper
 @testable import FitpaySDK
 
 class MockPaymentDeviceTests: XCTestCase {
     var paymentDevice: PaymentDevice!
     
-    let command1 = Mapper<APDUCommand>().map(JSONString: "{ \"commandId\":\"e69e3bc6-bf36-4432-9db0-1f9e19b9d515\",\n         \"groupId\":0,\n         \"sequence\":0,\n         \"command\":\"00A4040008A00000000410101100\",\n         \"type\":\"PUT_DATA\"}")!
-    let command2 = Mapper<APDUCommand>().map(JSONString: "{ \"commandId\":\"e69e3bc6-bf36-4432-9db0-1f9e19b9d517\",\n         \"groupId\":0,\n         \"sequence\":0,\n         \"command\":\"84E20001B0B12C352E835CBC2CA5CA22A223C6D54F3EDF254EF5E468F34CFD507C889366C307C7C02554BDACCDB9E1250B40962193AD594915018CE9C55FB92D25B0672E9F404A142446C4A18447FEAD7377E67BAF31C47D6B68D1FBE6166CF39094848D6B46D7693166BAEF9225E207F9322E34388E62213EE44184ED892AAF3AD1ECB9C2AE8A1F0DC9A9F19C222CE9F19F2EFE1459BDC2132791E851A090440C67201175E2B91373800920FB61B6E256AC834B9D\",\n         \"type\":\"PUT_DATA\"}")!
+    let command1 = try! APDUCommand("{ \"commandId\":\"e69e3bc6-bf36-4432-9db0-1f9e19b9d515\",\n         \"groupId\":0,\n         \"sequence\":0,\n         \"command\":\"00A4040008A00000000410101100\",\n         \"type\":\"PUT_DATA\"}")
+    let command2 = try! APDUCommand("{ \"commandId\":\"e69e3bc6-bf36-4432-9db0-1f9e19b9d517\",\n         \"groupId\":0,\n         \"sequence\":0,\n         \"command\":\"84E20001B0B12C352E835CBC2CA5CA22A223C6D54F3EDF254EF5E468F34CFD507C889366C307C7C02554BDACCDB9E1250B40962193AD594915018CE9C55FB92D25B0672E9F404A142446C4A18447FEAD7377E67BAF31C47D6B68D1FBE6166CF39094848D6B46D7693166BAEF9225E207F9322E34388E62213EE44184ED892AAF3AD1ECB9C2AE8A1F0DC9A9F19C222CE9F19F2EFE1459BDC2132791E851A090440C67201175E2B91373800920FB61B6E256AC834B9D\",\n         \"type\":\"PUT_DATA\"}")
     
     override func setUp() {
         super.setUp()
@@ -30,14 +29,12 @@ class MockPaymentDeviceTests: XCTestCase {
     
     func testConnectToDeviceCheck() {
         let expectation = super.expectation(description: "connection to device check")
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected) { (event) in
-            debugPrint("event: \(event), eventData: \(event.eventData)")
+        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
             let deviceInfo = self.paymentDevice.deviceInfo
             let error = (event.eventData as? [String:Any])?["error"]
             
             XCTAssertNil(error)
             XCTAssertNotNil(deviceInfo)
-            XCTAssertNotNil(deviceInfo?.secureElementId)
             XCTAssertEqual(deviceInfo!.deviceType, "WATCH")
             XCTAssertEqual(deviceInfo!.manufacturerName, "Fitpay")
             XCTAssertEqual(deviceInfo!.deviceName, "PSPS")
@@ -62,7 +59,7 @@ class MockPaymentDeviceTests: XCTestCase {
         let expectation = super.expectation(description: "sending apdu commands")
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
             let error = (event.eventData as? [String: Any])?["error"]
             
             XCTAssertNil(error)
@@ -73,7 +70,6 @@ class MockPaymentDeviceTests: XCTestCase {
                 XCTAssert(command!.responseCode == successResponse)
                 
                 self.paymentDevice.executeAPDUCommand(self.command2) { (command, state, error) -> Void in
-                    debugPrint("apduResponse: \(String(describing: command))")
                     XCTAssertNil(error)
                     XCTAssertNotNil(command)
                     XCTAssert(command!.responseCode == successResponse)
@@ -92,7 +88,7 @@ class MockPaymentDeviceTests: XCTestCase {
         let expectation = super.expectation(description: "package check")
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
             let error = (event.eventData as? [String: Any])?["error"]
             let package = ApduPackage()
             package.apduCommands = [self.command1, self.command2]
@@ -103,7 +99,6 @@ class MockPaymentDeviceTests: XCTestCase {
                 
                 func execute(command: APDUCommand) {
                     self.paymentDevice.executeAPDUCommand(command) { (command, state, error) -> Void in
-                        debugPrint("apduResponse: \(String(describing: command))")
                         XCTAssertNil(error)
                         XCTAssertNotNil(command)
                         XCTAssert(command!.responseCode == successResponse)

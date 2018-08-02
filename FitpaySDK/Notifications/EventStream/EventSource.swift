@@ -1,12 +1,13 @@
 import Foundation
 
-public enum EventSourceState {
+enum EventSourceState {
     case connecting
     case open
     case closed
 }
 
-open class EventSource: NSObject {
+class EventSource: NSObject {
+    
     let url: URL
     
     private let lastEventIDKey: String
@@ -15,45 +16,42 @@ open class EventSource: NSObject {
     private var onErrorCallback: ((NSError?) -> Void)?
     private var onMessageCallback: ((_ id: String?, _ event: String?, _ data: String?) -> Void)?
     
-    open internal(set) var readyState: EventSourceState
-    open private(set) var retryTime = 3000
+    var readyState: EventSourceState
+    private(set) var retryTime = 3000
     
     private var eventListeners = Dictionary<String, (_ id: String?, _ event: String?, _ data: String?) -> Void>()
     private var headers: Dictionary<String, String>
     
-    internal var urlSession: Foundation.URLSession?
-    internal var task: URLSessionDataTask?
+    var urlSession: Foundation.URLSession?
+    var task: URLSessionDataTask?
     
     private var operationQueue: OperationQueue
     private var errorBeforeSetErrorCallBack: NSError?
     
-    internal let receivedDataBuffer: NSMutableData
+    let receivedDataBuffer: NSMutableData
     
     private let uniqueIdentifier: String
     private let validNewlineCharacters = ["\r\n", "\n", "\r"]
     
     var event = Dictionary<String, String>()
     
-    internal var lastEventID: String? {
+    var lastEventID: String? {
         set {
             if let lastEventID = newValue {
                 let defaults = UserDefaults.standard
                 defaults.set(lastEventID, forKey: lastEventIDKey)
-                defaults.synchronize()
             }
         }
         
         get {
             let defaults = UserDefaults.standard
+            let lastEventID = defaults.string(forKey: lastEventIDKey)
             
-            if let lastEventID = defaults.string(forKey: lastEventIDKey) {
-                return lastEventID
-            }
-            return nil
+            return lastEventID
         }
     }
     
-    public init(url: String, headers: [String: String] = [:]) {
+    init(url: String, headers: [String: String] = [:]) {
         
         self.url = URL(string: url)!
         self.headers = headers
@@ -96,22 +94,22 @@ open class EventSource: NSObject {
         task?.resume()
     }
     
-    internal func newSession(_ configuration: URLSessionConfiguration) -> URLSession {
+    func newSession(_ configuration: URLSessionConfiguration) -> URLSession {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }
     
     //MARK: - Close
-    open func close() {
+    func close() {
         self.readyState = EventSourceState.closed
         self.urlSession?.invalidateAndCancel()
     }
 
     //MARK: - EventListeners
-    open func onOpen(_ onOpenCallback: @escaping (() -> Void)) {
+    func onOpen(_ onOpenCallback: @escaping (() -> Void)) {
         self.onOpenCallback = onOpenCallback
     }
     
-    open func onError(_ onErrorCallback: @escaping ((NSError?) -> Void)) {
+    func onError(_ onErrorCallback: @escaping ((NSError?) -> Void)) {
         self.onErrorCallback = onErrorCallback
         
         if let errorBeforeSet = self.errorBeforeSetErrorCallBack {
@@ -120,19 +118,19 @@ open class EventSource: NSObject {
         }
     }
     
-    open func onMessage(_ onMessageCallback: @escaping ((_ id: String?, _ event: String?, _ data: String?) -> Void)) {
+    func onMessage(_ onMessageCallback: @escaping ((_ id: String?, _ event: String?, _ data: String?) -> Void)) {
         self.onMessageCallback = onMessageCallback
     }
     
-    open func addEventListener(_ event: String, handler: @escaping ((_ id: String?, _ event: String?, _ data: String?) -> Void)) {
+    func addEventListener(_ event: String, handler: @escaping ((_ id: String?, _ event: String?, _ data: String?) -> Void)) {
         self.eventListeners[event] = handler
     }
     
-    open func removeEventListener(_ event: String) -> Void {
+    func removeEventListener(_ event: String) -> Void {
         self.eventListeners.removeValue(forKey: event)
     }
     
-    open func events() -> Array<String> {
+    func events() -> Array<String> {
         return Array(self.eventListeners.keys)
     }
 
@@ -282,7 +280,7 @@ open class EventSource: NSObject {
 
 extension EventSource: URLSessionDataDelegate {
     
-    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
             return
         }
@@ -296,7 +294,7 @@ extension EventSource: URLSessionDataDelegate {
         self.parseEventStream(eventStream)
     }
     
-    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         completionHandler(URLSession.ResponseDisposition.allow)
         
         if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
@@ -311,7 +309,7 @@ extension EventSource: URLSessionDataDelegate {
         }
     }
     
-    open func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         self.readyState = EventSourceState.closed
         
         if self.receivedMessageToClose(task.response as? HTTPURLResponse) {

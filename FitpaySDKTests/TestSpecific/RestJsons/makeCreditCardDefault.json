@@ -1,0 +1,5 @@
+{"_links":{"self":{"href":"https://api.fit-pay.com/users/902b9da7-3160-4ff5-927e-91f73e2c6442/creditCards/6b7d99c2-eab3-46ba-a32b-86a41a4efaa9?field=userId&field=state&field=targetDeviceId&field=targetDeviceType"}},"creditCardId":"6b7d99c2-eab3-46ba-a32b-86a41a4efaa9","userId":"902b9da7-3160-4ff5-927e-91f73e2c6442","default":true,"state":"ACTIVE","targetDeviceId":"d6da59c0-dd1b-4a8e-a9aa-b1ed2f63b562","targetDeviceType":"fitpay.tokenization.device.model.Device","deviceRelationships":[],"encryptedData":"eyJraWQiOiJlZDY2NzUxZi0xYzQzLTQ0ZmItYjU4MS1mOGZiOWUxYTZjYzQiLCJlbmMiOiJBMjU2R0NNIiwidGFnIjoiQzU4OTU3bVdiUG1TdE9NQlhQSlFGUSIsImFsZyI6IkEyNTZHQ01LVyIsIml2IjoiQWJWc2ctYmlLNVdmMlc1MiJ9.NC5yzKckR8htnPXQ_k0vsAD8zViZ1qLwlK_KoR11hJE.mmRA7gbOUkPU53ZD.lb70ICOcXuAEe4cNmQyoQftAOS-zOhUV_Po.CqSU3H8_4BJmE1wqgr0YDQ"}
+
+
+
+

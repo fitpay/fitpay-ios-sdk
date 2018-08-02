@@ -1,0 +1,5 @@
+{"_links":{"self":{"href":"https://api.fit-pay.com/users/ca637671-7b52-4fd6-b734-b3c22940834e/creditCards/7ae5eb97-0c5d-4310-bfe2-2d6a6dc011c4/verificationMethods/733080a9-cded-4357-99c9-1e17da26ef55"},"card":{"href":"https://api.fit-pay.com/users/ca637671-7b52-4fd6-b734-b3c22940834e/creditCards/7ae5eb97-0c5d-4310-bfe2-2d6a6dc011c4"},"select":{"href":"https://api.fit-pay.com/users/ca637671-7b52-4fd6-b734-b3c22940834e/creditCards/7ae5eb97-0c5d-4310-bfe2-2d6a6dc011c4/verificationMethods/733080a9-cded-4357-99c9-1e17da26ef55/select"},"verify":{"href":"https://api.fit-pay.com/users/ca637671-7b52-4fd6-b734-b3c22940834e/creditCards/7ae5eb97-0c5d-4310-bfe2-2d6a6dc011c4/verificationMethods/733080a9-cded-4357-99c9-1e17da26ef55/verify"}},"verificationId":"733080a9-cded-4357-99c9-1e17da26ef55","state":"AWAITING_VERIFICATION","methodType":"CARDHOLDER_TO_CALL_AUTOMATED_NUMBER","value":"800-555-1212","lastModifiedTs":"2018-06-12T09:28:58.375Z","lastModifiedTsEpoch":1528795738375}
+
+
+
+

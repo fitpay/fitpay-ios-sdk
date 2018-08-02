@@ -1,11 +1,3 @@
-//
-//  FitpaySDK.h
-//  FitpaySDK
-//
-//  Created by Benjamin Walford on 12/14/15.
-//  Copyright © 2015 Fitpay. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 //! Project version number for FitpaySDK.

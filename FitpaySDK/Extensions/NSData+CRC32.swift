@@ -56,15 +56,15 @@ private let crcTable: [UInt32] = [
     0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b,
     0x2d02ef8d]
 
-extension Data
-{
-    var CRC32HashValue : Int {
-        var crc : UInt32 = 0
+extension Data {
+    
+    var CRC32HashValue: Int {
+        var crc: UInt32 = 0
         crc = crc32(crc, data: self)
         return Int(crc)
     }
     
-    internal func crc32(_ crc: UInt32, data: Data?) -> UInt32 {
+    func crc32(_ crc: UInt32, data: Data?) -> UInt32 {
         guard let data = data else {
             return crc32(0, buffer: nil, length: 0)
         }
@@ -77,14 +77,14 @@ extension Data
      for the crc. Pre- and post-conditioning (one's complement) is performed
      within this function so it shouldn't be done by the application.<br>
      Usage example:
-     Var crc: UInt32 = crc32(0, nil, 0);
+     Var crc: UInt32 = crc32(0, nil, 0)
      
      while (read_buffer(buffer, length) != EOF) {
      crc = crc32(crc, buffer: buffer, length: length)
      }
-     if (crc != original_crc) error();
+     if (crc != original_crc) error()
      */
-    internal func crc32(_ crc: UInt32, buffer: UnsafePointer<UInt8>?, length: Int) -> UInt32 {
+    func crc32(_ crc: UInt32, buffer: UnsafePointer<UInt8>?, length: Int) -> UInt32 {
         if buffer == nil {
             return 0
         }
@@ -111,6 +111,6 @@ extension Data
             } while len != 0
         }
         
-        return crc1 ^ 0xffffffff;
+        return crc1 ^ 0xffffffff
     }
 }

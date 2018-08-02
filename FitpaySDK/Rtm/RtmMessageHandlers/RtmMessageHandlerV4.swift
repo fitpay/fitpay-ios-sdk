@@ -1,27 +1,19 @@
-//
-//  RtmMessageHandlerV4.swift
-//  FitpaySDK
-//
-//  Created by Anton Popovichenko on 17.08.17.
-//  Copyright © 2017 Fitpay. All rights reserved.
-//
-
 import Foundation
 
-class RtmMessageHandlerV4: RtmMessageHandlerV3 {
+class RtmMessageHandlerV4: RtmMessageHandlerV2 {
     var cardScanner: IFitpayCardScanner?
     
-    enum RtmMessageTypeVer4: RtmMessageType, RtmMessageTypeWithHandler {
-        case rtmVersion        = "version"
-        case sync              = "sync"
-        case deviceStatus      = "deviceStatus"
-        case userData          = "userData"
-        case logout            = "logout"
-        case resolve           = "resolve"
-        case scanRequest       = "scanRequest"
-        case cardScanned       = "cardScanned"
-        case sdkVersionRequest = "sdkVersionRequest"
-        case sdkVersion        = "sdkVersion"
+    enum RtmMessageTypeVer4: String, RtmMessageTypeWithHandler {
+        case rtmVersion = "version"
+        case sync
+        case deviceStatus
+        case userData
+        case logout
+        case resolve
+        case scanRequest
+        case cardScanned
+        case sdkVersionRequest
+        case sdkVersion
         
         func msgHandlerFor(handlerObject: RtmMessageHandler) -> MessageTypeHandler? {
             guard let handlerObject = handlerObject as? RtmMessageHandlerV4 else {
@@ -48,7 +40,7 @@ class RtmMessageHandlerV4: RtmMessageHandlerV3 {
         }
     }
     
-    override func handlerFor(rtmMessage: RtmMessageType) -> MessageTypeHandler? {
+    override func handlerFor(rtmMessage: String) -> MessageTypeHandler? {
         guard let messageAction = RtmMessageTypeVer4(rawValue: rtmMessage) else {
             log.debug("WV_DATA: RtmMessage. Action is missing or unknown: \(rtmMessage)")
             return nil
@@ -67,15 +59,19 @@ class RtmMessageHandlerV4: RtmMessageHandlerV3 {
         }
     }
     
-    func handleSdkVersion(_ message: RtmMessage) {
-        let result = [RtmMessageTypeVer4.sdkVersion.rawValue : "iOS-\(FitpaySDKConfiguration.sdkVersion)"]
+    // MARK: - Private
+    
+    private func handleSdkVersion(_ message: RtmMessage) {
+        let result = [RtmMessageTypeVer4.sdkVersion.rawValue: "iOS-\(FitpayConfig.sdkVersion)"]
         if let delegate = self.outputDelegate {
             delegate.send(rtmMessage: RtmMessageResponse(data: result, type: RtmMessageTypeVer4.sdkVersion.rawValue, success: true), retries: 3)
         }
     }
+    
 }
 
 extension RtmMessageHandlerV4: FitpayCardScannerDelegate {
+    
     func scanned(card: ScannedCardInfo?, error: Error?) {
         if let delegate = self.outputDelegate {
             delegate.send(rtmMessage: RtmMessageResponse(data: card?.toJSON(), type: RtmMessageTypeVer4.cardScanned.rawValue, success: true), retries: 3)
@@ -91,4 +87,5 @@ extension RtmMessageHandlerV4: FitpayCardScannerDelegate {
             cardScannerPresenter.shouldDissmissCardScanner(scanner: cardScanner)
         }
     }
+
 }

@@ -1,5 +1,4 @@
 import XCTest
-import ObjectMapper
 
 @testable import FitpaySDK
 

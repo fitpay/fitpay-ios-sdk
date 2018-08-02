@@ -1,24 +1,23 @@
 import Foundation
-import ObjectMapper
 
 protocol RtmOutputDelegate: class {
     func send(rtmMessage: RtmMessageResponse, retries: Int)
-    func show(status: WVDeviceStatuses, message: String?, error: Error?)
+    func show(status: WVDeviceStatus, message: String?, error: Error?)
 }
 
 class RtmMessaging {
     weak var outputDelagate: RtmOutputDelegate?
-    weak var rtmDelegate: WvRTMDelegate?
+    weak var rtmDelegate: RTMDelegate?
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
     weak var cardScannerDataSource: FitpayCardScannerDataSource?
     weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
     
-    lazy var handlersMapping: [RtmProtocolVersion: RtmMessageHandler?] = {
-        return [RtmProtocolVersion.ver1: nil,
-                RtmProtocolVersion.ver2: RtmMessageHandlerV2(wvConfigStorage: self.wvConfigStorage),
-                RtmProtocolVersion.ver3: RtmMessageHandlerV3(wvConfigStorage: self.wvConfigStorage),
-                RtmProtocolVersion.ver4: RtmMessageHandlerV4(wvConfigStorage: self.wvConfigStorage),
-                RtmProtocolVersion.ver5: RtmMessageHandlerV5(wvConfigStorage: self.wvConfigStorage)]
+    lazy var handlersMapping: [WvConfig.RtmProtocolVersion: RtmMessageHandler?] = {
+        return [WvConfig.RtmProtocolVersion.ver1: nil,
+                WvConfig.RtmProtocolVersion.ver2: RtmMessageHandlerV2(wvConfigStorage: self.wvConfigStorage),
+                WvConfig.RtmProtocolVersion.ver3: RtmMessageHandlerV3(wvConfigStorage: self.wvConfigStorage),
+                WvConfig.RtmProtocolVersion.ver4: RtmMessageHandlerV4(wvConfigStorage: self.wvConfigStorage),
+                WvConfig.RtmProtocolVersion.ver5: RtmMessageHandlerV5(wvConfigStorage: self.wvConfigStorage)]
     }()
     
     private(set) var messageHandler: RtmMessageHandler?
@@ -39,10 +38,8 @@ class RtmMessaging {
     
     typealias RtmRawMessageCompletion = ((_ success: Bool) -> Void)
     
-    func received(message: [String: Any], completion: RtmRawMessageCompletion? = nil) {
-        let jsonData = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
-        
-        guard let rtmMessage = Mapper<RtmMessage>().map(JSONString: String(data: jsonData!, encoding: .utf8)!) else {
+    func received(message: [String: Any], completion: RtmRawMessageCompletion? = nil) {        
+        guard let rtmMessage = try? RtmMessage(message) else {
             log.error("WV_DATA: Can't create RtmMessage.")
             completion?(false)
             return
@@ -68,7 +65,7 @@ class RtmMessaging {
                 return
             }
             
-            guard let version = RtmProtocolVersion(rawValue: versionInt) else {
+            guard let version = WvConfig.RtmProtocolVersion(rawValue: versionInt) else {
                 log.error("WV_DATA: Unknown rtm version - \(versionInt).")
                 receivedWrongVersion = true
                 completion?(false)
@@ -101,10 +98,10 @@ class RtmMessaging {
             break
         default:
             if !receivedWrongVersion {
-                log.debug("Adding message to the buffer. Will be used after we will receive rtm version.")
+                log.debug("WV_DATA: Adding message to the buffer. Will be used after we will receive rtm version.")
                 preVersionBuffer.append(BufferedMessage(message: message, completion: completion))
             } else {
-                log.error("Can't handle message because version ack was failed.")
+                log.error("WV_DATA: Can't handle message because version ack was failed.")
                 completion?(false)
             }
             return

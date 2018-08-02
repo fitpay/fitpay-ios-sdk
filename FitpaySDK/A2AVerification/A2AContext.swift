@@ -1,30 +1,19 @@
-//
-//  A2AVerificationError.swift
-//  FitpaySDK
-//
-//  Created by Illya Kyznetsov on 3/5/18.
-//
-
 import UIKit
-import ObjectMapper
 
-open class A2AContext: NSObject, Mappable {
-    open var applicationId: String?
-    open var action: String?
-    open var payload: String?
+/// Object containing the information needed to pass into the issuer app
+@objc public class A2AContext: NSObject, Serializable {
     
-    public required init?(map: Map) {
-        super.init()
-    }
+    /// iTunes App Id
+    /// 10 digit number as a string
+    /// Can be used to construct an iTunes URL as a fallback if the user doesn't have the issuer app installed
+    @objc public var applicationId: String?
     
-    internal override init() {
-        super.init()
-    }
+    /// The url used to be open the issuer app
+    @objc public var action: String?
     
-    open func mapping(map: Map) {
-        applicationId <- map["applicationId"]
-        action <- map["action"]
-        payload <- map["payload"]
-    }
+    /// The payload to send the issuer as a parameter
+    /// ?a2apayload={payload}
+    @objc public var payload: String?
+    
 }
 
