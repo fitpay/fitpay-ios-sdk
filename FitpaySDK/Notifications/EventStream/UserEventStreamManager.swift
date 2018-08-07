@@ -14,7 +14,7 @@ public class UserEventStreamManager {
         
         client!.getPlatformConfig() { (platformConfig, error) in
             guard let isUserEventStreamsEnabled = platformConfig?.isUserEventStreamsEnabled, isUserEventStreamsEnabled else {
-                log.debug("userEventStreamsEnabled has been disabled at the platform level, skipping user event stream subscription")
+                log.debug("USER_EVENT_STREAM: userEventStreamsEnabled has been disabled at the platform level, skipping user event stream subscription")
                 return
             }
             

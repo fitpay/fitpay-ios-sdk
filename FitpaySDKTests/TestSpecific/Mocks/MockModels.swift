@@ -168,7 +168,11 @@ class MockModels {
         XCTAssertNotNil(payload)
         return payload
     }
-
-  
+    
+    func getPlatformConfig() -> PlatformConfig? {
+        let config = try? PlatformConfig("{\"userEventStreamsEnabled\": true}")
+        XCTAssertNotNil(config)
+        return config
+    }
     
 }

@@ -324,8 +324,8 @@ class TestHelper {
         return randomString as String
     }
     
-    class func getEmail() -> String {
-        return "ms7RsgsX@X5pvb.koWBX"
+    class func getEmail(random: Bool = false) -> String {
+        return random ? "testUser\(Int(Date().timeIntervalSince1970 * 1000))@test.com" : "ms7RsgsX@X5pvb.koWBX"
     }
     
     func randomPan() -> String {
@@ -333,7 +333,16 @@ class TestHelper {
     }
     
     func generateRandomSeId() -> String {
-        let secureElementId = MockPaymentDeviceConnector(paymentDevice: PaymentDevice()).deviceInfo()!.secureElement?.secureElementId ?? ""
-        return secureElementId
+        if let deviceSecureElementId = MockPaymentDeviceConnector(paymentDevice: PaymentDevice()).deviceInfo()!.secureElement?.secureElementId {
+            return deviceSecureElementId
+        } else {
+            var dateString = String(format: "%2X", UInt64(Date().timeIntervalSince1970))
+            while dateString.count < 12 {
+                dateString = "0" + dateString
+            }
+            let secureElementId = "DEADBEEF0000" + "528704504258" +  dateString + "FFFF427208236250082462502041FFFF082562502041FFFF"
+            return secureElementId
+        }
+        
     }
 }

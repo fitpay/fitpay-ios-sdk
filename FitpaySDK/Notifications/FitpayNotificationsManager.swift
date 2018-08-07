@@ -2,7 +2,7 @@ import Foundation
 
 open class FitpayNotificationsManager: NSObject {
 
-    open static let sharedInstance = FitpayNotificationsManager()
+    public static let sharedInstance = FitpayNotificationsManager()
     
     public typealias NotificationsPayload = [AnyHashable: Any]
     

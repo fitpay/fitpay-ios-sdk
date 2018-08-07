@@ -22,7 +22,7 @@ protocol SyncManagerProtocol {
 
 @objcMembers open class SyncManager: NSObject, SyncManagerProtocol {
     
-    open static let sharedInstance = SyncManager(syncFactory: DefaultSyncFactory())
+    public static let sharedInstance = SyncManager(syncFactory: DefaultSyncFactory())
     
     open var synchronousModeOn = true
     open private(set) var isSyncing = false

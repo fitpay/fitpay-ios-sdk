@@ -5,7 +5,7 @@ import Alamofire
 @testable import FitpaySDK
 
 class MockRestRequest: RestRequestable {
-    
+
     var lastParams: [String: Any]?
     var lastEncoding: ParameterEncoding?
     
@@ -77,10 +77,6 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("resetDeviceTasks") {
             data = loadDataFromJSONFile(filename: "resetDeviceTask")
             
-        } else if urlString.contains("assets") {
-            let imagePath =  Bundle(for: type(of: self)).path(forResource: "mocImage", ofType: "png")!
-            data = UIImagePNGRepresentation(UIImage(contentsOfFile: imagePath)!)
-
         }
         
         if let data = data {
@@ -89,6 +85,24 @@ class MockRestRequest: RestRequestable {
             completion(nil, ErrorResponse.unhandledError(domain: RestClient.self))
         }
         
+    }
+    
+    func makeDataRequest(url: URLConvertible, completion: @escaping RestRequestable.RequestHandler) {
+        guard let urlString = try? url.asURL().absoluteString else {
+            completion(nil, ErrorResponse.unhandledError(domain: RestClient.self))
+            return
+        }
+        
+        lastParams = nil
+        lastEncoding = URLEncoding.default
+        
+        if urlString.contains("assets") {
+            let imagePath =  Bundle(for: type(of: self)).path(forResource: "mocImage", ofType: "png")!
+            let data = UIImagePNGRepresentation(UIImage(contentsOfFile: imagePath)!)
+            if let data = data {
+                completion(data, nil)
+            }
+        }
     }
     
     private func loadDataFromJSONFile(filename: String) -> String? {

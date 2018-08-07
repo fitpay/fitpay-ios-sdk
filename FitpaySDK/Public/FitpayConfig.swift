@@ -21,8 +21,6 @@ import Foundation
     @objc public static var authURL = "https://auth.fit-pay.com"
     
     /// Turn on when you are ready to implement App 2 App stepup methods
-    ///
-    /// Only recommended for iOS 10+
     @objc public static var supportApp2App = false
     
     /// Logs will be sent for every level equal or above what is set
@@ -30,8 +28,6 @@ import Foundation
     
     /// SDK Version using semantic versioning MAJOR.MINOR.PATCH
     @objc public static let sdkVersion = Bundle(for: FitpayConfig.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-    
-    static let platformConfigURL = "http://s3.amazonaws.com/crypto-web-prod/mobile/config.json"
     
     //MARK: - Functions
     

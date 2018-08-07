@@ -3,9 +3,10 @@
 We are gradually moving content regarding consumption of this SDK to our [documentation](https://docs.fit-pay.com). The intended audience for this README is developers contributing to this repository.
 
 [![GitHub license](https://img.shields.io/github/license/fitpay/fitpay-ios-sdk.svg)](https://github.com/fitpay/fitpay-ios-sdk/blob/develop/LICENSE)
-[![Build Status](https://travis-ci.org/fitpay/fitpay-ios-sdk.svg?branch=develop)](https://travis-ci.org/fitpay/fitpay-ios-sdk)
+[![Build Status](https://travis-ci.com/fitpay/fitpay-ios-sdk.svg?branch=develop)](https://travis-ci.com/fitpay/fitpay-ios-sdk)
 [![Latest pod release](https://img.shields.io/cocoapods/v/FitpaySDK.svg)](https://cocoapods.org/pods/FitpaySDK)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![codecov](https://codecov.io/gh/fitpay/fitpay-ios-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/fitpay/fitpay-ios-sdk)
 [![Documentation coverage](docs/badge.svg)](docs/badge.svg)
 
 ## Running Tests From the Commandline

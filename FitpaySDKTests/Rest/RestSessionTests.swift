@@ -9,11 +9,13 @@ class RestSessionTests: XCTestCase {
     var clientId = "fp_webapp_pJkVp2Rl"
     let password = "1029"
     
+    let restRequest = MockRestRequest()
+    
     override func setUp() {
         super.setUp()
 
-        session = RestSession(restRequest: MockRestRequest())
-        self.client =  RestClient(session: self.session!, restRequest: MockRestRequest())
+        session = RestSession(restRequest: restRequest)
+        self.client =  RestClient(session: self.session!, restRequest: restRequest)
         self.testHelper = TestHelper(session: self.session, client: self.client)
         
         FitpayConfig.clientId = clientId

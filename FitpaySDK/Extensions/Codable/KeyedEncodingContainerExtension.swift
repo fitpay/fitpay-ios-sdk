@@ -47,7 +47,7 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
                 try encode(value, forKey: key)
             case Optional<Any>.none:
                 try encodeNil(forKey: key)
-            case let value as NSNull:
+            case _ as NSNull:
                 try encodeNil(forKey: key)
             default:
                 throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: codingPath + [key], debugDescription: "Invalid JSON value"))

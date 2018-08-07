@@ -8,6 +8,8 @@ class RestClientTests: XCTestCase {
     var client: RestClient!
     var testHelper: TestHelper!
     
+    let restRequest = MockRestRequest()
+    
     override func invokeTest() {
         // stop test on first failure - kind of like jUnit.  Avoid unexpected null references etc
         self.continueAfterFailure = false
@@ -24,8 +26,8 @@ class RestClientTests: XCTestCase {
         FitpayConfig.clientId = "fp_webapp_pJkVp2Rl"
         FitpayConfig.apiURL = "https://api.fit-pay.com"
         FitpayConfig.authURL = "https://auth.fit-pay.com"
-        session = RestSession(restRequest: MockRestRequest())
-        client = RestClient(session: session!, restRequest: MockRestRequest())
+        session = RestSession(restRequest: restRequest)
+        client = RestClient(session: session!, restRequest: restRequest)
         testHelper = TestHelper(session: session, client: client)
     }
     

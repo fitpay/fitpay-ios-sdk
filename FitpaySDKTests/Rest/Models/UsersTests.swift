@@ -9,11 +9,12 @@ class UsersTests: BaseTestProvider {
     var user: User!
     var restClient: RestClient!
     var testHelper: TestHelper!
-    var mockRestRequest = MockRestRequest()
-
+    
+    let restRequest = MockRestRequest()
+    
     override func setUp() {
-        let session = RestSession(restRequest: mockRestRequest)
-        restClient = RestClient(session: session, restRequest: mockRestRequest)
+        let session = RestSession(restRequest: restRequest)
+        restClient = RestClient(session: session, restRequest: restRequest)
         testHelper = TestHelper(session: session, client: restClient)
         
         FitpayConfig.clientId = "fp_webapp_pJkVp2Rl"
@@ -65,10 +66,10 @@ class UsersTests: BaseTestProvider {
     
     func testGetCreditCardsWithDeviceId() {
         let expectation = self.expectation(description: "getCreditCards")
-
+        
         user?.getCreditCards(excludeState: [], limit: 10, offset: 0, deviceId: "1234") { (creditCardCollection, error) in
-            XCTAssertEqual(self.mockRestRequest.lastParams?["deviceId"] as? String, "1234")
-            let lastEncodingAsURL = self.mockRestRequest.lastEncoding as? URLEncoding
+            XCTAssertEqual(self.restRequest.lastParams?["deviceId"] as? String, "1234")
+            let lastEncodingAsURL = self.restRequest.lastEncoding as? URLEncoding
             XCTAssertNotNil(lastEncodingAsURL)
             
             expectation.fulfill()
@@ -84,8 +85,8 @@ class UsersTests: BaseTestProvider {
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "Jeremiah Harris", address: address, riskData: nil)
         
         user.createCreditCard(cardInfo: creditCardInfo, deviceId: "1234") { (creditCard, error) in
-            XCTAssertEqual(self.mockRestRequest.lastParams?["deviceId"] as? String, "1234")
-            let lastEncodingAsJson = self.mockRestRequest.lastEncoding as? JSONEncoding
+            XCTAssertEqual(self.restRequest.lastParams?["deviceId"] as? String, "1234")
+            let lastEncodingAsJson = self.restRequest.lastEncoding as? JSONEncoding
             XCTAssertNotNil(lastEncodingAsJson)
             
             expectation.fulfill()

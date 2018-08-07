@@ -30,9 +30,30 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 4,
+      "symbol": "FitpayCardScannerPresenterDelegate.shouldPresentCardScanner(scanner:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 5,
+      "symbol": "FitpayCardScannerPresenterDelegate.shouldDissmissCardScanner(scanner:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
       "line": 8,
       "symbol": "FitpayCardScannerDataSource",
       "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 9,
+      "symbol": "FitpayCardScannerDataSource.cardScanner()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -44,9 +65,30 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 13,
+      "symbol": "FitpayCardScannerDelegate.scanned(card:error:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 14,
+      "symbol": "FitpayCardScannerDelegate.canceled()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
       "line": 17,
       "symbol": "IFitpayCardScanner",
       "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/CardScanner/FitpayCardScanner.swift",
+      "line": 18,
+      "symbol": "IFitpayCardScanner.scanDelegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -64,10 +106,570 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 18,
+      "symbol": "ResultCollectionObjC.ResultCollectionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 20,
+      "symbol": "ResultCollectionObjC.rawCollection",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 22,
+      "symbol": "ResultCollectionObjC.limit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 23,
+      "symbol": "ResultCollectionObjC.offset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 24,
+      "symbol": "ResultCollectionObjC.totalResults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 25,
+      "symbol": "ResultCollectionObjC.results",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 28,
+      "symbol": "ResultCollectionObjC.nextAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 46,
+      "symbol": "ResultCollectionObjC.lastAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 64,
+      "symbol": "ResultCollectionObjC.previousAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 89,
+      "symbol": "ResultCollectionObjC.next(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 117,
+      "symbol": "ResultCollectionObjC.last(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 145,
+      "symbol": "ResultCollectionObjC.previous(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 157,
+      "symbol": "ResultCollectionObjC.CollectAllAvailableCompletionObjC",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 159,
+      "symbol": "ResultCollectionObjC.collectAllAvailable(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 174,
+      "symbol": "User.lastModifiedEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 184,
+      "symbol": "User.listCreditCardsObjC(excludeState:limit:offset:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 194,
+      "symbol": "User.listDevicesObjC(limit:offset:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 236,
+      "symbol": "Commit.CommitType_CREDITCARD_CREATED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 241,
+      "symbol": "Commit.CommitType_CREDITCARD_DEACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 246,
+      "symbol": "Commit.CommitType_CREDITCARD_ACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 251,
+      "symbol": "Commit.CommitType_CREDITCARD_REACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 256,
+      "symbol": "Commit.CommitType_CREDITCARD_DELETED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 261,
+      "symbol": "Commit.CommitType_RESET_DEFAULT_CREDITCARD",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 266,
+      "symbol": "Commit.CommitType_SET_DEFAULT_CREDITCARD",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 271,
+      "symbol": "Commit.CommitType_APDU_PACKAGE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 276,
+      "symbol": "Commit.commitTypeObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 284,
+      "symbol": "ApduPackage.APDUPackageResponseState_PROCESSED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 289,
+      "symbol": "ApduPackage.APDUPackageResponseState_FAILED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 294,
+      "symbol": "ApduPackage.APDUPackageResponseState_ERROR",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 299,
+      "symbol": "ApduPackage.APDUPackageResponseState_EXPIRED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 304,
+      "symbol": "ApduPackage.stateObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 309,
+      "symbol": "ApduPackage.executedEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 319,
+      "symbol": "ApduPackage.validUntilEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 332,
+      "symbol": "DeviceInfo.createdEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 342,
+      "symbol": "DeviceInfo.listCommitsObjC(commitsAfter:limit:offset:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 361,
+      "symbol": "VerificationMethod.VerificationMethodType_EMAIL_TO_CARDHOLDER_ADDRESS",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 366,
+      "symbol": "VerificationMethod.VerificationMethodType_CARDHOLDER_TO_CALL_AUTOMATED_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 371,
+      "symbol": "VerificationMethod.VerificationMethodType_CARDHOLDER_TO_CALL_MANNED_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 376,
+      "symbol": "VerificationMethod.VerificationMethodType_CARDHOLDER_TO_VISIT_WEBSITE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 381,
+      "symbol": "VerificationMethod.VerificationMethodType_CARDHOLDER_TO_USE_MOBILE_APP",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 386,
+      "symbol": "VerificationMethod.VerificationMethodType_ISSUER_TO_CALL_CARDHOLDER_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 398,
+      "symbol": "VerificationMethod.VerificationState_AWAITING_VERIFICATION",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 403,
+      "symbol": "VerificationMethod.VerificationState_EXPIRED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 408,
+      "symbol": "VerificationMethod.VerificationState_VERIFIED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 420,
+      "symbol": "VerificationMethod.Verification_Result_INCORRECT_CODE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 425,
+      "symbol": "VerificationMethod.Verification_Result_INCORRECT_CODE_RETRIES_EXCEEDED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 430,
+      "symbol": "VerificationMethod.Verification_Result_EXPIRED_CODE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 435,
+      "symbol": "VerificationMethod.Verification_Result_INCORRECT_TAV",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 440,
+      "symbol": "VerificationMethod.Verification_Result_EXPIRED_SESSION",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 445,
+      "symbol": "VerificationMethod.stateObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 450,
+      "symbol": "VerificationMethod.methodTypeObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 455,
+      "symbol": "VerificationMethod.verificationResultObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 460,
+      "symbol": "VerificationMethod.createdEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 473,
+      "symbol": "CreditCard.TokenizationState_NEW",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 478,
+      "symbol": "CreditCard.TokenizationState_NOT_ELIGIBLE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 483,
+      "symbol": "CreditCard.TokenizationState_ELIGIBLE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 488,
+      "symbol": "CreditCard.TokenizationState_DECLINED_TERMS_AND_CONDITIONS",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 493,
+      "symbol": "CreditCard.TokenizationState_PENDING_ACTIVE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 498,
+      "symbol": "CreditCard.TokenizationState_PENDING_VERIFICATION",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 503,
+      "symbol": "CreditCard.TokenizationState_DELETED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 508,
+      "symbol": "CreditCard.TokenizationState_ACTIVE",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 513,
+      "symbol": "CreditCard.TokenizationState_DEACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 518,
+      "symbol": "CreditCard.TokenizationState_ERROR",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 523,
+      "symbol": "CreditCard.TokenizationState_DECLINED",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 528,
+      "symbol": "CreditCard.CreditCardInitiator_CARDHOLDER",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 533,
+      "symbol": "CreditCard.CreditCardInitiator_ISSUER",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 538,
+      "symbol": "CreditCard.stateObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 543,
+      "symbol": "CreditCard.createdEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 553,
+      "symbol": "CreditCard.deactivate(causedBy:reason:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 558,
+      "symbol": "CreditCard.reactivate(causedBy:reason:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 563,
+      "symbol": "CreditCard.listTransactionsObjC(limit:offset:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 575,
+      "symbol": "EncryptionKey.createdEpochObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 589,
+      "symbol": "FitpayEvent.eventIdObjC",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 596,
+      "symbol": "PaymentDevice.connectObjC()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Extensions/ObjCCompatibilityExtensions.swift",
+      "line": 600,
+      "symbol": "PaymentDevice.connectObjC(timeout:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
       "line": 4,
       "symbol": "LogLevel",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 5,
+      "symbol": "LogLevel.verbose",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 6,
+      "symbol": "LogLevel.debug",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 7,
+      "symbol": "LogLevel.info",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 8,
+      "symbol": "LogLevel.warning",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 9,
+      "symbol": "LogLevel.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -79,9 +681,30 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 30,
+      "symbol": "LogsOutputProtocol.send(level:message:file:function:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
       "line": 33,
       "symbol": "BaseLogsOutput",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 40,
+      "symbol": "BaseLogsOutput.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/BaseOutput.swift",
+      "line": 44,
+      "symbol": "BaseLogsOutput.send(level:message:file:function:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -89,6 +712,83 @@
       "line": 5,
       "symbol": "FitpaySDKLogger",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 6,
+      "symbol": "FitpaySDKLogger.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 8,
+      "symbol": "FitpaySDKLogger.outputs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 10,
+      "symbol": "FitpaySDKLogger.addOutput(output:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 14,
+      "symbol": "FitpaySDKLogger.removeOutput(output:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 24,
+      "symbol": "FitpaySDKLogger.clearOutputs()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 28,
+      "symbol": "FitpaySDKLogger.verbose(_:_:_:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 32,
+      "symbol": "FitpaySDKLogger.debug(_:_:_:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 36,
+      "symbol": "FitpaySDKLogger.info(_:_:_:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 40,
+      "symbol": "FitpaySDKLogger.warning(_:_:_:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 44,
+      "symbol": "FitpaySDKLogger.error(_:_:_:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Logs/FitpaySDKLogger.swift",
+      "line": 48,
+      "symbol": "FitpaySDKLogger.send(level:message:file:function:line:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -100,9 +800,51 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 4,
+      "symbol": "StreamEvent.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 5,
+      "symbol": "StreamEvent.payload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
       "line": 21,
       "symbol": "StreamEventType",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 22,
+      "symbol": "StreamEventType.connected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 23,
+      "symbol": "StreamEventType.disconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 24,
+      "symbol": "StreamEventType.heartbeat",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/StreamEvent.swift",
+      "line": 25,
+      "symbol": "StreamEventType.sync",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -110,6 +852,27 @@
       "line": 3,
       "symbol": "UserEventStreamManager",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/UserEventStreamManager.swift",
+      "line": 4,
+      "symbol": "UserEventStreamManager.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/UserEventStreamManager.swift",
+      "line": 9,
+      "symbol": "UserEventStreamManager.userEventStreamHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/EventStream/UserEventStreamManager.swift",
+      "line": 11,
+      "symbol": "UserEventStreamManager.subscribe(userId:sessionData:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -121,9 +884,51 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 4,
+      "symbol": "NotificationsType.WithSync",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 5,
+      "symbol": "NotificationsType.WithoutSync",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
       "line": 8,
       "symbol": "NotificationsEventType",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 9,
+      "symbol": "NotificationsEventType.receivedSyncNotification",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 10,
+      "symbol": "NotificationsEventType.receivedSimpleNotification",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 21,
+      "symbol": "NotificationsEventType.eventId()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 25,
+      "symbol": "NotificationsEventType.eventDescription()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -134,10 +939,80 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 39,
+      "symbol": "FitpayNotificationsManager.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 42,
+      "symbol": "FitpayNotificationsManager.NotificationsPayload",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 43,
+      "symbol": "FitpayNotificationsManager.setRestClient(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
+      "line": 119,
+      "symbol": "FitpayNotificationsManager.updateRestClientForNotificationDetail(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
       "line": 2,
       "symbol": "NotificationDetail",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 4,
+      "symbol": "NotificationDetail.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 5,
+      "symbol": "NotificationDetail.syncId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 6,
+      "symbol": "NotificationDetail.deviceId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 7,
+      "symbol": "NotificationDetail.userId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 8,
+      "symbol": "NotificationDetail.clientId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/NotificationDetail.swift",
+      "line": 46,
+      "symbol": "NotificationDetail.sendAckSync()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -156,9 +1031,72 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 4,
+      "symbol": "APDUResponseType.success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 5,
+      "symbol": "APDUResponseType.concatenation",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 6,
+      "symbol": "APDUResponseType.warning",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 7,
+      "symbol": "APDUResponseType.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
       "line": 72,
       "symbol": "APDUResponseProtocol",
       "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 73,
+      "symbol": "APDUResponseProtocol.responseData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 74,
+      "symbol": "APDUResponseProtocol.responseCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 75,
+      "symbol": "APDUResponseProtocol.responseType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 79,
+      "symbol": "APDUResponseProtocol.responseType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResponseProtocol.swift",
+      "line": 87,
+      "symbol": "APDUResponseProtocol.responseCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -166,6 +1104,20 @@
       "line": 9,
       "symbol": "ApduResultMessage",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResultMessage.swift",
+      "line": 10,
+      "symbol": "ApduResultMessage.responseData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/ApduResultMessage.swift",
+      "line": 12,
+      "symbol": "ApduResultMessage.init(hexResult:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -180,6 +1132,34 @@
       "line": 10,
       "symbol": "FitpayBlockEventListener",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayBlockEventListener.swift",
+      "line": 12,
+      "symbol": "FitpayBlockEventListener.BlockCompletion",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayBlockEventListener.swift",
+      "line": 19,
+      "symbol": "FitpayBlockEventListener.init(completion:queue:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayBlockEventListener.swift",
+      "line": 26,
+      "symbol": "FitpayBlockEventListener.dispatchEvent(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayBlockEventListener.swift",
+      "line": 37,
+      "symbol": "FitpayBlockEventListener.invalidate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -198,9 +1178,72 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 2,
+      "symbol": "EventStatus.success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 3,
+      "symbol": "EventStatus.failed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 5,
+      "symbol": "EventStatus.toString()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
       "line": 15,
       "symbol": "FitpayEvent",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 17,
+      "symbol": "FitpayEvent.eventId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 18,
+      "symbol": "FitpayEvent.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 19,
+      "symbol": "FitpayEvent.reason",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 20,
+      "symbol": "FitpayEvent.date",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 22,
+      "symbol": "FitpayEvent.eventData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEvent.swift",
+      "line": 24,
+      "symbol": "FitpayEvent.init(eventId:eventData:status:reason:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -218,10 +1261,87 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 3,
+      "symbol": "FitpayEventBinding.eventId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 4,
+      "symbol": "FitpayEventBinding.listener",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 9,
+      "symbol": "FitpayEventBinding.init(eventId:listener:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 19,
+      "symbol": "FitpayEventBinding.isEqual(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 27,
+      "symbol": "FitpayEventBinding.dispatchEvent(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventBinding.swift",
+      "line": 31,
+      "symbol": "FitpayEventBinding.invalidate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
       "line": 1,
       "symbol": "FitpayEventDispatcher",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
+      "line": 4,
+      "symbol": "FitpayEventDispatcher.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
+      "line": 7,
+      "symbol": "FitpayEventDispatcher.addListenerToEvent(_:eventId:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
+      "line": 21,
+      "symbol": "FitpayEventDispatcher.removeBinding(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
+      "line": 31,
+      "symbol": "FitpayEventDispatcher.removeAllBindings()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventDispatcher.swift",
+      "line": 41,
+      "symbol": "FitpayEventDispatcher.dispatchEvent(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -232,6 +1352,20 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventListener.swift",
+      "line": 2,
+      "symbol": "FitpayEventListener.dispatchEvent(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventListener.swift",
+      "line": 3,
+      "symbol": "FitpayEventListener.invalidate()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventTypeProtocol.swift",
       "line": 3,
       "symbol": "FitpayEventTypeProtocol",
@@ -239,10 +1373,178 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventTypeProtocol.swift",
+      "line": 4,
+      "symbol": "FitpayEventTypeProtocol.eventId()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/EventsListeners/FitpayEventTypeProtocol.swift",
+      "line": 5,
+      "symbol": "FitpayEventTypeProtocol.eventDescription()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
       "line": 3,
       "symbol": "FitpayEventsSubscriber",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 4,
+      "symbol": "FitpayEventsSubscriber.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 6,
+      "symbol": "FitpayEventsSubscriber.EventType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 7,
+      "symbol": "FitpayEventsSubscriber.EventType.cardCreated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 8,
+      "symbol": "FitpayEventsSubscriber.EventType.cardActivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 9,
+      "symbol": "FitpayEventsSubscriber.EventType.cardDeactivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 10,
+      "symbol": "FitpayEventsSubscriber.EventType.cardReactivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 11,
+      "symbol": "FitpayEventsSubscriber.EventType.cardDeleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 12,
+      "symbol": "FitpayEventsSubscriber.EventType.setDefaultCard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 13,
+      "symbol": "FitpayEventsSubscriber.EventType.resetDefaultCard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 14,
+      "symbol": "FitpayEventsSubscriber.EventType.cardProvisionFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 15,
+      "symbol": "FitpayEventsSubscriber.EventType.cardMetadataUpdated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 17,
+      "symbol": "FitpayEventsSubscriber.EventType.userCreated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 18,
+      "symbol": "FitpayEventsSubscriber.EventType.getUserAndDevice",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 20,
+      "symbol": "FitpayEventsSubscriber.EventType.apduPackageProcessed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 21,
+      "symbol": "FitpayEventsSubscriber.EventType.syncCompleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 23,
+      "symbol": "FitpayEventsSubscriber.EventType.eventId()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 27,
+      "symbol": "FitpayEventsSubscriber.EventType.eventDescription()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 59,
+      "symbol": "FitpayEventsSubscriber.EventCallback",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 61,
+      "symbol": "FitpayEventsSubscriber.subscribeTo(event:subscriber:callback:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 74,
+      "symbol": "FitpayEventsSubscriber.unsubscribe(subscriber:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 91,
+      "symbol": "FitpayEventsSubscriber.unsubscribe(subscriber:event:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/FitpayEventsSubscriber.swift",
+      "line": 104,
+      "symbol": "FitpayEventsSubscriber.unsubscribe(subscriber:binding:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -274,6 +1576,41 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Interfaces/MockPaymentDeviceConnector.swift",
+      "line": 19,
+      "symbol": "MockPaymentDeviceConnector.init(paymentDevice:testingType:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Interfaces/MockPaymentDeviceConnector.swift",
+      "line": 24,
+      "symbol": "MockPaymentDeviceConnector.disconnect()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Interfaces/MockPaymentDeviceConnector.swift",
+      "line": 125,
+      "symbol": "MockPaymentDeviceConnector.TestingType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Interfaces/MockPaymentDeviceConnector.swift",
+      "line": 126,
+      "symbol": "MockPaymentDeviceConnector.TestingType.partialSimulationMode",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Interfaces/MockPaymentDeviceConnector.swift",
+      "line": 127,
+      "symbol": "MockPaymentDeviceConnector.TestingType.fullSimulationMode",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
       "line": 4,
       "symbol": "SyncOperationConnectionState",
@@ -282,9 +1619,44 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
+      "line": 5,
+      "symbol": "SyncOperationConnectionState.connecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
+      "line": 6,
+      "symbol": "SyncOperationConnectionState.connected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
+      "line": 7,
+      "symbol": "SyncOperationConnectionState.disconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
       "line": 14,
       "symbol": "ConnectDeviceOperation",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
+      "line": 16,
+      "symbol": "ConnectDeviceOperation.init(paymentDevice:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/Operations/ConnectDeviceOperation.swift",
+      "line": 21,
+      "symbol": "ConnectDeviceOperation.start()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -306,6 +1678,314 @@
       "line": 1,
       "symbol": "PaymentDevice",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 14,
+      "symbol": "PaymentDevice.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 74,
+      "symbol": "PaymentDevice.connect(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 145,
+      "symbol": "PaymentDevice.apduResponseHandler",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 159,
+      "symbol": "PaymentDevice.callCompletionForEvent(_:params:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 268,
+      "symbol": "PaymentDevice.ErrorCode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 269,
+      "symbol": "PaymentDevice.ErrorCode.unknownError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 270,
+      "symbol": "PaymentDevice.ErrorCode.badBLEState",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 271,
+      "symbol": "PaymentDevice.ErrorCode.deviceDataNotCollected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 272,
+      "symbol": "PaymentDevice.ErrorCode.waitingForAPDUResponse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 273,
+      "symbol": "PaymentDevice.ErrorCode.apduPacketCorrupted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 274,
+      "symbol": "PaymentDevice.ErrorCode.apduDataNotFull",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 275,
+      "symbol": "PaymentDevice.ErrorCode.apduErrorResponse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 276,
+      "symbol": "PaymentDevice.ErrorCode.apduWrongSequenceId",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 277,
+      "symbol": "PaymentDevice.ErrorCode.apduSendingTimeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 278,
+      "symbol": "PaymentDevice.ErrorCode.operationTimeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 279,
+      "symbol": "PaymentDevice.ErrorCode.deviceShouldBeDisconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 280,
+      "symbol": "PaymentDevice.ErrorCode.deviceShouldBeConnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 281,
+      "symbol": "PaymentDevice.ErrorCode.tryLater",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 282,
+      "symbol": "PaymentDevice.ErrorCode.nonApduProcessingTimeout",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 283,
+      "symbol": "PaymentDevice.ErrorCode.deviceWasDisconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 334,
+      "symbol": "PaymentDevice.SecurityNFCState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 335,
+      "symbol": "PaymentDevice.SecurityNFCState.disabled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 336,
+      "symbol": "PaymentDevice.SecurityNFCState.enabled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 337,
+      "symbol": "PaymentDevice.SecurityNFCState.doNotChangeState",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 340,
+      "symbol": "PaymentDevice.DeviceControlState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 341,
+      "symbol": "PaymentDevice.DeviceControlState.esePowerOFF",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 342,
+      "symbol": "PaymentDevice.DeviceControlState.esePowerON",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 343,
+      "symbol": "PaymentDevice.DeviceControlState.esePowerReset",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 346,
+      "symbol": "PaymentDevice.ConnectionState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 347,
+      "symbol": "PaymentDevice.ConnectionState.new",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 348,
+      "symbol": "PaymentDevice.ConnectionState.disconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 349,
+      "symbol": "PaymentDevice.ConnectionState.connecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 350,
+      "symbol": "PaymentDevice.ConnectionState.connected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 351,
+      "symbol": "PaymentDevice.ConnectionState.disconnecting",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 352,
+      "symbol": "PaymentDevice.ConnectionState.initialized",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 355,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 356,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 357,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 358,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onNotificationReceived",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 359,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onSecurityStateChanged",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 360,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onApplicationControlReceived",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 361,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.onConnectionStateChanged",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 363,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.eventId()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDevice.swift",
+      "line": 367,
+      "symbol": "PaymentDevice.PaymentDeviceEventTypes.eventDescription()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -323,10 +2003,283 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 9,
+      "symbol": "SyncEventType.connectingToDevice",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 10,
+      "symbol": "SyncEventType.connectingToDeviceFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 11,
+      "symbol": "SyncEventType.connectingToDeviceCompleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 13,
+      "symbol": "SyncEventType.syncStarted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 14,
+      "symbol": "SyncEventType.syncFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 15,
+      "symbol": "SyncEventType.syncCompleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 16,
+      "symbol": "SyncEventType.syncProgress",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 17,
+      "symbol": "SyncEventType.receivedCardsWithTowApduCommands",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 18,
+      "symbol": "SyncEventType.apduCommandsProgress",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 20,
+      "symbol": "SyncEventType.apduPackageComplete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 22,
+      "symbol": "SyncEventType.commitsReceived",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 23,
+      "symbol": "SyncEventType.commitProcessed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 25,
+      "symbol": "SyncEventType.cardAdded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 26,
+      "symbol": "SyncEventType.cardDeleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 27,
+      "symbol": "SyncEventType.cardActivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 28,
+      "symbol": "SyncEventType.cardDeactivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 29,
+      "symbol": "SyncEventType.cardReactivated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 30,
+      "symbol": "SyncEventType.setDefaultCard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 31,
+      "symbol": "SyncEventType.resetDefaultCard",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 32,
+      "symbol": "SyncEventType.cardProvisionFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 33,
+      "symbol": "SyncEventType.cardMetadataUpdated",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 35,
+      "symbol": "SyncEventType.eventId()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncEvent.swift",
+      "line": 39,
+      "symbol": "SyncEventType.eventDescription()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
       "line": 22,
       "symbol": "SyncManager",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 24,
+      "symbol": "SyncManager.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 26,
+      "symbol": "SyncManager.synchronousModeOn",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 29,
+      "symbol": "SyncManager.paymentDevice",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 32,
+      "symbol": "SyncManager.deviceInfo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 34,
+      "symbol": "SyncManager.ErrorCode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 35,
+      "symbol": "SyncManager.ErrorCode.unknownError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 36,
+      "symbol": "SyncManager.ErrorCode.cantConnectToDevice",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 37,
+      "symbol": "SyncManager.ErrorCode.cantApplyAPDUCommand",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 38,
+      "symbol": "SyncManager.ErrorCode.cantFetchCommits",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 39,
+      "symbol": "SyncManager.ErrorCode.cantFindDeviceWithSerialNumber",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 40,
+      "symbol": "SyncManager.ErrorCode.syncAlreadyStarted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 41,
+      "symbol": "SyncManager.ErrorCode.commitsApplyerIsBusy",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 42,
+      "symbol": "SyncManager.ErrorCode.connectionWithDeviceWasLost",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 43,
+      "symbol": "SyncManager.ErrorCode.userIsNill",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 44,
+      "symbol": "SyncManager.ErrorCode.notEnoughData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncManager.swift",
+      "line": 72,
+      "symbol": "SyncManager.isSyncing",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -344,10 +2297,52 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequest.swift",
+      "line": 15,
+      "symbol": "SyncRequest.requestTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequest.swift",
+      "line": 16,
+      "symbol": "SyncRequest.syncStartTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequest.swift",
+      "line": 18,
+      "symbol": "SyncRequest.syncInitiator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequest.swift",
+      "line": 19,
+      "symbol": "SyncRequest.notificationAsc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequestsQueue.swift",
       "line": 12,
       "symbol": "SyncRequestQueue",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequestsQueue.swift",
+      "line": 13,
+      "symbol": "SyncRequestQueue.sharedInstance",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/SyncQueue/SyncRequestsQueue.swift",
+      "line": 15,
+      "symbol": "SyncRequestQueue.add(request:payload:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -365,10 +2360,115 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 2,
+      "symbol": "Address.street1",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 3,
+      "symbol": "Address.street2",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 4,
+      "symbol": "Address.street3",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 5,
+      "symbol": "Address.city",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 6,
+      "symbol": "Address.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 7,
+      "symbol": "Address.postalCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Address.swift",
+      "line": 8,
+      "symbol": "Address.countryCode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
       "line": 1,
       "symbol": "APDUCommand",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 4,
+      "symbol": "APDUCommand.commandId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 5,
+      "symbol": "APDUCommand.groupId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 6,
+      "symbol": "APDUCommand.sequence",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 7,
+      "symbol": "APDUCommand.command",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 8,
+      "symbol": "APDUCommand.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 9,
+      "symbol": "APDUCommand.continueOnFailure",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 11,
+      "symbol": "APDUCommand.responseData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduCommand.swift",
+      "line": 51,
+      "symbol": "APDUCommand.responseDictionary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -387,9 +2487,184 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 3,
+      "symbol": "APDUPackageResponseState.processed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 4,
+      "symbol": "APDUPackageResponseState.failed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 5,
+      "symbol": "APDUPackageResponseState.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 6,
+      "symbol": "APDUPackageResponseState.expired",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 7,
+      "symbol": "APDUPackageResponseState.notProcessed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
       "line": 10,
       "symbol": "ApduPackage",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 12,
+      "symbol": "ApduPackage.seIdType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 13,
+      "symbol": "ApduPackage.targetDeviceType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 14,
+      "symbol": "ApduPackage.targetDeviceId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 15,
+      "symbol": "ApduPackage.packageId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 16,
+      "symbol": "ApduPackage.seId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 17,
+      "symbol": "ApduPackage.targetAid",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 18,
+      "symbol": "ApduPackage.apduCommands",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 20,
+      "symbol": "ApduPackage.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 21,
+      "symbol": "ApduPackage.executedEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 22,
+      "symbol": "ApduPackage.executedDuration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 24,
+      "symbol": "ApduPackage.validUntil",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 25,
+      "symbol": "ApduPackage.validUntilEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 26,
+      "symbol": "ApduPackage.apduPackageUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 30,
+      "symbol": "ApduPackage.APDUPackageResponseStateProcessed",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 34,
+      "symbol": "ApduPackage.APDUPackageResponseStateFailed",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 38,
+      "symbol": "ApduPackage.APDUPackageResponseStateError",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 42,
+      "symbol": "ApduPackage.APDUPackageResponseStateExpired",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 46,
+      "symbol": "ApduPackage.APDUPackageResponseStateNotProcessed",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 98,
+      "symbol": "ApduPackage.isExpired",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ApduPackage.swift",
+      "line": 106,
+      "symbol": "ApduPackage.responseDictionary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -400,10 +2675,59 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Asset.swift",
+      "line": 4,
+      "symbol": "Asset.text",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Asset.swift",
+      "line": 5,
+      "symbol": "Asset.image",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Asset.swift",
+      "line": 6,
+      "symbol": "Asset.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CardRelationship.swift",
       "line": 3,
       "symbol": "CardRelationship",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CardRelationship.swift",
+      "line": 4,
+      "symbol": "CardRelationship.creditCardId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CardRelationship.swift",
+      "line": 5,
+      "symbol": "CardRelationship.pan",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CardRelationship.swift",
+      "line": 6,
+      "symbol": "CardRelationship.expMonth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CardRelationship.swift",
+      "line": 7,
+      "symbol": "CardRelationship.expYear",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -418,6 +2742,55 @@
       "line": 2,
       "symbol": "Commit",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 4,
+      "symbol": "Commit.commitType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 7,
+      "symbol": "Commit.commitTypeString",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 8,
+      "symbol": "Commit.payload",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 9,
+      "symbol": "Commit.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 10,
+      "symbol": "Commit.previousCommit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 11,
+      "symbol": "Commit.commit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 12,
+      "symbol": "Commit.executedDuration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -429,9 +2802,93 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 115,
+      "symbol": "CommitType.CREDITCARD_CREATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 116,
+      "symbol": "CommitType.CREDITCARD_DEACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 117,
+      "symbol": "CommitType.CREDITCARD_ACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 118,
+      "symbol": "CommitType.CREDITCARD_REACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 119,
+      "symbol": "CommitType.CREDITCARD_DELETED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 120,
+      "symbol": "CommitType.RESET_DEFAULT_CREDITCARD",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 121,
+      "symbol": "CommitType.SET_DEFAULT_CREDITCARD",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 122,
+      "symbol": "CommitType.APDU_PACKAGE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 123,
+      "symbol": "CommitType.CREDITCARD_PROVISION_FAILED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 124,
+      "symbol": "CommitType.CREDITCARD_METADATA_UPDATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 125,
+      "symbol": "CommitType.UNKNOWN",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
       "line": 128,
       "symbol": "Payload",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Commit.swift",
+      "line": 130,
+      "symbol": "Payload.creditCard",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -443,9 +2900,121 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 3,
+      "symbol": "SyncInitiator.platform",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 4,
+      "symbol": "SyncInitiator.notification",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 5,
+      "symbol": "SyncInitiator.webHook",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 6,
+      "symbol": "SyncInitiator.eventStream",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 7,
+      "symbol": "SyncInitiator.notDefined",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
       "line": 10,
       "symbol": "CommitMetrics",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 11,
+      "symbol": "CommitMetrics.syncId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 12,
+      "symbol": "CommitMetrics.deviceId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 13,
+      "symbol": "CommitMetrics.userId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 14,
+      "symbol": "CommitMetrics.sdkVersion",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 15,
+      "symbol": "CommitMetrics.osVersion",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 16,
+      "symbol": "CommitMetrics.initiator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 17,
+      "symbol": "CommitMetrics.totalProcessingTimeMs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 18,
+      "symbol": "CommitMetrics.commitStatistics",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 19,
+      "symbol": "CommitMetrics.notificationAsc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 36,
+      "symbol": "CommitMetrics.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitMetrics.swift",
+      "line": 41,
+      "symbol": "CommitMetrics.sendCompleteSync()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -453,6 +3022,41 @@
       "line": 2,
       "symbol": "CommitStatistic",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitStatistic.swift",
+      "line": 3,
+      "symbol": "CommitStatistic.commitId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitStatistic.swift",
+      "line": 4,
+      "symbol": "CommitStatistic.processingTimeMs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitStatistic.swift",
+      "line": 5,
+      "symbol": "CommitStatistic.averageTimePerCommand",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitStatistic.swift",
+      "line": 6,
+      "symbol": "CommitStatistic.errorReason",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CommitStatistic.swift",
+      "line": 8,
+      "symbol": "CommitStatistic.init(commitId:total:average:errorDesc:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -478,9 +3082,345 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 5,
+      "symbol": "CreditCard.creditCardId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 6,
+      "symbol": "CreditCard.userId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 7,
+      "symbol": "CreditCard.isDefault",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 8,
+      "symbol": "CreditCard.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 9,
+      "symbol": "CreditCard.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 10,
+      "symbol": "CreditCard.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 11,
+      "symbol": "CreditCard.cardType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 12,
+      "symbol": "CreditCard.cardMetaData",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 13,
+      "symbol": "CreditCard.termsAssetId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 14,
+      "symbol": "CreditCard.termsAssetReferences",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 15,
+      "symbol": "CreditCard.eligibilityExpiration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 16,
+      "symbol": "CreditCard.eligibilityExpirationEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 17,
+      "symbol": "CreditCard.deviceRelationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 18,
+      "symbol": "CreditCard.targetDeviceId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 19,
+      "symbol": "CreditCard.targetDeviceType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 20,
+      "symbol": "CreditCard.verificationMethods",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 21,
+      "symbol": "CreditCard.externalTokenReference",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 22,
+      "symbol": "CreditCard.info",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 23,
+      "symbol": "CreditCard.pan",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 24,
+      "symbol": "CreditCard.expMonth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 25,
+      "symbol": "CreditCard.expYear",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 26,
+      "symbol": "CreditCard.cvv",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 27,
+      "symbol": "CreditCard.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 28,
+      "symbol": "CreditCard.address",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 29,
+      "symbol": "CreditCard.topOfWalletAPDUCommands",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 74,
+      "symbol": "CreditCard.acceptTermsAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 78,
+      "symbol": "CreditCard.declineTermsAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 82,
+      "symbol": "CreditCard.deactivateAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 86,
+      "symbol": "CreditCard.reactivateAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 90,
+      "symbol": "CreditCard.makeDefaultAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 94,
+      "symbol": "CreditCard.listTransactionsAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 209,
+      "symbol": "CreditCard.getIsDefault()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
       "line": 386,
       "symbol": "CardMetadata",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 388,
+      "symbol": "CardMetadata.foregroundColor",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 389,
+      "symbol": "CardMetadata.issuerName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 390,
+      "symbol": "CardMetadata.shortDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 391,
+      "symbol": "CardMetadata.longDescription",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 392,
+      "symbol": "CardMetadata.contactUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 393,
+      "symbol": "CardMetadata.contactPhone",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 394,
+      "symbol": "CardMetadata.contactEmail",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 395,
+      "symbol": "CardMetadata.termsAndConditionsUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 396,
+      "symbol": "CardMetadata.privacyPolicyUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 397,
+      "symbol": "CardMetadata.brandLogo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 398,
+      "symbol": "CardMetadata.cardBackground",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 399,
+      "symbol": "CardMetadata.cardBackgroundCombined",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 400,
+      "symbol": "CardMetadata.cardBackgroundCombinedEmbossed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 401,
+      "symbol": "CardMetadata.coBrandLogo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 402,
+      "symbol": "CardMetadata.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 403,
+      "symbol": "CardMetadata.issuerLogo",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -492,6 +3432,20 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 522,
+      "symbol": "TermsAssetReferences.mimeType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 548,
+      "symbol": "TermsAssetReferences.retrieveAsset(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
       "line": 560,
       "symbol": "DeviceRelationships",
       "symbol_kind": "source.lang.swift.decl.class",
@@ -499,9 +3453,233 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 562,
+      "symbol": "DeviceRelationships.deviceType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 563,
+      "symbol": "DeviceRelationships.deviceIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 564,
+      "symbol": "DeviceRelationships.manufacturerName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 565,
+      "symbol": "DeviceRelationships.deviceName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 566,
+      "symbol": "DeviceRelationships.serialNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 567,
+      "symbol": "DeviceRelationships.modelNumber",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 568,
+      "symbol": "DeviceRelationships.hardwareRevision",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 569,
+      "symbol": "DeviceRelationships.firmwareRevision",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 570,
+      "symbol": "DeviceRelationships.softwareRevision",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 571,
+      "symbol": "DeviceRelationships.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 572,
+      "symbol": "DeviceRelationships.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 573,
+      "symbol": "DeviceRelationships.osName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 574,
+      "symbol": "DeviceRelationships.systemId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
       "line": 647,
       "symbol": "CardInfo",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 648,
+      "symbol": "CardInfo.pan",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 649,
+      "symbol": "CardInfo.expMonth",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 650,
+      "symbol": "CardInfo.expYear",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 651,
+      "symbol": "CardInfo.cvv",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 652,
+      "symbol": "CardInfo.creditCardId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 653,
+      "symbol": "CardInfo.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 654,
+      "symbol": "CardInfo.address",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 685,
+      "symbol": "CreditCard.TokenizationState",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 686,
+      "symbol": "CreditCard.TokenizationState.NEW",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 687,
+      "symbol": "CreditCard.TokenizationState.NOT_ELIGIBLE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 688,
+      "symbol": "CreditCard.TokenizationState.ELIGIBLE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 689,
+      "symbol": "CreditCard.TokenizationState.DECLINED_TERMS_AND_CONDITIONS",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 690,
+      "symbol": "CreditCard.TokenizationState.PENDING_ACTIVE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 691,
+      "symbol": "CreditCard.TokenizationState.PENDING_VERIFICATION",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 692,
+      "symbol": "CreditCard.TokenizationState.DELETED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 693,
+      "symbol": "CreditCard.TokenizationState.ACTIVE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 694,
+      "symbol": "CreditCard.TokenizationState.DEACTIVATED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 695,
+      "symbol": "CreditCard.TokenizationState.ERROR",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/CreditCard.swift",
+      "line": 696,
+      "symbol": "CreditCard.TokenizationState.DECLINED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -533,6 +3711,132 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 5,
+      "symbol": "DeviceInfo.deviceIdentifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 10,
+      "symbol": "DeviceInfo.deviceType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 15,
+      "symbol": "DeviceInfo.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 29,
+      "symbol": "DeviceInfo.softwareRevision",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 31,
+      "symbol": "DeviceInfo.notificationToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 33,
+      "symbol": "DeviceInfo.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 35,
+      "symbol": "DeviceInfo.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 44,
+      "symbol": "DeviceInfo.cardRelationships",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 46,
+      "symbol": "DeviceInfo.licenseKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 48,
+      "symbol": "DeviceInfo.bdAddress",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 50,
+      "symbol": "DeviceInfo.pairing",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 55,
+      "symbol": "DeviceInfo.casd",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 58,
+      "symbol": "DeviceInfo.metadata",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 60,
+      "symbol": "DeviceInfo.userAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 64,
+      "symbol": "DeviceInfo.listCommitsAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 68,
+      "symbol": "DeviceInfo.deviceResetUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 97,
+      "symbol": "DeviceInfo.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/DeviceInfo.swift",
+      "line": 351,
+      "symbol": "DeviceInfo.user(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
       "line": null,
       "symbol": "EncryptionKey",
@@ -547,10 +3851,94 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 4,
+      "symbol": "EncryptionKey.keyId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 5,
+      "symbol": "EncryptionKey.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 6,
+      "symbol": "EncryptionKey.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 7,
+      "symbol": "EncryptionKey.expiration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 8,
+      "symbol": "EncryptionKey.expirationEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 9,
+      "symbol": "EncryptionKey.serverPublicKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 10,
+      "symbol": "EncryptionKey.clientPublicKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/EncryptionKey.swift",
+      "line": 11,
+      "symbol": "EncryptionKey.active",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/Image.swift",
       "line": 3,
       "symbol": "Image",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/Image.swift",
+      "line": 4,
+      "symbol": "Image.mimeType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/Image.swift",
+      "line": 5,
+      "symbol": "Image.height",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/Image.swift",
+      "line": 6,
+      "symbol": "Image.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/Image.swift",
+      "line": 39,
+      "symbol": "Image.retrieveAsset(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -561,10 +3949,94 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 4,
+      "symbol": "ImageAssetOption.width",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 5,
+      "symbol": "ImageAssetOption.height",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 6,
+      "symbol": "ImageAssetOption.embossedText",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 7,
+      "symbol": "ImageAssetOption.embossedForegroundColor",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 8,
+      "symbol": "ImageAssetOption.fontScale",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 9,
+      "symbol": "ImageAssetOption.textPositionXScale",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 10,
+      "symbol": "ImageAssetOption.textPositionYScale",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 11,
+      "symbol": "ImageAssetOption.fontName",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 12,
+      "symbol": "ImageAssetOption.fontBold",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 14,
+      "symbol": "ImageAssetOption.urlKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageAssetOptions.swift",
+      "line": 37,
+      "symbol": "ImageAssetOption.urlValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageWithOptions.swift",
       "line": 3,
       "symbol": "ImageWithOptions",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Images/ImageWithOptions.swift",
+      "line": 7,
+      "symbol": "ImageWithOptions.retrieveAssetWith(options:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -575,10 +4047,52 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Issuers.swift",
+      "line": 5,
+      "symbol": "Issuers.countries",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Issuers.swift",
+      "line": 30,
+      "symbol": "Issuers.Country",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Issuers.swift",
+      "line": 31,
+      "symbol": "Issuers.Country.cardNetworks",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Issuers.swift",
+      "line": 34,
+      "symbol": "Issuers.CardNetwork",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Issuers.swift",
+      "line": 35,
+      "symbol": "Issuers.CardNetwork.issuers",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Relationship.swift",
       "line": 3,
       "symbol": "Relationship",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/Relationship.swift",
+      "line": 5,
+      "symbol": "Relationship.device",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -590,9 +4104,72 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 3,
+      "symbol": "DeviceResetStatus.InProgress",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 4,
+      "symbol": "DeviceResetStatus.ResetComplete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 5,
+      "symbol": "DeviceResetStatus.Deleted",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 6,
+      "symbol": "DeviceResetStatus.DeleteFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 7,
+      "symbol": "DeviceResetStatus.ResetFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
       "line": 10,
       "symbol": "ResetDeviceResult",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 12,
+      "symbol": "ResetDeviceResult.resetId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 13,
+      "symbol": "ResetDeviceResult.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 14,
+      "symbol": "ResetDeviceResult.seStatus",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResetDeviceResult.swift",
+      "line": 16,
+      "symbol": "ResetDeviceResult.deviceResetUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -600,6 +4177,118 @@
       "line": 2,
       "symbol": "ResultCollection",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 3,
+      "symbol": "ResultCollection.limit",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 4,
+      "symbol": "ResultCollection.offset",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 5,
+      "symbol": "ResultCollection.totalResults",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 6,
+      "symbol": "ResultCollection.results",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 14,
+      "symbol": "ResultCollection.nextAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 18,
+      "symbol": "ResultCollection.lastAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 22,
+      "symbol": "ResultCollection.previousAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 96,
+      "symbol": "ResultCollection.CollectAllAvailableCompletion",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 98,
+      "symbol": "ResultCollection.collectAllAvailable(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 142,
+      "symbol": "ResultCollection.next(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 153,
+      "symbol": "ResultCollection.last(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 164,
+      "symbol": "ResultCollection.next(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 175,
+      "symbol": "ResultCollection.last(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 186,
+      "symbol": "ResultCollection.next(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 197,
+      "symbol": "ResultCollection.last(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/ResultCollection.swift",
+      "line": 209,
+      "symbol": "ResultCollection.previous(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -687,6 +4376,104 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 4,
+      "symbol": "User.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 5,
+      "symbol": "User.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 6,
+      "symbol": "User.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 7,
+      "symbol": "User.lastModified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 8,
+      "symbol": "User.lastModifiedEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 18,
+      "symbol": "User.firstName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 22,
+      "symbol": "User.lastName",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 26,
+      "symbol": "User.birthDate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 30,
+      "symbol": "User.email",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 34,
+      "symbol": "User.listCreditCardsAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 38,
+      "symbol": "User.listDevicesAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 161,
+      "symbol": "User.createRelationship(creditCardId:deviceId:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 171,
+      "symbol": "User.deleteUser(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/User.swift",
+      "line": 181,
+      "symbol": "User.updateUser(firstName:lastName:birthDate:originAccountCreated:termsAccepted:termsVersion:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
       "line": null,
       "symbol": "VerificationMethod",
@@ -702,9 +4489,86 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 3,
+      "symbol": "VerificationMethodType.TEXT_TO_CARDHOLDER_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 4,
+      "symbol": "VerificationMethodType.EMAIL_TO_CARDHOLDER_ADDRESS",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 5,
+      "symbol": "VerificationMethodType.CARDHOLDER_TO_CALL_AUTOMATED_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 6,
+      "symbol": "VerificationMethodType.CARDHOLDER_TO_CALL_MANNED_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 7,
+      "symbol": "VerificationMethodType.CARDHOLDER_TO_VISIT_WEBSITE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 8,
+      "symbol": "VerificationMethodType.CARDHOLDER_TO_USE_MOBILE_APP",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 9,
+      "symbol": "VerificationMethodType.ISSUER_TO_CALL_CARDHOLDER_NUMBER",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
       "line": 12,
       "symbol": "VerificationState",
       "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 13,
+      "symbol": "VerificationState.AVAILABLE_FOR_SELECTION",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 14,
+      "symbol": "VerificationState.AWAITING_VERIFICATION",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 15,
+      "symbol": "VerificationState.EXPIRED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 16,
+      "symbol": "VerificationState.VERIFIED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
@@ -716,9 +4580,156 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 20,
+      "symbol": "VerificationResult.SUCCESS",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 21,
+      "symbol": "VerificationResult.INCORRECT_CODE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 22,
+      "symbol": "VerificationResult.INCORRECT_CODE_RETRIES_EXCEEDED",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 23,
+      "symbol": "VerificationResult.EXPIRED_CODE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 24,
+      "symbol": "VerificationResult.INCORRECT_TAV",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 25,
+      "symbol": "VerificationResult.EXPIRED_SESSION",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
       "line": 29,
       "symbol": "VerificationMethod",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 31,
+      "symbol": "VerificationMethod.verificationId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 32,
+      "symbol": "VerificationMethod.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 33,
+      "symbol": "VerificationMethod.methodType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 34,
+      "symbol": "VerificationMethod.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 35,
+      "symbol": "VerificationMethod.verificationResult",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 36,
+      "symbol": "VerificationMethod.created",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 37,
+      "symbol": "VerificationMethod.createdEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 38,
+      "symbol": "VerificationMethod.lastModified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 39,
+      "symbol": "VerificationMethod.lastModifiedEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 40,
+      "symbol": "VerificationMethod.verified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 41,
+      "symbol": "VerificationMethod.verifiedEpoch",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 42,
+      "symbol": "VerificationMethod.appToAppContext",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 48,
+      "symbol": "VerificationMethod.selectAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 52,
+      "symbol": "VerificationMethod.verifyAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/Models/VerificationMethod.swift",
+      "line": 56,
+      "symbol": "VerificationMethod.cardAvailable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
@@ -807,8 +4818,113 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 36,
+      "symbol": "RestClient.ErrorCode.ok",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 37,
+      "symbol": "RestClient.ErrorCode.badRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 38,
+      "symbol": "RestClient.ErrorCode.unauthorized",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 39,
+      "symbol": "RestClient.ErrorCode.requestFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 40,
+      "symbol": "RestClient.ErrorCode.notFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 41,
+      "symbol": "RestClient.ErrorCode.serverError0",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 42,
+      "symbol": "RestClient.ErrorCode.serverError1",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 43,
+      "symbol": "RestClient.ErrorCode.serverError2",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 44,
+      "symbol": "RestClient.ErrorCode.serverError3",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 74,
+      "symbol": "RestClient.init(session:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 121,
+      "symbol": "RestClient.confirm(_:executionResult:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 373,
+      "symbol": "RestClient.IssuersHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
+      "line": 375,
+      "symbol": "RestClient.issuers(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClient.swift",
       "line": 601,
       "symbol": "AssetRetrivable.retrieveAsset(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClientDevice.swift",
+      "line": 193,
+      "symbol": "RestClient.commits(_:commitsAfter:limit:offset:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestClientUser.swift",
+      "line": 238,
+      "symbol": "RestClient.user(_:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -824,6 +4940,118 @@
       "line": 21,
       "symbol": "RestSession",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 22,
+      "symbol": "RestSession.ErrorEnum",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 23,
+      "symbol": "RestSession.ErrorEnum.decodeFailure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 24,
+      "symbol": "RestSession.ErrorEnum.parsingFailure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 25,
+      "symbol": "RestSession.ErrorEnum.accessTokenFailure",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 28,
+      "symbol": "RestSession.userId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 29,
+      "symbol": "RestSession.accessToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 30,
+      "symbol": "RestSession.isAuthorized",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 34,
+      "symbol": "RestSession.setWebViewAuthorization(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 46,
+      "symbol": "RestSession.init(sessionData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 53,
+      "symbol": "RestSession.LoginHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 55,
+      "symbol": "RestSession.login(username:password:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 115,
+      "symbol": "RestSession.ErrorCode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 116,
+      "symbol": "RestSession.ErrorCode.unknownError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 117,
+      "symbol": "RestSession.ErrorCode.deviceNotFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 118,
+      "symbol": "RestSession.ErrorCode.userOrDeviceEmpty",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rest/RestSession.swift",
+      "line": 132,
+      "symbol": "RestSession.GetUserAndDeviceCompletion",
+      "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
@@ -862,6 +5090,27 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmDeviceInfo.swift",
+      "line": 3,
+      "symbol": "RtmDeviceInfo.init(deviceInfo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmDeviceInfo.swift",
+      "line": 31,
+      "symbol": "RtmDeviceInfo.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmDeviceInfo.swift",
+      "line": 35,
+      "symbol": "RtmDeviceInfo.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessage.swift",
       "line": 3,
       "symbol": "RtmMessage",
@@ -869,10 +5118,52 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessage.swift",
+      "line": 5,
+      "symbol": "RtmMessage.callBackId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessage.swift",
+      "line": 6,
+      "symbol": "RtmMessage.data",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessage.swift",
+      "line": 7,
+      "symbol": "RtmMessage.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessageResponse.swift",
       "line": 3,
       "symbol": "RtmMessageResponse",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessageResponse.swift",
+      "line": 7,
+      "symbol": "RtmMessageResponse.init(callbackId:data:type:success:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessageResponse.swift",
+      "line": 20,
+      "symbol": "RtmMessageResponse.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Rtm/Models/RtmMessageResponse.swift",
+      "line": 27,
+      "symbol": "RtmMessageResponse.encode(to:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
