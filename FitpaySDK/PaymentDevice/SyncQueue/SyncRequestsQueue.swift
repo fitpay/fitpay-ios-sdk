@@ -4,6 +4,8 @@ open class SyncRequestQueue {
     
     public static let sharedInstance = SyncRequestQueue(syncManager: SyncManager.sharedInstance)
     
+    var paymentDevices: [PaymentDeviceStorage] = []
+    
     var lastFullSyncRequest: SyncRequest?
 
     private typealias DeviceIdentifier = String
@@ -24,6 +26,15 @@ open class SyncRequestQueue {
     }
 
     // MARK: - Public Functions
+    public func addPaymentDevice(user: User?, deviceInfo: Device?, paymentDevice: PaymentDevice?) {
+        if !paymentDevices.contains(where: {
+            $0.device?.deviceIdentifier == deviceInfo?.deviceIdentifier &&
+            $0.user?.id == user?.id
+        }) {
+            let device = PaymentDeviceStorage(paymentDevice: paymentDevice, user: user, device: deviceInfo)
+            paymentDevices.append(device)
+        }
+    }
     
     public func add(request: SyncRequest, completion: SyncRequestCompletion?) {
         request.completion = completion
@@ -39,6 +50,7 @@ open class SyncRequestQueue {
         }
         
         if !request.isEmptyRequest {
+            addPaymentDevice(user: request.user, deviceInfo: request.deviceInfo, paymentDevice: request.paymentDevice)
             lastFullSyncRequest = request
             lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
         }
@@ -71,9 +83,17 @@ open class SyncRequestQueue {
             return nil
         }
         
-        syncRequest.user = lastFullSyncRequest.user
-        syncRequest.deviceInfo = lastFullSyncRequest.deviceInfo
-        syncRequest.paymentDevice = lastFullSyncRequest.paymentDevice
+        let filterdDevices = paymentDevices.filter{$0.device?.deviceIdentifier == syncRequest.notification?.deviceId && $0.user?.id == syncRequest.notification?.userId }
+        
+        if let device = filterdDevices.first {
+            syncRequest.user = device.user
+            syncRequest.deviceInfo = device.device
+            syncRequest.paymentDevice = device.paymentDevice
+        } else {
+            syncRequest.user = lastFullSyncRequest.user
+            syncRequest.deviceInfo = lastFullSyncRequest.deviceInfo
+            syncRequest.paymentDevice = lastFullSyncRequest.paymentDevice
+        }
         
         log.warning("Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
         return queueFor(syncRequest: syncRequest)

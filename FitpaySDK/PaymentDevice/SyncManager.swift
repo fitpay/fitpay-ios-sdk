@@ -97,6 +97,12 @@ protocol SyncManagerProtocol {
             throw ErrorCode.syncAlreadyStarted
         }
         
+        if let deviceId = request.notification?.deviceId, let userId = request.notification?.userId  {
+            if deviceId != request.deviceInfo?.deviceIdentifier && userId != request.user?.id {
+                  throw ErrorCode.cantConnectToDevice
+            }
+        }       
+        
         if let deviceInfo = request.deviceInfo, syncOperations[deviceInfo] != nil {
             throw ErrorCode.syncAlreadyStarted
         }
