@@ -74,7 +74,7 @@ extension RestClient {
             }
             
             if let userInfoJSON = rawUserInfo.JSONString,
-                let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW,
+                let jweObject = try? JWEObject(JWEAlgorithm.A256GCMKW,
                                                                enc: JWEEncryption.A256GCM,
                                                                payload: userInfoJSON,
                                                                keyId: headers[RestClient.fpKeyIdKey]!),
@@ -157,7 +157,7 @@ extension RestClient {
             var parameters = [String: Any]()
             
             if let updateJSON = operations.JSONString,
-                let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!),
+                let jweObject = try? JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!),
                 let encrypted = try? jweObject.encrypt(self.secret)! {
                 parameters["encryptedData"] = encrypted
             }

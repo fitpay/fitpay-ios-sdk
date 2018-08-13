@@ -12,6 +12,7 @@ abstract_target 'all' do
   
   target 'FitpaySDKTestsPods' do
     pod 'RxBlocking'
+    pod 'Nimble'
   end
 
 end

@@ -1,3 +1,6 @@
 ignore:
 - "FitpaySDKTests/**/*"
 - "FitpaySDKTests/*"
+
+comment:
+    require_changes: yes

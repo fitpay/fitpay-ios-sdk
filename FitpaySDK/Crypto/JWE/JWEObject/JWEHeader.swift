@@ -1,32 +1,27 @@
+import Foundation
 
-class JWEHeader
-{
-    var cty : String?
-    var enc : JWEEncryption?
-    var alg : JWEAlgorithm?
-    var iv  : Data?
-    var tag : Data?
-    var kid : String?
+class JWEHeader {
+    var cty: String?
+    var enc: JWEEncryption?
+    var alg: JWEAlgorithm?
+    var iv : Data?
+    var tag: Data?
+    var kid: String?
     
     var sender: String?
-    var destination : String?
+    var destination: String?
     
-    init(encryption: JWEEncryption, algorithm: JWEAlgorithm)
-    {
+    // MARK: - Lifecycle
+    
+    init(encryption: JWEEncryption, algorithm: JWEAlgorithm) {
         enc = encryption
         alg = algorithm
     }
     
-    init(headerPayload:String)
-    {
+    init(headerPayload: String) {
         let headerData = headerPayload.base64URLdecoded()
-        guard let json = try? JSONSerialization.jsonObject(with: headerData!, options: .mutableContainers) else {
-            return
-        }
-        
-        guard let mappedJson = json as? [String:String] else {
-            return
-        }
+        guard let json = try? JSONSerialization.jsonObject(with: headerData!, options: .mutableContainers) else { return }
+        guard let mappedJson = json as? [String: String] else { return }
         
         cty = mappedJson["cty"]
         kid = mappedJson["kid"]
@@ -42,9 +37,10 @@ class JWEHeader
         }
     }
     
-    func serialize() throws -> String?
-    {
-        var paramsDict : [String:String]! = [String:String]()
+    // MARK: - Functions
+    
+    func serialize() throws -> String? {
+        var paramsDict: [String: String]! = [String: String]()
     
         guard enc != nil else {
             throw JWEObjectError.encryptionNotSpecified
@@ -83,9 +79,8 @@ class JWEHeader
             paramsDict["destination"] = destination!
         }
         
-        var jsonData : Data
-        do
-        {
+        var jsonData: Data
+        do {
             // we will serialize cty separately, because NSJSONSerialization is adding escape for "/"
             let dataWithoutCty = try JSONSerialization.data(withJSONObject: paramsDict, options: JSONSerialization.WritingOptions(rawValue: 0))
             jsonData = ((dataWithoutCty as NSData).mutableCopy() as! NSMutableData) as Data

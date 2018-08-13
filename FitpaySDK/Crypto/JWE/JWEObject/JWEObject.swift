@@ -9,9 +9,6 @@ enum JWEEncryption: String {
 }
 
 enum JWEObjectError: Error {
-    case unsupportedAlgorithm
-    case unsupportedEncryption
-    
     case headerNotSpecified
     case encryptionNotSpecified
     case algorithmNotSpecified
@@ -37,27 +34,23 @@ class JWEObject {
     private(set) var decryptedPayload: String?
     private var payloadToEncrypt: String?
     
-    static func parse(payload: String) -> JWEObject? {
-        let jweObject = JWEObject()
-        jweObject.encryptedPayload = payload
-        
-        let jwe = payload.components(separatedBy: ".")
-        jweObject.header = JWEHeader(headerPayload: jwe[0])
-        jweObject.cekCt = jwe[1].base64URLdecoded()
-        jweObject.iv = jwe[2].base64URLdecoded()
-        jweObject.ct = jwe[3].base64URLdecoded()
-        jweObject.tag = jwe[4].base64URLdecoded()
-
-        return jweObject
+    // MARK - Lifecycle
+    
+    init(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) {
+        self.header = JWEHeader(encryption: enc, algorithm: alg)
+        self.header!.kid = keyId
+        self.payloadToEncrypt = payload
     }
     
-    static func createNewObject(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) throws -> JWEObject {
-        let jweObj = JWEObject()
-        jweObj.header = JWEHeader(encryption: enc, algorithm: alg)
-        jweObj.header!.kid = keyId
-        jweObj.payloadToEncrypt = payload
+    init(payload: String) {
+        self.encryptedPayload = payload
         
-        return jweObj
+        let jwe = payload.components(separatedBy: ".")
+        self.header = JWEHeader(headerPayload: jwe[0])
+        self.cekCt = jwe[1].base64URLdecoded()
+        self.iv = jwe[2].base64URLdecoded()
+        self.ct = jwe[3].base64URLdecoded()
+        self.tag = jwe[4].base64URLdecoded()
     }
     
     func encrypt(_ sharedSecret: Data) throws -> String? {
@@ -148,9 +141,7 @@ class JWEObject {
         return decryptedPayload
     }
     
-    private init() {
-        
-    }
+    // MARK: - Private Functions
     
     private func A256GCMDecryptData(_ cipherKey: Data, data: Data, iv: Data, tag: Data, aad: Data?) -> Data? {
         // cryptAuth expects that data will be with tag

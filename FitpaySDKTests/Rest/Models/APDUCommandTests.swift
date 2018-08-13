@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class APDUCommandTests: BaseTestProvider {
@@ -6,22 +8,22 @@ class APDUCommandTests: BaseTestProvider {
     func testAPDUCommandParsing() {
         let apduCommand = mockModels.getApduCommand()
 
-        XCTAssertNotNil(apduCommand?.links)
-        XCTAssertEqual(apduCommand?.commandId, mockModels.someId)
-        XCTAssertEqual(apduCommand?.groupId, 1)
-        XCTAssertEqual(apduCommand?.sequence, 1)
-        XCTAssertEqual(apduCommand?.command, "command")
-        XCTAssertEqual(apduCommand?.type, mockModels.someType)
-        XCTAssertEqual(apduCommand?.continueOnFailure, true)
-        XCTAssertNotNil(apduCommand?.responseDictionary)
+        expect(apduCommand?.links).toNot(beNil())
+        expect(apduCommand?.commandId).to(equal(mockModels.someId))
+        expect(apduCommand?.groupId).to(equal(1))
+        expect(apduCommand?.sequence).to(equal(1))
+        expect(apduCommand?.command).to(equal("command"))
+        expect(apduCommand?.type).to(equal(mockModels.someType))
+        expect(apduCommand?.continueOnFailure).to(beTrue())
 
         let json = apduCommand?.toJSON()
-        XCTAssertNotNil(json?["_links"])
-        XCTAssertEqual(json?["commandId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["groupId"] as? Int, 1)
-        XCTAssertEqual(json?["sequence"] as? Int, 1)
-        XCTAssertEqual(json?["command"] as? String, "command")
-        XCTAssertEqual(json?["type"] as? String, mockModels.someType)
-        XCTAssertEqual(json?["continueOnFailure"] as? Bool, true)
+        expect(json?["_links"]).toNot(beNil())
+        expect(json?["commandId"] as? String).to(equal(mockModels.someId))
+        expect(json?["groupId"] as? Int).to(equal(1))
+        expect(json?["sequence"] as? Int).to(equal(1))
+        expect(json?["command"] as? String).to(equal("command"))
+        expect(json?["type"] as? String).to(equal(mockModels.someType))
+        expect(json?["continueOnFailure"] as? Bool).to(beTrue())
+
     }
 }

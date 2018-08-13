@@ -70,10 +70,7 @@ extension RestClient {
                 return
             }
             
-            guard let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: cardJSON, keyId: headers[RestClient.fpKeyIdKey]!) else {
-                completion(nil, ErrorResponse(domain: RestClient.self, errorCode: nil, errorMessage: "Failed to create jweObject object"))
-                return
-            }
+            let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: cardJSON, keyId: headers[RestClient.fpKeyIdKey]!)
           
             guard let encrypted = try? jweObject.encrypt(strongSelf.secret), let unwrappedEncrypted = encrypted else {
                 completion(nil, ErrorResponse(domain: RestClient.self, errorCode: nil, errorMessage: "Failed to encrypt object"))
@@ -147,10 +144,9 @@ extension RestClient {
             }
             
             if let updateJSON = operations.JSONString {
-                if let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!) {
-                    if let encrypted = try? jweObject.encrypt(strongSelf.secret)! {
-                        parameters["encryptedData"] = encrypted
-                    }
+                let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!)
+                if let encrypted = try? jweObject.encrypt(strongSelf.secret)! {
+                    parameters["encryptedData"] = encrypted
                 }
             }
             
