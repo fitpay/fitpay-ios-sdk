@@ -49,6 +49,8 @@
 		2735864420E127CE005EDA9D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735864320E127CE005EDA9D /* Payload.swift */; };
 		2735864520E127CE005EDA9D /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735864320E127CE005EDA9D /* Payload.swift */; };
 		2735864620E13437005EDA9D /* CustomJSONArrayEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735863E20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift */; };
+		273C75D32121F07A005B9047 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273C75D22121F07A005B9047 /* RxBlocking.framework */; };
+		273C75D52121F07E005B9047 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273C75D42121F07E005B9047 /* Nimble.framework */; };
 		2745F3DF20A345B900EF46A4 /* FitpayWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */; };
 		276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		276CD260209A65C500076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
@@ -493,6 +495,8 @@
 		2735863E20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomJSONArrayEncoding.swift; sourceTree = "<group>"; };
 		2735864020E07021005EDA9D /* PlatformConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformConfig.swift; sourceTree = "<group>"; };
 		2735864320E127CE005EDA9D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		273C75D22121F07A005B9047 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		273C75D42121F07E005B9047 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
 		276CD25E209A5D1700076648 /* FitpayConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfig.swift; sourceTree = "<group>"; };
 		277380D920E5716E00B84785 /* FitpayConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfigTests.swift; sourceTree = "<group>"; };
@@ -725,6 +729,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				273C75D52121F07E005B9047 /* Nimble.framework in Frameworks */,
+				273C75D32121F07A005B9047 /* RxBlocking.framework in Frameworks */,
 				2778175C208E731400FE2770 /* FitpaySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1324,6 +1330,8 @@
 		B2C94647591B581A09E4A254 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				273C75D42121F07E005B9047 /* Nimble.framework */,
+				273C75D22121F07A005B9047 /* RxBlocking.framework */,
 				2778174D208E704D00FE2770 /* JWTDecode.framework */,
 				27781744208E42A100FE2770 /* RxBlocking.framework */,
 				27781746208E42A100FE2770 /* RxCocoa.framework */,
