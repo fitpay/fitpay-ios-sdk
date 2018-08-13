@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class VerificationMethodTests: BaseTestProvider {
+class VerificationMethodTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testVerificationMethodParsing() {
         let verificationMethod = mockModels.getVerificationMethod()

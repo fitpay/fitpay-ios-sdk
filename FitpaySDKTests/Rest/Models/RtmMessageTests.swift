@@ -3,7 +3,8 @@ import XCTest
 
 import UIKit
 
-class RtmMessageTests: BaseTestProvider {
+class RtmMessageTests: XCTestCase {
+    let mockModels = MockModels()
 
     func testResetDeviceResultParsing() {
         let rtmMessageResponse = mockModels.getRtmMessageResponse()

@@ -3,7 +3,8 @@ import Nimble
 
 @testable import FitpaySDK
 
-class APDUCommandTests: BaseTestProvider {
+class APDUCommandTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testAPDUCommandParsing() {
         let apduCommand = mockModels.getApduCommand()

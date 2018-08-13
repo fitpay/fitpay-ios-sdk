@@ -1,10 +1,10 @@
 import XCTest
+import Alamofire
 
 @testable import FitpaySDK
 
-import Alamofire
-
-class UsersTests: BaseTestProvider {
+class UsersTests: XCTestCase {
+    let mockModels = MockModels()
     
     var user: User!
     var restClient: RestClient!

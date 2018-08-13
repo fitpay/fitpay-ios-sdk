@@ -3,7 +3,7 @@ import Nimble
 
 @testable import FitpaySDK
 
-class A2AIssuerResponseTests: BaseTestProvider {
+class A2AIssuerResponseTests: XCTestCase {
         
     func testA2AIssuerRequestEncodingString() {
         let a2AIssuerRequest = A2AIssuerResponse(response: A2AIssuerResponse.A2AStepupResult.approved, authCode: "someCode")

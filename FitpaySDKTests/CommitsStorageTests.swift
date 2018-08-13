@@ -1,5 +1,6 @@
 import XCTest
 import RxSwift
+
 @testable import FitpaySDK
 
 class CommitsStorageTests: XCTestCase {

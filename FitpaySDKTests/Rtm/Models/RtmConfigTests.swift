@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class RtmConfigTests: BaseTestProvider {
+class RtmConfigTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testRtmConfigParsing() {
         let rtmConfig = mockModels.getRtmConfig()

@@ -51,6 +51,10 @@
 		2735864620E13437005EDA9D /* CustomJSONArrayEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2735863E20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift */; };
 		273C75D32121F07A005B9047 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273C75D22121F07A005B9047 /* RxBlocking.framework */; };
 		273C75D52121F07E005B9047 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273C75D42121F07E005B9047 /* Nimble.framework */; };
+		273C75D62121F74B005B9047 /* SwCryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9134BB0020FCA99500368FA2 /* SwCryptTests.swift */; };
+		273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA81D8208F8BF400FFBB56 /* PaymentDeviceUtilsTests.swift */; };
+		273C75D82121F79C005B9047 /* PaymentDeviceUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA81D8208F8BF400FFBB56 /* PaymentDeviceUtilsTests.swift */; };
+		273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773CD94207D53A300DFE113 /* IdVerificationTests.swift */; };
 		2745F3DF20A345B900EF46A4 /* FitpayWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */; };
 		276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		276CD260209A65C500076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
@@ -407,8 +411,6 @@
 		91FD056520D1653500092234 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053B20D1653200092234 /* CreditCardTests.swift */; };
 		91FD056820D1653500092234 /* UsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053D20D1653300092234 /* UsersTests.swift */; };
 		91FD056920D1653500092234 /* UsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053D20D1653300092234 /* UsersTests.swift */; };
-		91FD056A20D1653500092234 /* BaseTestProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053E20D1653400092234 /* BaseTestProvider.swift */; };
-		91FD056B20D1653500092234 /* BaseTestProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053E20D1653400092234 /* BaseTestProvider.swift */; };
 		91FD056C20D1653500092234 /* DeviceInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053F20D1653400092234 /* DeviceInfoTests.swift */; };
 		91FD056D20D1653500092234 /* DeviceInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053F20D1653400092234 /* DeviceInfoTests.swift */; };
 		91FD056F20D1664000092234 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD056E20D1664000092234 /* MockModels.swift */; };
@@ -662,7 +664,6 @@
 		91FD053A20D1653200092234 /* CommitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitTests.swift; sourceTree = "<group>"; };
 		91FD053B20D1653200092234 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		91FD053D20D1653300092234 /* UsersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTests.swift; sourceTree = "<group>"; };
-		91FD053E20D1653400092234 /* BaseTestProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestProvider.swift; sourceTree = "<group>"; };
 		91FD053F20D1653400092234 /* DeviceInfoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceInfoTests.swift; sourceTree = "<group>"; };
 		91FD056E20D1664000092234 /* MockModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
 		9A12277F1C89CF5C006968D7 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -884,7 +885,6 @@
 			isa = PBXGroup;
 			children = (
 				9194320B20D024430086B39B /* mocImage.png */,
-				91FD053E20D1653400092234 /* BaseTestProvider.swift */,
 				0A7EE11A1CFE0A2B00503BC8 /* TestHelper.swift */,
 				91A4AC4A20EBD5AC005D057F /* APDUResponseTypeTest.swift */,
 				91300F6D20ECF15C00ACD3E6 /* NSErrorExtensionTests.swift */,
@@ -1925,6 +1925,7 @@
 				91FD055620D1653400092234 /* ApduPackageTests.swift in Sources */,
 				2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */,
 				91FD054A20D1653400092234 /* CommitStatisticTests.swift in Sources */,
+				273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,
 				1F5DE2C51FEA7E3B00BB0531 /* CommitsStorageTests.swift in Sources */,
 				91A4AC4B20EBD5AC005D057F /* APDUResponseTypeTest.swift in Sources */,
 				91FD055A20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
@@ -1957,7 +1958,6 @@
 				916C8AC120EA7C4900EEAD3A /* UnkeyedDecodingContainerTest.swift in Sources */,
 				3701AE551F1613B200550890 /* SyncOperationTests.swift in Sources */,
 				91FD054420D1653400092234 /* APDUCommandTests.swift in Sources */,
-				91FD056A20D1653500092234 /* BaseTestProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1969,8 +1969,8 @@
 				1F5DE2C61FEAB4C600BB0531 /* CommitsStorageTests.swift in Sources */,
 				91FD054520D1653400092234 /* APDUCommandTests.swift in Sources */,
 				91FD052220D1315000092234 /* MockSECP256R1KeyPair.swift in Sources */,
-				91FD056B20D1653500092234 /* BaseTestProvider.swift in Sources */,
 				37D0CFE51ED599C00049B5AA /* SyncRequestsQueueTests.swift in Sources */,
+				273C75D82121F79C005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,
 				91FD057020D1664000092234 /* MockModels.swift in Sources */,
 				37D908231F1E546700AA9F86 /* RtmMessagingTests.swift in Sources */,
 				91FD055920D1653500092234 /* ImageTests.swift in Sources */,
@@ -1989,6 +1989,7 @@
 				270800AA210E29DA0071E8B1 /* MockRestRequest.swift in Sources */,
 				37330EB720289E2100948BC6 /* TransactionTests.swift in Sources */,
 				91FD054320D1653400092234 /* CommitMetricsTests.swift in Sources */,
+				273C75D62121F74B005B9047 /* SwCryptTests.swift in Sources */,
 				91FD056920D1653500092234 /* UsersTests.swift in Sources */,
 				2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
 				91FD056320D1653500092234 /* CommitTests.swift in Sources */,
@@ -1998,6 +1999,7 @@
 				91FD056520D1653500092234 /* CreditCardTests.swift in Sources */,
 				91FD054D20D1653400092234 /* IssuersTests.swift in Sources */,
 				91FD055B20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
+				273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */,
 				3A46E14E1DF023F9002D0270 /* RestClientTests.swift in Sources */,
 				91A4AC4620EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
 				91FD055720D1653400092234 /* ApduPackageTests.swift in Sources */,

@@ -1,8 +1,9 @@
 import XCTest
 @testable import FitpaySDK
 
-class DeviceInfoTests: BaseTestProvider {
-        
+class DeviceInfoTests: XCTestCase {
+    let mockModels = MockModels()
+    
     func testDeviceInfoParsing() {
         let deviceInfo = mockModels.getDeviceInfo()
 

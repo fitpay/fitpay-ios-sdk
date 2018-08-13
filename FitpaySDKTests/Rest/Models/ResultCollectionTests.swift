@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class ResultCollectionTests: BaseTestProvider {
+class ResultCollectionTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testResultCollectionParsing() {
         let resultCollection = mockModels.getResultCollection()

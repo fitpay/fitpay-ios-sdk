@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class IssuersTests: BaseTestProvider {
+class IssuersTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testIssuersParsing() {
         let issuers = mockModels.getIssuers()

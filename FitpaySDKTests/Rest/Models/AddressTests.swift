@@ -3,7 +3,8 @@ import Nimble
 
 @testable import FitpaySDK
 
-class AddressTests: BaseTestProvider {
+class AddressTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testAddressParsing() {
         let address = mockModels.getAddress()

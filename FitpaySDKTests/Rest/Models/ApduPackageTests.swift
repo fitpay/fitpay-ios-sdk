@@ -3,7 +3,8 @@ import Nimble
 
 @testable import FitpaySDK
 
-class ApduPackageTests: BaseTestProvider {
+class ApduPackageTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testApduPackageParsing() {
         let dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
