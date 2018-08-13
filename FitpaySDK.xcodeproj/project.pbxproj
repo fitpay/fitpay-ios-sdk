@@ -98,6 +98,8 @@
 		2782F85420F7CE08004774E8 /* SyncOperationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782F85220F7CE08004774E8 /* SyncOperationState.swift */; };
 		2786DB02207512410079ED15 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786DB01207512410079ED15 /* EventSource.swift */; };
 		2786DB03207512410079ED15 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786DB01207512410079ED15 /* EventSource.swift */; };
+		278B4BFD2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
+		278B4BFE2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
 		27982EBC20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		27A4AE76206D916A002255A1 /* UserEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */; };
@@ -523,6 +525,7 @@
 		2782F84F20F7CDF4004774E8 /* SyncOperationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncOperationError.swift; sourceTree = "<group>"; };
 		2782F85220F7CE08004774E8 /* SyncOperationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncOperationState.swift; sourceTree = "<group>"; };
 		2786DB01207512410079ED15 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
+		278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRtmMessageHandler.swift; sourceTree = "<group>"; };
 		27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainerExtension.swift; sourceTree = "<group>"; };
 		27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEventStreamManager.swift; sourceTree = "<group>"; };
 		27B8884C20A4C9DC0027969D /* ImageWithOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithOptions.swift; sourceTree = "<group>"; };
@@ -1269,6 +1272,7 @@
 		91FD052820D15DBD00092234 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */,
 				91FD056E20D1664000092234 /* MockModels.swift */,
 				91FD051E20D1315000092234 /* MockSECP256R1KeyPair.swift */,
 				270800A8210E29DA0071E8B1 /* MockRestRequest.swift */,
@@ -1916,6 +1920,7 @@
 				91FD056820D1653500092234 /* UsersTests.swift in Sources */,
 				91300F7120ED066200ACD3E6 /* PayloadTests.swift in Sources */,
 				91300F6E20ECF15C00ACD3E6 /* NSErrorExtensionTests.swift in Sources */,
+				278B4BFD2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */,
 				91A4AC4820EBCD39005D057F /* RtmMessageTests.swift in Sources */,
 				916C8ABE20EA587E00EEAD3A /* DataExtensionsTests.swift in Sources */,
 				270800A9210E29DA0071E8B1 /* MockRestRequest.swift in Sources */,
@@ -1968,6 +1973,7 @@
 				277380DB20E5716E00B84785 /* FitpayConfigTests.swift in Sources */,
 				1F5DE2C61FEAB4C600BB0531 /* CommitsStorageTests.swift in Sources */,
 				91FD054520D1653400092234 /* APDUCommandTests.swift in Sources */,
+				278B4BFE2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */,
 				91FD052220D1315000092234 /* MockSECP256R1KeyPair.swift in Sources */,
 				37D0CFE51ED599C00049B5AA /* SyncRequestsQueueTests.swift in Sources */,
 				273C75D82121F79C005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,

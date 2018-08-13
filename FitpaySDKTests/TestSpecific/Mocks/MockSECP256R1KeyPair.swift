@@ -14,7 +14,7 @@ class MockSECP256R1KeyPair {
     func generateSecretForPublicKey(_ publicKey: String) -> Data? {
         // removing prefix from public key
         let start = publicKey.index(publicKey.startIndex, offsetBy: 0)
-        let end   = publicKey.index(publicKey.startIndex, offsetBy: unknownPrefix.count)
+        let end = publicKey.index(publicKey.startIndex, offsetBy: unknownPrefix.count)
 
         let publicKeyWithoutPrefix = publicKey.replacingCharacters(in: start..<end, with: "")
 

@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class TestHelper {
@@ -258,7 +260,6 @@ class TestHelper {
         let time = DispatchTime.now() + 2
         
         DispatchQueue.main.asyncAfter(deadline: time) {
-            
             pendingCard.getCard() { (creditCard, error) in
                 guard error == nil else {
                     XCTFail("failed to retrieve credit card will polling for active state")
@@ -275,7 +276,6 @@ class TestHelper {
         let cardInfo = CardInfo(pan: pan, expMonth: 5, expYear: 2020, cvv: "434", name: "John Smith", address: address, riskData: nil)
         
         user?.createCreditCard(cardInfo: cardInfo) { [unowned self] (creditCard, error) in
-            
             XCTAssertNil(error)
             
             self.assertCreditCard(creditCard)

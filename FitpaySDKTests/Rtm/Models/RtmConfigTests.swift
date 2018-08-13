@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class RtmConfigTests: XCTestCase {
@@ -7,45 +9,27 @@ class RtmConfigTests: XCTestCase {
     func testRtmConfigParsing() {
         let rtmConfig = mockModels.getRtmConfig()
 
-        XCTAssertEqual(rtmConfig?.redirectUri, "https://api.fit-pay.com")
-        XCTAssertNotNil(rtmConfig?.deviceInfo)
-        XCTAssertEqual(rtmConfig?.hasAccount, false)
-        XCTAssertEqual(rtmConfig?.accessToken, "someToken")
+        expect(rtmConfig?.redirectUri).to(equal("https://api.fit-pay.com"))
+        expect(rtmConfig?.deviceInfo).toNot(beNil())
+        expect(rtmConfig?.hasAccount).to(equal(false))
+        expect(rtmConfig?.accessToken).to(equal("someToken"))
 
         let dict = rtmConfig?.jsonDict()
-        XCTAssertNotNil(dict)
+        expect(dict).toNot(beNil())
 
         let json = rtmConfig?.toJSON()
-        XCTAssertEqual(json?["clientId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["redirectUri"] as? String, "https://api.fit-pay.com")
-        XCTAssertEqual(json?["userEmail"] as? String, "someEmail")
-        XCTAssertNotNil(json?["paymentDevice"])
-        XCTAssertEqual(json?["account"] as? Bool, false)
-        XCTAssertEqual(json?["version"] as? String, "2")
-        XCTAssertEqual(json?["demoMode"] as? Bool, false)
-        XCTAssertEqual(json?["themeOverrideCssUrl"] as? String, "https://api.fit-pay.com")
-        XCTAssertEqual(json?["demoCardGroup"] as? String, "someGroup")
-        XCTAssertEqual(json?["accessToken"] as? String, "someToken")
-        XCTAssertEqual(json?["language"] as? String, "en")
-        XCTAssertEqual(json?["baseLangUrl"] as? String, "https://api.fit-pay.com")
-        XCTAssertEqual(json?["useWebCardScanner"] as? Bool, false)
-
-        rtmConfig?.update(value: "someProperty", forKey: "clientId")
-        rtmConfig?.update(value: "someProperty", forKey: "redirectUri")
-        XCTAssertEqual(rtmConfig?.redirectUri, "someProperty")
-        rtmConfig?.update(value: "someProperty", forKey: "userEmail")
-        rtmConfig?.update(value: "DeviceInfo", forKey: "paymentDevice")
-        XCTAssertEqual(rtmConfig?.deviceInfo, nil)
-        rtmConfig?.update(value: false, forKey: "account")
-        XCTAssertEqual(rtmConfig?.hasAccount, false)
-        rtmConfig?.update(value: "someProperty", forKey: "version")
-        rtmConfig?.update(value: false, forKey: "demoMode")
-        rtmConfig?.update(value: "someProperty", forKey: "themeOverrideCssUrl")
-        rtmConfig?.update(value: "someProperty", forKey: "demoCardGroup")
-        rtmConfig?.update(value: "someProperty", forKey: "accessToken")
-        XCTAssertEqual(rtmConfig?.accessToken, "someProperty")
-        rtmConfig?.update(value: "someProperty", forKey: "language")
-        rtmConfig?.update(value: "someProperty", forKey: "baseLangUrl")
-        rtmConfig?.update(value: false, forKey: "useWebCardScanner")
+        expect(json?["clientId"] as? String).to(equal(mockModels.someId))
+        expect(json?["redirectUri"] as? String).to(equal("https://api.fit-pay.com"))
+        expect(json?["userEmail"] as? String).to(equal("someEmail"))
+        expect(json?["paymentDevice"]).toNot(beNil())
+        expect(json?["account"] as? Bool).to(equal(false))
+        expect(json?["version"] as? String).to(equal("2"))
+        expect(json?["demoMode"] as? Bool).to(equal(false))
+        expect(json?["themeOverrideCssUrl"] as? String).to(equal("https://api.fit-pay.com"))
+        expect(json?["demoCardGroup"] as? String).to(equal("someGroup"))
+        expect(json?["accessToken"] as? String).to(equal("someToken"))
+        expect(json?["language"] as? String).to(equal("en"))
+        expect(json?["baseLangUrl"] as? String).to(equal("https://api.fit-pay.com"))
+        expect(json?["useWebCardScanner"] as? Bool).to(equal(false))
     }
 }

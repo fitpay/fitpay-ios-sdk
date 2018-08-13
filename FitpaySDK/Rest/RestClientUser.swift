@@ -73,13 +73,11 @@ extension RestClient {
                 rawUserInfo["birthDate"] = birthDate
             }
             
-            if let userInfoJSON = rawUserInfo.JSONString,
-                let jweObject = try? JWEObject(JWEAlgorithm.A256GCMKW,
-                                                               enc: JWEEncryption.A256GCM,
-                                                               payload: userInfoJSON,
-                                                               keyId: headers[RestClient.fpKeyIdKey]!),
-                let encrypted = try? jweObject.encrypt(strongSelf.secret) {
-                parameters["encryptedData"] = encrypted
+            if let userInfoJSON = rawUserInfo.JSONString {
+                let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: userInfoJSON, keyId: headers[RestClient.fpKeyIdKey]!)
+                if let encrypted = try? jweObject.encrypt(strongSelf.secret) {
+                    parameters["encryptedData"] = encrypted
+                }
             }
             
             log.verbose("REST_CLIENT: user creation url: \(FitpayConfig.apiURL)/users")
@@ -156,10 +154,11 @@ extension RestClient {
             
             var parameters = [String: Any]()
             
-            if let updateJSON = operations.JSONString,
-                let jweObject = try? JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!),
-                let encrypted = try? jweObject.encrypt(self.secret)! {
-                parameters["encryptedData"] = encrypted
+            if let updateJSON = operations.JSONString {
+                let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: updateJSON, keyId: headers[RestClient.fpKeyIdKey]!)
+                if let encrypted = try? jweObject.encrypt(self.secret)! {
+                    parameters["encryptedData"] = encrypted
+                }
             }
             
             self.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { [weak self] (resultValue, error) in
