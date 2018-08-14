@@ -1,9 +1,10 @@
 import Foundation
 
-class JWEHeader {
+class JOSEHeader {
+
     var cty: String?
-    var enc: JWEEncryption?
-    var alg: JWEAlgorithm?
+    var enc: JWSEncryption?
+    var alg: JWSAlgorithm?
     var iv : Data?
     var tag: Data?
     var kid: String?
@@ -13,7 +14,7 @@ class JWEHeader {
     
     // MARK: - Lifecycle
     
-    init(encryption: JWEEncryption, algorithm: JWEAlgorithm) {
+    init(encryption: JWSEncryption, algorithm: JWSAlgorithm) {
         enc = encryption
         alg = algorithm
     }
@@ -29,11 +30,11 @@ class JWEHeader {
         tag = mappedJson["tag"]?.base64URLdecoded() as Data?
         
         if let encStr = mappedJson["enc"] {
-            enc = JWEEncryption(rawValue: encStr)
+            enc = JWSEncryption(rawValue: encStr)
         }
         
         if let algStr = mappedJson["alg"] {
-            alg = JWEAlgorithm(rawValue: algStr)
+            alg = JWSAlgorithm(rawValue: algStr)
         }
     }
     
@@ -43,19 +44,19 @@ class JWEHeader {
         var paramsDict: [String: String]! = [String: String]()
     
         guard enc != nil else {
-            throw JWEObjectError.encryptionNotSpecified
+            throw JWTError.encryptionNotSpecified
         }
         
         guard alg != nil else {
-            throw JWEObjectError.algorithmNotSpecified
+            throw JWTError.algorithmNotSpecified
         }
         
         guard iv != nil else {
-            throw JWEObjectError.headersIVNotSpecified
+            throw JWTError.headersIVNotSpecified
         }
         
         guard tag != nil else {
-            throw JWEObjectError.headersTagNotSpecified
+            throw JWTError.headersTagNotSpecified
         }
         
         if (cty == nil) {

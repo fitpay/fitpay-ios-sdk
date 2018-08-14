@@ -6,7 +6,7 @@ import Nimble
 class DataExtensionsTests: XCTestCase {
 
     func testBase64URLencoded() {
-        let payloadIV = String.random(JWEObject.PayloadIVSize).data(using: String.Encoding.utf8)
+        let payloadIV = String.random(JWE.PayloadIVSize).data(using: String.Encoding.utf8)
         guard let encodedPayloadIV = payloadIV?.base64URLencoded() else {
             fail("Bad encoding")
             return

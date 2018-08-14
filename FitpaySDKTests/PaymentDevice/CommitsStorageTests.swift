@@ -16,7 +16,6 @@ class CommitsStorageTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
         deviceInfo = Device()
         deviceInfo.deviceIdentifier = "222-222-222"
         
@@ -135,7 +134,7 @@ class CommitsStorageTests: XCTestCase {
         waitUntil { done in
             self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (status, error) in
                 let storedDeviceCommitId = MockSyncStorage.sharedMockInstance.getLastCommitId(self.deviceInfo.deviceIdentifier!)
-                XCTAssertEqual(storedDeviceCommitId, "21321312")
+                expect(storedDeviceCommitId).to(equal("21321312"))
                 done()
             }
         }

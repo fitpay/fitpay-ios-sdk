@@ -8,7 +8,7 @@ class JWETests: XCTestCase {
     let sharedSecret = "NFxCwmIncymviQp9-KKKgH_8McGHWGgwV-T-RNkMI-U".base64URLdecoded()
     
     func testJWEEncryption() {
-        let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: plainText, keyId: nil)
+        let jweObject = JWE(JWSAlgorithm.A256GCMKW, enc: JWSEncryption.A256GCM, payload: plainText, keyId: nil)
         expect(jweObject).toNot(beNil())
         
         guard let encryptResult = try? jweObject.encrypt(sharedSecret!) else {
@@ -18,7 +18,7 @@ class JWETests: XCTestCase {
         
         expect(encryptResult).toNot(beNil())
         
-        let jweResult = JWEObject(payload: encryptResult!)
+        let jweResult = JWE(payload: encryptResult!)
         guard let decryptResult = try? jweResult.decrypt(sharedSecret!) else {
             fail("Could Not Deycrypt")
             return

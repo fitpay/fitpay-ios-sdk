@@ -152,7 +152,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     // MARK: - Internal Helpers
     
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        self.info = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        self.info = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
 }

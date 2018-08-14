@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class CommitMetricsTests: XCTestCase {
@@ -7,24 +9,24 @@ class CommitMetricsTests: XCTestCase {
     func testCommitMetricsParsing() {
         let commitMetrics = mockModels.getCommitMetrics()
 
-        XCTAssertEqual(commitMetrics?.syncId, mockModels.someId)
-        XCTAssertEqual(commitMetrics?.deviceId, mockModels.someId)
-        XCTAssertEqual(commitMetrics?.userId, mockModels.someId)
+        expect(commitMetrics?.syncId).to(equal(mockModels.someId))
+        expect(commitMetrics?.deviceId).to(equal(mockModels.someId))
+        expect(commitMetrics?.userId).to(equal(mockModels.someId))
 
-        XCTAssertEqual(commitMetrics?.sdkVersion, "1")
-        XCTAssertEqual(commitMetrics?.osVersion, "2")
-        XCTAssertEqual(commitMetrics?.initiator, SyncInitiator(rawValue: "PLATFORM"))
-        XCTAssertEqual(commitMetrics?.totalProcessingTimeMs, Int(mockModels.timeEpoch))
-        XCTAssertNotNil(commitMetrics?.commitStatistics)
+        expect(commitMetrics?.sdkVersion).to(equal("1"))
+        expect(commitMetrics?.osVersion).to(equal("2"))
+        expect(commitMetrics?.initiator).to(equal(SyncInitiator(rawValue: "PLATFORM")))
+        expect(commitMetrics?.totalProcessingTimeMs).to(equal(Int(mockModels.timeEpoch)))
+        expect(commitMetrics?.commitStatistics).toNot(beNil())
 
         let json = commitMetrics?.toJSON()
-        XCTAssertEqual(json?["syncId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["deviceId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["userId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["sdkVersion"] as? String, "1")
-        XCTAssertEqual(json?["osVersion"] as? String, "2")
-        XCTAssertEqual(json?["initiator"] as? String, "PLATFORM")
-        XCTAssertEqual(json?["totalProcessingTimeMs"] as? Int64, mockModels.timeEpoch)
-        XCTAssertNotNil(json?["commits"])
+        expect(json?["syncId"] as? String).to(equal(mockModels.someId))
+        expect(json?["deviceId"] as? String).to(equal(mockModels.someId))
+        expect(json?["userId"] as? String).to(equal(mockModels.someId))
+        expect(json?["sdkVersion"] as? String).to(equal("1"))
+        expect(json?["osVersion"] as? String).to(equal("2"))
+        expect(json?["initiator"] as? String).to(equal("PLATFORM"))
+        expect(json?["totalProcessingTimeMs"] as? Int64).to(equal(mockModels.timeEpoch))
+        expect(json?["commits"]).toNot(beNil())
     }
 }

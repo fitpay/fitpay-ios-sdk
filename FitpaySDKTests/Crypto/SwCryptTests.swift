@@ -240,7 +240,7 @@ extension SwCryptTests {
                                               aData: Data(),
                                               key: cipherKey,
                                               iv: iv,
-                                              tagLength: JWEObject.AuthenticationTagSize)
+                                              tagLength: JWE.AuthenticationTagSize)
         
         expect(decryptedData).toNot(beNil())
     }
@@ -257,7 +257,7 @@ extension SwCryptTests {
                                               aData: Data(),
                                               key: cipherKey,
                                               iv: iv,
-                                              tagLength: JWEObject.AuthenticationTagSize)
+                                              tagLength: JWE.AuthenticationTagSize)
         
         expect(encryptedData).toNot(beNil())
     }
@@ -356,7 +356,7 @@ extension SwCryptTests {
                                               key: cipherKey,
                                               iv: iv,
                                               aData: Data(),
-                                              tagLength: JWEObject.AuthenticationTagSize)
+                                              tagLength: JWE.AuthenticationTagSize)
         expect(encryptedData).toNot(beNil())
     }
 

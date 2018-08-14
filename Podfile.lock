@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.7.3)
-  - JWTDecode (2.1.1)
   - Nimble (7.1.3)
   - RxBlocking (4.2.0):
     - RxSwift (~> 4.0)
@@ -8,7 +7,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.1)
-  - JWTDecode (~> 2.1)
   - Nimble
   - RxBlocking
   - RxSwift (~> 4.1)
@@ -16,18 +14,16 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - JWTDecode
     - Nimble
     - RxBlocking
     - RxSwift
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
   Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
   RxBlocking: e339d8a6e752e25ade95ff858466c55436668f59
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
 
-PODFILE CHECKSUM: 71a0cfccbf148fed903166ea3a7f10820d17f525
+PODFILE CHECKSUM: acc95e43cc47cdd1da730ff3389bb8cbadf96a21
 
 COCOAPODS: 1.5.2

@@ -1,43 +1,29 @@
 import Foundation
 
-enum JWEAlgorithm: String {
-    case A256GCMKW = "A256GCMKW"
-}
-
-enum JWEEncryption: String {
-    case A256GCM = "A256GCM"
-}
-
-enum JWEObjectError: Error {
-    case headerNotSpecified
-    case encryptionNotSpecified
-    case algorithmNotSpecified
-    case headersIVNotSpecified
-    case headersTagNotSpecified
-}
-
-class JWEObject {
+class JWE {
+    
+    private(set) var encryptedPayload: String?
+    private(set) var decryptedPayload: String?
     
     static let AuthenticationTagSize = 16
-    static let CekSize = 32
-    static let CekIVSize = 12
     static let PayloadIVSize = 16
-    
-    var header: JWEHeader?
+
+    private var header: JOSEHeader?
     
     private var cekCt: Data?
     private var iv: Data?
     private var ct: Data?
     private var tag: Data?
     
-    private(set) var encryptedPayload: String?
-    private(set) var decryptedPayload: String?
     private var payloadToEncrypt: String?
+    
+    private static let CekSize = 32
+    private static let CekIVSize = 12
     
     // MARK - Lifecycle
     
-    init(_ alg: JWEAlgorithm, enc: JWEEncryption, payload: String, keyId: String?) {
-        self.header = JWEHeader(encryption: enc, algorithm: alg)
+    init(_ alg: JWSAlgorithm, enc: JWSEncryption, payload: String, keyId: String?) {
+        self.header = JOSEHeader(encryption: enc, algorithm: alg)
         self.header!.kid = keyId
         self.payloadToEncrypt = payload
     }
@@ -46,7 +32,7 @@ class JWEObject {
         self.encryptedPayload = payload
         
         let jwe = payload.components(separatedBy: ".")
-        self.header = JWEHeader(headerPayload: jwe[0])
+        self.header = JOSEHeader(headerPayload: jwe[0])
         self.cekCt = jwe[1].base64URLdecoded()
         self.iv = jwe[2].base64URLdecoded()
         self.ct = jwe[3].base64URLdecoded()
@@ -54,22 +40,20 @@ class JWEObject {
     }
     
     func encrypt(_ sharedSecret: Data) throws -> String? {
-        guard payloadToEncrypt != nil else {
-            return nil
-        }
+        guard payloadToEncrypt != nil else { return nil }
         
         guard header != nil else {
-            throw JWEObjectError.headerNotSpecified
+            throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == JWEAlgorithm.A256GCMKW && header?.enc == JWEEncryption.A256GCM) {
-            let cek = String.random(JWEObject.CekSize).data(using: String.Encoding.utf8)
-            let cekIV = String.random(JWEObject.CekIVSize).data(using: String.Encoding.utf8)
+        if (header?.alg == JWSAlgorithm.A256GCMKW && header?.enc == JWSEncryption.A256GCM) {
+            let cek = String.random(JWE.CekSize).data(using: String.Encoding.utf8)
+            let cekIV = String.random(JWE.CekIVSize).data(using: String.Encoding.utf8)
             
             let (cekCtCt, cekCTTag) = A256GCMEncryptData(sharedSecret, data: cek!, iv: cekIV!, aad: nil)
             let encodedCekCt = cekCtCt!.base64URLencoded()
             
-            let payloadIV = String.random(JWEObject.PayloadIVSize).data(using: String.Encoding.utf8)
+            let payloadIV = String.random(JWE.PayloadIVSize).data(using: String.Encoding.utf8)
             let encodedPayloadIV = payloadIV?.base64URLencoded()
             
             let encodedHeader : Data!
@@ -101,17 +85,17 @@ class JWEObject {
     
     func decrypt(_ sharedSecret: Data) throws -> String? {
         guard header != nil else {
-            throw JWEObjectError.headerNotSpecified
+            throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == JWEAlgorithm.A256GCMKW && header?.enc == JWEEncryption.A256GCM) {
+        if (header?.alg == JWSAlgorithm.A256GCMKW && header?.enc == JWSEncryption.A256GCM) {
             
             guard header!.iv != nil else {
-                throw JWEObjectError.headersIVNotSpecified
+                throw JWTError.headersIVNotSpecified
             }
             
             guard header!.tag != nil else {
-                throw JWEObjectError.headersTagNotSpecified
+                throw JWTError.headersTagNotSpecified
             }
             
             guard ct != nil && tag != nil else {
@@ -125,12 +109,12 @@ class JWEObject {
             let aad = jwe[0].data(using: String.Encoding.utf8)
             
             // ensure that we have 16 bytes in Authentication Tag
-            if ((tag?.count)! < JWEObject.AuthenticationTagSize) {
+            if ((tag?.count)! < JWE.AuthenticationTagSize) {
                 let concatedCtAndTag = NSMutableData(data: ct!)
                 concatedCtAndTag.append(tag!)
-                if (concatedCtAndTag.length > JWEObject.AuthenticationTagSize) {
-                    ct = concatedCtAndTag.subdata(with: NSRange(location: 0, length: concatedCtAndTag.length-JWEObject.AuthenticationTagSize))
-                    tag = concatedCtAndTag.subdata(with: NSRange(location: concatedCtAndTag.length-JWEObject.AuthenticationTagSize, length: JWEObject.AuthenticationTagSize))
+                if (concatedCtAndTag.length > JWE.AuthenticationTagSize) {
+                    ct = concatedCtAndTag.subdata(with: NSRange(location: 0, length: concatedCtAndTag.length-JWE.AuthenticationTagSize))
+                    tag = concatedCtAndTag.subdata(with: NSRange(location: concatedCtAndTag.length-JWE.AuthenticationTagSize, length: JWE.AuthenticationTagSize))
                 }
             }
             
@@ -139,6 +123,40 @@ class JWEObject {
         }
         
         return decryptedPayload
+    }
+    
+    class func decrypt<T>(_ encryptedData: String?, expectedKeyId: String?, secret: Data) -> T? where T: Serializable {
+        guard let encryptedData = encryptedData else { return nil }
+        
+        let jweResult = JWE(payload: encryptedData)
+        
+        if let expectedKeyId = expectedKeyId {
+            guard jweResult.header?.kid == expectedKeyId else { return nil }
+        }
+        
+        if let decryptResult = try? jweResult.decrypt(secret) {
+            return try? T(decryptResult)
+        }
+        
+        return nil
+    }
+    
+    class func decryptSigned(_ encryptedData: String?, expectedKeyId: String?, secret: Data) -> String? {
+        guard let encryptedData = encryptedData else { return nil }
+        
+        let jweResult = JWE(payload: encryptedData)
+        
+        if let expectedKeyId = expectedKeyId {
+            guard jweResult.header?.kid == expectedKeyId else { return nil }
+        }
+        
+        guard let decryptResult = try? jweResult.decrypt(secret) else { return nil }
+        guard jweResult.header?.cty == "JWT" else { return nil }
+        
+        let claimset = try? JWS(token: decryptResult!)
+        let payload = claimset?.body["data"] as? String
+
+        return payload
     }
     
     // MARK: - Private Functions
@@ -158,7 +176,7 @@ class JWEObject {
                                              aData: aad ?? Data(),
                                              key: cipherKey,
                                              iv: iv,
-                                             tagLength: JWEObject.AuthenticationTagSize)
+                                             tagLength: JWE.AuthenticationTagSize)
         } catch {
             log.error("Can't decrypt data with a256gcm. Error: \(error).")
         }
@@ -177,10 +195,10 @@ class JWEObject {
                                                     aData: aad ?? Data(),
                                                     key: key,
                                                     iv: iv,
-                                                    tagLength: JWEObject.AuthenticationTagSize)
+                                                    tagLength: JWE.AuthenticationTagSize)
             
-            let cipherText = encryptedWithTag.subdata(in: 0..<(encryptedWithTag.count-JWEObject.AuthenticationTagSize))
-            let tag = encryptedWithTag.subdata(in: (encryptedWithTag.count-JWEObject.AuthenticationTagSize)..<encryptedWithTag.count)
+            let cipherText = encryptedWithTag.subdata(in: 0..<(encryptedWithTag.count-JWE.AuthenticationTagSize))
+            let tag = encryptedWithTag.subdata(in: (encryptedWithTag.count-JWE.AuthenticationTagSize)..<encryptedWithTag.count)
             
             encryptResult = (cipherText, tag)
         } catch  {
