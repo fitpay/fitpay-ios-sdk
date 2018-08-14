@@ -55,11 +55,11 @@ class DataExtensionsTests: XCTestCase {
 
     func testHexadecimalString() {
         let keyPair = MockSECP256R1KeyPair()
-        guard let data = keyPair.generateSecretForPublicKey(keyPair.publicKey!) else {
+        guard let data = keyPair.generateSecretForPublicKey(keyPair.mocPublicKey!) else {
             fail("bad secret")
             return
         }
         let hexString = data.hexadecimalString()
-        expect(hexString).to(equal("87A3FCE7DAF0FD7E57AD53128DD25820448835DB13507B1388F0CF0BF6BB8F4D"))
+        expect(hexString).to(equal("D9EA91F550D6C462FB25CC364D3069E84E72E44E9F64351161E30012D450E527"))
     }
 }
