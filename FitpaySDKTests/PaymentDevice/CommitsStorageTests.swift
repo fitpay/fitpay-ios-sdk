@@ -1,4 +1,5 @@
 import XCTest
+import Nimble
 import RxSwift
 
 @testable import FitpaySDK
@@ -30,7 +31,6 @@ class CommitsStorageTests: XCTestCase {
     }
     
     func testCheckLoadCommitIdFromDevice() {
-        let expectation = super.expectation(description: "check load commitId from device")
         let connector = MockPaymentDeviceConnectorWithStorage(paymentDevice: self.paymentDevice)
         
         let fetch = FetchCommitsOperation(deviceInfo: self.deviceInfo,
@@ -38,19 +38,21 @@ class CommitsStorageTests: XCTestCase {
                                           syncStorage: MockSyncStorage.sharedMockInstance,
                                           connector: connector)
         
-        fetch.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-            XCTAssertEqual(commitId, String())
-            connector.setDeviceLastCommitId("123456")
-            
+        waitUntil { done in
             fetch.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-                XCTAssertEqual(commitId, "123456")
+                expect(commitId).to(equal(String()))
+                connector.setDeviceLastCommitId("123456")
                 
-                expectation.fulfill()
+                fetch.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
+                    expect(commitId).to(equal("123456"))
+                    
+                    done()
+                }).disposed(by: self.disposeBag)
+                
             }).disposed(by: self.disposeBag)
-            
-        }).disposed(by: self.disposeBag)
+        }
         
-        super.waitForExpectations(timeout: 2, handler: nil)
+        
     }
     
     func testCheckLoadCommitIdFromDeviceWithWrongStorage () {
@@ -62,7 +64,7 @@ class CommitsStorageTests: XCTestCase {
         let localCommitId = "654321"
         syncStorage.setLastCommitId(self.deviceInfo.deviceIdentifier!, commitId: localCommitId)
         let lastCommit = syncStorage.getLastCommitId(self.deviceInfo.deviceIdentifier!)
-        XCTAssertEqual(lastCommit, localCommitId)
+        expect(lastCommit).to(equal(localCommitId))
         
         let fetch1 = FetchCommitsOperation(deviceInfo: self.deviceInfo,
                                            shouldStartFromSyncedCommit: true,
@@ -70,7 +72,7 @@ class CommitsStorageTests: XCTestCase {
                                            connector: MockPaymentDeviceConnectorWithWrongStorage1(paymentDevice: self.paymentDevice))
         
         fetch1.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-            XCTAssertEqual(commitId, localCommitId)
+            expect(commitId).to(equal(localCommitId))
             step += 1
             if step == 2 {
                 expectation.fulfill()
@@ -83,7 +85,7 @@ class CommitsStorageTests: XCTestCase {
                                            connector: MockPaymentDeviceConnectorWithWrongStorage2(paymentDevice: self.paymentDevice))
         
         fetch2.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-            XCTAssertEqual(commitId, localCommitId)
+            expect(commitId).to(equal(localCommitId))
             step += 1
             if step == 2 {
                 expectation.fulfill()
@@ -94,9 +96,11 @@ class CommitsStorageTests: XCTestCase {
     }
     
     func testCheckSavingCommitIdToDevice() {
-        let expectation = super.expectation(description: "check commitId what must be saved on device")
+        guard let commit = fetcher.getAPDUCommit() else {
+            fail("Bad parsing.")
+            return
+        }
         
-        guard let commit = fetcher.getAPDUCommit() else { XCTAssert(false, "Bad parsing."); return }
         fetcher.commits = [commit]
         
         let connector = MockPaymentDeviceConnectorWithStorage(paymentDevice: self.paymentDevice)
@@ -104,19 +108,22 @@ class CommitsStorageTests: XCTestCase {
         connector.disconnectDelayTime = 0.2
         connector.apduExecuteDelayTime = 0.1
         
-        self.syncQueue.add(request: getSyncRequest(connector: connector)) { (status, error) in
-            let storedDeviceCommitId = connector.getDeviceLastCommitId()
-            XCTAssertEqual(storedDeviceCommitId, "21321312")
-            expectation.fulfill()
+        waitUntil { done in
+            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (status, error) in
+                let storedDeviceCommitId = connector.getDeviceLastCommitId()
+                expect(storedDeviceCommitId).to(equal("21321312"))
+                done()
+            }
         }
         
-        super.waitForExpectations(timeout: 20, handler: nil)
     }
     
     func testCheckSavingCommitIdToPhone() {
-        let expectation = super.expectation(description: "check commitId what must be saved on phone")
+        guard let commit = fetcher.getAPDUCommit() else {
+            fail("Bad parsing.")
+            return
+        }
         
-        guard let commit = fetcher.getAPDUCommit() else { XCTAssert(false, "Bad parsing."); return }
         fetcher.commits = [commit]
         
         let connector = MockPaymentDeviceConnectorWithWrongStorage1(paymentDevice: self.paymentDevice)
@@ -124,13 +131,15 @@ class CommitsStorageTests: XCTestCase {
         connector.disconnectDelayTime = 0.2
         connector.apduExecuteDelayTime = 0.1
         
-        self.syncQueue.add(request: getSyncRequest(connector: connector)) { (status, error) in
-            let storedDeviceCommitId = MockSyncStorage.sharedMockInstance.getLastCommitId(self.deviceInfo.deviceIdentifier!)
-            XCTAssertEqual(storedDeviceCommitId, "21321312")
-            expectation.fulfill()
+        
+        waitUntil { done in
+            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (status, error) in
+                let storedDeviceCommitId = MockSyncStorage.sharedMockInstance.getLastCommitId(self.deviceInfo.deviceIdentifier!)
+                XCTAssertEqual(storedDeviceCommitId, "21321312")
+                done()
+            }
         }
         
-        super.waitForExpectations(timeout: 20, handler: nil)
     }
 }
 
@@ -141,7 +150,7 @@ extension CommitsStorageTests { // Mocks
         func getDeviceLastCommitId() -> String {
             return commitId ?? String()
         }
-
+        
         func setDeviceLastCommitId(_ commitId: String) {
             self.commitId = commitId
         }
@@ -154,7 +163,7 @@ extension CommitsStorageTests { // Mocks
             self.commitId = commitId
         }
     }
-
+    
     class MockPaymentDeviceConnectorWithWrongStorage2: MockPaymentDeviceConnector {
         var commitId: String?
         
@@ -168,7 +177,7 @@ extension CommitsStorageTests { // Mocks
         var commits =  [String: String]()
         
         override public func getLastCommitId(_ deviceId:String) -> String {
-                return commits[deviceId] ?? String()
+            return commits[deviceId] ?? String()
         }
         
         override public func setLastCommitId(_ deviceId:String, commitId:String) -> Void {
@@ -177,7 +186,7 @@ extension CommitsStorageTests { // Mocks
     }
 }
 
-extension CommitsStorageTests { // Private Helplers
+extension CommitsStorageTests { // Private Helpers
     
     private func getSyncRequest(connector: MockPaymentDeviceConnector) -> SyncRequest {
         let device = self.paymentDevice!

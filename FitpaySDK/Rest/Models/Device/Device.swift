@@ -158,7 +158,7 @@ import Foundation
         bdAddress = try? container.decode(.bdAddress)
         pairing = try? container.decode(.pairing)
         secureElement = try? container.decode(.secureElement)
-        metadata = try? container.decode([String : Any].self)
+        metadata = try? container.decode([String: Any].self)
         profileId = try? container.decode(.profileId)
     }
 

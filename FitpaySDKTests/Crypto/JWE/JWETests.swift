@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class JWETests: XCTestCase {
@@ -7,23 +9,23 @@ class JWETests: XCTestCase {
     
     func testJWEEncryption() {
         let jweObject = JWEObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: plainText, keyId: nil)
-        XCTAssertNotNil(jweObject)
+        expect(jweObject).toNot(beNil())
         
         guard let encryptResult = try? jweObject.encrypt(sharedSecret!) else {
-            XCTFail("Could Not Encrypt")
+            fail("Could Not Encrypt")
             return
         }
         
-        XCTAssertNotNil(encryptResult)
+        expect(encryptResult).toNot(beNil())
         
         let jweResult = JWEObject(payload: encryptResult!)
         guard let decryptResult = try? jweResult.decrypt(sharedSecret!) else {
-            XCTFail("Could Not Deycrypt")
+            fail("Could Not Deycrypt")
             return
         }
         
-        XCTAssertNotNil(decryptResult)
+        expect(decryptResult).toNot(beNil())
         
-        XCTAssertTrue(plainText == decryptResult)
+        expect(decryptResult).to(equal(self.plainText))
     }
 }

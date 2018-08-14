@@ -267,7 +267,7 @@ extension SwCryptTests {
             let _ = try CC.RSA.generateKeyPair(0)
             fail("generateKeyPair should fail")
         } catch let error {
-            XCTAssertEqual(error.localizedDescription, CC.CCError.decodeError.localizedDescription)
+            expect(error.localizedDescription).to(equal(CC.CCError.decodeError.localizedDescription))
         }
     }
     

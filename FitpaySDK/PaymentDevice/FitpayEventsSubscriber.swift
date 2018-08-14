@@ -108,12 +108,9 @@ open class FitpayEventsSubscriber {
     }
     
     open func unsubscribe(subscriber: AnyObject, event: EventType) {
-        guard var subscriberWithBindings = findSubscriberWithBindingsFor(subscriber: subscriber) else {
-            return
-        }
+        guard var subscriberWithBindings = findSubscriberWithBindingsFor(subscriber: subscriber) else { return }
         
-        subscriberWithBindings.removeAllBindingsFor(event: event) {
-            (binding) in
+        subscriberWithBindings.removeAllBindingsFor(event: event) { (binding) in
             self.unbind(binding)
         }
         
@@ -121,12 +118,9 @@ open class FitpayEventsSubscriber {
     }
     
     open func unsubscribe(subscriber: AnyObject, binding: FitpayEventBinding) {
-        guard var subscriberWithBindings = findSubscriberWithBindingsFor(subscriber: subscriber) else {
-            return
-        }
+        guard var subscriberWithBindings = findSubscriberWithBindingsFor(subscriber: subscriber) else { return }
         
-        subscriberWithBindings.remove(binding: binding) {
-            (binding) in
+        subscriberWithBindings.remove(binding: binding) { (binding) in
             self.unbind(binding)
         }
         

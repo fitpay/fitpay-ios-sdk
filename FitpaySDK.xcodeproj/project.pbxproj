@@ -810,7 +810,6 @@
 			isa = PBXGroup;
 			children = (
 				0AD922AE1C1F7EFC007693AB /* Info.plist */,
-				1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */,
 				27B8884E20A4FA120027969D /* A2AVerification */,
 				27257F44208160CF00633826 /* Crypto */,
 				2714B06920F4172C00321F22 /* Extensions */,
@@ -963,6 +962,7 @@
 		2773CD92207D537D00DFE113 /* PaymentDevice */ = {
 			isa = PBXGroup;
 			children = (
+				1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */,
 				9B65A33C1CDD2D78007A7D7D /* MockPaymentDeviceTests.swift */,
 				27EA81D8208F8BF400FFBB56 /* PaymentDeviceUtilsTests.swift */,
 				37C94AAD1FE15E96009C0FE7 /* SyncManagerTests.swift */,
