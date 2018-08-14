@@ -6,7 +6,7 @@ protocol RtmOutputDelegate: class {
 }
 
 class RtmMessaging {
-    weak var outputDelagate: RtmOutputDelegate?
+    weak var outputDelegate: RtmOutputDelegate?
     weak var rtmDelegate: RTMDelegate?
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
     weak var cardScannerDataSource: FitpayCardScannerDataSource?
@@ -81,7 +81,7 @@ class RtmMessaging {
             }
             
             handler.wvRtmDelegate = self.rtmDelegate
-            handler.outputDelegate = self.outputDelagate
+            handler.outputDelegate = self.outputDelegate
             handler.cardScannerDataSource = self.cardScannerDataSource
             handler.cardScannerPresenterDelegate = self.cardScannerPresenterDelegate
             handler.a2aVerificationDelegate = self.a2aVerificationDelegate

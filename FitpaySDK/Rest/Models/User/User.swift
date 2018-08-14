@@ -80,7 +80,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
     /**
-     Retrieves the details of an existing credit card. You need only supply the uniqueidentifier that was returned upon creation.
+     Retrieves the details of an existing credit card. You need only supply the unique identifier that was returned upon creation.
      
      - parameter excludeState: Exclude all credit cards in the specified state. If you desire to specify multiple excludeState values, then repeat this query parameter multiple times.
      - parameter limit:        max number of profiles per page
@@ -98,7 +98,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
     /**
-     For a single user, retrieve a pagable collection of devices in their profile
+     For a single user, retrieve a pageable collection of devices in their profile
      
      - parameter limit:      max number of profiles per page
      - parameter offset:     start index position for list of entities returned

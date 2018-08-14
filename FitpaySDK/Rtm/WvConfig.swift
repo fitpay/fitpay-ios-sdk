@@ -78,7 +78,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         
         super.init()
         
-        self.rtmMessaging.outputDelagate = self
+        self.rtmMessaging.outputDelegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(logout), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         self.bindEvents()
@@ -171,7 +171,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     
     /**
      This returns the configuration for a WKWebView that will enable the iOS rtm bridge in the web app. Note that
-     the value "rtmBridge" is an agreeded upon value between this and the web-view.
+     the value "rtmBridge" is an agreed upon value between this and the web-view.
      */
     func getConfig() -> WKWebViewConfiguration {
         
