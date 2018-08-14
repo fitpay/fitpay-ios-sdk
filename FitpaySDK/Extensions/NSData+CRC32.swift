@@ -1,4 +1,6 @@
 
+//TODO: can remove once we remove BluetoothPaymentDeviceConnector
+
 /**
 Table of CRC-32's of all single-byte values (made by make_crc_table)
 */

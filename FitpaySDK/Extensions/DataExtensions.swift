@@ -11,15 +11,9 @@ extension Data {
     }
     
     var dictionary: Dictionary<String, Any>? {
-        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options:.mutableContainers) as! [String: Any] else {
-            return nil
-        }
+        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options:.mutableContainers) as! [String: Any] else { return nil }
         
         return dictionary
-    }
-    
-    var bytesArray: [UInt8] {
-        return [UInt8](self)
     }
     
     var errorMessages: [String]? {
@@ -47,10 +41,6 @@ extension Data {
         }
         
         return message
-    }
-    
-    var SHA1: String? {
-        return String(data: CC.digest(self, alg: .sha1), encoding: String.Encoding.utf8)
     }
     
     var hex: String {
@@ -86,10 +76,6 @@ extension Data {
         base64 = base64.replacingOccurrences(of: "=", with: "")
         
         return base64
-    }
-    
-    func subdata(in range: ClosedRange<Index>) -> Data {
-        return subdata(in: range.lowerBound..<range.upperBound + 1)
     }
     
 }
