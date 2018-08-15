@@ -75,7 +75,7 @@ class RtmMessaging {
             log.debug("WV_DATA: received \(version) rtm version.")
             
             guard handlersMapping.index(forKey: version) != nil, var handler = handlersMapping[version]! else {
-                log.error("There is no message handler for version: \(version).")
+                log.error("WV_DATA: There is no message handler for version: \(version).")
                 completion?(false)
                 return
             }

@@ -90,19 +90,19 @@ public class MockPaymentDeviceConnector: NSObject {
 extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
     
     public func connect() {
-        log.verbose("connecting")
+        log.verbose("MOCK_DEVICE: connecting")
         DispatchQueue.main.asyncAfter(deadline: .now() + connectDelayTime) {
             self.connected = true
             self.nfcState = PaymentDevice.SecurityNFCState.enabled
             let deviceInfo = self.deviceInfo()
-            log.verbose("triggering device data")
+            log.verbose("MOCK_DEVICE: triggering device data")
             self.paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])
             self.paymentDevice?.connectionState = PaymentDevice.ConnectionState.connected
         }
     }
     
     public func isConnected() -> Bool {
-        log.verbose("checking is connected")
+        log.verbose("MOCK_DEVICE: checking is connected")
         return connected
     }
     

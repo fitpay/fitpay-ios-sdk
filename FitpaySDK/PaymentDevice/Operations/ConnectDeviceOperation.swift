@@ -32,7 +32,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
                 } else if let publisher = self?.publisher {
                     self?.connect(observable: publisher)
                 } else {
-                    log.warning("Can't validate connection. Object deleted?")
+                    log.warning("SYNC_DATA: Can't validate connection. Object deleted?")
                 }
             }
         } else {

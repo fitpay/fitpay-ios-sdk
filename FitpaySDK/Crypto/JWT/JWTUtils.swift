@@ -6,7 +6,7 @@ class JWTUtils {
         guard let bodyData = value.base64URLdecoded() else {
             throw JWTError.invalidBase64Url
         }
-        
+                
         guard let json = try? JSONSerialization.jsonObject(with: bodyData, options: []), let payload = json as? [String: Any] else {
             throw JWTError.invalidJSON
         }

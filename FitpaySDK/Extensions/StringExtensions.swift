@@ -42,10 +42,7 @@ extension String {
     
     func base64URLdecoded() -> Data? {
         let base64EncodedString = convertBase64URLtoBase64(self)
-        if let decodedData = Data(base64Encoded: base64EncodedString, options: NSData.Base64DecodingOptions(rawValue: 0)) {
-            return decodedData
-        }
-        return nil
+        return Data(base64Encoded: base64EncodedString, options: NSData.Base64DecodingOptions(rawValue: 0))
     }
     
     // MARK: - Private

@@ -178,7 +178,7 @@ class JWE {
                                              iv: iv,
                                              tagLength: JWE.AuthenticationTagSize)
         } catch {
-            log.error("Can't decrypt data with a256gcm. Error: \(error).")
+            log.error("JWT: Can't decrypt data with a256gcm. Error: \(error).")
         }
         
         return decryptedData
@@ -202,7 +202,7 @@ class JWE {
             
             encryptResult = (cipherText, tag)
         } catch  {
-            log.error("Can't encrypt data with a256gcm. Error: \(error).")
+            log.error("JWT: Can't encrypt data with a256gcm. Error: \(error).")
         }
         
         return encryptResult

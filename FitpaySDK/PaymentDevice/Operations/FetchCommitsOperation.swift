@@ -90,7 +90,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
             return Observable.create({ [weak self] (observer) -> Disposable in
                 self?.deviceInfo.lastAckCommit(completion: { (commit, error) in
                     if let error = error {
-                        log.error("Can't get lastAckCommit. Error: \(error)")
+                        log.warning("SYNC_DATA: Can't get lastAckCommit. Error: \(error)")
                         // anyway continue sync process from beginning
                         observer.onNext("")
                     } else {

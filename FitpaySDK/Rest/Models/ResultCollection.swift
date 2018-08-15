@@ -47,7 +47,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
                     if var result = result as? ClientModel {
                         result.client = newValue
                     } else {
-                        log.error("Failed to convert \(result) to ClientModel")
+                        log.error("RESULT_COLLECTION: Failed to convert \(result) to ClientModel")
                     }
                 }
             }
@@ -97,13 +97,12 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
 
     open func collectAllAvailable(_ completion: @escaping CollectAllAvailableCompletion) {
         if let nextUrl = self.links?.url(self.nextResourceKey), let _ = self.results {
-            self.collectAllAvailable(self.results!, nextUrl: nextUrl, completion: {
-                (results, error) -> Void in
+            self.collectAllAvailable(self.results!, nextUrl: nextUrl) { (results, error) -> Void in
                 self.results = results
                 completion(self.results, error)
-            })
+            }
         } else {
-            log.error("Can't collect all available data, probably there is no 'next' URL.")
+            log.error("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
             completion(self.results, nil)
         }
     }

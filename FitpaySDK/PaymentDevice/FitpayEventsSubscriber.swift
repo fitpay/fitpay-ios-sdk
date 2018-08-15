@@ -79,7 +79,7 @@ open class FitpayEventsSubscriber {
     
     open func subscribeTo(event: EventType, subscriber: AnyObject, callback: @escaping EventCallback) {
         guard let binding = eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: callback), eventId: event) else {
-            log.error("FitpayEventsSusbcriber: can't create event binding for event: \(event.eventDescription())")
+            log.error("EVENTS_SUBSCRIBER: can't create event binding for event: \(event.eventDescription())")
             return
         }
         

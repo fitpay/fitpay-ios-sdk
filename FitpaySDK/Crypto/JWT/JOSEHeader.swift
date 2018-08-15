@@ -20,8 +20,8 @@ class JOSEHeader {
     }
     
     init(headerPayload: String) {
-        let headerData = headerPayload.base64URLdecoded()
-        guard let json = try? JSONSerialization.jsonObject(with: headerData!, options: .mutableContainers) else { return }
+        guard let headerData = headerPayload.base64URLdecoded() else { return }
+        guard let json = try? JSONSerialization.jsonObject(with: headerData, options: .mutableContainers) else { return }
         guard let mappedJson = json as? [String: String] else { return }
         
         cty = mappedJson["cty"]
@@ -80,18 +80,11 @@ class JOSEHeader {
             paramsDict["destination"] = destination!
         }
         
-        var jsonData: Data
-        do {
-            // we will serialize cty separately, because NSJSONSerialization is adding escape for "/"
-            let dataWithoutCty = try JSONSerialization.data(withJSONObject: paramsDict, options: JSONSerialization.WritingOptions(rawValue: 0))
-            jsonData = ((dataWithoutCty as NSData).mutableCopy() as! NSMutableData) as Data
-            
-            let ctyData = "{\"cty\":\"\(cty!)\",".data(using: String.Encoding.utf8)
-            jsonData.replaceSubrange(jsonData.startIndex..<jsonData.startIndex+1, with: ctyData!)
-        } catch let error {
-            throw error
-        }
-        
+        // we will serialize cty separately, because NSJSONSerialization is adding escape for "/"
+        var jsonData = try JSONSerialization.data(withJSONObject: paramsDict, options: JSONSerialization.WritingOptions(rawValue: 0))
+        let ctyData = "{\"cty\":\"\(cty!)\",".data(using: String.Encoding.utf8)
+        jsonData.replaceSubrange(jsonData.startIndex..<jsonData.startIndex+1, with: ctyData!)
+
         return jsonData.base64URLencoded()
     }
 }

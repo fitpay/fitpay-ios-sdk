@@ -44,7 +44,7 @@ open class RestClient: NSObject {
     var secret: Data {
         let secret = self.keyPair.generateSecretForPublicKey(key?.serverPublicKey ?? "")
         if secret == nil || secret?.count == 0 {
-            log.warning("Encription secret is empty.")
+            log.warning("REST_CLIENT: Encription secret is empty.")
         }
         return secret ?? Data()
     }

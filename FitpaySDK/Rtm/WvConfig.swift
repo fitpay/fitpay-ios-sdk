@@ -212,7 +212,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         let encodedConfig = utfString?.base64URLencoded()
         let configuredUrl = "\(url)?config=\(encodedConfig ?? "cantGenerateConfig_badJson?")"
         
-        log.verbose(configuredUrl)
+        log.verbose("WV_DATA: \(configuredUrl)")
         
         let requestUrl = URL(string: configuredUrl)
         let request = URLRequest(url: requestUrl!)
