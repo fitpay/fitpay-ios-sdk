@@ -22,7 +22,7 @@ class JWE {
     
     // MARK - Lifecycle
     
-    init(_ alg: JWSAlgorithm, enc: JWSEncryption, payload: String, keyId: String?) {
+    init(_ alg: JWTAlgorithm, enc: JWTEncryption, payload: String, keyId: String?) {
         self.header = JOSEHeader(encryption: enc, algorithm: alg)
         self.header!.kid = keyId
         self.payloadToEncrypt = payload
@@ -46,7 +46,7 @@ class JWE {
             throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == JWSAlgorithm.A256GCMKW && header?.enc == JWSEncryption.A256GCM) {
+        if (header?.alg == .A256GCMKW && header?.enc == .A256GCM) {
             let cek = String.random(JWE.CekSize).data(using: String.Encoding.utf8)
             let cekIV = String.random(JWE.CekIVSize).data(using: String.Encoding.utf8)
             
@@ -56,8 +56,8 @@ class JWE {
             let payloadIV = String.random(JWE.PayloadIVSize).data(using: String.Encoding.utf8)
             let encodedPayloadIV = payloadIV?.base64URLencoded()
             
-            let encodedHeader : Data!
-            let base64UrlHeader : String!
+            let encodedHeader: Data!
+            let base64UrlHeader: String!
             do {
                 header?.tag = cekCTTag
                 header?.iv = cekIV
@@ -88,7 +88,7 @@ class JWE {
             throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == JWSAlgorithm.A256GCMKW && header?.enc == JWSEncryption.A256GCM) {
+        if (header?.alg == .A256GCMKW && header?.enc == .A256GCM) {
             
             guard header!.iv != nil else {
                 throw JWTError.headersIVNotSpecified

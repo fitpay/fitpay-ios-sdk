@@ -3,8 +3,8 @@ import Foundation
 class JOSEHeader {
 
     var cty: String?
-    var enc: JWSEncryption?
-    var alg: JWSAlgorithm?
+    var enc: JWTEncryption?
+    var alg: JWTAlgorithm?
     var iv : Data?
     var tag: Data?
     var kid: String?
@@ -14,7 +14,7 @@ class JOSEHeader {
     
     // MARK: - Lifecycle
     
-    init(encryption: JWSEncryption, algorithm: JWSAlgorithm) {
+    init(encryption: JWTEncryption, algorithm: JWTAlgorithm) {
         enc = encryption
         alg = algorithm
     }
@@ -30,11 +30,11 @@ class JOSEHeader {
         tag = mappedJson["tag"]?.base64URLdecoded() as Data?
         
         if let encStr = mappedJson["enc"] {
-            enc = JWSEncryption(rawValue: encStr)
+            enc = JWTEncryption(rawValue: encStr)
         }
         
         if let algStr = mappedJson["alg"] {
-            alg = JWSAlgorithm(rawValue: algStr)
+            alg = JWTAlgorithm(rawValue: algStr)
         }
     }
     

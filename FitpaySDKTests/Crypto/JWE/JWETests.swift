@@ -8,7 +8,7 @@ class JWETests: XCTestCase {
     let sharedSecret = "NFxCwmIncymviQp9-KKKgH_8McGHWGgwV-T-RNkMI-U".base64URLdecoded()
     
     func testJWEEncryption() {
-        let jweObject = JWE(JWSAlgorithm.A256GCMKW, enc: JWSEncryption.A256GCM, payload: plainText, keyId: nil)
+        let jweObject = JWE(.A256GCMKW, enc: .A256GCM, payload: plainText, keyId: nil)
         expect(jweObject).toNot(beNil())
         
         guard let encryptResult = try? jweObject.encrypt(sharedSecret!) else {

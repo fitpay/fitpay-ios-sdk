@@ -124,8 +124,8 @@
 		27CFE1252123794000AE116B /* JWTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE1232123794000AE116B /* JWTUtils.swift */; };
 		27CFE12721237BC500AE116B /* JWSEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12621237BC500AE116B /* JWSEncryption.swift */; };
 		27CFE12821237BC500AE116B /* JWSEncryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12621237BC500AE116B /* JWSEncryption.swift */; };
-		27CFE12A21237BD200AE116B /* JWSAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12921237BD200AE116B /* JWSAlgorithm.swift */; };
-		27CFE12B21237BD200AE116B /* JWSAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12921237BD200AE116B /* JWSAlgorithm.swift */; };
+		27CFE12A21237BD200AE116B /* JWTAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12921237BD200AE116B /* JWTAlgorithm.swift */; };
+		27CFE12B21237BD200AE116B /* JWTAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12921237BD200AE116B /* JWTAlgorithm.swift */; };
 		27D94AF020B48107001DD434 /* WVDeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */; };
 		27D94AF120B4810B001DD434 /* WVDeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */; };
 		27E0302D20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
@@ -155,6 +155,8 @@
 		27FC9AF32124A82C00D748A4 /* JWSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9AF12124A82C00D748A4 /* JWSTests.swift */; };
 		27FC9AF52124AFB600D748A4 /* JWTUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9AF42124AFB600D748A4 /* JWTUtilsTests.swift */; };
 		27FC9AF62124AFB600D748A4 /* JWTUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9AF42124AFB600D748A4 /* JWTUtilsTests.swift */; };
+		27FC9AF82124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9AF72124B5A400D748A4 /* JOSEHeaderTests.swift */; };
+		27FC9AF92124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC9AF72124B5A400D748A4 /* JOSEHeaderTests.swift */; };
 		27FCBE6B20AE1761008EE9DA /* JSONCodingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */; };
 		3701AE3B1F13BA1B00550890 /* SyncEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701AE3A1F13BA1B00550890 /* SyncEvent.swift */; };
 		3701AE3C1F13BA1B00550890 /* SyncEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701AE3A1F13BA1B00550890 /* SyncEvent.swift */; };
@@ -550,7 +552,7 @@
 		27CFE120212371D900AE116B /* JWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWS.swift; sourceTree = "<group>"; };
 		27CFE1232123794000AE116B /* JWTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtils.swift; sourceTree = "<group>"; };
 		27CFE12621237BC500AE116B /* JWSEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWSEncryption.swift; sourceTree = "<group>"; };
-		27CFE12921237BD200AE116B /* JWSAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWSAlgorithm.swift; sourceTree = "<group>"; };
+		27CFE12921237BD200AE116B /* JWTAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTAlgorithm.swift; sourceTree = "<group>"; };
 		27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVDeviceStatus.swift; sourceTree = "<group>"; };
 		27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnkeyedDecodingContainerExtension.swift; sourceTree = "<group>"; };
 		27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeys.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 		27F82A8A20D07CA8005FA54D /* SecureElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureElement.swift; sourceTree = "<group>"; };
 		27FC9AF12124A82C00D748A4 /* JWSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWSTests.swift; sourceTree = "<group>"; };
 		27FC9AF42124AFB600D748A4 /* JWTUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtilsTests.swift; sourceTree = "<group>"; };
+		27FC9AF72124B5A400D748A4 /* JOSEHeaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JOSEHeaderTests.swift; sourceTree = "<group>"; };
 		3701AE3A1F13BA1B00550890 /* SyncEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEvent.swift; sourceTree = "<group>"; };
 		3701AE451F14C29900550890 /* ConnectDeviceOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectDeviceOperation.swift; sourceTree = "<group>"; };
 		3701AE461F14C29900550890 /* SyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncOperation.swift; sourceTree = "<group>"; };
@@ -871,6 +874,7 @@
 				9AB68E431C84A25B00A0E172 /* JWETests.swift */,
 				27FC9AF12124A82C00D748A4 /* JWSTests.swift */,
 				27FC9AF42124AFB600D748A4 /* JWTUtilsTests.swift */,
+				27FC9AF72124B5A400D748A4 /* JOSEHeaderTests.swift */,
 			);
 			path = JWE;
 			sourceTree = "<group>";
@@ -1317,7 +1321,7 @@
 			children = (
 				9AB68E3A1C84A1EC00A0E172 /* JWE.swift */,
 				9AB68E391C84A1EC00A0E172 /* JOSEHeader.swift */,
-				27CFE12921237BD200AE116B /* JWSAlgorithm.swift */,
+				27CFE12921237BD200AE116B /* JWTAlgorithm.swift */,
 				27CFE120212371D900AE116B /* JWS.swift */,
 				27CFE12621237BC500AE116B /* JWSEncryption.swift */,
 				27CFE11D21236FF500AE116B /* JWTError.swift */,
@@ -1786,7 +1790,7 @@
 				2782F82520F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85020F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
 				8C870F171D00EC630048A1DF /* Transforms.swift in Sources */,
-				27CFE12A21237BD200AE116B /* JWSAlgorithm.swift in Sources */,
+				27CFE12A21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				9AB68E3F1C84A1EC00A0E172 /* JWE.swift in Sources */,
 				27A4AE76206D916A002255A1 /* UserEventStreamManager.swift in Sources */,
 				37139BE21F177B21001EEE73 /* SyncRequest.swift in Sources */,
@@ -1961,6 +1965,7 @@
 				37D0CFE41ED599C00049B5AA /* SyncRequestsQueueTests.swift in Sources */,
 				37D908221F1E546700AA9F86 /* RtmMessagingTests.swift in Sources */,
 				2714B06B20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
+				27FC9AF82124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */,
 				27C0243520A4A27F00681023 /* TransformsTests.swift in Sources */,
 				91FD056220D1653500092234 /* CommitTests.swift in Sources */,
 				9AA5BDAB1C7B54B600EDF2F6 /* RestSessionTests.swift in Sources */,
@@ -2016,6 +2021,7 @@
 				37330EB720289E2100948BC6 /* TransactionTests.swift in Sources */,
 				91FD054320D1653400092234 /* CommitMetricsTests.swift in Sources */,
 				273C75D62121F74B005B9047 /* SwCryptTests.swift in Sources */,
+				27FC9AF92124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */,
 				91FD056920D1653500092234 /* UsersTests.swift in Sources */,
 				2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
 				91FD056320D1653500092234 /* CommitTests.swift in Sources */,
@@ -2049,7 +2055,7 @@
 				2782F82620F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85120F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
 				27F47B9E20EEB1ED0043B388 /* User.swift in Sources */,
-				27CFE12B21237BD200AE116B /* JWSAlgorithm.swift in Sources */,
+				27CFE12B21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				2735864620E13437005EDA9D /* CustomJSONArrayEncoding.swift in Sources */,
 				3A640B4A1DDF110E008AD936 /* RtmMessageResponse.swift in Sources */,
 				27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */,

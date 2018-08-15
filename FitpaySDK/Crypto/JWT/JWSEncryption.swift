@@ -1,5 +1,5 @@
 import Foundation
 
-enum JWSEncryption: String {
+enum JWTEncryption: String {
     case A256GCM = "A256GCM"
 }

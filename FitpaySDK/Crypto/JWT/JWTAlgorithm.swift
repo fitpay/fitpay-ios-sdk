@@ -1,6 +1,6 @@
 import Foundation
 
-enum JWSAlgorithm: String {
+enum JWTAlgorithm: String {
     case A256GCMKW = "A256GCMKW"
 }
 
