@@ -1,11 +1,4 @@
-//
-//  PaymentDevice.swift
-//  ActionSheetPicker-3.0
-//
-//  Created by Illya on 8/9/18.
-//
-
-import UIKit
+import Foundation
 
 struct PaymentDeviceStorage {
     var paymentDevice: PaymentDevice?

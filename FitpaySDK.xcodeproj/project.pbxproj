@@ -273,6 +273,8 @@
 		3AF3A8F11DDB15AE0037E105 /* ConsoleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3A8EE1DDB15AE0037E105 /* ConsoleOutput.swift */; };
 		3AF3A8F21DDB15AE0037E105 /* FitpaySDKLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF3A8EF1DDB15AE0037E105 /* FitpaySDKLogger.swift */; };
 		4109B037357B19B1DBF61B22 /* Pods_all_FitpaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6183344EC5F4DB31C005E1B /* Pods_all_FitpaySDK.framework */; };
+		4B93527321271E4F00869FDB /* PaymentDeviceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B93527221271E4F00869FDB /* PaymentDeviceStorage.swift */; };
+		4B93527421271E4F00869FDB /* PaymentDeviceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B93527221271E4F00869FDB /* PaymentDeviceStorage.swift */; };
 		8400F8AC1CA130C4003F15B2 /* NSData+CRC32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8400F8AB1CA130C4003F15B2 /* NSData+CRC32.swift */; };
 		8425931B1CAA605B0006FFA6 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425931A1CAA605B0006FFA6 /* SyncManager.swift */; };
 		8425931D1CAA613E0006FFA6 /* SyncStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8425931C1CAA613E0006FFA6 /* SyncStorage.swift */; };
@@ -586,6 +588,7 @@
 		3AF3A8EE1DDB15AE0037E105 /* ConsoleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleOutput.swift; sourceTree = "<group>"; };
 		3AF3A8EF1DDB15AE0037E105 /* FitpaySDKLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitpaySDKLogger.swift; sourceTree = "<group>"; };
 		3F7B78073594DF28D6A6DA5E /* Pods-all-FitpaySDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-all-FitpaySDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-all-FitpaySDK/Pods-all-FitpaySDK.release.xcconfig"; sourceTree = "<group>"; };
+		4B93527221271E4F00869FDB /* PaymentDeviceStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDeviceStorage.swift; sourceTree = "<group>"; };
 		576F8B977B9F8FB60903CA7D /* Pods_all_FitpaySDKTestsPods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_all_FitpaySDKTestsPods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8400F8AB1CA130C4003F15B2 /* NSData+CRC32.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+CRC32.swift"; sourceTree = "<group>"; };
 		8425931A1CAA605B0006FFA6 /* SyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
@@ -1145,6 +1148,7 @@
 		37139BDE1F177AE9001EEE73 /* SyncQueue */ = {
 			isa = PBXGroup;
 			children = (
+				4B93527221271E4F00869FDB /* PaymentDeviceStorage.swift */,
 				37139BDF1F177B04001EEE73 /* SyncRequestsQueue.swift */,
 				37139BE11F177B21001EEE73 /* SyncRequest.swift */,
 				37139BE41F177B8A001EEE73 /* BindedToDeviceSyncRequestQueue.swift */,
@@ -1793,6 +1797,7 @@
 				91185B7620615E0C00E5E1CE /* A2AContext.swift in Sources */,
 				27EA81D6208F8A3400FFBB56 /* PaymentDeviceUtils.swift in Sources */,
 				277C181720B33749003BD78B /* ResetDeviceResult.swift in Sources */,
+				4B93527321271E4F00869FDB /* PaymentDeviceStorage.swift in Sources */,
 				27EA32B521014A8F001EE6F0 /* NotificationType.swift in Sources */,
 				847264A11CA53D0800DE801D /* BLEDeviceInfoCollector.swift in Sources */,
 				847264981CA5263400DE801D /* PaymentDeviceConnectable.swift in Sources */,
@@ -2044,6 +2049,7 @@
 				27F82A8C20D07CA8005FA54D /* SecureElement.swift in Sources */,
 				1F5BBD812017450200F16B4F /* NotificationDetail.swift in Sources */,
 				3A93A0931DB8CA2C00A9FEB4 /* EncryptionKey.swift in Sources */,
+				4B93527421271E4F00869FDB /* PaymentDeviceStorage.swift in Sources */,
 				27EA32B621014A8F001EE6F0 /* NotificationType.swift in Sources */,
 				3A93A0941DB8CA2C00A9FEB4 /* BLEConstants.swift in Sources */,
 				27A5B65A20AF40260012BFB4 /* ImageWithOptions.swift in Sources */,
