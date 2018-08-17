@@ -1,16 +1,16 @@
 import Foundation
 
-class ResourceLink: CustomStringConvertible {
-    var target: String?
-    var href: String?
+open class ResourceLink: CustomStringConvertible {
+    open var target: String?
+    open var href: String?
     
-    var description: String {
+    open var description: String {
         return "\(ResourceLink.self)(\(target ?? "target nil"):\(href ?? "href nil"))"
     }
 }
 
 extension ResourceLink: Equatable {
-    static func == (lhs: ResourceLink, rhs: ResourceLink) -> Bool {
+    public static func == (lhs: ResourceLink, rhs: ResourceLink) -> Bool {
         return lhs.target == rhs.target && lhs.href == rhs.href
     }
     

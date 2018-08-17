@@ -16,6 +16,7 @@ class UsersTests: BaseTestProvider {
         let session = RestSession(restRequest: restRequest)
         restClient = RestClient(session: session, restRequest: restRequest)
         testHelper = TestHelper(session: session, client: restClient)
+        restClient.keyPair = MockSECP256R1KeyPair()
         
         FitpayConfig.clientId = "fp_webapp_pJkVp2Rl"
     

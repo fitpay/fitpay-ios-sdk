@@ -7,7 +7,7 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
     
     var client: RestClient?
     
-    var links: [ResourceLink]?
+    open var links: [ResourceLink]?
     
     private static let selfResourceKey = "self"
 
