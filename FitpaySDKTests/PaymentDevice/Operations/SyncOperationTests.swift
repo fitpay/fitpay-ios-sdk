@@ -16,6 +16,8 @@ class SyncOperationTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        Nimble.AsyncDefaults.Timeout = 4
+        
         disposeBag = DisposeBag()
         
         mocksFactory.commitsFetcher = commitsFetcher

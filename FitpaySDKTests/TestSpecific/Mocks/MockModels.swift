@@ -71,9 +71,16 @@ class MockModels {
     
     func getVerificationMethod() -> VerificationMethod? {
         let a2AContext = getA2AContext()?.toJSONString() ?? ""
-        let encryptionKey = try? VerificationMethod("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"verificationId\": \"\(someId)\", \"state\": \"AVAILABLE_FOR_SELECTION\", \"methodType\": \"TEXT_TO_CARDHOLDER_NUMBER\", \"value\": \"someValue\", \"verificationResult\": \"SUCCESS\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"lastModifiedTs\": \"\(someDate)\", \"lastModifiedTsEpoch\": \(timeEpoch), \"verifiedTs\": \"\(someDate)\", \"verifiedTsEpoch\": \(timeEpoch), \"appToAppContext\":\(a2AContext)}")
-        expect(encryptionKey).toNot(beNil())
-        return encryptionKey
+        let verificationMethod = try? VerificationMethod("{\"_links\":{\"select\":{\"href\":\"https://api.fit-pay.com/select\"}, \"verify\":{\"href\":\"https://api.fit-pay.com/verify\"}, \"card\":{\"href\":\"https://api.fit-pay.com/card\"}},\"verificationId\": \"\(someId)\", \"state\": \"AVAILABLE_FOR_SELECTION\", \"methodType\": \"TEXT_TO_CARDHOLDER_NUMBER\", \"value\": \"someValue\", \"verificationResult\": \"SUCCESS\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"lastModifiedTs\": \"\(someDate)\", \"lastModifiedTsEpoch\": \(timeEpoch), \"verifiedTs\": \"\(someDate)\", \"verifiedTsEpoch\": \(timeEpoch), \"appToAppContext\":\(a2AContext)}")
+        expect(verificationMethod).toNot(beNil())
+        return verificationMethod
+    }
+    
+    func getVerificationMethodWithoutLinks() -> VerificationMethod? {
+        let a2AContext = getA2AContext()?.toJSONString() ?? ""
+        let verificationMethod = try? VerificationMethod("{\"verificationId\": \"\(someId)\", \"state\": \"AVAILABLE_FOR_SELECTION\", \"methodType\": \"TEXT_TO_CARDHOLDER_NUMBER\", \"value\": \"someValue\", \"verificationResult\": \"SUCCESS\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"lastModifiedTs\": \"\(someDate)\", \"lastModifiedTsEpoch\": \(timeEpoch), \"verifiedTs\": \"\(someDate)\", \"verifiedTsEpoch\": \(timeEpoch), \"appToAppContext\":\(a2AContext)}")
+        expect(verificationMethod).toNot(beNil())
+        return verificationMethod
     }
     
     func getA2AContext() -> A2AContext? {

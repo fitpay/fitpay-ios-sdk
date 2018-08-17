@@ -6,10 +6,10 @@ import Nimble
 class JOSEHeaderTests: XCTestCase {
     
     func testInit() {
-        let joseHeader = JOSEHeader(encryption: JWTEncryption.A256GCM, algorithm: JWTAlgorithm.A256GCMKW)
+        let joseHeader = JOSEHeader(encryption: .A256GCM, algorithm: .A256GCMKW)
+        
         expect(joseHeader.enc).to(equal(.A256GCM))
         expect(joseHeader.alg).to(equal(.A256GCMKW))
-
     }
     
 }

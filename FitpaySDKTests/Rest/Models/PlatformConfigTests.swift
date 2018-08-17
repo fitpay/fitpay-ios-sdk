@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class PlatformConfigTests: XCTestCase {
@@ -7,6 +9,6 @@ class PlatformConfigTests: XCTestCase {
     func testConfigParsing() {
         let config = mockModels.getPlatformConfig()
         
-        XCTAssertEqual(config?.isUserEventStreamsEnabled, true)
+        expect(config?.isUserEventStreamsEnabled).to(beTrue())
     }
 }

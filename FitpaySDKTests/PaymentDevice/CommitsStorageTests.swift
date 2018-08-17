@@ -16,6 +16,9 @@ class CommitsStorageTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
+        Nimble.AsyncDefaults.Timeout = 4
+        
         deviceInfo = Device()
         deviceInfo.deviceIdentifier = "222-222-222"
         
