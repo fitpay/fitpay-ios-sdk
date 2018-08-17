@@ -15,6 +15,9 @@ class ArrayExtensionsTests: XCTestCase {
     func testFIFO() {
         var testArray: [String] = []
         
+        let nilString = testArray.dequeue()
+        expect(nilString).to(beNil())
+        
         testArray.enqueue("Test")
         expect(testArray.count).to(equal(1))
         expect(testArray[0]).to(equal("Test"))

@@ -147,9 +147,10 @@ class SyncManagerTests: XCTestCase {
     }
     
     func testCheckDissconnectHandlerDuringNonAPDUExecution() {
-        let expectation = super.expectation(description: "")
-
-        guard let commit = fetcher.getCreateCardCommit() else { XCTAssert(false, "Bad parsing."); return }
+        guard let commit = fetcher.getCreateCardCommit() else {
+            fail("Bad parsing.")
+            return
+        }
         fetcher.commits = [commit]
         
         let device = PaymentDevice()
@@ -158,14 +159,14 @@ class SyncManagerTests: XCTestCase {
         connector.disconnectDelayTime = 0.1
         _ = device.changeDeviceInterface(connector)
         
-        self.syncQueue.add(request: getSyncRequest1(device: connector.paymentDevice)) { (status, error) in
-            XCTAssertEqual(status, .failed)
-            XCTAssertNotNil(error)
-            XCTAssertEqual((error as NSError?)?.code, PaymentDevice.ErrorCode.nonApduProcessingTimeout.rawValue)
-            expectation.fulfill()
+        waitUntil { done in
+            self.syncQueue.add(request: self.getSyncRequest1(device: connector.paymentDevice)) { (status, error) in
+                expect(status).to(equal(.failed))
+                expect(error).toNot(beNil())
+                expect((error as NSError?)?.code).to(equal(PaymentDevice.ErrorCode.nonApduProcessingTimeout.rawValue))
+                done()
+            }
         }
-        
-        super.waitForExpectations(timeout: 2, handler: nil)
     }
     
     func testAPDUSyncTwoTimesWhenFirstWasFailedBecauseDeviceDisconnected() {
@@ -224,7 +225,6 @@ class SyncManagerTests: XCTestCase {
                 expect(status).to(equal(.failed))
                 expect(error).toNot(beNil())
                 expect((error as NSError?)?.code).to(equal(PaymentDevice.ErrorCode.apduSendingTimeout.rawValue))
-                device.commitProcessingTimeout = 30 // return to default state
                 done()
             }
         }
@@ -232,9 +232,10 @@ class SyncManagerTests: XCTestCase {
     }
     
     func testSyncNonAPDUTimeoutTest() {
-        let expectation = super.expectation(description: "")
-
-        guard let commit = fetcher.getCreateCardCommit() else { XCTAssert(false, "Bad parsing."); return }
+        guard let commit = fetcher.getCreateCardCommit() else {
+            fail("Bad parsing.")
+            return
+        }
         fetcher.commits = [commit]
         
         let device = PaymentDevice()
@@ -245,15 +246,14 @@ class SyncManagerTests: XCTestCase {
         
         device.commitProcessingTimeout = 0.2
         
-        self.syncQueue.add(request: getSyncRequest1(device: device)) { (status, error) in
-            XCTAssertEqual(status, .failed)
-            XCTAssertNotNil(error)
-            XCTAssertEqual((error as NSError?)?.code, PaymentDevice.ErrorCode.nonApduProcessingTimeout.rawValue)
-            device.commitProcessingTimeout = 30 // return to default state
-            expectation.fulfill()
+        waitUntil { done in
+            self.syncQueue.add(request: self.getSyncRequest1(device: device)) { (status, error) in
+                expect(status).to(equal(.failed))
+                expect(error).toNot(beNil())
+                expect((error as NSError?)?.code).to(equal(PaymentDevice.ErrorCode.nonApduProcessingTimeout.rawValue))
+                done()
+            }
         }
-        
-        super.waitForExpectations(timeout: 2, handler: nil)
     }
 }
 

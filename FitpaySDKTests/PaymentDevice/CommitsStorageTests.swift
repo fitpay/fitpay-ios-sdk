@@ -56,13 +56,13 @@ class CommitsStorageTests: XCTestCase {
     
     func testCheckLoadCommitIdFromDeviceWithWrongStorage () {
         var step = 0
-        
-        let expectation = super.expectation(description: "check load commitId from device with wrong storage")
-        
         let syncStorage = MockSyncStorage.sharedMockInstance
         let localCommitId = "654321"
+        
         syncStorage.setLastCommitId(self.deviceInfo.deviceIdentifier!, commitId: localCommitId)
+        
         let lastCommit = syncStorage.getLastCommitId(self.deviceInfo.deviceIdentifier!)
+        
         expect(lastCommit).to(equal(localCommitId))
         
         let fetch1 = FetchCommitsOperation(deviceInfo: self.deviceInfo,
@@ -70,28 +70,29 @@ class CommitsStorageTests: XCTestCase {
                                            syncStorage: syncStorage,
                                            connector: MockPaymentDeviceConnectorWithWrongStorage1(paymentDevice: self.paymentDevice))
         
-        fetch1.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-            expect(commitId).to(equal(localCommitId))
-            step += 1
-            if step == 2 {
-                expectation.fulfill()
-            }
-        }).disposed(by: self.disposeBag)
-        
         let fetch2 = FetchCommitsOperation(deviceInfo: self.deviceInfo,
                                            shouldStartFromSyncedCommit: true,
                                            syncStorage: syncStorage,
                                            connector: MockPaymentDeviceConnectorWithWrongStorage2(paymentDevice: self.paymentDevice))
         
-        fetch2.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
-            expect(commitId).to(equal(localCommitId))
-            step += 1
-            if step == 2 {
-                expectation.fulfill()
-            }
-        }).disposed(by: self.disposeBag)
-        
-        super.waitForExpectations(timeout: 2, handler: nil)
+        waitUntil { done in
+            fetch1.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
+                expect(commitId).to(equal(localCommitId))
+                step += 1
+                if step == 2 {
+                    done()
+                }
+            }).disposed(by: self.disposeBag)
+            
+            fetch2.generateCommitIdFromWhichWeShouldStart().subscribe(onNext: { (commitId) in
+                expect(commitId).to(equal(localCommitId))
+                step += 1
+                if step == 2 {
+                    done()
+                }
+            }).disposed(by: self.disposeBag)
+        }
+
     }
     
     func testCheckSavingCommitIdToDevice() {

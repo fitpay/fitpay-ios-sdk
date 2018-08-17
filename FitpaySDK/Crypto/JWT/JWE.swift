@@ -73,9 +73,7 @@ class JWE {
             let encodedCipherText = encryptedPayloadCt?.base64URLencoded()
             let encodedAuthTag = encryptedPayloadTag?.base64URLencoded()
             
-            guard base64UrlHeader != nil && encodedPayloadIV != nil && encodedCipherText != nil && encodedAuthTag != nil else {
-                return nil
-            }
+            guard base64UrlHeader != nil && encodedPayloadIV != nil && encodedCipherText != nil && encodedAuthTag != nil else { return nil }
             
             encryptedPayload = "\(base64UrlHeader!).\(encodedCekCt).\(encodedPayloadIV!).\(encodedCipherText!).\(encodedAuthTag!)"
         }
@@ -89,7 +87,6 @@ class JWE {
         }
         
         if (header?.alg == .A256GCMKW && header?.enc == .A256GCM) {
-            
             guard header!.iv != nil else {
                 throw JWTError.headersIVNotSpecified
             }
@@ -98,13 +95,9 @@ class JWE {
                 throw JWTError.headersTagNotSpecified
             }
             
-            guard ct != nil && tag != nil else {
-                return nil
-            }
+            guard ct != nil && tag != nil else { return nil }
+            guard let cek = A256GCMDecryptData(sharedSecret, data: cekCt!, iv: header!.iv! as Data, tag: header!.tag! as Data, aad: nil) else { return nil }
             
-            guard let cek = A256GCMDecryptData(sharedSecret, data: cekCt!, iv: header!.iv! as Data, tag: header!.tag! as Data, aad: nil) else {
-                return nil
-            }
             let jwe = encryptedPayload!.components(separatedBy: ".")
             let aad = jwe[0].data(using: String.Encoding.utf8)
             
@@ -153,10 +146,11 @@ class JWE {
         guard let decryptResult = try? jweResult.decrypt(secret) else { return nil }
         guard jweResult.header?.cty == "JWT" else { return nil }
         
-        let claimset = try? JWS(token: decryptResult!)
-        let payload = claimset?.body["data"] as? String
-
+        let jws = try? JWS(token: decryptResult!)
+        let payload = jws?.body["data"] as? String
+        
         return payload
+        
     }
     
     // MARK: - Private Functions

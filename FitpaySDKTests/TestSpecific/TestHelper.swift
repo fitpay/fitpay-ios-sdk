@@ -176,7 +176,7 @@ class TestHelper {
             XCTAssertNotNil(acceptedCard)
             
             if acceptedCard?.state != .pendingVerification && acceptedCard?.state != .pendingActive {
-                XCTFail("Need to have a pending verification or active after accepting terms")
+                fail("Need to have a pending verification or active after accepting terms")
             }
             
             if acceptedCard?.state == .pendingActive {
@@ -253,12 +253,12 @@ class TestHelper {
         }
         
         if pendingCard.state != TokenizationState.pendingActive {
-            XCTFail("Cards that aren't in pending active state will not transition to active")
+            fail("Cards that aren't in pending active state will not transition to active")
             return
         }
         
         if retries > 20 {
-            XCTFail("Exceeded retries waiting for pending active card to transition to active")
+            fail("Exceeded retries waiting for pending active card to transition to active")
             return
         }
         
@@ -267,7 +267,7 @@ class TestHelper {
         DispatchQueue.main.asyncAfter(deadline: time) {
             pendingCard.getCard() { (creditCard, error) in
                 guard error == nil else {
-                    XCTFail("failed to retrieve credit card will polling for active state")
+                    fail("failed to retrieve credit card will polling for active state")
                     return
                 }
                 

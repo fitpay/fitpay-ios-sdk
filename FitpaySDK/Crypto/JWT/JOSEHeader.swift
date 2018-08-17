@@ -59,10 +59,6 @@ class JOSEHeader {
             throw JWTError.headersTagNotSpecified
         }
         
-        if (cty == nil) {
-            cty = "application/json"
-        }
-        
         paramsDict["enc"] = enc?.rawValue
         paramsDict["alg"] = alg?.rawValue
         paramsDict["iv"]  = iv!.base64URLencoded()
@@ -78,6 +74,10 @@ class JOSEHeader {
         
         if (destination != nil) {
             paramsDict["destination"] = destination!
+        }
+        
+        if (cty == nil) {
+            cty = "application/json"
         }
         
         // we will serialize cty separately, because NSJSONSerialization is adding escape for "/"

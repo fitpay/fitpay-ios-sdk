@@ -1,5 +1,6 @@
 import XCTest
 import Alamofire
+import Nimble
 
 @testable import FitpaySDK
 
@@ -35,7 +36,7 @@ class UsersTests: XCTestCase {
 
         user.deleteUser { (error) in
             if error != nil {
-                XCTFail("error deleting user")
+                fail("error deleting user")
             }
             
             expectation.fulfill()
