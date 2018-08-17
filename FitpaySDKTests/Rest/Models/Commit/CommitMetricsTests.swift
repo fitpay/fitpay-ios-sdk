@@ -29,4 +29,11 @@ class CommitMetricsTests: XCTestCase {
         expect(json?["totalProcessingTimeMs"] as? Int64).to(equal(mockModels.timeEpoch))
         expect(json?["commits"]).toNot(beNil())
     }
+    
+    func testInit() {
+        let commitMetric = CommitMetrics()
+        expect(commitMetric.sdkVersion).to(equal(FitpayConfig.sdkVersion))
+        expect(commitMetric.osVersion).to(contain("iOS "))
+    }
+    
 }

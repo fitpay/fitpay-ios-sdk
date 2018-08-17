@@ -1056,11 +1056,11 @@
 		2782F83120F6B749004774E8 /* Commit */ = {
 			isa = PBXGroup;
 			children = (
-				1FE1479D201613CB005DEA29 /* CommitMetrics.swift */,
-				1FE147A220161F8B005DEA29 /* CommitStatistic.swift */,
 				374B62631EC9DA3C00A7CE62 /* ApduCommand.swift */,
 				CD0387D62F4EB734531CCEA9 /* ApduPackage.swift */,
 				CD038321306A4D9DE1077241 /* Commit.swift */,
+				1FE1479D201613CB005DEA29 /* CommitMetrics.swift */,
+				1FE147A220161F8B005DEA29 /* CommitStatistic.swift */,
 				2782F83520F6B82D004774E8 /* Enums */,
 			);
 			path = Commit;
@@ -1131,11 +1131,6 @@
 			isa = PBXGroup;
 			children = (
 				91FD053020D1652D00092234 /* AddressTests.swift */,
-				91FD052B20D1652B00092234 /* APDUCommandTests.swift */,
-				91FD053420D1652F00092234 /* ApduPackageTests.swift */,
-				91FD052A20D1652A00092234 /* CommitMetricsTests.swift */,
-				91FD052E20D1652C00092234 /* CommitStatisticTests.swift */,
-				91FD053A20D1653200092234 /* CommitTests.swift */,
 				91FD053B20D1653200092234 /* CreditCardTests.swift */,
 				91FD053F20D1653400092234 /* DeviceInfoTests.swift */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
@@ -1148,6 +1143,7 @@
 				91A4AC4720EBCD39005D057F /* RtmMessageTests.swift */,
 				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
 				27C0243320A4A21500681023 /* TransformsTests.swift */,
+				27F938FD2127765D0003D7A3 /* Commit */,
 				27F5E617212735A6002ED57A /* User */,
 				27F5E616212734DE002ED57A /* Verification */,
 			);
@@ -1223,6 +1219,18 @@
 				91FD053D20D1653300092234 /* UsersTests.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		27F938FD2127765D0003D7A3 /* Commit */ = {
+			isa = PBXGroup;
+			children = (
+				91FD052B20D1652B00092234 /* APDUCommandTests.swift */,
+				91FD053420D1652F00092234 /* ApduPackageTests.swift */,
+				91FD052A20D1652A00092234 /* CommitMetricsTests.swift */,
+				91FD052E20D1652C00092234 /* CommitStatisticTests.swift */,
+				91FD053A20D1653200092234 /* CommitTests.swift */,
+			);
+			path = Commit;
 			sourceTree = "<group>";
 		};
 		3701AE441F14C27000550890 /* Operations */ = {

@@ -178,9 +178,7 @@ class CommitsApplyer {
             return
         }
         
-        
         self.paymentDevice.apduPackageProcessingStarted(apduPackage) { [weak self] (error) in
-            
             guard error == nil else {
                 completion(error)
                 return

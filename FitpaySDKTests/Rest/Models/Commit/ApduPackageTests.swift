@@ -36,5 +36,26 @@ class ApduPackageTests: XCTestCase {
         expect(json?["apduPackageUrl"] as? String).to(equal("www.example.com"))
 
     }
+    
+    func testIsExpiredNoValid() {
+        let apduPackage = mockModels.getApduPackage()
+        apduPackage?.validUntilEpoch = nil
+        expect(apduPackage?.isExpired).to(beFalse())
+    }
+    
+    func testResponseDictionary() {
+        let apduPackage = ApduPackage()
+        apduPackage.packageId = "packageId"
+        apduPackage.state = APDUPackageResponseState.failed
+        apduPackage.executedEpoch = 1
+        apduPackage.executedDuration = 2
+        
+        let responseDict = apduPackage.responseDictionary
+        expect(responseDict["packageId"] as? String).to(equal("packageId"))
+        expect(responseDict["state"] as? String).to(equal("FAILED"))
+        expect(responseDict["executedTsEpoch"] as? Int64).to(equal(1000)) // fails as int
+        expect(responseDict["executedDuration"] as? Int).to(equal(2))
+        expect(responseDict["apduResponses"]).to(beNil())
+    }
 
 }

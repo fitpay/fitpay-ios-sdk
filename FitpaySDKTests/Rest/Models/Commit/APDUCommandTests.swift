@@ -27,4 +27,15 @@ class APDUCommandTests: XCTestCase {
         expect(json?["continueOnFailure"] as? Bool).to(beTrue())
 
     }
+    
+    func testResponseDictionary() {
+        let testResponseData = Data(base64Encoded: "eyJmb28iOiJiYXIyIn0=")
+
+        let apduComand = mockModels.getApduCommand()
+        apduComand?.responseData = testResponseData
+        
+        expect(apduComand?.responseDictionary["commandId"] as? String).to(equal("12345fsd"))
+        expect(apduComand?.responseDictionary["responseCode"] as? String).to(equal("227d"))
+        expect(apduComand?.responseDictionary["responseData"] as? String).to(equal(testResponseData?.hex))
+    }
 }
