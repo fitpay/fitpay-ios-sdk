@@ -1,45 +1,30 @@
 import Foundation
 
-public enum NotificationsType: String {
-    case withSync = "sync"
-    case withoutSync = "withoutsync"
-}
-
-public enum NotificationsEventType: Int, FitpayEventTypeProtocol {
-    case receivedSyncNotification = 0x1
-    case receivedSimpleNotification
-    
-    /**
-     *  AllNotificationsProcessed event called when processing of notification finished e.g.
-     *  sync with peyment device ect...
-     *  If processing was done in background, than in completion for this event you should call
-     *  fetchCompletionHandler from
-     *  application(_:didReceiveRemoteNotification:fetchCompletionHandler:).
-     */
-    case allNotificationsProcessed
-    
-    public func eventId() -> Int {
-        return rawValue
-    }
-    
-    public func eventDescription() -> String {
-        switch self {
-        case .receivedSyncNotification:
-            return "Received notification with sync operation"
-        case .receivedSimpleNotification:
-            return "Received simple notification without sync operation"
-        case .allNotificationsProcessed:
-            return "All notification processed"
-        }
-    }
-
-}
-
 open class FitpayNotificationsManager: NSObject {
-    open static let sharedInstance = FitpayNotificationsManager()
-    private var restClient: RestClient?
+
+    public static let sharedInstance = FitpayNotificationsManager()
     
     public typealias NotificationsPayload = [AnyHashable: Any]
+    
+    var notificationsToken: String = ""
+    
+    private let eventsDispatcher = FitpayEventDispatcher()
+    private var syncCompletedBinding: FitpayEventBinding?
+    private var syncFailedBinding: FitpayEventBinding?
+    private var notificationsQueue = [NotificationsPayload]()
+    private var currentNotification: NotificationsPayload?
+    private var restClient: RestClient?
+    
+    /**
+     Completion handler
+     
+     - parameter event: Provides event with payload in eventData property
+     */
+    public typealias NotificationsEventBlockHandler = (_ event: FitpayEvent) -> Void
+    
+    
+    // MARK - Public Functions
+    
     public func setRestClient(_ client: RestClient?) {
         restClient = client
     }
@@ -53,8 +38,8 @@ open class FitpayNotificationsManager: NSObject {
      - parameter payload: payload of notification
      */
     open func handleNotification(_ payload: NotificationsPayload) {
-        log.verbose("--- handling notification ---")
-
+        log.verbose("NOTIFICATIONS_DATA: handling notification")
+        
         let notificationDetail = self.notificationDetailFromNotification(payload)
         notificationDetail?.sendAckSync()
         
@@ -73,13 +58,6 @@ open class FitpayNotificationsManager: NSObject {
         
         SyncRequestQueue.sharedInstance.lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
     }
-    
-    /**
-     Completion handler
-     
-     - parameter event: Provides event with payload in eventData property
-     */
-    public typealias NotificationsEventBlockHandler = (_ event: FitpayEvent) -> Void
     
     /**
      Binds to the event using NotificationsEventType and a block as callback.
@@ -117,22 +95,12 @@ open class FitpayNotificationsManager: NSObject {
     }
     
     open func updateRestClientForNotificationDetail(_ notificationDetail: NotificationDetail?) {
-        if let notificationDetail = notificationDetail {
-            if notificationDetail.restClient == nil {
-                notificationDetail.restClient = self.restClient
-            }
+        if let notificationDetail = notificationDetail, notificationDetail.restClient == nil {
+            notificationDetail.restClient = self.restClient
         }
     }
-
-    // MARK: internal
-    var notificationsToken: String = ""
     
-    // MARK: private
-    private let eventsDispatcher = FitpayEventDispatcher()
-    private var syncCompletedBinding: FitpayEventBinding?
-    private var syncFailedBinding: FitpayEventBinding?
-    private var notificationsQueue = [NotificationsPayload]()
-    private var currentNotification: NotificationsPayload?
+    // MARK: - Private Functions
     
     private func processNextNotificationIfAvailable() {
         log.verbose("NOTIFICATIONS_DATA: Processing next notification if available.")
@@ -143,38 +111,40 @@ open class FitpayNotificationsManager: NSObject {
         
         if notificationsQueue.peekAtQueue() == nil {
             log.verbose("NOTIFICATIONS_DATA: peeked at queue and found nothing.")
-            self.callAllNotificationProcessedCompletion()
+            callAllNotificationProcessedCompletion()
             return
         }
         
-        self.currentNotification = notificationsQueue.dequeue()
-        if let currentNotification = self.currentNotification {
-            var notificationType = NotificationsType.withoutSync
-
-            if (currentNotification["fpField1"] as? String)?.lowercased() == "sync" {
-                log.debug("NOTIFICATIONS_DATA: notification was of type sync.")
-                notificationType = NotificationsType.withSync
-            }
-            
-            callReceivedCompletion(currentNotification, notificationType: notificationType)
-            switch notificationType {
-            case .withSync:
-                let notificationDetail = self.notificationDetailFromNotification(currentNotification)
-                SyncRequestQueue.sharedInstance.add(request: SyncRequest(notificationAsc: notificationDetail, initiator: SyncInitiator.notification), completion: { (status, error) in
-                    self.currentNotification = nil
-                    self.processNextNotificationIfAvailable()
-                })
-                break
-            case .withoutSync: // just call completion
-                log.debug("NOTIFICATIONS_DATA: notif was non-sync.")
+        currentNotification = notificationsQueue.dequeue()
+        guard let currentNotification = self.currentNotification else {
+            return
+        }
+        
+        var notificationType = NotificationType.withoutSync
+        
+        if (currentNotification["fpField1"] as? String)?.lowercased() == "sync" {
+            log.debug("NOTIFICATIONS_DATA: notification was of type sync.")
+            notificationType = NotificationType.withSync
+        }
+        
+        callReceivedCompletion(currentNotification, notificationType: notificationType)
+        switch notificationType {
+        case .withSync:
+            let notificationDetail = notificationDetailFromNotification(currentNotification)
+            SyncRequestQueue.sharedInstance.add(request: SyncRequest(notification: notificationDetail, initiator: .notification)) { (status, error) in
                 self.currentNotification = nil
-                processNextNotificationIfAvailable()
-                break
+                self.processNextNotificationIfAvailable()
             }
+            break
+        case .withoutSync: // just call completion
+            log.debug("NOTIFICATIONS_DATA: notification was non-sync.")
+            self.currentNotification = nil
+            processNextNotificationIfAvailable()
+            break
         }
     }
     
-    private func callReceivedCompletion(_ payload: NotificationsPayload, notificationType: NotificationsType) {
+    private func callReceivedCompletion(_ payload: NotificationsPayload, notificationType: NotificationType) {
         var eventType: NotificationsEventType
         switch notificationType {
         case .withSync:
@@ -200,5 +170,5 @@ open class FitpayNotificationsManager: NSObject {
         }
         return nil
     }
-
+    
 }

@@ -8,7 +8,6 @@ open class ImageWithOptions: Image {
         let resource = ImageWithOptions.selfResourceKey
         let url = self.links?.url(resource)
         if let url = url, let client = self.client, let urlString = updateUrlAssetWith(urlString: url, options: options) {
-            print(urlString)
             client.assets(urlString, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: Image.self, client: client, url: url, resource: resource)

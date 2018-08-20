@@ -22,9 +22,7 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
         case apiErrorDetails
         
         func msgHandlerFor(handlerObject: RtmMessageHandler) -> MessageTypeHandler? {
-            guard let handlerObject = handlerObject as? RtmMessageHandlerV5 else {
-                return nil
-            }
+            guard let handlerObject = handlerObject as? RtmMessageHandlerV5 else { return nil }
             
             switch self {
             case .userData:
@@ -57,6 +55,11 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
         }
     }
     
+    
+    private var appToAppMessage: RtmMessage?
+
+    // MARK: - Functions
+    
     override func handlerFor(rtmMessage: String) -> MessageTypeHandler? {
         guard let messageAction = RtmMessageTypeVer5(rawValue: rtmMessage) else {
             log.debug("WV_DATA: RtmMessage. Action is missing or unknown: \(rtmMessage)")
@@ -64,6 +67,27 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
         }
         
         return messageAction.msgHandlerFor(handlerObject: self)
+    }
+    
+    override func appToAppVerificationResponse(success: Bool, reason: A2AVerificationError?) {
+        guard let delegate = self.outputDelegate else { return }
+        guard let appToAppMessage = appToAppMessage else { return }
+        
+        if success {
+            delegate.send(rtmMessage: RtmMessageResponse(callbackId: appToAppMessage.callBackId,
+                                                         data: appToAppMessage.data,
+                                                         type: RtmMessageTypeVer5.appToAppVerification.rawValue,
+                                                         success: true), retries: 3)
+        } else if let reason = reason {
+            let data = ["reason": reason.rawValue]
+            delegate.send(rtmMessage: RtmMessageResponse(callbackId: appToAppMessage.callBackId,
+                                                         data: data,
+                                                         type: RtmMessageTypeVer5.appToAppVerification.rawValue,
+                                                         success: false), retries: 3)
+            
+        }
+        
+        self.appToAppMessage = nil
     }
     
     // MARK: - Private
@@ -86,39 +110,20 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
     }
     
     private func handleAppToAppVerificationRequest(_ message: RtmMessage) {
-        guard let delegate = self.outputDelegate else { return }
+        appToAppMessage = message
         
-        func appToAppVerificationFailed(reason: A2AVerificationError) {
-            guard let delegate = self.outputDelegate else { return }
-            
-            let data = ["reason": reason.rawValue]
-            delegate.send(rtmMessage: RtmMessageResponse(callbackId: message.callBackId,
-                                                         data: data,
-                                                         type: RtmMessageTypeVer5.appToAppVerification.rawValue,
-                                                         success: false), retries: 3)
+        guard let appToAppVerification = try? A2AVerificationRequest(message.data) else {
+            appToAppVerificationResponse(success: false, reason: .cantProcess)
+            return
         }
         
-        if (FitpayConfig.supportApp2App) {
-            guard let appToAppVerification = try? A2AVerificationRequest(message.data) else {
-                appToAppVerificationFailed(reason: A2AVerificationError.cantProcess)
-                return
-            }
-            
-            let mastercard = "MASTERCARD"
-            if appToAppVerification.cardType != mastercard {
-                delegate.send(rtmMessage: RtmMessageResponse(callbackId: message.callBackId,
-                                                             data: message.data,
-                                                             type: RtmMessageTypeVer5.appToAppVerification.rawValue,
-                                                             success: true), retries: 3)
-                
-                a2aVerificationDelegate?.verificationFinished(verificationInfo: appToAppVerification)
-                self.wvConfigStorage.a2aReturnLocation = appToAppVerification.returnLocation
-            } else {
-                appToAppVerificationFailed(reason: A2AVerificationError.notSupported)
-            }
-        } else {
-            appToAppVerificationFailed(reason: A2AVerificationError.notSupported)
+        guard FitpayConfig.supportApp2App && appToAppVerification.cardType != "MASTERCARD" else {
+            appToAppVerificationResponse(success: false, reason: .notSupported)
+            return
         }
+        
+        a2aVerificationDelegate?.verificationFinished(verificationInfo: appToAppVerification)
+        wvConfigStorage.a2aReturnLocation = appToAppVerification.returnLocation
     }
 
     private func handleApiErrorDetails(_ message: RtmMessage) {

@@ -1,20 +1,29 @@
 import Foundation
 import RxSwift
 
-enum SyncOperationError: Error {
-    case deviceIdentifierIsNil
-    case couldNotConnectToDevice
-    case paymentDeviceDisconnected
-    case cantFetchCommits
-    case alreadySyncing
-    case unk
-}
-
 class SyncOperation {
+
+    var fetchCommitsOperation: FetchCommitsOperationProtocol // Dependency Injection
+    var commitsApplyer: CommitsApplyer
     
-    init(paymentDevice: PaymentDevice, connector: PaymentDeviceConnectable,
-         deviceInfo: DeviceInfo, user: User, syncFactory: SyncFactory,
-         syncStorage: SyncStorage = SyncStorage.sharedInstance, request: SyncRequest? = nil) {
+    private var paymentDevice: PaymentDevice
+    private var connector: PaymentDeviceConnectable
+    private var deviceInfo: Device
+    private var user: User
+    private var connectOperation: ConnectDeviceOperationProtocol
+    private var eventsAdapter: SyncOperationStateToSyncEventAdapter
+    private var syncStorage: SyncStorage
+    private var syncRequest: SyncRequest?
+    
+    private var syncEventsPublisher: PublishSubject<SyncEvent>
+    private var state: Variable<SyncOperationState>
+    private var disposeBag = DisposeBag()
+    
+    private var isSyncing = false
+    
+    // MARK: - Lifecycle
+    
+    init(paymentDevice: PaymentDevice, connector: PaymentDeviceConnectable, deviceInfo: Device, user: User, syncFactory: SyncFactory, syncStorage: SyncStorage = SyncStorage.sharedInstance, syncRequest: SyncRequest) {
         
         self.paymentDevice = paymentDevice
         self.connector     = connector
@@ -35,17 +44,10 @@ class SyncOperation {
         self.fetchCommitsOperation = syncFactory.commitsFetcherOperationWith(deviceInfo: deviceInfo, connector: connector)
         
         self.syncStorage = syncStorage
-        self.syncRequest = request
+        self.syncRequest = syncRequest
     }
     
-    enum SyncOperationState {
-        case waiting
-        case started
-        case connecting
-        case connected
-        case commitsReceived(commits: [Commit])
-        case completed(Error?)
-    }
+    // MARK: - Internal Functions
     
     func start() -> Observable<SyncEvent> {
         self.state.asObservable().subscribe(onNext: { [weak self] (state) in
@@ -62,8 +64,8 @@ class SyncOperation {
         }).disposed(by: disposeBag)
         
         guard self.isSyncing == false else {
-            self.state.value = .completed(SyncOperationError.alreadySyncing)
-            return self.eventsAdapter.startAdapting()
+            state.value = .completed(SyncOperationError.alreadySyncing)
+            return eventsAdapter.startAdapting()
         }
         
         // we need to update notification token first, because during sync we can receive push notifications
@@ -71,29 +73,10 @@ class SyncOperation {
             self?.startSync()
         }
         
-        return self.eventsAdapter.startAdapting()
+        return eventsAdapter.startAdapting()
     }
     
-    // MARK: internal
-    var fetchCommitsOperation: FetchCommitsOperationProtocol // Dependency Injection
-    var commitsApplyer: CommitsApplyer
-    
-    // MARK: private
-    private var paymentDevice: PaymentDevice
-    private var connector: PaymentDeviceConnectable
-    private var deviceInfo: DeviceInfo
-    private var user: User
-    private var connectOperation: ConnectDeviceOperationProtocol
-    private var eventsAdapter: SyncOperationStateToSyncEventAdapter
-    private var syncStorage: SyncStorage
-    public var syncRequest: SyncRequest?
-    
-    // rx
-    private var syncEventsPublisher: PublishSubject<SyncEvent>
-    private var state: Variable<SyncOperationState>
-    private var disposeBag = DisposeBag()
-    
-    private var isSyncing = false
+    // MARK: - Private Functions
     
     private func startSync() {
         self.connectOperation.start().subscribe() { [weak self] (event) in
@@ -161,18 +144,19 @@ class SyncOperation {
     }
     
     private func sendCommitsMetric() {
-        guard (self.syncRequest?.notificationAsc) != nil else { return }
+        guard (self.syncRequest?.notification) != nil else { return }
         
         let currentTimestamp = Date().timeIntervalSince1970
         
         let metric = CommitMetrics()
-        metric.commitStatistics = self.commitsApplyer.commitStatistics
+        metric.commitStatistics = commitsApplyer.commitStatistics
         metric.deviceId = deviceInfo.deviceIdentifier
         metric.userId = user.id
-        metric.initiator = self.syncRequest?.syncInitiator
-        metric.notificationAsc = self.syncRequest?.notificationAsc
-        metric.totalProcessingTimeMs = Int((currentTimestamp - (self.syncRequest?.syncStartTime?.timeIntervalSince1970)!)*1000)
+        metric.initiator = syncRequest?.syncInitiator
+        metric.notification = syncRequest?.notification
+        metric.totalProcessingTimeMs = Int((currentTimestamp - (syncRequest?.syncStartTime?.timeIntervalSince1970)!)*1000)
         
         metric.sendCompleteSync()
     }
+
 }

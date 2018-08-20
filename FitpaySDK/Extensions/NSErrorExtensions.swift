@@ -17,10 +17,8 @@ extension NSError {
     }
     
     class func errorWithData(code: Int, domain: Any, data: Data?, alternativeError: NSError? = nil) -> NSError {
-        if let messages = data?.errorMessages {
-            if messages.count > 0 {
-                return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: messages[0]])
-            }
+        if let messages = data?.errorMessages,  messages.count > 0 {
+            return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: messages[0]])
         } else if let message = data?.errorMessage {
             return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: message])
         } else if let message = data?.UTF8String {

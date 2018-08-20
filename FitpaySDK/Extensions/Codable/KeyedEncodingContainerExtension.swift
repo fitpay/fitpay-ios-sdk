@@ -23,7 +23,7 @@ extension KeyedEncodingContainer {
         try container.encodeJSONArray(value)
     }
     
-    mutating func encodeIfPresent(_ value: Array<Any>?, forKey key: Key) throws {
+    mutating func encodeIfPresent(_ value: Array<Any>?, key: Key) throws {
         if let value = value {
             try encode(value, forKey: key)
         }
@@ -46,6 +46,8 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
             case let value as Double:
                 try encode(value, forKey: key)
             case Optional<Any>.none:
+                try encodeNil(forKey: key)
+            case _ as NSNull:
                 try encodeNil(forKey: key)
             default:
                 throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: codingPath + [key], debugDescription: "Invalid JSON value"))

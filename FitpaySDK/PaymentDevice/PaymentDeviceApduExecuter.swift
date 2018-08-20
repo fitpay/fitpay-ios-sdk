@@ -1,30 +1,28 @@
 import Foundation
 
-enum PaymentDeviceAPDUExecuterError: Error {
-    case alreadyExecuting
-    case deviceShouldBeConnected
-    case wrong
-    case responseDataIsEmpty
-}
-
 class PaymentDeviceApduExecuter {
     weak var paymentDevice: PaymentDevice?
+    
     var isExecuting: Bool = false
     var completion: PaymentDevice.APDUExecutionHandler!
     var currentApduCommand: APDUCommand!
     var prevResponsesData: Data?
     
     // bindings
-    private weak var deviceDisconnectedBinding : FitpayEventBinding?
+    private weak var deviceDisconnectedBinding: FitpayEventBinding?
     
     typealias OnResponseReadyToHandle = (_ apduResultMessage: ApduResultMessage?, _ state: String?, _ error: Error?) -> Void
     typealias ExecutionBlock = (_ command: APDUCommand, _ completion: @escaping OnResponseReadyToHandle) -> Void
     
     var executionBlock: ExecutionBlock!
     
+    // MARK: - Lifeycle
+    
     init(paymentDevice: PaymentDevice) {
         self.paymentDevice = paymentDevice
     }
+    
+    // MARK: - Internal Functions
     
     func execute(command: APDUCommand, executionBlock: @escaping ExecutionBlock, completion: @escaping PaymentDevice.APDUExecutionHandler) throws {
         guard !self.isExecuting else {
@@ -43,11 +41,11 @@ class PaymentDeviceApduExecuter {
         self.currentApduCommand = command
         self.executionBlock = executionBlock
         
-        self.deviceDisconnectedBinding = self.paymentDevice?.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected, completion: { [weak self] (event) in
+        self.deviceDisconnectedBinding = self.paymentDevice?.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected) { [weak self] (event) in
             log.error("APDU_DATA: Device was disconnected during APDU execution.")
             self?.isExecuting = false
             self?.completion(nil, nil, NSError.error(code: PaymentDevice.ErrorCode.deviceWasDisconnected, domain: PaymentDevice.self))
-        })
+        }
         
         
         self.executionBlock(command, self.handleApduResponse)
@@ -64,6 +62,15 @@ class PaymentDeviceApduExecuter {
         
         self.executionBlock(command, self.handleApduResponse)
     }
+
+    func removeDisconnectedBinding() {
+        if let binding = self.deviceDisconnectedBinding {
+            self.paymentDevice?.removeBinding(binding: binding)
+            self.deviceDisconnectedBinding = nil
+        }
+    }
+    
+    // MARK: - Private Functions
     
     private func handleApduResponse(_ apduResultMessage: ApduResultMessage?, _ state: String?, _ error: Error?) {
         if let error = error {
@@ -110,10 +117,15 @@ class PaymentDeviceApduExecuter {
         completion(apduCommand, nil, nil)
     }
     
-    func removeDisconnectedBinding() {
-        if let binding = self.deviceDisconnectedBinding {
-            self.paymentDevice?.removeBinding(binding: binding)
-            self.deviceDisconnectedBinding = nil
-        }
+}
+
+extension PaymentDeviceApduExecuter {
+    
+    enum PaymentDeviceAPDUExecuterError: Error {
+        case alreadyExecuting
+        case deviceShouldBeConnected
+        case wrong
+        case responseDataIsEmpty
     }
+    
 }

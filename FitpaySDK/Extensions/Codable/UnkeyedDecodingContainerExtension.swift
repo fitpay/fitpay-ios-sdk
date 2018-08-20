@@ -37,7 +37,7 @@ extension UnkeyedDecodingContainer {
                 array.append(nonNullValue)
             } else if let value = try? decode(String.self) as? T, let nonNullValue = value {
                 array.append(nonNullValue)
-            } else if let value = try? decode(DeviceInfo.self) as? T, let nonNullValue = value {
+            } else if let value = try? decode(Device.self) as? T, let nonNullValue = value {
                 array.append(nonNullValue)
             } else if let value = try? decode(CreditCard.self) as? T, let nonNullValue = value {
                 array.append(nonNullValue)

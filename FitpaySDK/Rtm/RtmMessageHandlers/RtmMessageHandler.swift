@@ -27,7 +27,8 @@ protocol RtmMessageHandler {
     func handleSdkVersion(_ message: RtmMessage)
 
     func resolveSync()
-    
+    func appToAppVerificationResponse(success: Bool, reason: A2AVerificationError?)
+
     func logoutResponseMessage() -> RtmMessageResponse?
     func statusResponseMessage(message: String, type: WvConfig.WVMessageType) -> RtmMessageResponse?
     func versionResponseMessage(version: WvConfig.RtmProtocolVersion) -> RtmMessageResponse?

@@ -98,7 +98,7 @@ import Foundation
         return ErrorResponse(domain: domain, errorCode: 0, errorMessage: "Unhandled error")
     }
 
-    class func clientUrlError(domain: AnyClass, client: RestClientInterface?, url: String?, resource: String) -> ErrorResponse? {
+    class func clientUrlError(domain: AnyClass, client: RestClient?, url: String?, resource: String) -> ErrorResponse? {
         if client == nil {
             return ErrorResponse(domain: domain, errorCode: 0, errorMessage: "\(RestClient.self) is not set.")
         }

@@ -25,13 +25,13 @@ class BLEDeviceInfoCollector {
         return deviceInfoMap.count == BLEDeviceInfoCollector.characteristicBindings.count
     }
     
-    var deviceInfo: DeviceInfo? {
+    var deviceInfo: Device? {
         guard isCollected else { return nil }
         
         if let secureElementId = deviceInfoMap["secureElementId"] {
             deviceInfoMap["secureElement"] = ["secureElementId": secureElementId]
         }
         
-        return try? DeviceInfo(deviceInfoMap)
+        return try? Device(deviceInfoMap)
     }
 }

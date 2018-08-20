@@ -48,7 +48,7 @@ extension KeyedDecodingContainer {
         return object
     }
     
-    func decode<T>(_ type: Array<T>.Type, forKey key: K) throws -> Array<T> {
+    func decode<T>(_ type: Array<T>.Type, key: K) throws -> Array<T> {
         var container = try self.nestedUnkeyedContainer(forKey: key)
         let object = try container.decode(type, array: true)
         return object!

@@ -13,7 +13,7 @@ open class Transaction: NSObject, ClientModel, Serializable {
     open var merchantCode: String?
     open var merchantType: String?
     
-    weak var client: RestClientInterface?
+    weak var client: RestClient?
     
     var links: [ResourceLink]?
     

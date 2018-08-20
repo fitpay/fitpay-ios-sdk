@@ -46,7 +46,7 @@
     func executeAPDUCommand(_ apduCommand: APDUCommand)
 
     /// - Returns: DeviceInfo if phone already connected to payment device
-    func getDeviceInfo() -> DeviceInfo?
+    func deviceInfo() -> Device?
     
     /// Reset to default state
     func resetToDefaultState()

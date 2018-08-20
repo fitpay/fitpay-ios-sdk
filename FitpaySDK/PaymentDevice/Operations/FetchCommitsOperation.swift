@@ -2,24 +2,23 @@ import Foundation
 import RxSwift
 
 protocol FetchCommitsOperationProtocol {
-    var deviceInfo: DeviceInfo! { get set }
+    var deviceInfo: Device! { get set }
     
     func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]>
 }
 
 class FetchCommitsOperation: FetchCommitsOperationProtocol {
     
-    public var deviceInfo: DeviceInfo!
-    private var connector: PaymentDeviceConnectable?
+    var deviceInfo: Device!
     
-    // private
+    private var connector: PaymentDeviceConnectable?
     private let syncStorage: SyncStorage
     private let startFromSyncedCommit: Bool
     private let disposeBag = DisposeBag()
     
     private let publisher = PublishSubject<[Commit]>()
     
-    init(deviceInfo: DeviceInfo, shouldStartFromSyncedCommit: Bool = false, syncStorage: SyncStorage = SyncStorage.sharedInstance, connector: PaymentDeviceConnectable? = nil) {
+    init(deviceInfo: Device, shouldStartFromSyncedCommit: Bool = false, syncStorage: SyncStorage = SyncStorage.sharedInstance, connector: PaymentDeviceConnectable? = nil) {
         self.deviceInfo = deviceInfo
         self.startFromSyncedCommit = shouldStartFromSyncedCommit
         self.syncStorage = syncStorage
@@ -97,7 +96,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
                         // anyway continue sync process from beginning
                         observer.onNext("")
                     } else {
-                        observer.onNext(commit?.commit ?? "")
+                        observer.onNext(commit?.commitId ?? "")
                     }
                     
                     observer.onCompleted()

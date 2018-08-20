@@ -7,6 +7,7 @@ enum EventSourceState {
 }
 
 class EventSource: NSObject {
+    
     let url: URL
     
     private let lastEventIDKey: String

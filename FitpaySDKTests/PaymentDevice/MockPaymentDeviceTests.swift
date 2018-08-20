@@ -30,13 +30,11 @@ class MockPaymentDeviceTests: XCTestCase {
     func testConnectToDeviceCheck() {
         let expectation = super.expectation(description: "connection to device check")
         let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
-            debugPrint("event: \(event), eventData: \(event.eventData)")
             let deviceInfo = self.paymentDevice.deviceInfo
             let error = (event.eventData as? [String:Any])?["error"]
             
             XCTAssertNil(error)
             XCTAssertNotNil(deviceInfo)
-            XCTAssertNotNil(deviceInfo?.secureElementId)
             XCTAssertEqual(deviceInfo!.deviceType, "WATCH")
             XCTAssertEqual(deviceInfo!.manufacturerName, "Fitpay")
             XCTAssertEqual(deviceInfo!.deviceName, "PSPS")
@@ -72,7 +70,6 @@ class MockPaymentDeviceTests: XCTestCase {
                 XCTAssert(command!.responseCode == successResponse)
                 
                 self.paymentDevice.executeAPDUCommand(self.command2) { (command, state, error) -> Void in
-                    debugPrint("apduResponse: \(String(describing: command))")
                     XCTAssertNil(error)
                     XCTAssertNotNil(command)
                     XCTAssert(command!.responseCode == successResponse)
@@ -102,7 +99,6 @@ class MockPaymentDeviceTests: XCTestCase {
                 
                 func execute(command: APDUCommand) {
                     self.paymentDevice.executeAPDUCommand(command) { (command, state, error) -> Void in
-                        debugPrint("apduResponse: \(String(describing: command))")
                         XCTAssertNil(error)
                         XCTAssertNotNil(command)
                         XCTAssert(command!.responseCode == successResponse)

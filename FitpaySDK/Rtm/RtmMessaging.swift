@@ -38,10 +38,8 @@ class RtmMessaging {
     
     typealias RtmRawMessageCompletion = ((_ success: Bool) -> Void)
     
-    func received(message: [String: Any], completion: RtmRawMessageCompletion? = nil) {
-        let jsonData = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
-        
-        guard let rtmMessage = try? RtmMessage(String(data: jsonData!, encoding: .utf8)) else {
+    func received(message: [String: Any], completion: RtmRawMessageCompletion? = nil) {        
+        guard let rtmMessage = try? RtmMessage(message) else {
             log.error("WV_DATA: Can't create RtmMessage.")
             completion?(false)
             return

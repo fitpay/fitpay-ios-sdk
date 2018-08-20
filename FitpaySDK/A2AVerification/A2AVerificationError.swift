@@ -1,6 +1,9 @@
 // Errors for A2AVerificationRequest
-enum A2AVerificationError: String {
-    case cantProcess  = "cantProcessVerification"
-    case notSupported = "appToAppNotSupported"
-    case unknown      = "unknown"
+public enum A2AVerificationError: String {
+    case cantProcess    = "cantProcessVerification"
+    case declined       = "appToAppDeclined"
+    case failure        = "appToAppFailure"
+    case notSupported   = "appToAppNotSupported"
+    case unknown        = "unknown"
+    case silentUnknown  = "silentUnknown"
 }

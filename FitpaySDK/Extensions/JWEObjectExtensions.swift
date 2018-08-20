@@ -2,7 +2,7 @@ import JWTDecode
 
 extension JWEObject {
     
-    class func decrypt<T>(_ encryptedData:String?, expectedKeyId:String?, secret:Data )->T? where T : Serializable {
+    class func decrypt<T>(_ encryptedData: String?, expectedKeyId: String?, secret: Data) -> T? where T: Serializable {
         guard let encryptedData = encryptedData else { return nil }
         
         let jweResult = JWEObject.parse(payload: encryptedData)
@@ -35,7 +35,6 @@ extension JWEObject {
         let payload = claimSet?.claim(name: "data").string
         
         return payload
-
     }
     
 }

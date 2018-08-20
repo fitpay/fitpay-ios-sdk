@@ -4,7 +4,7 @@ import WebKit
 /// Main Object for interacting with Fitpay Web app
 @objc open class FitpayWeb: NSObject {
     
-    /// Use this singleton
+    /// Use this singleton unless you have a reason for multiple webviews
     @objc public static let shared = FitpayWeb()
 
     /// Set the rtmDelegate to receive authorization and other messages from the webview
@@ -51,16 +51,26 @@ import WebKit
     /// - Parameters:
     ///   - userEmail: user email - defaults to nil
     ///   - userHasFitpayAccount: user has fitpayAccount - defaults to false
+    ///   - accessToken: skips the pin screen if valid
     ///   - paymentDevice: figuring out
     ///   - paymentDeviceConnector: figuring out
     ///   - frame: needed for initializing the wkWebView
     /// - Returns: WKWebview with correct configuration and frame
-    @objc open func setupWebView(userEmail: String? = nil, userHasFitpayAccount: Bool = false, paymentDevice: PaymentDevice, paymentDeviceConnector: PaymentDeviceConnectable, frame: CGRect, script: WKUserScript? = nil) -> WKWebView {
+    @objc open func setupWebView(userEmail: String? = nil,
+                                 userHasFitpayAccount: Bool = false,
+                                 accessToken: String? = nil,
+                                 paymentDevice: PaymentDevice,
+                                 paymentDeviceConnector: PaymentDeviceConnectable,
+                                 frame: CGRect,
+                                 script: WKUserScript? = nil,
+                                 language: String? = nil) -> WKWebView {
 
         _ = paymentDevice.changeDeviceInterface(paymentDeviceConnector)
 
         let rtmConfig = RtmConfig(userEmail: userEmail, deviceInfo: paymentDeviceConnector.getDeviceInfo())
         rtmConfig.hasAccount = userHasFitpayAccount
+        rtmConfig.language = language
+        rtmConfig.accessToken = accessToken
         
         wvConfig = WvConfig(paymentDevice: paymentDevice, rtmConfig: rtmConfig)
 
@@ -76,26 +86,62 @@ import WebKit
         
         return wkWebView!
     }
-    
+
     /// Loads the main page on Fitpay based on user variables
     @objc open func load() {
-        wkWebView.load(wvConfig!.getRequest())
+        wkWebView.load(wvConfig.getRequest())
     }
     
-    /// Loads a specific page on Fitpay based on user variables
-    ///
-    /// Currently works with `/addCard`, `/privacyPolicy`, and `/terms`
-    @objc open func load(relativePath: String) {
-        guard let (url, encodedConfig) =  wvConfig.getURLAndConfig() else { return }
+    /// Loads a specific page on Fitpay based on passed in route
+    open func load(relativePath: RelativeWebPath) {
+        guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
         
-        let configuredUrl = "\(url)\(relativePath)?config=\(encodedConfig)"
+        let configuredUrl = "\(FitpayConfig.webURL)\(relativePath)?config=\(encodedConfig)"
         
-        log.verbose(configuredUrl)
+        log.verbose("WV: loading \(configuredUrl)")
         
         let requestUrl = URL(string: configuredUrl)
         let request = URLRequest(url: requestUrl!)
         
         wkWebView.load(request)
+    }
+    
+    /// Loads any valid url - use with discretion
+    ///
+    /// Can construct URL from `FitpayConfig.WebUrl` and config
+    @objc open func load(absolutePath: String) {
+        let requestUrl = URL(string: absolutePath)
+        let request = URLRequest(url: requestUrl!)
+        
+        log.verbose("WV: loading \(absolutePath)")
+        
+        wkWebView.load(request)
+    }
+    
+    /// Loads the correct url based on the issuers response
+    ///
+    /// You should still call respondToA2AWith(success:error:)
+    @objc open func load(issuerResponse: A2AIssuerResponse) {
+        wkWebView.load(wvConfig.getRequest())
+        
+        guard let encodedConfig = wvConfig.getEncodedConfig(),
+            let returnLocation = wvConfig.a2aReturnLocation,
+            let encodedIssuerResponse = issuerResponse.getEncodedString() else { return }
+        
+        let configuredUrl = "\(FitpayConfig.webURL)\(returnLocation)?a2a=\(encodedIssuerResponse)&config=\(encodedConfig)"
+        
+        log.verbose("WV: loading \(configuredUrl)")
+        
+        let requestUrl = URL(string: configuredUrl)
+        let request = URLRequest(url: requestUrl!)
+        
+        wkWebView.load(request)
+    }
+    
+    
+    /// Get the config to construct a url on your own if needed
+    @objc open func getConfig() -> String? {
+        return wvConfig.getEncodedConfig()
     }
     
     /// Should be called once the webview is loaded
@@ -105,6 +151,11 @@ import WebKit
     /// You can use `WKNavigationDelegate.webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)` for managing page state
     @objc open func webViewPageLoaded() {
          wvConfig.webViewPageLoaded()
+    }
+ 
+    /// Used to tell the webview if A2A completed successfully or not
+    open func respondToA2AWith(success: Bool, error: A2AVerificationError?) {
+        wvConfig.rtmMessaging.messageHandler?.appToAppVerificationResponse(success: success, reason: error)
     }
     
 }

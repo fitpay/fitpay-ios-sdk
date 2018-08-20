@@ -1,52 +1,12 @@
+import Foundation
+
 extension Array {
+    
     var JSONString: String? {
-        return Foundation.JSONSerialization.JSONString(self)
-    }
-}
-
-extension Array where Element: ResourceLink {
-    func url(_ resource: String) -> String? {
-        for link in self {
-            if let target = link.target, target == resource {
-                return link.href
-            }
-        }
-        
-        return nil
-    }
-
-    mutating func indexOf(_ target: String) -> Element? {
-        guard let index = self.index(where: {$0.target == target}) else { return nil }
-        let link = self[index]
-        return link
-    }
-}
-
-extension Array where Element: Equatable {
-    mutating func removeObject(_ object: Element) {
-        if let index = self.index(of: object) {
-            self.remove(at: index)
-        }
-    }
-}
-
-//Stack - LIFO
-extension Array {
-    mutating func push(_ newElement: Element) {
-        self.append(newElement)
+        return JSONSerialization.JSONString(self)
     }
     
-    mutating func pop() -> Element? {
-        return self.removeLast()
-    }
-    
-    func peekAtStack() -> Element? {
-        return self.last
-    }
-}
-
-//Queue - FIFO
-extension Array {
+    // MARK: FIFO
     mutating func enqueue(_ newElement: Element) {
         self.append(newElement)
     }
@@ -58,4 +18,26 @@ extension Array {
     func peekAtQueue() -> Element? {
         return self.first
     }
+    
+}
+
+extension Array where Element: ResourceLink {
+    
+    func url(_ target: String) -> String? {
+        return first(where: { $0.target == target })?.href
+    }
+
+    func elementAt(_ target: String) -> ResourceLink? {
+        return first(where: { $0.target == target })
+    }
+}
+
+extension Array where Element: Equatable {
+    
+    mutating func removeObject(_ object: Element) {
+        if let index = index(of: object) {
+            remove(at: index)
+        }
+    }
+    
 }

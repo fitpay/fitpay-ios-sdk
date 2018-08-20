@@ -21,8 +21,6 @@ import Foundation
     @objc public static var authURL = "https://auth.fit-pay.com"
     
     /// Turn on when you are ready to implement App 2 App stepup methods
-    ///
-    /// Only recommended for iOS 10+
     @objc public static var supportApp2App = false
     
     /// Logs will be sent for every level equal or above what is set
@@ -48,17 +46,17 @@ import Foundation
         finishConfigure()
     }
     
-    /**
-     Setup FitpaySDK advanced method
-     
-     All variables are customizable via json file
-     
-     Call configure in the AppDelegate `didFinishLaunchingWithOptions:`  before doing anything else with the FItpaySDK
-     
-     - Parameter fileName: name without extension or leading path defaults to `fitpayconfig`
-     */
-    @objc public static func configure(fileName: String = "fitpayconfig") {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: "json") else { return }
+    /// Setup FitpaySDK advanced method
+    ///
+    /// All variables are customizable via json file
+    ///
+    /// Call configure in the AppDelegate `didFinishLaunchingWithOptions:`  before doing anything else with the FItpaySDK
+    ///
+    /// - Parameters:
+    ///   - fileName: name without extension or leading path defaults to `fitpayconfig`
+    ///   - bundle: bundle the json is in, defaults to main. Used primarily for testing.
+    @objc public static func configure(fileName: String = "fitpayconfig", bundle: Bundle = Bundle.main) {
+        guard let path = bundle.path(forResource: fileName, ofType: "json") else { return }
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else { return }
         guard let jsonResult = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) else { return }
         guard let fitpayConfigModel = try? FitpayConfigModel(jsonResult) else { return }
@@ -79,6 +77,8 @@ import Foundation
             FitpayConfig.Web.cssURL = configModelWeb.cssURL
             FitpayConfig.Web.baseLanguageURL = configModelWeb.baseLanguageURL
             FitpayConfig.Web.supportCardScanner = configModelWeb.supportCardScanner ?? FitpayConfig.Web.supportCardScanner
+            FitpayConfig.Web.automaticallySubscribeToUserEventStream = configModelWeb.automaticallySubscribeToUserEventStream ?? FitpayConfig.Web.automaticallySubscribeToUserEventStream
+            FitpayConfig.Web.automaticallySyncFromUserEventStream = configModelWeb.automaticallySyncFromUserEventStream ?? FitpayConfig.Web.automaticallySyncFromUserEventStream
         }
         
        finishConfigure()
@@ -123,8 +123,6 @@ import Foundation
         @objc public static var demoMode = false
         
         /// Changes autofill options to include a default and auto-verify version of one card type
-        ///
-        /// `demoMode` must be true for this to work
         @objc public static var demoCardGroup: String?
         
         /// Overrides the default CSS
@@ -139,15 +137,22 @@ import Foundation
          */
         @objc public static var baseLanguageURL: String?
         
-        // TODO: Remove
         /// Turn on when you are ready to implement card scanning methods
         @objc public static var supportCardScanner = false
         
+        /// Turn off SSE connection to reduce overhead if not in use
+        @objc public static var automaticallySubscribeToUserEventStream = true
+        
+        /// Trigger syncs from an SSE connection automatically established
+        ///
+        /// `automaticallySubscribeToUserEventStream` must also be on to sync
+        @objc public static var automaticallySyncFromUserEventStream = true
+
     }
     
 }
 
-// MARK: - Structs for json
+// MARK: - Nested Structs for json
 
 extension FitpayConfig {
     
@@ -168,6 +173,8 @@ extension FitpayConfig {
         var cssURL: String?
         var baseLanguageURL: String?
         var supportCardScanner: Bool?
+        var automaticallySubscribeToUserEventStream: Bool?
+        var automaticallySyncFromUserEventStream: Bool?
     }
     
 }

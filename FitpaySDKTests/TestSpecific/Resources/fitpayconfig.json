@@ -1,0 +1,15 @@
+{
+    "clientId": "testId2",
+    "webURL": "web",
+    "redirectURL": "redirect",
+    "apiURL": "api",
+    "authURL": "auth",
+    "supportApp2App": true,
+    "minLogLevel": 1,
+    "web":{
+        "demoMode": true,
+        "demoCardGroup": "visa_only",
+        "cssURL": "css",
+        "supportCardScanner": true
+    }
+}

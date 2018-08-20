@@ -34,7 +34,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
     }
     
-    var device: DeviceInfo? {
+    var device: Device? {
         get {
             return self.configStorage.device
         }
@@ -51,16 +51,13 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.configStorage.a2aReturnLocation = newValue
         }
     }
-    
-    //MARK: - and Private Variables
-    
+        
     var configStorage = WvConfigStorage()
 
     var url = FitpayConfig.webURL
     
     var webview: WKWebView?
     var connectionBinding: FitpayEventBinding?
-    var sessionDataCallBack: RtmMessage?
     var syncCallBacks = [RtmMessage]()
     
     private var bindings: [FitpayEventBinding] = []
@@ -139,7 +136,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
                 return
             }
             
-            if let deviceInfo = (event.eventData as? [String: Any])?["deviceInfo"] as? DeviceInfo {
+            if let deviceInfo = (event.eventData as? [String: Any])?["deviceInfo"] as? Device {
                 strongSelf.configStorage.rtmConfig?.deviceInfo = deviceInfo
                 completion(nil)
                 return
@@ -201,8 +198,8 @@ class WvConfig: NSObject, WKScriptMessageHandler {
      This returns the request object clients will require in order to open a WKWebView
      */
     func getRequest() -> URLRequest {
-        let client = self.configStorage.user?.client as? RestClient
-        if let accessToken = client?._session.accessToken {
+        let client = self.configStorage.user?.client
+        if let accessToken = client?.session.accessToken {
             self.configStorage.rtmConfig!.accessToken = accessToken
         }
         
@@ -222,9 +219,9 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         return request
     }
     
-    func getURLAndConfig() -> (url: String, encodedConfig: String)? {
-        let client = self.configStorage.user?.client as? RestClient
-        if let accessToken = client?._session.accessToken {
+    func getEncodedConfig() -> String? {
+        let client = self.configStorage.user?.client
+        if let accessToken = client?.session.accessToken {
             self.configStorage.rtmConfig!.accessToken = accessToken
         }
         
@@ -237,7 +234,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         
         guard let encodedConfig = utfString?.base64URLencoded() else { return nil}
         
-        return (url, encodedConfig)
+        return encodedConfig
     }
     
     func showStatusMessage(_ status: WVDeviceStatus, message: String? = nil, error: Error? = nil) {
@@ -257,7 +254,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
 
         log.debug("WV_DATA: sending data to wv: \(jsonRepresentation)")
         
-        webview?.evaluateJavaScript("window.RtmBridge.resolve(\(jsonRepresentation))", completionHandler: { [weak self] (result, error) in
+        webview?.evaluateJavaScript("window.RtmBridge.resolve(\(jsonRepresentation))") { [weak self] (result, error) in
             if let error = error {
                 if retries > 0 {
                     log.warning("WV_DATA: Can't send message to wv... retrying...")
@@ -268,7 +265,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
                     log.error("WV_DATA: Can't send message to wv, error: \(error)")
                 }
             }
-        })
+        }
     }
 
     func sendStatusMessage(_ message: String, type: WVMessageType) {
@@ -277,7 +274,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     
     //MARK: - Private
     
-    private var rtmMessaging: RtmMessaging
+    var rtmMessaging: RtmMessaging
     
     private func resolveSync() {
         self.rtmMessaging.messageHandler?.resolveSync()
@@ -297,7 +294,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncCompleted) { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (event) in
             log.debug("WV_DATA: received sync complete from SyncManager.")
             
             self?.resolveSync()
@@ -308,7 +305,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: SyncEventType.syncFailed) { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { [weak self] (event) in
             log.error("WV_DATA: received sync FAILED from SyncManager.")
             let error = (event.eventData as? [String:Any])?["error"] as? NSError
             

@@ -62,11 +62,10 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             self.paymentDevice.removeBinding(binding: binding)
         }
         
-        self.deviceConnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) {
-            [weak self] (event) in
+        self.deviceConnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { [weak self] (event) in
             
-            let deviceInfo = (event.eventData as? [String:Any])?["deviceInfo"] as? DeviceInfo
-            let error = (event.eventData as? [String:Any])?["error"] as? Error
+            let deviceInfo = (event.eventData as? [String: Any])?["deviceInfo"] as? Device
+            let error = (event.eventData as? [String: Any])?["error"] as? Error
             
             guard (error == nil && deviceInfo != nil) else {
                 observable.onError(error ?? SyncOperationError.couldNotConnectToDevice)
@@ -82,8 +81,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             observable.onNext(.connected)
         }
         
-        self.deviceDisconnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected, completion: {
-            [weak self] (event) in
+        self.deviceDisconnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected) { [weak self] (event) in
             
             if let binding = self?.deviceConnectedBinding {
                 self?.paymentDevice.removeBinding(binding: binding)
@@ -97,7 +95,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             self?.deviceDisconnectedBinding = nil
             
             observable.onNext(.disconnected)
-        })
+        }
         
         self.paymentDevice.connect(ConnectDeviceOperation.paymentDeviceConnectionTimeoutInSecs)
         

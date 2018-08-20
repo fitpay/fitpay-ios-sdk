@@ -31,7 +31,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     
     var wvConfigStorage: WvConfigStorage!
     var webViewSessionData: SessionData?
-    var restClient: RestClientInterface?
+    var restClient: RestClient?
 
     var syncCallBacks = [RtmMessage]()
     
@@ -40,9 +40,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     }
     
     func handle(message: [String: Any]) {
-        let jsonData = try? JSONSerialization.data(withJSONObject: message, options: .prettyPrinted)
-        
-        guard let rtmMessage = try? RtmMessage(String(data: jsonData!, encoding: .utf8)) else {
+        guard let rtmMessage = try? RtmMessage(message) else {
             log.error("WV_DATA: Can't create RtmMessage.")
             return
         }
@@ -82,7 +80,23 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
         log.verbose("WV_DATA: Adding sync to rtm callback queue.")
         syncCallBacks.append(message)
         log.verbose("WV_DATA: initiating sync.")
-        SyncRequestQueue.sharedInstance.add(request: SyncRequest(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice, initiator: .platform), completion: nil)
+        SyncRequestQueue.sharedInstance.add(request: SyncRequest(syncId: nil, user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice, initiator: .platform), completion: nil)
+    }
+    
+    private func handleSync(_ event: StreamEvent) {
+        log.verbose("WV_DATA: Handling event sync.")
+        
+        guard let _ = self.webViewSessionData,
+            let user = self.wvConfigStorage.user,
+            let deviceInfo = self.wvConfigStorage.device,
+            let paymentDevice = self.wvConfigStorage.paymentDevice else {
+                log.warning("WV_DATA: rtm not yet configured to handle syncs requests, failing sync.")
+                return
+        }
+        
+        log.verbose("WV_DATA: initiating sync from Event.")
+        let syncId = event.payload?["id"] as? String
+        SyncRequestQueue.sharedInstance.add(request: SyncRequest(syncId: syncId, user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice, initiator: .platform), completion: nil)
     }
     
     func handleSessionData(_ message: RtmMessage) {
@@ -110,7 +124,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
             self?.wvConfigStorage.device = device
             self?.wvConfigStorage.paymentDevice?.deviceInfo?.client = self?.wvConfigStorage.user?.client
 
-            if let delegate = self?.wvRtmDelegate, let email = user?.email {
+            if let delegate = self?.wvRtmDelegate, let email = user?.info?.email {
                 delegate.didAuthorizeWith(email: email)
             }
 
@@ -119,6 +133,15 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
             }
 
             FitpayEventsSubscriber.sharedInstance.executeCallbacksForEvent(event: .getUserAndDevice)
+            
+            // start EventStream
+            if let userId = user?.id, FitpayConfig.Web.automaticallySubscribeToUserEventStream {
+                UserEventStreamManager.sharedInstance.subscribe(userId: userId, sessionData: webViewSessionData) { event in
+                    if (event.type == .sync && FitpayConfig.Web.automaticallySyncFromUserEventStream) {
+                        self?.handleSync(event)
+                    }
+                }
+            }
 
             if let delegate = self?.outputDelegate {
                 delegate.send(rtmMessage: RtmMessageResponse(callbackId: message.callBackId,
@@ -127,7 +150,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
                                                              success: true), retries: 3)
             }
         }
-        FitpayNotificationsManager.sharedInstance.setRestClient(self.restClient as? RestClient)
+        FitpayNotificationsManager.sharedInstance.setRestClient(restClient)
     }
 
     func logoutResponseMessage() -> RtmMessageResponse? {
@@ -158,6 +181,9 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
 
             self.syncCallBacks.removeFirst()
         }
+    }
+    
+    func appToAppVerificationResponse(success: Bool, reason: A2AVerificationError?) {
     }
 
 }

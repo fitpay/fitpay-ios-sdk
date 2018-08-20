@@ -1,6 +1,6 @@
 protocol RtmConfigProtocol {
     var redirectUri: String? { get }
-    var deviceInfo: DeviceInfo? { get set }
+    var deviceInfo: Device? { get set }
     var accessToken: String? { get set }
     var hasAccount: Bool { get }
 
@@ -11,12 +11,11 @@ protocol RtmConfigProtocol {
 
 class RtmConfig: NSObject, Serializable, RtmConfigProtocol {
     var redirectUri: String?
-    var deviceInfo: DeviceInfo?
+    var deviceInfo: Device?
     var hasAccount: Bool = false
     var accessToken: String?
     
-    // TODO: shouldn't be private? / add to FitpayWeb
-    private var language: String?
+    var language: String?
     
     private var clientId: String?
     private var userEmail: String?
@@ -29,7 +28,9 @@ class RtmConfig: NSObject, Serializable, RtmConfigProtocol {
     
     private var customs: [String: Any] = [:]
     
-    init(userEmail: String?, deviceInfo: DeviceInfo?, hasAccount: Bool = false) {
+    init(userEmail: String?, deviceInfo: Device?, hasAccount: Bool = false) {
+        super.init()
+
         self.clientId = FitpayConfig.clientId
         self.redirectUri = FitpayConfig.redirectURL
         self.demoMode = FitpayConfig.Web.demoMode
@@ -75,7 +76,7 @@ class RtmConfig: NSObject, Serializable, RtmConfigProtocol {
                 userEmail = value as? String
                 break
             case .deviceInfo:
-                deviceInfo = value as? DeviceInfo
+                deviceInfo = value as? Device
                 break
             case .hasAccount:
                 hasAccount = value as? Bool ?? false
