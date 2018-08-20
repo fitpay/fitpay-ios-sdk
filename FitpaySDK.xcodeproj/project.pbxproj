@@ -851,6 +851,14 @@
 			path = JWE;
 			sourceTree = "<group>";
 		};
+		2735863D20E03E83005EDA9D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2735863E20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		2746585E20B74B7D001C13AA /* PaymentDeviceConnectors */ = {
 			isa = PBXGroup;
 			children = (
@@ -881,17 +889,8 @@
 				A306B4C91CEE457D007F093C /* ApduResultMessage.swift */,
 				374B62661EC9DAB300A7CE62 /* ApduResponseProtocol.swift */,
 				3701AE3A1F13BA1B00550890 /* SyncEvent.swift */,
-				374D0C991F56FD620060A4FC /* IdVerificationResponse.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2735863D20E03E83005EDA9D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				2735863E20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		276CD25D209A5CF800076648 /* Public */ = {
@@ -1234,13 +1233,6 @@
 			path = Logs;
 			sourceTree = "<group>";
 		};
-		847264961CA5261400DE801D /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		8472649B1CA53C9100DE801D /* BLE */ = {
 			isa = PBXGroup;
 			children = (
@@ -1306,20 +1298,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		9A7C78781CC77F130097BAB9 /* EventListeners */ = {
-			isa = PBXGroup;
-			children = (
-				9A7C78791CC77F210097BAB9 /* FitpayBlockEventListener.swift */,
-				9A7C787A1CC77F210097BAB9 /* FitpayEvent.swift */,
-				9A7C787B1CC77F210097BAB9 /* FitpayEventBinding.swift */,
-				9A7C787C1CC77F210097BAB9 /* FitpayEventDispatcher.swift */,
-				9A7C787D1CC77F210097BAB9 /* FitpayEventListener.swift */,
-				9A7C787E1CC77F210097BAB9 /* FitpayEventTypeProtocol.swift */,
-				3A9180BA1DE8824A00C183CE /* FitpayEventsSubscriber.swift */,
-			);
-			name = EventListeners;
-			sourceTree = "<group>";
-		};
 		9AB68E371C84A1EC00A0E172 /* JWE */ = {
 			isa = PBXGroup;
 			children = (
@@ -1335,26 +1313,6 @@
 				9AB68E3A1C84A1EC00A0E172 /* JWEObject.swift */,
 			);
 			path = JWEObject;
-			sourceTree = "<group>";
-		};
-		9B65A3391CDD14CD007A7D7D /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				27C0242E20A3940900681023 /* MockPaymentDeviceConnector.swift */,
-			);
-			name = Mock;
-			path = Interfaces;
-			sourceTree = "<group>";
-		};
-		A306B4C81CEE4535007F093C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				9B65A3391CDD14CD007A7D7D /* Mock */,
-				A306B4C91CEE457D007F093C /* ApduResultMessage.swift */,
-				374B62661EC9DAB300A7CE62 /* ApduResponseProtocol.swift */,
-				3701AE3A1F13BA1B00550890 /* SyncEvent.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 		B2C94647591B581A09E4A254 /* Frameworks */ = {
@@ -1436,7 +1394,6 @@
 				2746586020B74BE2001C13AA /* Models */,
 				3701AE441F14C27000550890 /* Operations */,
 				2746585E20B74B7D001C13AA /* PaymentDeviceConnectors */,
-				847264961CA5261400DE801D /* Protocols */,
 				37139BDE1F177AE9001EEE73 /* SyncQueue */,
 			);
 			path = PaymentDevice;
