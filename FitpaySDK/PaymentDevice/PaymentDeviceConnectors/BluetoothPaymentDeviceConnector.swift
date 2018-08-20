@@ -63,7 +63,7 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
         deviceInfoCollector = nil
     }
     
-    var isConnected: Bool {
+    func isConnected() -> Bool {
         guard let wearablePeripheral = self.wearablePeripheral else {
             return false
         }
@@ -71,7 +71,7 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
     }
     
     func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
-        completion(isConnected, nil)
+        completion(isConnected(), nil)
     }
     
     func deviceInfo() -> Device? {

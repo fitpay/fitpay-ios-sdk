@@ -87,7 +87,7 @@ public class MockPaymentDeviceConnector: NSObject {
 
 // MARK: - PaymentDeviceConnectable
 extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
-    
+
     public func connect() {
         log.verbose("connecting")
         DispatchQueue.main.asyncAfter(deadline: .now() + connectDelayTime) {
@@ -99,9 +99,13 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
         }
     }
     
-    public var isConnected: Bool {
+    public func isConnected() -> Bool {
         log.verbose("checking is connected")
         return connected
+    }
+    
+    public func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
+        completion(isConnected(), nil)
     }
     
     public func executeAPDUCommand(_ apduCommand: APDUCommand) {

@@ -69,7 +69,7 @@
      - parameter secsTimeout: timeout for connection process in seconds. If nil then there is no timeout.
      */
     open func connect(_ secsTimeout: Int? = nil) {
-        if isConnected {
+        if isConnected() {
             self.deviceInterface.resetToDefaultState()
         }
         
@@ -80,7 +80,7 @@
             DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
                 guard let strongSelf = self else { return }
                 
-                if (!strongSelf.isConnected || strongSelf.deviceInfo == nil) {
+                if (!strongSelf.isConnected() || strongSelf.deviceInfo == nil) {
                     strongSelf.deviceInterface.resetToDefaultState()
                     strongSelf.callCompletionForEvent(PaymentDeviceEventTypes.onDeviceConnected, params: ["error": NSError.error(code: PaymentDevice.ErrorCode.operationTimeout, domain: PaymentDevice.self)])
                     strongSelf.connectionState = .disconnected
@@ -103,8 +103,8 @@
     /**
      Returns true if phone connected to payment device and device info was collected.
      */
-    @objc open var isConnected: Bool {
-        return self.deviceInterface.isConnected
+    @objc open func isConnected() -> Bool {
+        return self.deviceInterface.isConnected()
     }
 
     /**

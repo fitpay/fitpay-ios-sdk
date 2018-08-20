@@ -123,8 +123,12 @@ enum HendrixPingResponse: UInt8 {
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
-    @objc open var isConnected: Bool {
+    @objc open func isConnected() -> Bool {
         return wearablePeripheral?.state == CBPeripheralState.connected
+    }
+    
+    public func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
+        completion(isConnected(), nil)
     }
     
     @objc open func executeAPDUCommand(_ apduCommand: APDUCommand) {
