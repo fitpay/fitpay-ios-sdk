@@ -85,7 +85,6 @@ public class MockPaymentDeviceConnector: NSObject {
     
 }
 
-// MARK: - PaymentDeviceConnectable
 extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
 
     public func connect() {

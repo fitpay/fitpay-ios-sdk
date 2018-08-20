@@ -41,23 +41,23 @@ class DataExtensionsTests: BaseTestProvider {
         XCTAssertNotEqual(string, utf32Data?.UTF8String)
     }
 
-    func testArrayOfBytes() {
+    func testBytesArray() {
         let keyPair = MockSECP256R1KeyPair()
         guard let data = keyPair.generateSecretForPublicKey(keyPair.publicKey!) else {
             XCTAssert(false, "bad secret")
             return
         }
-        let bytes = data.arrayOfBytes()
+        let bytes = data.bytesArray
         XCTAssertEqual(bytes.count, data.count)
     }
 
-    func testHexadecimalString() {
+    func testHex() {
         let keyPair = MockSECP256R1KeyPair()
         guard let data = keyPair.generateSecretForPublicKey(keyPair.mocPublicKey!) else {
             XCTAssert(false, "bad secret")
             return
         }
-        let hexString = data.hexadecimalString()
+        let hexString = data.hex.uppercased()
         XCTAssertEqual(hexString, "D9EA91F550D6C462FB25CC364D3069E84E72E44E9F64351161E30012D450E527")
     }
 }
