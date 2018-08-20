@@ -92,7 +92,7 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
         log.verbose("connecting")
         DispatchQueue.main.asyncAfter(deadline: .now() + connectDelayTime) {
             self.connected = true
-            let deviceInfo = self.getDeviceInfo()
+            let deviceInfo = self.deviceInfo()
             log.verbose("triggering device data")
             self.paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])
             self.paymentDevice?.connectionState = PaymentDevice.ConnectionState.connected

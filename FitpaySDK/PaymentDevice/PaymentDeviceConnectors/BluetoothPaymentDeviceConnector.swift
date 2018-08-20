@@ -27,7 +27,7 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
     let maxPacketSize: Int = 20
     let apduSecsTimeout: Double = 5
     
-    private var deviceInfo: DeviceInfo?
+    private var _deviceInfo: Device?
     
     required init(paymentDevice device: PaymentDevice) {
         self.paymentDevice = device
@@ -57,13 +57,13 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
         centralManager?.stopScan()
         centralManager?.delegate = nil
         centralManager = nil
-        deviceInfo = nil
+        _deviceInfo = nil
         sequenceId = 0
         sendingAPDU = false
         deviceInfoCollector = nil
     }
     
-    func isConnected() -> Bool {
+    var isConnected: Bool {
         guard let wearablePeripheral = self.wearablePeripheral else {
             return false
         }
@@ -71,13 +71,11 @@ class BluetoothPaymentDeviceConnector: NSObject, PaymentDeviceConnectable {
     }
     
     func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
-        completion(isConnected(), nil)
+        completion(isConnected, nil)
     }
     
     func deviceInfo() -> Device? {
         return _deviceInfo
-    }
-    
     }
     
     func executeAPDUCommand(_ apduCommand: APDUCommand) {
@@ -359,12 +357,12 @@ extension BluetoothPaymentDeviceConnector: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        if deviceInfo == nil {
+        if _deviceInfo == nil {
             if let deviceInfoCollector = self.deviceInfoCollector {
                 deviceInfoCollector.collectDataFromCharacteristicIfPossible(characteristic)
                 if deviceInfoCollector.isCollected {
-                    deviceInfo = deviceInfoCollector.deviceInfo
-                    self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])
+                    _deviceInfo = deviceInfoCollector.deviceInfo
+                    self.paymentDevice.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": _deviceInfo!])
                     self.deviceInfoCollector = nil
                 }
             }

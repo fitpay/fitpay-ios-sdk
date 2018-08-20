@@ -67,7 +67,7 @@ import WebKit
 
         _ = paymentDevice.changeDeviceInterface(paymentDeviceConnector)
 
-        let rtmConfig = RtmConfig(userEmail: userEmail, deviceInfo: paymentDeviceConnector.getDeviceInfo())
+        let rtmConfig = RtmConfig(userEmail: userEmail, deviceInfo: paymentDeviceConnector.deviceInfo())
         rtmConfig.hasAccount = userHasFitpayAccount
         rtmConfig.language = language
         rtmConfig.accessToken = accessToken

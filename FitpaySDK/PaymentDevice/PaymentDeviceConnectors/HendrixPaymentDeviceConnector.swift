@@ -17,7 +17,7 @@ enum HendrixPingResponse: UInt8 {
 @objc open class HendrixPaymentDeviceConnector: NSObject {
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
-    private var deviceInfo: DeviceInfo?
+    private var _deviceInfo: Device?
     private var paymentDevice: PaymentDevice?
 
     private let genericServiceId = CBUUID(string: "00001800-0000-1000-8000-00805f9b34fb")
@@ -65,11 +65,11 @@ enum HendrixPingResponse: UInt8 {
     
     private func handlePingResponse() {
         var index = 0
-        let deviceInfo = DeviceInfo()
+        let device = deviceInfo()! // hashbang?
         
-        deviceInfo.deviceName = "Hendrix"
-        deviceInfo.deviceType = "ACTIVITY_TRACKER"
-        deviceInfo.manufacturerName = "Fitpay"
+        device.deviceName = "Hendrix"
+        device.deviceType = "ACTIVITY_TRACKER"
+        device.manufacturerName = "Fitpay"
 
         while index < expectedDataSize {
             guard returnedData[index] == 0x24 else { return }
@@ -80,30 +80,30 @@ enum HendrixPingResponse: UInt8 {
             let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
             
             if (type == .serial) {
-                deviceInfo.serialNumber = hex
+                device.serialNumber = hex
                 
             } else if (type == .version) {
                 var version = "v"
                 for i in index + 3 ..< nextIndex {
                     version += String(returnedData[i]) + "."
                 }
-                deviceInfo.firmwareRevision = String(version.dropLast())
+                device.firmwareRevision = String(version.dropLast())
                 
             } else if (type == .deviceId) {
-                deviceInfo.deviceIdentifier = hex
+                device.deviceIdentifier = hex
                 
             } else if (type == .deviceMode) {
                 guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
 
             } else if (type == .bootVersion) {
-                deviceInfo.hardwareRevision = hex
+                device.hardwareRevision = hex
                 
             }
             
             index = nextIndex
         }
         
-        self.deviceInfo = deviceInfo
+        self._deviceInfo = device
         paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
         
         resetClassVariables()
@@ -132,8 +132,8 @@ enum HendrixPingResponse: UInt8 {
         // TODO: implement
     }
     
-    @objc open func getDeviceInfo() -> DeviceInfo? {
-        return deviceInfo
+    @objc open func deviceInfo() -> Device? {
+        return _deviceInfo
     }
     
     @objc open func resetToDefaultState() {

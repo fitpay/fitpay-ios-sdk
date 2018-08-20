@@ -52,8 +52,6 @@
 		2745F3DF20A345B900EF46A4 /* FitpayWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */; };
 		2746585C20B74B76001C13AA /* HendrixPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendrixPaymentDeviceConnector.swift */; };
 		2746585D20B74B76001C13AA /* HendrixPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendrixPaymentDeviceConnector.swift */; };
-		2747FAD920BF552C003C820F /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2747FAD820BF552C003C820F /* UInt8Extensions.swift */; };
-		2747FADA20BF552C003C820F /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2747FAD820BF552C003C820F /* UInt8Extensions.swift */; };
 		276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		276CD260209A65C500076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		277380DA20E5716E00B84785 /* FitpayConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277380D920E5716E00B84785 /* FitpayConfigTests.swift */; };
@@ -499,7 +497,6 @@
 		2735864320E127CE005EDA9D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
 		2746585B20B74B76001C13AA /* HendrixPaymentDeviceConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendrixPaymentDeviceConnector.swift; sourceTree = "<group>"; };
-		2747FAD820BF552C003C820F /* UInt8Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt8Extensions.swift; sourceTree = "<group>"; };
 		276CD25E209A5D1700076648 /* FitpayConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfig.swift; sourceTree = "<group>"; };
 		277380D920E5716E00B84785 /* FitpayConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfigTests.swift; sourceTree = "<group>"; };
 		277380DE20E572CE00B84785 /* fitpayconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fitpayconfig.json; sourceTree = "<group>"; };
@@ -1881,7 +1878,6 @@
 				3767B8191ED31D48007443D2 /* RestClientDevice.swift in Sources */,
 				3AF3A8F21DDB15AE0037E105 /* FitpaySDKLogger.swift in Sources */,
 				371CB2FD1F4449C50019A766 /* SyncFactory.swift in Sources */,
-				2747FAD920BF552C003C820F /* UInt8Extensions.swift in Sources */,
 				CD0386948E879E2106699B3C /* RestClient.swift in Sources */,
 				374B626A1EC9F9EF00A7CE62 /* PaymentDeviceApduExecuter.swift in Sources */,
 				2735863F20E03E9F005EDA9D /* CustomJSONArrayEncoding.swift in Sources */,
@@ -2143,7 +2139,6 @@
 				371CB2FE1F4449C50019A766 /* SyncFactory.swift in Sources */,
 				3786F9801F1E03BA00693B6A /* RtmMessaging.swift in Sources */,
 				374D0C981F56F8080060A4FC /* RtmMessageHandlerV5.swift in Sources */,
-				2747FADA20BF552C003C820F /* UInt8Extensions.swift in Sources */,
 				27C0243020A3940900681023 /* MockPaymentDeviceConnector.swift in Sources */,
 				3A93A0AA1DB8CA2C00A9FEB4 /* NSData+CRC32.swift in Sources */,
 				272E04362093B3BA000EAA9D /* RTMDelegate.swift in Sources */,
