@@ -1,19 +1,6 @@
 import Foundation
 import CoreBluetooth
 
-enum HendrixCommand: UInt8 {
-    case ping = 0x01
-}
-
-enum HendrixPingResponse: UInt8 {
-    case serial = 0x00
-    case version = 0x01
-    case deviceId = 0x02
-    case deviceMode = 0x03
-    case bootVersion = 0x04
-    case ack = 0x06
-}
-
 @objc open class HendrixPaymentDeviceConnector: NSObject {
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
@@ -37,7 +24,7 @@ enum HendrixPingResponse: UInt8 {
     
     private var expectedDataSize = 0
     private var returnedData: [UInt8] = []
-    private var lastCommand: HendrixCommand?
+    private var lastCommand: Command?
     
     // MARK: - Lifecycle
     
@@ -47,7 +34,8 @@ enum HendrixPingResponse: UInt8 {
     }
     
     // MARK: - Private Functions
-    private func runCommand(_ command: HendrixCommand) {
+    
+    private func runCommand(_ command: Command, data: Data? = nil) {
         lastCommand = command
         
         guard let wearablePeripheral = wearablePeripheral else { return }
@@ -57,24 +45,29 @@ enum HendrixPingResponse: UInt8 {
         guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
         guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
         
-        wearablePeripheral.writeValue("03".hexToData()!, for: statusCharacteristic, type: .withResponse)
-        wearablePeripheral.writeValue("01".hexToData()!, for: statusCharacteristic, type: .withResponse)
+        wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
         wearablePeripheral.writeValue(command.rawValue.data, for: commandCharacteristic, type: .withResponse)
-        wearablePeripheral.writeValue("02".hexToData()!, for: statusCharacteristic, type: .withResponse)
+        
+        if let data = data {
+            wearablePeripheral.writeValue(data, for: dataCharacteristic, type: .withResponse)
+        }
+        
+        wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
     }
     
     private func handlePingResponse() {
         var index = 0
-        let device = deviceInfo()! // hashbang?
+        let device = deviceInfo() ?? Device()
         
         device.deviceName = "Hendrix"
-        device.deviceType = "ACTIVITY_TRACKER"
+        device.deviceType = "WATCH"
         device.manufacturerName = "Fitpay"
 
         while index < expectedDataSize {
             guard returnedData[index] == 0x24 else { return }
             
-            let type = HendrixPingResponse(rawValue: returnedData[index + 1])
+            let type = PingResponse(rawValue: returnedData[index + 1])
             let length = Int(returnedData[index + 2])
             let nextIndex = index + 3 + length
             let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
@@ -89,13 +82,13 @@ enum HendrixPingResponse: UInt8 {
                 }
                 device.firmwareRevision = String(version.dropLast())
                 
-            } else if (type == .deviceId) {
-                device.deviceIdentifier = hex
+            } else if (type == .deviceId) { // assign anywhere?
+                //device.deviceIdentifier = hex
                 
             } else if (type == .deviceMode) {
                 guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
 
-            } else if (type == .bootVersion) {
+            } else if (type == .bootVersion) { // looks to have been removed
                 device.hardwareRevision = hex
                 
             }
@@ -146,7 +139,6 @@ enum HendrixPingResponse: UInt8 {
     
 }
 
-
 @objc extension HendrixPaymentDeviceConnector: CBCentralManagerDelegate {
     
     @objc open func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -168,7 +160,7 @@ enum HendrixPingResponse: UInt8 {
     }
     
     @objc open func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        print("didDiscover perifpheral: \(peripheral)")
+        print("didDiscover peripheral: \(peripheral)")
         
         wearablePeripheral = peripheral
         wearablePeripheral?.delegate = self
@@ -204,8 +196,12 @@ enum HendrixPingResponse: UInt8 {
         peripheral.setNotifyValue(true, for: statusCharacteristic)
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
-        runCommand(.ping)
-        
+//        runCommand(.ping)
+        let data = createName(firstName: "Jeremiah", middleName: "B", lastName: "Harris")
+//        runCommand(.unassignUser)
+//        runCommand(.factoryReset)
+        runCommand(.assignUser, data: data)
+    
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -217,15 +213,15 @@ enum HendrixPingResponse: UInt8 {
             if (value.count == 1) { //status
                 let status = Data(bytes: value).hex
                 if (status == "01") {
-                    //success
+                    print("success")
                 } else {
-                    //error
+                    print("error1")
                 }
                 
             } else if (value.count == 5) { //length
                 let status = Data(bytes: Array([value[0]])).hex
                 if (status != "01") {
-                    //error
+                    print("error2")
                     return
                 }
                 
@@ -243,6 +239,8 @@ enum HendrixPingResponse: UInt8 {
                 
                 if (lastCommand == .ping) {
                    handlePingResponse()
+                } else if lastCommand == .assignUser {
+                    print("maybeworked")
                 }
 
             }
@@ -252,6 +250,81 @@ enum HendrixPingResponse: UInt8 {
         }
     }
     
+}
+
+// MARK - Temporary Location
+
+extension HendrixPaymentDeviceConnector {
+    
+    func createName(firstName: String, middleName: String, lastName: String) -> Data {
+        var firstNameData = firstName.prefix(21).data(using: .utf8) ?? Data()
+        var middleNameData = middleName.prefix(21).data(using: .utf8) ?? Data()
+        var lastNameData = lastName.prefix(21).data(using: .utf8) ?? Data()
+
+        while firstNameData.count < 21 {
+            firstNameData.append(0x00)
+        }
+        
+        while middleNameData.count < 21 {
+            middleNameData.append(0x00)
+        }
+        
+        while lastNameData.count < 21 {
+            lastNameData.append(0x00)
+        }
+        
+        return firstNameData + middleNameData + lastNameData
+        
+    }
+}
+
+// MARK - Nested Enums
+
+extension HendrixPaymentDeviceConnector {
+    
+    enum Command: UInt8 {
+        case ping           = 0x01
+        case restart        = 0x02
+        case bootLoader     = 0x03
+        case setDeviceId    = 0x05
+        case unsetDeviceId  = 0x06
+        case factoryReset   = 0x07
+        case sleep          = 0x08
+        case lock           = 0x09
+        case unlock         = 0x0A
+        case heartbeat      = 0x0B
+
+        case assignUser     = 0x10
+        case unassignUser   = 0x11
+        case getUser        = 0x12
+        case addCard        = 0x13
+        case addCardCont    = 0x14
+        case deleteCard     = 0x15
+        case activateCard   = 0x16
+        case getCardInfo    = 0x17
+        case deactivateCard = 0x18
+        case reactivateCard = 0x19
+    }
+    
+    enum StatusCommand: UInt8 {
+        case start  = 0x01
+        case end    = 0x02
+        case abort  = 0x03
+    }
+    
+    enum PingResponse: UInt8 {
+        case serial         = 0x00
+        case version        = 0x01
+        case deviceId       = 0x02
+        case deviceMode     = 0x03
+        case bootVersion    = 0x04
+        case ack            = 0x06
+    }
+    
+    enum BLEResponses: UInt8 {
+        case ok     = 0x01
+        case error  = 0x02
+    }
 }
 
 
