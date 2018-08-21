@@ -4,7 +4,7 @@ import Foundation
 ///
 /// - cardholder: card holder
 /// - issuer: issuer
-public enum CreditCardInitiator: String {
+public enum CreditCardInitiator: String, Codable {
     case cardholder = "CARDHOLDER"
     case issuer     = "ISSUER"
 }
