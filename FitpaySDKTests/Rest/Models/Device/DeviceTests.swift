@@ -1,7 +1,7 @@
 import XCTest
 @testable import FitpaySDK
 
-class DeviceInfoTests: XCTestCase {
+class DeviceTests: XCTestCase {
     let mockModels = MockModels()
     
     func testDeviceInfoParsing() {
@@ -55,4 +55,5 @@ class DeviceInfoTests: XCTestCase {
         XCTAssertEqual((json?["secureElement"] as? [String: Any])?["secureElementId"] as? String, mockModels.someId)
         XCTAssertEqual((json?["secureElement"] as? [String: Any])?["casdCert"] as? String, "casd")
     }
+    
 }
