@@ -54,4 +54,5 @@ open class CommitMetrics: Serializable {
             }
         }
     }
+    
 }

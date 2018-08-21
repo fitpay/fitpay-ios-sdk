@@ -122,7 +122,7 @@ import Foundation
         }
     }
 
-    /// Retrieves the details of an existing credit card. You need only supply the uniqueidentifier that was returned upon creation.
+    /// Retrieves the details of an existing credit card. You need only supply the unique identifier that was returned upon creation.
     ///
     /// - Parameter completion: CreditCardHandler closure
     @objc open func retrieveCreditCard(_ completion: @escaping RestClient.CreditCardHandler) {

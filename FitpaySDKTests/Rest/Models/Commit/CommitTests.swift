@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class CommitTests: BaseTestProvider {
+class CommitTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testCommitParsing() {
         let commit = mockModels.getCommit()

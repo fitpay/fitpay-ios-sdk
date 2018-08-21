@@ -1,25 +1,28 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
-class ResultCollectionTests: BaseTestProvider {
+class ResultCollectionTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testResultCollectionParsing() {
         let resultCollection = mockModels.getResultCollection()
 
-        XCTAssertNotNil(resultCollection?.links)
-        XCTAssertEqual(resultCollection?.limit, 1)
-        XCTAssertEqual(resultCollection?.offset, 1)
-        XCTAssertEqual(resultCollection?.totalResults, 1)
-        XCTAssertNotNil(resultCollection?.results)
-        XCTAssertEqual(resultCollection?.nextAvailable, false)
-        XCTAssertEqual(resultCollection?.lastAvailable, true)
-        XCTAssertEqual(resultCollection?.previousAvailable, false)
-        XCTAssertNil(resultCollection?.client)
+        expect(resultCollection?.links).toNot(beNil())
+        expect(resultCollection?.limit).to(equal(1))
+        expect(resultCollection?.offset).to(equal(1))
+        expect(resultCollection?.totalResults).to(equal(1))
+        expect(resultCollection?.results).toNot(beNil())
+        expect(resultCollection?.nextAvailable).to(equal(false))
+        expect(resultCollection?.lastAvailable).to(equal(true))
+        expect(resultCollection?.previousAvailable).to(equal(false))
+        expect(resultCollection?.client).to(beNil())
 
         let json = resultCollection?.toJSON()
-        XCTAssertNotNil(json?["_links"])
-        XCTAssertEqual(json?["limit"] as? Int, 1)
-        XCTAssertEqual(json?["offset"] as? Int, 1)
-        XCTAssertEqual(json?["totalResults"] as? Int, 1)
+        expect(json?["_links"]).toNot(beNil())
+        expect(json?["limit"] as? Int).to(equal(1))
+        expect(json?["offset"] as? Int).to(equal(1))
+        expect(json?["totalResults"] as? Int).to(equal(1))
     }
 }

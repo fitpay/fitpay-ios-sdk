@@ -31,7 +31,7 @@ class BindedToDeviceSyncRequestQueue {
     func syncCompletedFor(request: SyncRequest, withStatus status: EventStatus, andError error: Error?) {
         guard let queuedRequest = requestsQueue.dequeue() else { return }
         guard queuedRequest.isSameUserAndDevice(otherRequest: request) else {
-            log.error("Error. Queued sync request is different from completed.")
+            log.error("SYNC_DATA: Error. Queued sync request is different from completed.")
             return
         }
         

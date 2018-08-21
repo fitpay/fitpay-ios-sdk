@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class ImageTests: BaseTestProvider {
+class ImageTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testImageParsing() {
         let image = mockModels.getImage()
