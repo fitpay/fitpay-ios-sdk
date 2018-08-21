@@ -49,7 +49,7 @@ public class MockPaymentDeviceConnector: NSObject {
     private func sendAPDUData(apduCommand: APDUCommand, sequenceNumber: UInt16) {
         var response = ""
         
-        switch apduCommand.type {
+        switch apduCommand.type ?? "" {
         case apduCommandTypes.GET_CPLC.rawValue:
             response = "9F7F2A" + generateRandomSeId() + "9000"
         case apduCommandTypes.GET_CASD_P1.rawValue:

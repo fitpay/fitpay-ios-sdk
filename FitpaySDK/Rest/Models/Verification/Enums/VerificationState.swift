@@ -18,6 +18,5 @@ public enum VerificationState: String, Serializable {
     
     /// Verification was valid at some point in the card's lifecycle but no longer valid (ie: user submitted wrong code too many times).
     /// Don't display.
-    case error = "ERROR"
-    
+    case error = "ERROR"   
 }
