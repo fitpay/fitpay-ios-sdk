@@ -178,9 +178,7 @@ class CommitsApplyer {
             return
         }
         
-        
         self.paymentDevice.apduPackageProcessingStarted(apduPackage) { [weak self] (error) in
-            
             guard error == nil else {
                 completion(error)
                 return
@@ -303,7 +301,7 @@ class CommitsApplyer {
                         syncEvent = SyncEvent(event: .resetDefaultCard, data: eventData)
                         break
                     case .apduPackage:
-                        log.warning("Processed APDU package inside nonapdu handler.")
+                        log.warning("SYNC_DATA: Processed APDU package inside nonapdu handler.")
                         break
                     case .creditCardProvisionFailed:
                         syncEvent = SyncEvent(event: .cardProvisionFailed, data: eventData)
@@ -315,7 +313,7 @@ class CommitsApplyer {
                         syncEvent = SyncEvent(event: .cardMetadataUpdated, data: eventData)
                         break
                     case .unknown:
-                        log.warning("Received new (unknown) commit type - \(commit.commitTypeString ?? "").")
+                        log.warning("SYNC_DATA: Received new (unknown) commit type - \(commit.commitTypeString ?? "").")
                         break
                     }
                     

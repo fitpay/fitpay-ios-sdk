@@ -29,6 +29,7 @@ class RestClientTests: XCTestCase {
         session = RestSession(restRequest: restRequest)
         client = RestClient(session: session!, restRequest: restRequest)
         testHelper = TestHelper(session: session, client: client)
+        client.keyPair = MockSECP256R1KeyPair()
     }
     
     override func tearDown() {
@@ -112,7 +113,7 @@ class RestClientTests: XCTestCase {
         
         waitForExpectations(timeout: 10, handler: nil)
     }
-    
+   
     func testResetDeviceTasks() {
         let expectation = self.expectation(description: "'resetDeviceTasks' creates key")
         
@@ -248,7 +249,6 @@ class RestClientTests: XCTestCase {
                         self.testHelper.selectVerificationType(expectation, card: card) { (verificationMethod) in
                             self.testHelper.verifyCreditCard(expectation, verificationMethod: verificationMethod) { card in
                                 XCTAssertTrue(card!.isDefault!)
-                                
                                 self.testHelper.createAcceptVerifyAmExCreditCard(expectation, pan: "9999611111111114", user: user) { (creditCard) in
                                     self.testHelper.makeCreditCardDefault(expectation, card: creditCard) { (defaultCreditCard) in
                                         self.testHelper.deleteUser(user, expectation: expectation)

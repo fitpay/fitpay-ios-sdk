@@ -1,12 +1,13 @@
+import Foundation
 
 open class FitpayBlockEventListener {
     
     public typealias BlockCompletion = (_ event:FitpayEvent) -> Void
     
-    var blockCompletion : BlockCompletion
-    var completionQueue : DispatchQueue
+    var blockCompletion: BlockCompletion
+    var completionQueue: DispatchQueue
 
-    private var isValid : Bool = true
+    private var isValid = true
     
     public init(completion: @escaping BlockCompletion, queue: DispatchQueue = DispatchQueue.main) {
         self.blockCompletion = completion
@@ -14,14 +15,12 @@ open class FitpayBlockEventListener {
     }
 }
 
-extension FitpayBlockEventListener : FitpayEventListener {
+extension FitpayBlockEventListener: FitpayEventListener {
+    
     public func dispatchEvent(_ event: FitpayEvent) {
-        guard isValid else {
-            return
-        }
+        guard isValid else { return }
         
         completionQueue.async {
-            
             self.blockCompletion(event)
         }
     }

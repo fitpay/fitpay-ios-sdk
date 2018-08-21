@@ -1,63 +1,65 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
-class DataExtensionsTests: BaseTestProvider {
+class DataExtensionsTests: XCTestCase {
 
     func testBase64URLencoded() {
-        let payloadIV = String.random(JWEObject.PayloadIVSize).data(using: String.Encoding.utf8)
+        let payloadIV = String.random(JWE.PayloadIVSize).data(using: String.Encoding.utf8)
         guard let encodedPayloadIV = payloadIV?.base64URLencoded() else {
-            XCTAssert(false, "Bad encoding")
+            fail("Bad encoding")
             return
         }
 
-        XCTAssertFalse(encodedPayloadIV.contains("/"))
+        expect(encodedPayloadIV.contains("/")).to(beFalse())
     }
 
     func testreverseEndian() {
         let original = PAYMENT_CHARACTERISTIC_UUID_APDU_CONTROL.data
         let reversed = original.reverseEndian
-        XCTAssertTrue(original.first == reversed.last)
+        expect(original.first == reversed.last).to(beTrue())
     }
 
     func testErrorMessage() {
         let errorJSON = "{\"message\":\"The property termsVersion contains an invalid value (null): may not be empty\"}"
         let errorData = errorJSON.data(using: .utf8)
         let errorMessage = errorData?.errorMessage
-        XCTAssertEqual(errorMessage, "The property termsVersion contains an invalid value (null): may not be empty")
+        expect(errorMessage).to(equal("The property termsVersion contains an invalid value (null): may not be empty"))
     }
 
     func testErrorMessages() {
         let errorsJSON = "{\"errors\": [{\"message\":\"The property termsVersion contains an invalid value (null): may not be empty\"}]}"
         let errorsData = errorsJSON.data(using: .utf8)
         let errorMessages = errorsData?.errorMessages
-        XCTAssertEqual(errorMessages?.first, "The property termsVersion contains an invalid value (null): may not be empty")
+        expect(errorMessages?.first).to(equal("The property termsVersion contains an invalid value (null): may not be empty"))
     }
 
     func testUTF8String() {
-        let string = "The property termsVersion contains an invalid value (null): may not be empty"
-        let utf32Data = string.data(using: String.Encoding.utf32)
-        let utf8Data = string.data(using: String.Encoding.utf8)
-        XCTAssertEqual(string, utf8Data?.UTF8String)
-        XCTAssertNotEqual(string, utf32Data?.UTF8String)
+        let testString = "The property termsVersion contains an invalid value (null): may not be empty"
+        let utf32Data = testString.data(using: String.Encoding.utf32)
+        let utf8Data = testString.data(using: String.Encoding.utf8)
+        expect(utf8Data?.UTF8String).to(equal(testString))
+        expect(utf32Data?.UTF8String).to(beNil())
     }
 
     func testArrayOfBytes() {
         let keyPair = MockSECP256R1KeyPair()
         guard let data = keyPair.generateSecretForPublicKey(keyPair.publicKey!) else {
-            XCTAssert(false, "bad secret")
+            fail("bad secret")
             return
         }
         let bytes = data.arrayOfBytes()
-        XCTAssertEqual(bytes.count, data.count)
+        expect(bytes.count).to(equal(data.count))
     }
 
     func testHexadecimalString() {
         let keyPair = MockSECP256R1KeyPair()
-        guard let data = keyPair.generateSecretForPublicKey(keyPair.publicKey!) else {
-            XCTAssert(false, "bad secret")
+        guard let data = keyPair.generateSecretForPublicKey(keyPair.mocPublicKey!) else {
+            fail("bad secret")
             return
         }
         let hexString = data.hexadecimalString()
-        XCTAssertEqual(hexString, "87A3FCE7DAF0FD7E57AD53128DD25820448835DB13507B1388F0CF0BF6BB8F4D")
+        expect(hexString).to(equal("D9EA91F550D6C462FB25CC364D3069E84E72E44E9F64351161E30012D450E527"))
     }
 }

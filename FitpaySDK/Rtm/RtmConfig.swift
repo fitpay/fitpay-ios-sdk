@@ -4,8 +4,6 @@ protocol RtmConfigProtocol {
     var accessToken: String? { get set }
     var hasAccount: Bool { get }
 
-    func update(value: Any, forKey: String)
-
     func jsonDict() -> [String: Any]
 }
 
@@ -58,53 +56,6 @@ class RtmConfig: NSObject, Serializable, RtmConfigProtocol {
         case language
         case baseLanguageUrl = "baseLangUrl"
         case useWebCardScanner 
-    }
-
-    public func update(value: Any, forKey key: String) {
-        if let mappingKey = CodingKeys(rawValue: key) {
-            switch mappingKey {
-            case .accessToken:
-                accessToken = value as? String
-                break
-            case .clientId:
-                clientId = value as? String
-                break
-            case .redirectUri:
-                redirectUri = value as? String
-                break
-            case .userEmail:
-                userEmail = value as? String
-                break
-            case .deviceInfo:
-                deviceInfo = value as? Device
-                break
-            case .hasAccount:
-                hasAccount = value as? Bool ?? false
-                break
-            case .version:
-                version = value as? String
-                break
-            case .demoMode:
-                demoMode = value as? Bool ?? false
-                break
-            case .customCSSUrl:
-                customCSSUrl = value as? String
-                break
-            case .demoCardGroup:
-                demoCardGroup = value as? String
-                break
-            case .language:
-                language = value as? String
-                break
-            case .baseLanguageUrl:
-                baseLanguageUrl = value as? String
-                break
-            case .useWebCardScanner:
-                useWebCardScanner = value as? Bool ?? true
-            }
-        } else {
-            customs.updateValue(value, forKey: key)
-        }
     }
     
     func jsonDict() -> [String: Any] {

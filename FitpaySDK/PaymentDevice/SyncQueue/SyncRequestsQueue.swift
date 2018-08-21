@@ -30,7 +30,7 @@ open class SyncRequestQueue {
         request.update(state: .pending)
         
         guard let queue = queueFor(syncRequest: request) else {
-            log.error("Error. Can't get/create sync request queue for device. Device id: \(request.deviceInfo?.deviceIdentifier ?? "nil")")
+            log.error("SYNC_DATA: Can't get/create sync request queue for device. Device id: \(request.deviceInfo?.deviceIdentifier ?? "nil")")
             request.update(state: .done)
 
             completion?(.failed, SyncRequestQueueError.cantCreateQueueForSyncRequest)
@@ -50,7 +50,7 @@ open class SyncRequestQueue {
     
     private func queueFor(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
         guard let deviceId = syncRequest.deviceInfo?.deviceIdentifier else { //TODO: should really check for user / device
-            log.warning("Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
+            log.warning("SYNC_DATA: Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
             return queueForDeviceWithoutDeviceIdentifier(syncRequest: syncRequest)
         }
         
@@ -65,9 +65,9 @@ open class SyncRequestQueue {
     }
     
     private func queueForDeviceWithoutDeviceIdentifier(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
-        log.warning("Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
+        log.warning("SYNC_DATA: Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
         guard let lastFullSyncRequest = self.lastFullSyncRequest else {
-            log.error("Can't find queue for empty SyncRequest")
+            log.error("SYNC_DATA: Can't find queue for empty SyncRequest")
             return nil
         }
         
@@ -75,14 +75,14 @@ open class SyncRequestQueue {
         syncRequest.deviceInfo = lastFullSyncRequest.deviceInfo
         syncRequest.paymentDevice = lastFullSyncRequest.paymentDevice
         
-        log.warning("Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
+        log.warning("SYNC_DATA: Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
         return queueFor(syncRequest: syncRequest)
     }
     
     private func bind() {
         var binding = self.syncManager.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (event) in
             guard let request = (event.eventData as? [String: Any])?["request"] as? SyncRequest else {
-                log.warning("Can't get request from sync event.")
+                log.warning("SYNC_DATA: Can't get request from sync event.")
                 return
             }
             
@@ -97,7 +97,7 @@ open class SyncRequestQueue {
         
         binding = self.syncManager.bindToSyncEvent(eventType: .syncFailed) { [weak self] (event) in
             guard let request = (event.eventData as? [String: Any])?["request"] as? SyncRequest else {
-                log.warning("Can't get request from sync event.")
+                log.warning("SYNC_DATA: Can't get request from sync event.")
                 return
             }
             

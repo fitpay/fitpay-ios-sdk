@@ -6,7 +6,7 @@ extension Array {
         return JSONSerialization.JSONString(self)
     }
     
-    // MARK: FIFO
+    // MARK: - FIFO
     mutating func enqueue(_ newElement: Element) {
         self.append(newElement)
     }

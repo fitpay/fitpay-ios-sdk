@@ -1,9 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-import UIKit
-
-class PayloadTests: BaseTestProvider {
+class PayloadTests: XCTestCase {
+    let mockModels = MockModels()
 
     func testCreditCardPayloadParsing() {
         let payload = mockModels.getPayload()

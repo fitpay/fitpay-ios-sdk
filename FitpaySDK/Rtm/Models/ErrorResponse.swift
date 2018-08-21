@@ -114,7 +114,7 @@ import Foundation
     private func logError() {
         let status = "\(self.status ?? 0)"
         let messageDescription = "\(self.messageDescription ?? "")"
-        log.error("Error. Status: \(status) Message: \(messageDescription).")
+        log.error("ERROR_RESPONSE: Status: \(status) Message: \(messageDescription).")
     }
 
 }

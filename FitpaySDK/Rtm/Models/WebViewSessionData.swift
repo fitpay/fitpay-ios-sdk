@@ -14,7 +14,7 @@ open class SessionData: NSObject, Serializable {
     }
 
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        if let tmpSession: SessionData = JWEObject.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret) {
+        if let tmpSession: SessionData = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret) {
             self.userId = tmpSession.userId
             self.deviceId = tmpSession.deviceId
             self.token = tmpSession.token

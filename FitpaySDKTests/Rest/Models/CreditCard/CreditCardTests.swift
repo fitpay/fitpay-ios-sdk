@@ -1,7 +1,8 @@
 import XCTest
 @testable import FitpaySDK
 
-class CreditCardTests: BaseTestProvider {
+class CreditCardTests: XCTestCase {
+    let mockModels = MockModels()
         
     func testCreditCardParsing() {
         let creditCard = mockModels.getCreditCard()

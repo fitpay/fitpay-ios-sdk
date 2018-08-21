@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class TestHelper {
@@ -16,6 +18,12 @@ class TestHelper {
         XCTAssertNotNil(user.links)
         XCTAssertNotNil(user.createdEpoch)
         XCTAssertNotNil(user.encryptedData)
+        XCTAssertNotNil(user.info)
+        XCTAssertNotNil(user.info?.username)
+        XCTAssertNotNil(user.info?.firstName)
+        XCTAssertNotNil(user.info?.lastName)
+        XCTAssertNotNil(user.info?.birthDate)
+        XCTAssertNotNil(user.info?.email)
     }
     
     func createUser(_ expectation: XCTestExpectation, email: String, pin: String, completion: @escaping (User?) -> Void) {
@@ -38,7 +46,6 @@ class TestHelper {
                 XCTAssertTrue(self.session.isAuthorized, "user should be authorized")
                 
                 self.client.user(id: self.session.userId!) { (user, userError) in
-                    
                     XCTAssertNotNil(user, "user should not be nuil")
                     
                     self.userValid(user!)
@@ -97,12 +104,12 @@ class TestHelper {
         XCTAssertNotNil(card?.cardType)
         XCTAssertNotNil(card?.cardMetaData)
         XCTAssertNotNil(card?.encryptedData)
-      //TODO  XCTAssertNotNil(card?.info)
-      //TODO  XCTAssertNotNil(card?.info?.address)
-      //TODO  XCTAssertNotNil(card?.info?.cvv)
-      //TODO  XCTAssertNotNil(card?.info?.expMonth)
-      //TODO  XCTAssertNotNil(card?.info?.expYear)
-      //TODO  XCTAssertNotNil(card?.info?.pan)
+        XCTAssertNotNil(card?.info)
+        XCTAssertNotNil(card?.info?.address)
+        XCTAssertNotNil(card?.info?.cvv)
+        XCTAssertNotNil(card?.info?.expMonth)
+        XCTAssertNotNil(card?.info?.expYear)
+        XCTAssertNotNil(card?.info?.pan)
     }
     
     func createEricCard(_ expectation: XCTestExpectation, pan: String, expMonth: Int, expYear: Int, user: User?, completion:@escaping (_ user: User?, _ creditCard: CreditCard?) -> Void) {
@@ -169,7 +176,7 @@ class TestHelper {
             XCTAssertNotNil(acceptedCard)
             
             if acceptedCard?.state != .pendingVerification && acceptedCard?.state != .pendingActive {
-                XCTFail("Need to have a pending verification or active after accepting terms")
+                fail("Need to have a pending verification or active after accepting terms")
             }
             
             if acceptedCard?.state == .pendingActive {
@@ -246,22 +253,21 @@ class TestHelper {
         }
         
         if pendingCard.state != TokenizationState.pendingActive {
-            XCTFail("Cards that aren't in pending active state will not transition to active")
+            fail("Cards that aren't in pending active state will not transition to active")
             return
         }
         
         if retries > 20 {
-            XCTFail("Exceeded retries waiting for pending active card to transition to active")
+            fail("Exceeded retries waiting for pending active card to transition to active")
             return
         }
         
         let time = DispatchTime.now() + 2
         
         DispatchQueue.main.asyncAfter(deadline: time) {
-            
             pendingCard.getCard() { (creditCard, error) in
                 guard error == nil else {
-                    XCTFail("failed to retrieve credit card will polling for active state")
+                    fail("failed to retrieve credit card will polling for active state")
                     return
                 }
                 
@@ -275,7 +281,6 @@ class TestHelper {
         let cardInfo = CardInfo(pan: pan, expMonth: 5, expYear: 2020, cvv: "434", name: "John Smith", address: address, riskData: nil)
         
         user?.createCreditCard(cardInfo: cardInfo) { [unowned self] (creditCard, error) in
-            
             XCTAssertNil(error)
             
             self.assertCreditCard(creditCard)

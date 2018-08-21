@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           FitpaySDK Docs
         </a>
-         (30% documented)
+         (33% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -196,6 +196,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResetDeviceResult.html">ResetDeviceResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ResourceLink.html">ResourceLink</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RestClient.html">RestClient</a>
@@ -411,15 +414,16 @@
             <h1>CreditCardInitiator</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CreditCardInitiator</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CreditCardInitiator</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 
                 </div>
               </div>
-            <p>Identifies the party initiating the deactivation/reactivation request</p>
+            <p>Identifies the party initiating the lifecycle event</p>
 
 <ul>
 <li>cardholder: card holder</li>
 <li>issuer: issuer</li>
+<li>unknown: unknown</li>
 </ul>
 
           </div>
@@ -481,6 +485,37 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="n">issuer</span>     <span class="o">=</span> <span class="s">"ISSUER"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK19CreditCardInitiatorO7unknownA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK19CreditCardInitiatorO7unknownA2CmF">unknown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span>    <span class="o">=</span> <span class="s">"UNKNOWN"</span></code></pre>
 
                         </div>
                       </div>

@@ -9,7 +9,7 @@ import Foundation
     /// Expiration month between 1-12
     public var expiryMonth: UInt?
     
-    /// Expiration year
+    /// 4 digit Expiration year
     public var expiryYear: UInt?
     
     /// 3-4 digit CVV

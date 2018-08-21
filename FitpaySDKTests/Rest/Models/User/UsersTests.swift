@@ -1,10 +1,11 @@
 import XCTest
+import Alamofire
+import Nimble
 
 @testable import FitpaySDK
 
-import Alamofire
-
-class UsersTests: BaseTestProvider {
+class UsersTests: XCTestCase {
+    let mockModels = MockModels()
     
     var user: User!
     var restClient: RestClient!
@@ -16,6 +17,7 @@ class UsersTests: BaseTestProvider {
         let session = RestSession(restRequest: restRequest)
         restClient = RestClient(session: session, restRequest: restRequest)
         testHelper = TestHelper(session: session, client: restClient)
+        restClient.keyPair = MockSECP256R1KeyPair()
         
         FitpayConfig.clientId = "fp_webapp_pJkVp2Rl"
     
@@ -34,7 +36,7 @@ class UsersTests: BaseTestProvider {
 
         user.deleteUser { (error) in
             if error != nil {
-                XCTFail("error deleting user")
+                fail("error deleting user")
             }
             
             expectation.fulfill()

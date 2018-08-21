@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           FitpaySDK Docs
         </a>
-         (30% documented)
+         (33% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -196,6 +196,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResetDeviceResult.html">ResetDeviceResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ResourceLink.html">ResourceLink</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RestClient.html">RestClient</a>
@@ -415,7 +418,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Verification method types for <code><a href="../Classes/VerificationMethod.html">VerificationMethod</a></code></p>
 
           </div>
         </section>
@@ -437,14 +440,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Issuer sends one time passcode (OTP) to card holder via text message to a phone number on file with issuer</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">textToCardholderNumber</span>             <span class="o">=</span> <span class="s">"TEXT_TO_CARDHOLDER_NUMBER"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">textToCardholderNumber</span> <span class="o">=</span> <span class="s">"TEXT_TO_CARDHOLDER_NUMBER"</span></code></pre>
 
                         </div>
                       </div>
@@ -468,14 +471,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Issuer Sends OTP to card holder via email to an email on file with issuer</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">emailToCardholderAddress</span>           <span class="o">=</span> <span class="s">"EMAIL_TO_CARDHOLDER_ADDRESS"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">emailToCardholderAddress</span> <span class="o">=</span> <span class="s">"EMAIL_TO_CARDHOLDER_ADDRESS"</span></code></pre>
 
                         </div>
                       </div>
@@ -499,14 +502,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Card holder calls issuing bank&rsquo;s customer support to activate through an automated system</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToCallAutomatedNumber</span>    <span class="o">=</span> <span class="s">"CARDHOLDER_TO_CALL_AUTOMATED_NUMBER"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToCallAutomatedNumber</span> <span class="o">=</span> <span class="s">"CARDHOLDER_TO_CALL_AUTOMATED_NUMBER"</span></code></pre>
 
                         </div>
                       </div>
@@ -530,14 +533,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Card holder calls issuing bank&rsquo;s customer support to activate through a live agent</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToCallMannedNumber</span>       <span class="o">=</span> <span class="s">"CARDHOLDER_TO_CALL_MANNED_NUMBER"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToCallMannedNumber</span> <span class="o">=</span> <span class="s">"CARDHOLDER_TO_CALL_MANNED_NUMBER"</span></code></pre>
 
                         </div>
                       </div>
@@ -561,14 +564,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Card holder logs into issuer&rsquo;s website</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToVisitWebsite</span>           <span class="o">=</span> <span class="s">"CARDHOLDER_TO_VISIT_WEBSITE"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToVisitWebsite</span> <span class="o">=</span> <span class="s">"CARDHOLDER_TO_VISIT_WEBSITE"</span></code></pre>
 
                         </div>
                       </div>
@@ -582,9 +585,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK22VerificationMethodTypeO25cardholderToUserMobileAppA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/cardholderToUserMobileApp" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK22VerificationMethodTypeO25cardholderToUserMobileAppA2CmF">cardholderToUserMobileApp</a>
+                    <a name="/s:9FitpaySDK22VerificationMethodTypeO35cardholderToCallForAutomatedOTPCodeA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cardholderToCallForAutomatedOTPCode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK22VerificationMethodTypeO35cardholderToCallForAutomatedOTPCodeA2CmF">cardholderToCallForAutomatedOTPCode</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -592,14 +595,45 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Card holder calls issuing bank&rsquo;s customer support to get OTP</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToUserMobileApp</span>          <span class="o">=</span> <span class="s">"CARDHOLDER_TO_USE_MOBILE_APP"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToCallForAutomatedOTPCode</span> <span class="o">=</span> <span class="s">"CARDHOLDER_TO_CALL_FOR_AUTOMATED_OTP_CODE"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK22VerificationMethodTypeO27agentToCallCardholderNumberA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/agentToCallCardholderNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK22VerificationMethodTypeO27agentToCallCardholderNumberA2CmF">agentToCallCardholderNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Issuer&rsquo;s customer service calls card holder to activate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">agentToCallCardholderNumber</span> <span class="o">=</span> <span class="s">"AGENT_TO_CALL_CARDHOLDER_NUMBER"</span></code></pre>
 
                         </div>
                       </div>
@@ -623,14 +657,45 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Issuer&rsquo;s customer service calls card holder to activate</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">issuerToCallCardholderNumber</span>       <span class="o">=</span> <span class="s">"ISSUER_TO_CALL_CARDHOLDER_NUMBER"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">issuerToCallCardholderNumber</span> <span class="o">=</span> <span class="s">"ISSUER_TO_CALL_CARDHOLDER_NUMBER"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK22VerificationMethodTypeO24cardholderToUseMobileAppA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/cardholderToUseMobileApp" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK22VerificationMethodTypeO24cardholderToUseMobileAppA2CmF">cardholderToUseMobileApp</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Card holder authenticates with issuer&rsquo;s mobile app</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">cardholderToUseMobileApp</span> <span class="o">=</span> <span class="s">"CARDHOLDER_TO_USE_MOBILE_APP"</span></code></pre>
 
                         </div>
                       </div>

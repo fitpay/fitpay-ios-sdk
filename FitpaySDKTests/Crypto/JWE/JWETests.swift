@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class JWETests: XCTestCase {
@@ -6,24 +8,24 @@ class JWETests: XCTestCase {
     let sharedSecret = "NFxCwmIncymviQp9-KKKgH_8McGHWGgwV-T-RNkMI-U".base64URLdecoded()
     
     func testJWEEncryption() {
-        let jweObject = try? JWEObject.createNewObject(JWEAlgorithm.A256GCMKW, enc: JWEEncryption.A256GCM, payload: plainText, keyId: nil)
-        XCTAssertNotNil(jweObject)
+        let jweObject = JWE(.A256GCMKW, enc: .A256GCM, payload: plainText, keyId: nil)
+        expect(jweObject).toNot(beNil())
         
-        guard let encryptResult = try? jweObject!.encrypt(sharedSecret!) else {
-            XCTFail("Could Not Encrypt")
+        guard let encryptResult = try? jweObject.encrypt(sharedSecret!) else {
+            fail("Could Not Encrypt")
             return
         }
         
-        XCTAssertNotNil(encryptResult)
+        expect(encryptResult).toNot(beNil())
         
-        let jweResult = JWEObject.parse(payload: encryptResult!)
-        guard let decryptResult = try? jweResult?.decrypt(sharedSecret!) else {
-            XCTFail("Could Not Deycrypt")
+        let jweResult = JWE(payload: encryptResult!)
+        guard let decryptResult = try? jweResult.decrypt(sharedSecret!) else {
+            fail("Could Not Deycrypt")
             return
         }
         
-        XCTAssertNotNil(decryptResult)
+        expect(decryptResult).toNot(beNil())
         
-        XCTAssertTrue(plainText == decryptResult)
+        expect(decryptResult).to(equal(self.plainText))
     }
 }

@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           FitpaySDK Docs
         </a>
-         (30% documented)
+         (33% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -196,6 +196,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResetDeviceResult.html">ResetDeviceResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ResourceLink.html">ResourceLink</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RestClient.html">RestClient</a>
@@ -415,7 +418,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Current state of <code><a href="../Classes/VerificationMethod.html">VerificationMethod</a></code></p>
 
           </div>
         </section>
@@ -437,14 +440,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Supported by issuer and valid, display if app supports it</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">availableForSelection</span>  <span class="o">=</span> <span class="s">"AVAILABLE_FOR_SELECTION"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">availableForSelection</span> <span class="o">=</span> <span class="s">"AVAILABLE_FOR_SELECTION"</span></code></pre>
 
                         </div>
                       </div>
@@ -468,14 +471,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>User previously selected method. Waiting for user to take additional action (enter otp, call issuer, etc.)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">awaitingVerification</span>   <span class="o">=</span> <span class="s">"AWAITING_VERIFICATION"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">awaitingVerification</span> <span class="o">=</span> <span class="s">"AWAITING_VERIFICATION"</span></code></pre>
 
                         </div>
                       </div>
@@ -499,14 +502,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>OTP code that was requested has expired.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">expired</span>                <span class="o">=</span> <span class="s">"EXPIRED"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">expired</span> <span class="o">=</span> <span class="s">"EXPIRED"</span></code></pre>
 
                         </div>
                       </div>
@@ -530,14 +533,47 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>This is the verification method the user successfully used.
+This may be removed in the future as we don&rsquo;t return verificationMethods unless card is in pending user verification.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">verified</span>               <span class="o">=</span> <span class="s">"VERIFIED"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">verified</span> <span class="o">=</span> <span class="s">"VERIFIED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK17VerificationStateO5errorA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/error" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK17VerificationStateO5errorA2CmF">error</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Verification was valid at some point in the card&rsquo;s lifecycle but no longer valid (ie: user submitted wrong code too many times).
+Don&rsquo;t display.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">error</span> <span class="o">=</span> <span class="s">"ERROR"</span></code></pre>
 
                         </div>
                       </div>
