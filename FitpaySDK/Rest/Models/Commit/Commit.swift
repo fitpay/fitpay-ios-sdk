@@ -60,7 +60,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     // MARK: - Functions
     
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        self.payload = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        self.payload = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
         self.payload?.creditCard?.client = self.client
     }
     

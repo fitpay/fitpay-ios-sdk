@@ -1,21 +1,11 @@
 extension String {
     
-    var SHA1: String? {
-        guard let data = self.data(using: String.Encoding.utf8) else {
-           return nil
-        }
-        
-        return data.SHA1
-    }
-    
     func hexToData() -> Data? {
         let trimmedString = self.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
         let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .caseInsensitive)
         let found = regex.firstMatch(in: trimmedString, options: [], range: NSMakeRange(0, trimmedString.count))
         
-        if found == nil || found?.range.location == NSNotFound || trimmedString.count % 2 != 0 {
-            return nil
-        }
+        if found == nil || found?.range.location == NSNotFound || trimmedString.count % 2 != 0 { return nil }
         
         let data = NSMutableData(capacity: trimmedString.count / 2)
         
@@ -52,10 +42,7 @@ extension String {
     
     func base64URLdecoded() -> Data? {
         let base64EncodedString = convertBase64URLtoBase64(self)
-        if let decodedData = Data(base64Encoded: base64EncodedString, options:NSData.Base64DecodingOptions(rawValue: 0)) {
-            return decodedData
-        }
-        return nil
+        return Data(base64Encoded: base64EncodedString, options: NSData.Base64DecodingOptions(rawValue: 0))
     }
     
     // MARK: - Private

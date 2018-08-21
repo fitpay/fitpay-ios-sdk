@@ -1,4 +1,5 @@
 import XCTest
+import Nimble
 
 @testable import FitpaySDK
 
@@ -9,11 +10,11 @@ class FitpayConfigTests: XCTestCase {
     }
 
     func testConfigByClientId() {
-        XCTAssertNil(FitpayConfig.clientId)
+        expect(FitpayConfig.clientId).to(beNil())
         
         FitpayConfig.configure(clientId: "testId")
 
-        XCTAssertEqual(FitpayConfig.clientId, "testId")
+        expect(FitpayConfig.clientId).to(equal("testId"))
     }
     
     func testConfigFromDefaultFile() {
@@ -22,17 +23,17 @@ class FitpayConfigTests: XCTestCase {
         
         FitpayConfig.configure(bundle: bundle)
         
-        XCTAssertEqual(FitpayConfig.clientId, "testId2")
-        XCTAssertEqual(FitpayConfig.webURL, "web")
-        XCTAssertEqual(FitpayConfig.redirectURL, "redirect")
-        XCTAssertEqual(FitpayConfig.apiURL, "api")
-        XCTAssertEqual(FitpayConfig.authURL, "auth")
-        XCTAssertEqual(FitpayConfig.supportApp2App, true)
-        XCTAssertEqual(FitpayConfig.minLogLevel, LogLevel.debug)
-        XCTAssertEqual(FitpayConfig.Web.demoMode, true)
-        XCTAssertEqual(FitpayConfig.Web.demoCardGroup, "visa_only")
-        XCTAssertEqual(FitpayConfig.Web.cssURL, "css")
-        XCTAssertEqual(FitpayConfig.Web.supportCardScanner, true)
+        expect(FitpayConfig.clientId).to(equal("testId2"))
+        expect(FitpayConfig.webURL).to(equal("web"))
+        expect(FitpayConfig.redirectURL).to(equal("redirect"))
+        expect(FitpayConfig.apiURL).to(equal("api"))
+        expect(FitpayConfig.authURL).to(equal("auth"))
+        expect(FitpayConfig.supportApp2App).to(equal(true))
+        expect(FitpayConfig.minLogLevel).to(equal(LogLevel.debug))
+        expect(FitpayConfig.Web.demoMode).to(equal(true))
+        expect(FitpayConfig.Web.demoCardGroup).to(equal("visa_only"))
+        expect(FitpayConfig.Web.cssURL).to(equal("css"))
+        expect(FitpayConfig.Web.supportCardScanner).to(equal(true))
 
     }
     
@@ -42,7 +43,7 @@ class FitpayConfigTests: XCTestCase {
         
         FitpayConfig.configure(fileName: "fitpayconfigAlt", bundle: bundle)
         
-        XCTAssertEqual(FitpayConfig.clientId, "testId3")
+        expect(FitpayConfig.clientId).to(equal("testId3"))
     }
 
 }

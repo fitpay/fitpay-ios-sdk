@@ -1,8 +1,9 @@
 import XCTest
 @testable import FitpaySDK
 
-class EncryptionKeyTests: BaseTestProvider {
-        
+class EncryptionKeyTests: XCTestCase {
+    let mockModels = MockModels()
+
     func testEncryptionKeyParsing() {
         let encryptionKey = mockModels.getEncryptionKey()
 

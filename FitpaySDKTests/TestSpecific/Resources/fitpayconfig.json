@@ -6,7 +6,7 @@
     "authURL": "auth",
     "supportApp2App": true,
     "minLogLevel": 1,
-    "web":{
+    "web": {
         "demoMode": true,
         "demoCardGroup": "visa_only",
         "cssURL": "css",

@@ -171,7 +171,7 @@ import Foundation
     }
     
     func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
-        self.info = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        self.info = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
 
     /**

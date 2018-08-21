@@ -6,7 +6,7 @@ protocol RtmOutputDelegate: class {
 }
 
 class RtmMessaging {
-    weak var outputDelagate: RtmOutputDelegate?
+    weak var outputDelegate: RtmOutputDelegate?
     weak var rtmDelegate: RTMDelegate?
     weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
     weak var cardScannerDataSource: FitpayCardScannerDataSource?
@@ -75,13 +75,13 @@ class RtmMessaging {
             log.debug("WV_DATA: received \(version) rtm version.")
             
             guard handlersMapping.index(forKey: version) != nil, var handler = handlersMapping[version]! else {
-                log.error("There is no message handler for version: \(version).")
+                log.error("WV_DATA: There is no message handler for version: \(version).")
                 completion?(false)
                 return
             }
             
             handler.wvRtmDelegate = self.rtmDelegate
-            handler.outputDelegate = self.outputDelagate
+            handler.outputDelegate = self.outputDelegate
             handler.cardScannerDataSource = self.cardScannerDataSource
             handler.cardScannerPresenterDelegate = self.cardScannerPresenterDelegate
             handler.a2aVerificationDelegate = self.a2aVerificationDelegate

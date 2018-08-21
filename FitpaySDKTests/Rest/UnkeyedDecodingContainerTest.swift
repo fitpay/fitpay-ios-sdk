@@ -47,7 +47,8 @@ fileprivate class MockModel: Serializable {
     }
 }
 
-class UnkeyedDecodingContainerTest: BaseTestProvider {
+class UnkeyedDecodingContainerTest: XCTestCase {
+    let mockModels = MockModels()
 
     func testUnkeyed() {
         let bool = "true"

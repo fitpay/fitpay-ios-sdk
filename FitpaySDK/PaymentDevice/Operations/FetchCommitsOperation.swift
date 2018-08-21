@@ -25,8 +25,6 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
         self.connector = connector
     }
     
-
-    
     func startWith(limit: Int, andOffset offset: Int) -> Observable<[Commit]> {
         func loadCommits(afterCommit commitId: String) {
             deviceInfo.listCommits(commitsAfter: commitId, limit: limit, offset: offset) { [weak self] (result, error) in
@@ -83,8 +81,8 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
         if self.startFromSyncedCommit {
             if let getDeviceLastCommitId = self.connector?.getDeviceLastCommitId, let _ = self.connector?.setDeviceLastCommitId {
                 commitId = getDeviceLastCommitId()
-            } else {
-                commitId = self.syncStorage.getLastCommitId(self.deviceInfo.deviceIdentifier!)
+            } else if let deviceId = self.deviceInfo.deviceIdentifier{
+                commitId = self.syncStorage.getLastCommitId(deviceId)
             }
         }
         
@@ -92,7 +90,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
             return Observable.create({ [weak self] (observer) -> Disposable in
                 self?.deviceInfo.lastAckCommit(completion: { (commit, error) in
                     if let error = error {
-                        log.error("Can't get lastAckCommit. Error: \(error)")
+                        log.warning("SYNC_DATA: Can't get lastAckCommit. Error: \(error)")
                         // anyway continue sync process from beginning
                         observer.onNext("")
                     } else {

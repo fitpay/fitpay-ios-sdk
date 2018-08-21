@@ -1,59 +1,7 @@
 import XCTest
-@testable import FitpaySDK
+import Nimble
 
-class MockRtmMessageHandler: RtmMessageHandler {
-    
-    var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
-    
-    var wvConfigStorage: WvConfigStorage!
-    
-    weak var outputDelegate: RtmOutputDelegate?
-    weak var wvRtmDelegate: RTMDelegate?
-    weak var cardScannerPresenterDelegate: FitpayCardScannerPresenterDelegate?
-    weak var cardScannerDataSource: FitpayCardScannerDataSource?
-    
-    var completion: ((_ message: [String: Any]) -> Void)?
-    
-    required init(wvConfigStorage: WvConfigStorage) {
-        self.wvConfigStorage = wvConfigStorage
-    }
-    
-    func handle(message: [String: Any]) {
-        completion?(message)
-    }
-    
-    func handlerFor(rtmMessage: String) -> MessageTypeHandler? {
-        return nil
-    }
-    
-    func handleSync(_ message: RtmMessage) {
-        
-    }
-    func handleSessionData(_ message: RtmMessage) {
-        
-    }
-    
-    func resolveSync() {
-        
-    }
-    
-    func appToAppVerificationResponse(success: Bool, reason: A2AVerificationError?) {
-        
-    }
-    
-    func logoutResponseMessage() -> RtmMessageResponse? {
-        return nil
-    }
-    
-    func statusResponseMessage(message: String, type: WvConfig.WVMessageType) -> RtmMessageResponse? {
-        return nil
-    }
-    
-    func versionResponseMessage(version: WvConfig.RtmProtocolVersion) -> RtmMessageResponse? {
-        return nil
-    }
-    
-}
+@testable import FitpaySDK
 
 class RtmMessagingTests: XCTestCase {
     
@@ -67,81 +15,76 @@ class RtmMessagingTests: XCTestCase {
     }
     
     func testSuccessVersionNegotiating() {
-        let expectation = super.expectation(description: "rtm messaging")
-        
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver3: handler]
         
-        handler.completion = { (_) in
-            expectation.fulfill()
+        waitUntil { done in
+            handler.completion = { (_) in
+                done()
+            }
+            
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0,"data": ["version": 3]]) { (success) in
+                expect(success).to(beTrue())
+            }
+            
+            self.rtmMessaging.received(message: ["type": "ping", "callBackId": 1])
         }
-        
-        rtmMessaging.received(message: ["type":"version","callBackId":0,"data":["version":3]], completion: { (success) in
-            XCTAssertTrue(success)
-        })
-        
-        rtmMessaging.received(message: ["type":"ping","callBackId":1])
-        
-        super.waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testUnknownVersionReceived() {
-        let expectation = super.expectation(description: "rtm messaging")
-        
+    func testUnknownVersionReceived() {        
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver3: handler]
         
-        rtmMessaging.received(message: ["type":"version","callBackId":0,"data":["version":99]], completion: { (success) in
-            XCTAssertFalse(success)
-        })
-        
-        rtmMessaging.received(message: ["type":"ping","callBackId":1], completion: { (success) in
-            XCTAssertFalse(success)
-            expectation.fulfill()
-        })
-        
-        super.waitForExpectations(timeout: 5, handler: nil)
+        waitUntil { done in
+            self.rtmMessaging.received(message: ["type": "version","callBackId": 0,"data": ["version": 99]]) { (success) in
+                expect(success).to(beFalse())
+            }
+            
+            self.rtmMessaging.received(message: ["type": "ping","callBackId": 1]) { (success) in
+                expect(success).to(beFalse())
+                done()
+            }
+
+        }
     }
     
     func testLowerVersionReceived() {
-        let expectation = super.expectation(description: "rtm messaging")
-        
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver2: handler,
                                         WvConfig.RtmProtocolVersion.ver3: MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)]
         
-        handler.completion = { (_) in
-            expectation.fulfill()
+        waitUntil { done in
+            handler.completion = { (_) in
+                done()
+            }
+            
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0,"data": ["version": 2]]) {
+                expect($0).to(beTrue())
+            }
+            
+            self.rtmMessaging.received(message: ["type": "ping", "callBackId": 1]) {
+                expect($0).to(beTrue())
+            }
         }
         
-        rtmMessaging.received(message: ["type":"version","callBackId":0,"data":["version":2]], completion: {
-            XCTAssertTrue($0)
-        })
-        
-        rtmMessaging.received(message: ["type":"ping","callBackId":1], completion: {
-            XCTAssertTrue($0)
-        })
-        
-        super.waitForExpectations(timeout: 5, handler: nil)
     }
     
     func testUnknownMessageTypeNegotiating() {
-        let expectation = super.expectation(description: "rtm messaging - unknown message type")
-        
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver2: handler]
         
-        handler.completion = { (message) in
-            expectation.fulfill()
+        
+        waitUntil { done in
+            handler.completion = { (_) in
+                done()
+            }
+            
+            self.rtmMessaging.received(message: ["type": "UnknownType", "callBackId": 21,"data": ["string parameter": "Some Details", "number parameter": 99]])
+            
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0, "data": ["version": 2]]) { (success) in
+                expect(success).to(beTrue())
+            }
         }
-        
-        rtmMessaging.received(message: ["type":"UnknownType","callBackId":21,"data":["string parameter":"Some Details", "number parameter": 99]])
-        
-        rtmMessaging.received(message: ["type":"version","callBackId":0,"data":["version":2]], completion: { (success) in
-            XCTAssertTrue(success)
-        })
-        
-        super.waitForExpectations(timeout: 5, handler: nil)
     }
     
 }

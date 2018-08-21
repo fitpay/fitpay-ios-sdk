@@ -1,11 +1,5 @@
 import Foundation
 
-enum SyncRequestState: Int {
-    case pending
-    case inProgress
-    case done
-}
-
 public typealias SyncRequestCompletion = (EventStatus, Error?) -> Void
 
 open class SyncRequest {
@@ -87,17 +81,15 @@ open class SyncRequest {
     // MARK: - Internal Functions
     
     func update(state: SyncRequestState) {
-        if state == .inProgress {
-            self.syncStartTime = Date()
+        if state == .inProgress && syncStartTime == nil {
+            syncStartTime = Date()
         }
         
         self.state = state
     }
     
     func syncCompleteWith(status: EventStatus, error: Error?) {
-        if let completion = self.completion {
-            completion(status, error)
-        }
+        completion?(status, error)
     }
     
     func isSameUserAndDevice(otherRequest: SyncRequest) -> Bool {

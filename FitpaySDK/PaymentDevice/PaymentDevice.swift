@@ -217,7 +217,7 @@
             }
             
         } catch {
-            log.error("Can't execute message, error: \(error)")
+            log.error("APDU_DATA: Can't execute message, error: \(error)")
             completion(nil, nil, NSError.unhandledError(PaymentDevice.self))
         }
     }

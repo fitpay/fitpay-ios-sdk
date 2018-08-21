@@ -110,7 +110,7 @@ class SyncOperation {
         self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe() { [weak self] (e) in
             switch e {
             case .error(let error):
-                log.error("Can't fetch commits. Error: \(error)")
+                log.error("SYNC_DATA: Can't fetch commits. Error: \(error)")
                 self?.sendCommitsMetric()
                 self?.state.value = .completed(SyncManager.ErrorCode.cantFetchCommits)
                 break
