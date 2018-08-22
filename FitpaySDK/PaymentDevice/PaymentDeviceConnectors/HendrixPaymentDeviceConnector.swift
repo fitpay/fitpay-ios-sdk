@@ -1,7 +1,7 @@
 import Foundation
 import CoreBluetooth
 
-@objc open class HendrixPaymentDeviceConnector: NSObject {
+@objc open class HendricksPaymentDeviceConnector: NSObject {
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
     private var _deviceInfo: Device?
@@ -34,18 +34,25 @@ import CoreBluetooth
         super.init()
     }
     
+    // MARK: - Public Functions
+    
+    public func addCommandtoQueue(_ command: Command, data: Data? = nil) {
+        commandQueue.enqueue((command, data))
+        processNextCommand()
+    }
+    
     // MARK: - Private Functions
     
     private func runCommand() {
         guard currentCommand == nil else {
-            log.error("HENDRIX: Cannot run command while one is already running")
+            log.error("HENDRICKS: Cannot run command while one is already running")
             return
         }
         
         currentCommand = commandQueue.dequeue()
         
         guard let command = currentCommand else {
-            log.debug("HENDRIX: commandQueue is empty")
+            log.debug("HENDRICKS: commandQueue is empty")
             return
         }
         
@@ -56,7 +63,8 @@ import CoreBluetooth
         guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
         guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
         
-        wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        log.debug("HENDRICKS: Running command: \(currentCommand?.command.rawValue ?? 0x00)")
+        
         wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
         wearablePeripheral.writeValue(command.command.rawValue.data, for: commandCharacteristic, type: .withResponse)
         
@@ -71,7 +79,8 @@ import CoreBluetooth
         var index = 0
         let device = deviceInfo() ?? Device()
         
-        device.deviceName = "Hendrix"
+        device.deviceName = "Hendricks"
+        device.osName = "Hendricks OS"
         device.deviceType = "WATCH"
         device.manufacturerName = "Fitpay"
 
@@ -93,13 +102,10 @@ import CoreBluetooth
                 }
                 device.firmwareRevision = String(version.dropLast())
                 
-            } else if (type == .deviceId) { // assign anywhere?
-                //device.deviceIdentifier = hex
-                
             } else if (type == .deviceMode) {
                 guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
 
-            } else if (type == .bootVersion) { // looks to have been removed
+            } else if (type == .bootVersion) {
                 device.hardwareRevision = hex
                 
             }
@@ -111,14 +117,11 @@ import CoreBluetooth
         paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
     }
     
-    private func resetClassVariables() {
+    private func resetState() {
         expectedDataSize = 0
         returnedData = []
         currentCommand = nil
-    }
-    
-    private func addCommandtoQueue(_ command: Command, data: Data? = nil) {
-        commandQueue.enqueue((command, data))
+        
         processNextCommand()
     }
     
@@ -128,59 +131,86 @@ import CoreBluetooth
         }
     }
     
+    private func buildAPDUData(apdus: [APDUCommand]) -> Data {
+        var data = Data()
+        
+        for apdu in apdus {
+            guard let command = apdu.command else { continue }
+            let continueInt: UInt8 = apdu.continueOnFailure ? 0x00 : 0x01
+
+            
+            let groupIdData = UInt8(apdu.groupId).data
+            let sequenceData = UInt8(apdu.sequence).data
+            let continueData = continueInt.data
+            let lengthData = UInt8(command.count).data
+            guard let commandData = command.hexToData() else { continue }
+            
+            let fullCommandData = groupIdData + sequenceData + continueData + lengthData + commandData
+            print(fullCommandData.hex)
+            data.append(fullCommandData)
+        }
+        
+        return data
+    }
 }
 
-@objc extension HendrixPaymentDeviceConnector: PaymentDeviceConnectable {
+@objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
 
-    @objc open func connect() {
+    public func connect() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
-    @objc open func isConnected() -> Bool {
+    public func isConnected() -> Bool {
         return wearablePeripheral?.state == CBPeripheralState.connected
     }
     
-    @objc open func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
+    public func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
         completion(isConnected(), nil)
     }
     
-    @objc open func executeAPDUCommand(_ apduCommand: APDUCommand) {
-        log.debug("executeAPDUCommand \(apduCommand)")
-        // TODO: implement
+    public func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping (Error?) -> Void) {
+        log.debug("HENDRICKS: executeAPDUPackage \(apduPackage)")
+        guard let apdus = apduPackage.apduCommands else { return }
+        
+        let data = buildAPDUData(apdus: apdus)
     }
     
-    @objc open func deviceInfo() -> Device? {
+    public func executeAPDUCommand(_ apduCommand: APDUCommand) {
+        log.error("HENDRICKS: Not implemented. using packages instead")
+    }
+    
+    public func deviceInfo() -> Device? {
         return _deviceInfo
     }
     
-    @objc open func resetToDefaultState() {
+    public func resetToDefaultState() {
         addCommandtoQueue(.factoryReset)
     }
     
 }
 
-@objc extension HendrixPaymentDeviceConnector: CBCentralManagerDelegate {
+@objc extension HendricksPaymentDeviceConnector: CBCentralManagerDelegate {
     
-    @objc open func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown:
-            log.debug("HENDRIX: central.state is .unknown")
+            log.debug("HENDRICKS: central.state is .unknown")
         case .resetting:
-            log.debug("HENDRIX: central.state is .resetting")
+            log.debug("HENDRICKS: central.state is .resetting")
         case .unsupported:
-            log.debug("HENDRIX: central.state is .unsupported")
+            log.debug("HENDRICKS: central.state is .unsupported")
         case .unauthorized:
-            log.debug("HENDRIX: central.state is .unauthorized")
+            log.debug("HENDRICKS: central.state is .unauthorized")
         case .poweredOff:
-            log.debug("HENDRIX: central.state is .poweredOff")
+            log.debug("HENDRICKS: central.state is .poweredOff")
         case .poweredOn:
-            log.debug("HENDRIX: central.state is .poweredOn")
+            log.debug("HENDRICKS: central.state is .poweredOn")
             centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
         }
     }
     
-    @objc open func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        log.verbose("HENDRIX: didDiscover peripheral: \(peripheral)")
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
+        log.verbose("HENDRICKS: didDiscover peripheral: \(peripheral)")
         
         wearablePeripheral = peripheral
         wearablePeripheral?.delegate = self
@@ -188,18 +218,18 @@ import CoreBluetooth
         centralManager.connect(peripheral, options: nil)
     }
     
-    @objc open func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        log.debug("HENDRIX: Connected")
+    public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        log.debug("HENDRICKS: Connected")
         wearablePeripheral?.discoverServices([deviceServiceId])
     }
     
     public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        log.warning("HENDRIX: Failed to Connect")
+        log.warning("HENDRICKS: Failed to Connect")
     }
     
 }
 
-@objc extension HendrixPaymentDeviceConnector: CBPeripheralDelegate {
+@objc extension HendricksPaymentDeviceConnector: CBPeripheralDelegate {
 
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
@@ -212,6 +242,8 @@ import CoreBluetooth
         guard let statusCharacteristic = service.characteristics?.filter({ $0.uuid == statusCharacteristicId }).first else { return }
         guard let dataCharacteristic = service.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
 
+        wearablePeripheral?.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        
         peripheral.setNotifyValue(true, for: statusCharacteristic)
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
@@ -224,24 +256,27 @@ import CoreBluetooth
         switch characteristic.uuid {
             
         case statusCharacteristicId:
+            let status = Data(bytes: Array([value[0]]))
+            guard status == BLEResponses.ok.rawValue.data else {
+                log.error("HENDRICKS: BLE Response Status not OK")
+                resetState()
+                return
+            }
+            
             if (value.count == 1) { //status
-                let status = Data(bytes: value)
-                if (status == BLEResponses.ok.rawValue.data) {
-                    print("success")
-                } else {
-                    print("error1")
-                }
+                log.debug("HENDRICKS: BLE Response OK with no length")
+                resetState()
                 
             } else if (value.count == 5) { //length
-                let status = Data(bytes: Array([value[0]]))
-                if (status != BLEResponses.ok.rawValue.data) {
-                    print("error2")
-                    return
-                }
-                
+                log.debug("HENDRICKS: BLE Response OK with length")
                 let lengthData = Data(bytes: Array(value[1...4])).hex
                 expectedDataSize = Int(lengthData, radix: 16)!
                 returnedData = []
+                
+                //todo add timeout
+                
+            } else {
+                
             }
             
         case dataCharacteristicId:
@@ -249,20 +284,18 @@ import CoreBluetooth
 
             if (returnedData.count == expectedDataSize) {
                 let hexData = Data(bytes: returnedData).hex
-                log.verbose("all data received \(hexData)")
+                log.verbose("HENDRICKS: all data received \(hexData)")
                 
                 if currentCommand?.command == .ping {
                    handlePingResponse()
-                } else if currentCommand?.command == .assignUser {
-                    print("maybeworked")
                 }
                 
-                resetClassVariables()
+                resetState()
 
             }
 
         default:
-            log.warning("Unhandled Characteristic UUID: \(characteristic.uuid)")
+            log.warning("HENDRICKS: Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
     }
     
@@ -270,9 +303,9 @@ import CoreBluetooth
 
 // MARK - Nested Enums
 
-extension HendrixPaymentDeviceConnector {
+extension HendricksPaymentDeviceConnector {
     
-    enum Command: UInt8 {
+    public enum Command: UInt8 {
         case ping           = 0x01
         case restart        = 0x02
         case bootLoader     = 0x03
@@ -294,6 +327,8 @@ extension HendrixPaymentDeviceConnector {
         case getCardInfo    = 0x17
         case deactivateCard = 0x18
         case reactivateCard = 0x19
+        
+        case apduPackage    = 0x20 // 0xXX - apdu count
     }
     
     enum StatusCommand: UInt8 {
