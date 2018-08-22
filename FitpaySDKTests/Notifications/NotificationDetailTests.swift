@@ -5,6 +5,18 @@ import Nimble
 
 class NotificationDetailTests: XCTestCase {
     let mockModels = MockModels()
+    let restRequest = MockRestRequest()
+
+    var restClient: RestClient?
+    
+    override func setUp() {
+        super.setUp()
+        
+        let session = RestSession(restRequest: restRequest)
+        session.accessToken = "fakeToken"
+        
+        restClient = RestClient(session: session, restRequest: restRequest)
+    }
     
     func testNotificationDetailParsing() {
         let notificationDetail = mockModels.getNotificationDetail()
@@ -25,26 +37,21 @@ class NotificationDetailTests: XCTestCase {
         
     }
     
-/* TODO make this work - failing authorization key exchange - nth: better error messages around auth failures on tests
     func testGetCreditCard() {
-        let restRequest = MockRestRequest()
         let notificationDetail = mockModels.getNotificationDetail()
-        let session = RestSession(restRequest: restRequest)
-        let restClient = RestClient(session: session, restRequest: restRequest)
-        
         notificationDetail?.client = restClient
         
         waitUntil { done in
             notificationDetail?.getCreditCard() { (creditCard, error) in
-                let urlString = try? restRequest.lastUrl?.asURL().absoluteString
-                print("restRequest.lastUrl:  \(restRequest.lastUrl)")
+                let urlString = try? self.restRequest.lastUrl?.asURL().absoluteString
                 expect(urlString).to(equal("https://api.fit-pay.com/creditCards/12345fsd"))
+                expect(creditCard).toNot(beNil())
+                expect(error).to(beNil())
                 done()
             }
         }
         
     }
- */
     
 }
 
