@@ -104,6 +104,10 @@ extension RestClient {
         makeGetCall(url, parameters: parameters, completion: completion)
     }
     
+    func getCreditCard(_ url: String, completion: @escaping CreditCardHandler) {
+        makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
     func updateCreditCard(_ url: String, name: String?, address: Address, completion: @escaping CreditCardHandler) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let strongSelf = self else { return }

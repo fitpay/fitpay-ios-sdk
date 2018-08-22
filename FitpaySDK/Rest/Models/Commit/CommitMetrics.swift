@@ -40,7 +40,7 @@ open class CommitMetrics: Serializable {
             return
         }
         
-        guard let client = notification?.restClient else {
+        guard let client = notification?.client else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without rest client.")
             return
         }

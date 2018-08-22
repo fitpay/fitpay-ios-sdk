@@ -95,8 +95,8 @@ open class FitpayNotificationsManager: NSObject {
     }
     
     open func updateRestClientForNotificationDetail(_ notificationDetail: NotificationDetail?) {
-        if let notificationDetail = notificationDetail, notificationDetail.restClient == nil {
-            notificationDetail.restClient = self.restClient
+        if let notificationDetail = notificationDetail, notificationDetail.client == nil {
+            notificationDetail.client = self.restClient
         }
     }
     
@@ -165,7 +165,7 @@ open class FitpayNotificationsManager: NSObject {
     private func notificationDetailFromNotification(_ notification: NotificationsPayload?) -> NotificationDetail? {
         if let fpField2 = notification?["fpField2"] as? String {
             let notificationDetail = try? NotificationDetail(fpField2)
-            notificationDetail?.restClient = self.restClient
+            notificationDetail?.client = self.restClient
             return notificationDetail
         }
         return nil

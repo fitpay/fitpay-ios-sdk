@@ -165,6 +165,12 @@ class MockModels {
         return idVerification
     }
     
+    func getNotificationDetail() -> NotificationDetail? {
+        let notificationDetail = try? NotificationDetail("{\"_links\":{\"ackSync\":{\"href\":\"https://api.fit-pay.com/ackSync\"}, \"creditCard\":{\"href\":\"https://api.fit-pay.com/creditCards/\(someId)\"}},\"type\": \"\(someType)\", \"id\":\"\(someId)\", \"deviceId\": \"\(someId)\", \"userId\": \"\(someId)\", \"clientId\": \"\(someId)\", \"cardId\": \"\(someId)\"}")
+        expect(notificationDetail).toNot(beNil())
+        return notificationDetail
+    }
+    
 //    func getResetDeviceResult() -> ResetDeviceResult? {
 //        let resetDeviceResult = try? ResetDeviceResult(loadDataFromJSONFile(filename: "resetDeviceTask"))
 //        XCTAssertNotNil(resetDeviceResult)
