@@ -4,7 +4,10 @@ import Foundation
 
     open var creditCardId: String?
     open var userId: String?
+    
+    @available(*, deprecated, message: "as of v1.0.3 - will stop being returned from the server")
     open var isDefault: Bool?
+    
     open var created: String?
     open var createdEpoch: TimeInterval?
     open var state: TokenizationState?
@@ -194,6 +197,7 @@ import Foundation
         }
     }
 
+    @available(*, deprecated, message: "as of v1.0.3")
     @objc open func getIsDefault() -> Bool {
         if let _isDefault = isDefault {
             return _isDefault
