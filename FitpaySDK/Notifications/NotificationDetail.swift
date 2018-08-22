@@ -2,15 +2,16 @@ import Foundation
 
 import Alamofire
 
-open class NotificationDetail: Serializable {
+open class NotificationDetail: Serializable, ClientModel {
     
     open var type: String?
     open var syncId: String?
     open var deviceId: String?
     open var userId: String?
     open var clientId: String?
+    open var cardId: String?
     
-    var restClient: RestClient?
+    weak var client: RestClient?
     var links: [ResourceLink]?
 
     private enum CodingKeys: String, CodingKey {
@@ -20,6 +21,7 @@ open class NotificationDetail: Serializable {
         case deviceId
         case userId
         case clientId
+        case cardId
     }
     
     // MARK: - Lifecycle
@@ -33,6 +35,7 @@ open class NotificationDetail: Serializable {
         deviceId = try? container.decode(.deviceId)
         userId = try? container.decode(.userId)
         clientId = try? container.decode(.clientId)
+        cardId = try? container.decode(.cardId)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +47,7 @@ open class NotificationDetail: Serializable {
         try? container.encode(deviceId, forKey: .deviceId)
         try? container.encode(userId, forKey: .userId)
         try? container.encode(clientId, forKey: .clientId)
+        try? container.encode(cardId, forKey: .cardId)
     }
     
     // MARK: - Public Functions
@@ -54,7 +58,7 @@ open class NotificationDetail: Serializable {
             return
         }
 
-        guard let client = self.restClient else {
+        guard let client = self.client else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without rest client.")
             return
         }
@@ -68,5 +72,22 @@ open class NotificationDetail: Serializable {
             }
         }
     }
+    
+    
+    open func getCreditCard(completion: @escaping RestClient.CreditCardHandler) {
+        guard let creditCardUrl = self.links?.url("creditCard") else {
+            log.error("GET_CREDIT_CARD: trying to get credit card without URL.")
+            return
+        }
+        
+        guard let client = self.client else {
+            log.error("GET_CREDIT_CARD: trying to get credit card without rest client.")
+            return
+        }
+
+        client.getCreditCard(creditCardUrl, completion: completion)
+ 
+    }
+
 }
 

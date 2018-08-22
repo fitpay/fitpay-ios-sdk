@@ -465,6 +465,8 @@
 		9AB68E3E1C84A1EC00A0E172 /* JOSEHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB68E391C84A1EC00A0E172 /* JOSEHeader.swift */; };
 		9AB68E3F1C84A1EC00A0E172 /* JWE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB68E3A1C84A1EC00A0E172 /* JWE.swift */; };
 		9AB68E441C84A25B00A0E172 /* JWETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB68E431C84A25B00A0E172 /* JWETests.swift */; };
+		9C33E09A212DB78700792B27 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C33E099212DB78700792B27 /* NotificationDetailTests.swift */; };
+		9C33E09B212DB78700792B27 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C33E099212DB78700792B27 /* NotificationDetailTests.swift */; };
 		A306B4CA1CEE457D007F093C /* ApduResultMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A306B4C91CEE457D007F093C /* ApduResultMessage.swift */; };
 		CD03811FA3F15932D1C0F66B /* RestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03892F10B569368C16273E /* RestSession.swift */; };
 		CD038125B3958A9F8CF17E26 /* WebViewSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03843A84ED76B33DA758D4 /* WebViewSessionData.swift */; };
@@ -735,6 +737,7 @@
 		9AB68E3A1C84A1EC00A0E172 /* JWE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWE.swift; sourceTree = "<group>"; };
 		9AB68E431C84A25B00A0E172 /* JWETests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWETests.swift; sourceTree = "<group>"; };
 		9B65A33C1CDD2D78007A7D7D /* MockPaymentDeviceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockPaymentDeviceTests.swift; sourceTree = "<group>"; };
+		9C33E099212DB78700792B27 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetailTests.swift; sourceTree = "<group>"; };
 		A306B4C91CEE457D007F093C /* ApduResultMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApduResultMessage.swift; sourceTree = "<group>"; };
 		B6183344EC5F4DB31C005E1B /* Pods_all_FitpaySDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_all_FitpaySDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40C8FCCF7E8D0B3045B4E02 /* Pods-all-FitpaySDKTestsPods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-all-FitpaySDKTestsPods.release.xcconfig"; path = "Pods/Target Support Files/Pods-all-FitpaySDKTestsPods/Pods-all-FitpaySDKTestsPods.release.xcconfig"; sourceTree = "<group>"; };
@@ -858,6 +861,7 @@
 		0AD922AB1C1F7EFC007693AB /* FitpaySDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				9C33E098212DB71000792B27 /* Notifications */,
 				0AD922AE1C1F7EFC007693AB /* Info.plist */,
 				27B8884E20A4FA120027969D /* A2AVerification */,
 				27257F44208160CF00633826 /* Crypto */,
@@ -1441,6 +1445,14 @@
 			);
 			name = Mock;
 			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		9C33E098212DB71000792B27 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				9C33E099212DB78700792B27 /* NotificationDetailTests.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		A306B4C81CEE4535007F093C /* Models */ = {
@@ -2054,6 +2066,7 @@
 				91FD055820D1653500092234 /* ImageTests.swift in Sources */,
 				91FD055020D1653400092234 /* A2AIssuerResponseTests.swift in Sources */,
 				9194320120D020480086B39B /* MockPaymentDeviceTests.swift in Sources */,
+				9C33E09A212DB78700792B27 /* NotificationDetailTests.swift in Sources */,
 				91FD055620D1653400092234 /* ApduPackageTests.swift in Sources */,
 				2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */,
 				91FD054A20D1653400092234 /* CommitStatisticTests.swift in Sources */,
@@ -2119,6 +2132,7 @@
 				37D908231F1E546700AA9F86 /* RtmMessagingTests.swift in Sources */,
 				91FD055920D1653500092234 /* ImageTests.swift in Sources */,
 				91FD056D20D1653500092234 /* DeviceTests.swift in Sources */,
+				9C33E09B212DB78700792B27 /* NotificationDetailTests.swift in Sources */,
 				3A46E14A1DF023F9002D0270 /* RestSessionTests.swift in Sources */,
 				27B8885220A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				27F5E5FD21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
