@@ -24,8 +24,8 @@ import CoreBluetooth
     
     private var expectedDataSize = 0
     private var returnedData: [UInt8] = []
-    private var currentCommand: (command: Command, data: Data?)?
-    private var commandQueue: [(command: Command, data: Data?)] = []
+    private var currentCommand: BLECommandPackage?
+    private var commandQueue: [BLECommandPackage] = []
     
     // MARK: - Lifecycle
     
@@ -36,8 +36,8 @@ import CoreBluetooth
     
     // MARK: - Public Functions
     
-    public func addCommandtoQueue(_ command: Command, data: Data? = nil) {
-        commandQueue.enqueue((command, data))
+    public func addCommandtoQueue(_ bleCommand: BLECommandPackage) {
+        commandQueue.enqueue(bleCommand)
         processNextCommand()
     }
     
@@ -63,15 +63,26 @@ import CoreBluetooth
         guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
         guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
         
-        log.debug("HENDRICKS: Running command: \(currentCommand?.command.rawValue ?? 0x00)")
+        log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
+        // start
         wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
-        wearablePeripheral.writeValue(command.command.rawValue.data, for: commandCharacteristic, type: .withResponse)
+        
+        // add data
+        var fullCommandData = command.command.rawValue.data
+        if let commandData = command.commandData {
+            fullCommandData += commandData
+        }
+        
+        log.debug("HENDRICKS: Running full command: \(fullCommandData.hex)")
+        wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
         
         if let data = command.data {
+            log.debug("HENDRICKS: putting data: \(data.hex)")
             wearablePeripheral.writeValue(data, for: dataCharacteristic, type: .withResponse)
         }
         
+        // end
         wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
     }
     
@@ -136,17 +147,16 @@ import CoreBluetooth
         
         for apdu in apdus {
             guard let command = apdu.command else { continue }
-            let continueInt: UInt8 = apdu.continueOnFailure ? 0x00 : 0x01
+            let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
 
             
             let groupIdData = UInt8(apdu.groupId).data
             let sequenceData = UInt8(apdu.sequence).data
             let continueData = continueInt.data
-            let lengthData = UInt8(command.count).data
+            let lengthData = UInt8(command.count / 2).data
             guard let commandData = command.hexToData() else { continue }
             
             let fullCommandData = groupIdData + sequenceData + continueData + lengthData + commandData
-            print(fullCommandData.hex)
             data.append(fullCommandData)
         }
         
@@ -172,7 +182,11 @@ import CoreBluetooth
         log.debug("HENDRICKS: executeAPDUPackage \(apduPackage)")
         guard let apdus = apduPackage.apduCommands else { return }
         
+        // TODO: apdus can be above 255
         let data = buildAPDUData(apdus: apdus)
+        let bleCommand = BLECommandPackage(.apduPackage, commandData: UInt8(apdus.count).data, data: data)
+
+        addCommandtoQueue(bleCommand)
     }
     
     public func executeAPDUCommand(_ apduCommand: APDUCommand) {
@@ -184,7 +198,7 @@ import CoreBluetooth
     }
     
     public func resetToDefaultState() {
-        addCommandtoQueue(.factoryReset)
+        addCommandtoQueue(BLECommandPackage(.factoryReset))
     }
     
 }
@@ -247,7 +261,8 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: statusCharacteristic)
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
-        addCommandtoQueue(.ping)
+        addCommandtoQueue(BLECommandPackage(.ping))
+//        addCommandtoQueue(BLECommandPackage(.factoryReset))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -328,7 +343,7 @@ extension HendricksPaymentDeviceConnector {
         case deactivateCard = 0x18
         case reactivateCard = 0x19
         
-        case apduPackage    = 0x20 // 0xXX - apdu count
+        case apduPackage    = 0x20 // + 0xXX - apdu count
     }
     
     enum StatusCommand: UInt8 {
@@ -350,6 +365,18 @@ extension HendricksPaymentDeviceConnector {
         case ok     = 0x01
         case error  = 0x02
     }
+    
+    public struct BLECommandPackage {
+        var command: Command
+        var commandData: Data?
+        var data: Data?
+        
+        public init(_ command: Command, commandData: Data? = nil, data: Data? = nil) {
+            self.command = command
+            self.commandData = commandData
+            self.data = data
+        }
+        
+    }
+
 }
-
-
