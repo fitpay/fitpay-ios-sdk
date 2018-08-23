@@ -124,6 +124,8 @@
 		27C34A4420CEC635005EE649 /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C34A4220CEC635005EE649 /* CardInfo.swift */; };
 		27C34A4620CECBA8005EE649 /* TermsAssetReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */; };
 		27C34A4720CECBA8005EE649 /* TermsAssetReferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */; };
+		27CF46FD212F48AB00F90B38 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF46FC212F48AB00F90B38 /* NotificationDetailTests.swift */; };
+		27CF46FE212F48AB00F90B38 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CF46FC212F48AB00F90B38 /* NotificationDetailTests.swift */; };
 		27CFE11E21236FF500AE116B /* JWTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE11D21236FF500AE116B /* JWTError.swift */; };
 		27CFE11F21236FF500AE116B /* JWTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE11D21236FF500AE116B /* JWTError.swift */; };
 		27CFE121212371D900AE116B /* JWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE120212371D900AE116B /* JWS.swift */; };
@@ -576,6 +578,7 @@
 		27C34A3B20CEC5B1005EE649 /* CardMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMetaData.swift; sourceTree = "<group>"; };
 		27C34A4220CEC635005EE649 /* CardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
 		27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAssetReferences.swift; sourceTree = "<group>"; };
+		27CF46FC212F48AB00F90B38 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailTests.swift; path = FitpaySDKTests/Notifications/NotificationDetailTests.swift; sourceTree = SOURCE_ROOT; };
 		27CFE11D21236FF500AE116B /* JWTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTError.swift; sourceTree = "<group>"; };
 		27CFE120212371D900AE116B /* JWS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWS.swift; sourceTree = "<group>"; };
 		27CFE1232123794000AE116B /* JWTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTUtils.swift; sourceTree = "<group>"; };
@@ -827,6 +830,7 @@
 				0AD9229E1C1F7EFC007693AB /* Products */,
 				B2C94647591B581A09E4A254 /* Frameworks */,
 				006D1FC3632F93941B04336A /* Pods */,
+				27CF46FA212F47C900F90B38 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -868,6 +872,7 @@
 				27B8884E20A4FA120027969D /* A2AVerification */,
 				27257F44208160CF00633826 /* Crypto */,
 				2714B06920F4172C00321F22 /* Extensions */,
+				27CF46FB212F489700F90B38 /* Notifications */,
 				2773CD92207D537D00DFE113 /* PaymentDevice */,
 				277380D820E5715200B84785 /* Public */,
 				27C0243120A4A1F400681023 /* Rest */,
@@ -1229,6 +1234,15 @@
 				27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */,
 			);
 			path = CreditCard;
+			sourceTree = "<group>";
+		};
+		27CF46FB212F489700F90B38 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				27CF46FC212F48AB00F90B38 /* NotificationDetailTests.swift */,
+			);
+			name = Notifications;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		27E0302B20ADCC29009120AD /* Codable */ = {
@@ -2067,6 +2081,7 @@
 				91FD055A20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
 				91FD056C20D1653500092234 /* DeviceTests.swift in Sources */,
 				91A4AC4520EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
+				27CF46FD212F48AB00F90B38 /* NotificationDetailTests.swift in Sources */,
 				91FD054C20D1653400092234 /* IssuersTests.swift in Sources */,
 				91FD052120D1315000092234 /* MockSECP256R1KeyPair.swift in Sources */,
 				9134BB0120FCA99500368FA2 /* SwCryptTests.swift in Sources */,
@@ -2132,6 +2147,7 @@
 				916C8AC220EA7C4900EEAD3A /* UnkeyedDecodingContainerTest.swift in Sources */,
 				91A4AC4920EBCD39005D057F /* RtmMessageTests.swift in Sources */,
 				91300F7220ED066200ACD3E6 /* PayloadTests.swift in Sources */,
+				27CF46FE212F48AB00F90B38 /* NotificationDetailTests.swift in Sources */,
 				91FD054920D1653400092234 /* RtmConfigTests.swift in Sources */,
 				9194320220D020490086B39B /* MockPaymentDeviceTests.swift in Sources */,
 				27FC9AF62124AFB600D748A4 /* JWTUtilsTests.swift in Sources */,
