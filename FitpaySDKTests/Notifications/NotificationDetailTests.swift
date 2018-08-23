@@ -25,7 +25,7 @@ class NotificationDetailTests: XCTestCase {
         expect(notificationDetail?.deviceId).to(equal("12345fsd"))
         expect(notificationDetail?.userId).to(equal("12345fsd"))
         expect(notificationDetail?.clientId).to(equal("12345fsd"))
-        expect(notificationDetail?.cardId).to(equal("12345fsd"))
+        expect(notificationDetail?.creditCardId).to(equal("12345fsd"))
         
         let json = notificationDetail?.toJSON()
         expect(json?["type"] as? String).to(equal("someType"))
@@ -33,7 +33,7 @@ class NotificationDetailTests: XCTestCase {
         expect(json?["deviceId"] as? String).to(equal("12345fsd"))
         expect(json?["userId"] as? String).to(equal("12345fsd"))
         expect(json?["clientId"] as? String).to(equal("12345fsd"))
-        expect(json?["cardId"] as? String).to(equal("12345fsd"))
+        expect(json?["creditCardId"] as? String).to(equal("12345fsd"))
         
     }
     

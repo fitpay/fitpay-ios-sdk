@@ -9,7 +9,7 @@ open class NotificationDetail: Serializable, ClientModel {
     open var deviceId: String?
     open var userId: String?
     open var clientId: String?
-    open var cardId: String?
+    open var creditCardId: String?
     
     weak var client: RestClient?
     var links: [ResourceLink]?
@@ -21,7 +21,7 @@ open class NotificationDetail: Serializable, ClientModel {
         case deviceId
         case userId
         case clientId
-        case cardId
+        case creditCardId
     }
     
     // MARK: - Lifecycle
@@ -35,7 +35,7 @@ open class NotificationDetail: Serializable, ClientModel {
         deviceId = try? container.decode(.deviceId)
         userId = try? container.decode(.userId)
         clientId = try? container.decode(.clientId)
-        cardId = try? container.decode(.cardId)
+        creditCardId = try? container.decode(.creditCardId)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -47,7 +47,7 @@ open class NotificationDetail: Serializable, ClientModel {
         try? container.encode(deviceId, forKey: .deviceId)
         try? container.encode(userId, forKey: .userId)
         try? container.encode(clientId, forKey: .clientId)
-        try? container.encode(cardId, forKey: .cardId)
+        try? container.encode(creditCardId, forKey: .creditCardId)
     }
     
     // MARK: - Public Functions
