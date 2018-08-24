@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class CreditCardTests: XCTestCase {
@@ -7,43 +9,46 @@ class CreditCardTests: XCTestCase {
     func testCreditCardParsing() {
         let creditCard = mockModels.getCreditCard()
 
-        XCTAssertNotNil(creditCard?.links)
-        XCTAssertEqual(creditCard?.creditCardId, mockModels.someId)
-        XCTAssertEqual(creditCard?.userId, mockModels.someId)
-        XCTAssertEqual(creditCard?.isDefault, true)
-        XCTAssertEqual(creditCard?.created, mockModels.someDate)
-        XCTAssertEqual(creditCard?.createdEpoch, NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch))
-        XCTAssertEqual(creditCard?.state, TokenizationState.notEligible)
-        XCTAssertEqual(creditCard?.cardType, mockModels.someType)
-        XCTAssertNotNil(creditCard?.cardMetaData)
-        XCTAssertEqual(creditCard?.termsAssetId, mockModels.someId)
-        XCTAssertNotNil(creditCard?.termsAssetReferences)
-        XCTAssertEqual(creditCard?.eligibilityExpiration, mockModels.someDate)
-        XCTAssertEqual(creditCard?.encryptedData, mockModels.someEncryptionData)
-        XCTAssertEqual(creditCard?.targetDeviceId, mockModels.someId)
-        XCTAssertEqual(creditCard?.targetDeviceType, mockModels.someType)
-        XCTAssertNotNil(creditCard?.verificationMethods)
-        XCTAssertEqual(creditCard?.externalTokenReference, "someToken")
-        XCTAssertNotNil(creditCard?.topOfWalletAPDUCommands)
+        expect(creditCard?.creditCardId).to(equal(mockModels.someId))
+        expect(creditCard?.userId).to(equal(mockModels.someId))
+        expect(creditCard?.created).to(equal(mockModels.someDate))
+        expect(creditCard?.createdEpoch).to(equal(NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch)))
+        expect(creditCard?.state).to(equal(TokenizationState.notEligible))
+        expect(creditCard?.cardType).to(equal(mockModels.someType))
+        expect(creditCard?.termsAssetId).to(equal(mockModels.someId))
+        expect(creditCard?.eligibilityExpiration).to(equal(mockModels.someDate))
+        expect(creditCard?.encryptedData).to(equal(mockModels.someEncryptionData))
+        expect(creditCard?.targetDeviceId).to(equal(mockModels.someId))
+        expect(creditCard?.targetDeviceType).to(equal(mockModels.someType))
+        expect(creditCard?.externalTokenReference).to(equal("someToken"))
+        
+        expect(creditCard?.links).toNot(beNil())
+        expect(creditCard?.cardMetaData).toNot(beNil())
+        expect(creditCard?.termsAssetReferences).toNot(beNil())
+        expect(creditCard?.verificationMethods).toNot(beNil())
+        expect(creditCard?.topOfWalletAPDUCommands).toNot(beNil())
+
 
         let json = creditCard?.toJSON()
-        XCTAssertNotNil(json?["_links"])
-        XCTAssertEqual(json?["creditCardId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["default"] as? Bool, true)
-        XCTAssertEqual(json?["createdTs"] as? String, mockModels.someDate)
-        XCTAssertEqual(json?["createdTsEpoch"] as? Int64, mockModels.timeEpoch)
-        XCTAssertEqual(json?["state"] as? String, "NOT_ELIGIBLE")
-        XCTAssertEqual(json?["cardType"] as? String, mockModels.someType)
-        XCTAssertNotNil(json?["cardMetaData"])
-        XCTAssertEqual(json?["termsAssetId"] as? String, mockModels.someId)
-        XCTAssertNotNil(json?["termsAssetReferences"])
-        XCTAssertEqual(json?["eligibilityExpiration"] as? String, mockModels.someDate)
-        XCTAssertEqual(json?["eligibilityExpirationEpoch"] as? Int64, mockModels.timeEpoch)
-        XCTAssertEqual(json?["encryptedData"] as? String, mockModels.someEncryptionData)
-        XCTAssertEqual(json?["targetDeviceId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["targetDeviceType"] as? String, mockModels.someType)
-        XCTAssertNotNil(json?["verificationMethods"])
-        XCTAssertEqual(json?["externalTokenReference"] as? String, "someToken")
-        XCTAssertNotNil(json?["offlineSeActions.topOfWallet.apduCommands"])
+        expect(json?["creditCardId"] as? String).to(equal(mockModels.someId))
+        expect(json?["createdTs"] as? String).to(equal(mockModels.someDate))
+        expect(json?["createdTsEpoch"] as? Int64).to(equal(mockModels.timeEpoch))
+        expect(json?["state"] as? String).to(equal("NOT_ELIGIBLE"))
+        expect(json?["cardType"] as? String).to(equal(mockModels.someType))
+        expect(json?["termsAssetId"] as? String).to(equal(mockModels.someId))
+        expect(json?["eligibilityExpiration"] as? String).to(equal(mockModels.someDate))
+        expect(json?["eligibilityExpirationEpoch"] as? Int64).to(equal(mockModels.timeEpoch))
+        expect(json?["encryptedData"] as? String).to(equal(mockModels.someEncryptionData))
+        expect(json?["targetDeviceId"] as? String).to(equal(mockModels.someId))
+        expect(json?["targetDeviceType"] as? String).to(equal(mockModels.someType))
+        expect(json?["externalTokenReference"] as? String).to(equal("someToken"))
+        
+        expect(json?["_links"]).toNot(beNil())
+        expect(json?["cardMetaData"]).toNot(beNil())
+        expect(json?["termsAssetReferences"]).toNot(beNil())
+        expect(json?["verificationMethods"]).toNot(beNil())
+        expect(json?["offlineSeActions.topOfWallet.apduCommands"]).toNot(beNil())
     }
+    
+   
 }
