@@ -182,9 +182,19 @@ import CoreBluetooth
         log.debug("HENDRICKS: executeAPDUPackage \(apduPackage)")
         guard let apdus = apduPackage.apduCommands else { return }
         
-        // TODO: apdus can be above 255
         let data = buildAPDUData(apdus: apdus)
-        let bleCommand = BLECommandPackage(.apduPackage, commandData: UInt8(apdus.count).data, data: data)
+        
+        var apdusCount = apdus.count
+        var dataCount = data.count
+        
+        let apduCountData = Data(bytes: &apdusCount, count: 2)
+        let apduLengthData = Data(bytes: &dataCount, count: 4)
+
+        print(apduCountData.hex)
+        print(apduLengthData.hex)
+        let commandData = apduCountData + apduLengthData
+
+        let bleCommand = BLECommandPackage(.apduPackage, commandData: commandData, data: data)
 
         addCommandtoQueue(bleCommand)
     }
