@@ -91,14 +91,20 @@ class MockModels {
     
     func getCreditCardInfo() -> CardInfo? {
         let address = getAddress()?.toJSONString() ?? ""
-        let cardInfo = try? CardInfo("{\"pan\":\"pan\", \"expMonth\": 2, \"expYear\": 2018, \"cvv\":\"cvv\", \"creditCardId\": \"\(someId)\", \"name\": \"\(someName)\", \"address\": \(address)}")
+        let riskData = getIdVerification()?.toJSONString() ?? ""
+        let cardInfo = try? CardInfo("{\"pan\":\"pan\", \"expMonth\": 2, \"expYear\": 2018, \"cvv\":\"cvv\", \"creditCardId\": \"\(someId)\", \"name\": \"\(someName)\", \"address\": \(address), \"riskData\": \(riskData)}")
+        return cardInfo
+    }
+    
+    func getCreditCardInfoWithNilValues() -> CardInfo? {
+        let cardInfo = try? CardInfo("{\"pan\":\"pan\", \"creditCardId\": \"\(someId)\", \"name\": \"\(someName)\"}")
         return cardInfo
     }
     
     func getCreditCard() -> CreditCard? {
         let apduCommand = getApduCommand()?.toJSONString() ?? ""
 
-        let creditCard = try? CreditCard("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"creditCardId\": \"\(someId)\",\"userId\": \"\(someId)\", \"default\": true,  \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"state\": \"NOT_ELIGIBLE\", \"cardType\": \"\(someType)\", \"termsAssetId\": \"\(someId)\", \"eligibilityExpiration\": \"\(someDate)\", \"eligibilityExpirationEpoch\": \(timeEpoch), \"encryptedData\":\"\(someEncryptionData)\", \"targetDeviceId\": \"\(someId)\", \"targetDeviceType\": \"\(someType)\", \"externalTokenReference\": \"someToken\", \"offlineSeActions.topOfWallet.apduCommands\": [\(apduCommand)], \"tokenLastFour\": \"4321\"}")
+        let creditCard = try? CreditCard("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"creditCardId\": \"\(someId)\",\"userId\": \"\(someId)\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"state\": \"NOT_ELIGIBLE\", \"cardType\": \"\(someType)\", \"termsAssetId\": \"\(someId)\", \"eligibilityExpiration\": \"\(someDate)\", \"eligibilityExpirationEpoch\": \(timeEpoch), \"encryptedData\":\"\(someEncryptionData)\", \"targetDeviceId\": \"\(someId)\", \"targetDeviceType\": \"\(someType)\", \"externalTokenReference\": \"someToken\", \"offlineSeActions.topOfWallet.apduCommands\": [\(apduCommand)], \"tokenLastFour\": \"4321\"}")
         
         creditCard?.cardMetaData = getCreditCardMetadata()
         creditCard?.termsAssetReferences = [getTermsAssetReferences()!]
