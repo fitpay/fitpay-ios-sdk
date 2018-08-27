@@ -11,7 +11,7 @@ class NotificationDetailTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
+                
         let session = RestSession(restRequest: restRequest)
         session.accessToken = "fakeToken"
         
@@ -53,6 +53,21 @@ class NotificationDetailTests: XCTestCase {
                 let urlString = try? self.restRequest.lastUrl?.asURL().absoluteString
                 expect(urlString).to(equal("https://api.fit-pay.com/creditCards/12345fsd"))
                 expect(creditCard).toNot(beNil())
+                expect(error).to(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testGetDevice() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        notificationDetail?.client = restClient
+        
+        waitUntil { done in
+            notificationDetail?.getDevice() { (device, error) in
+                let urlString = try? self.restRequest.lastUrl?.asURL().absoluteString
+                expect(urlString).to(equal("https://api.fit-pay.com/devices/12345fsd"))
+                expect(device).toNot(beNil())
                 expect(error).to(beNil())
                 done()
             }
