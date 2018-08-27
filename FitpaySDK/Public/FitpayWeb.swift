@@ -162,7 +162,6 @@ import WebKit
     
 }
 
-
 extension FitpayWeb: WKNavigationDelegate {
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

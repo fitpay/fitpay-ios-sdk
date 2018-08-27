@@ -18,6 +18,14 @@ class NotificationDetailTests: XCTestCase {
         restClient = RestClient(session: session, restRequest: restRequest)
     }
     
+    func testNotificationDetailParsingOldSync() {
+        let notificationDetail = mockModels.getNotificationDetailOld()
+        expect(notificationDetail?.syncId).to(equal("12345fsd"))
+        
+        let json = notificationDetail?.toJSON()
+        expect(json?["syncId"] as? String).to(equal("12345fsd"))
+    }
+    
     func testNotificationDetailParsing() {
         let notificationDetail = mockModels.getNotificationDetail()
         expect(notificationDetail?.type).to(equal("someType"))
@@ -29,12 +37,11 @@ class NotificationDetailTests: XCTestCase {
         
         let json = notificationDetail?.toJSON()
         expect(json?["type"] as? String).to(equal("someType"))
-        expect(json?["id"] as? String).to(equal("12345fsd"))
+        expect(json?["syncId"] as? String).to(equal("12345fsd"))
         expect(json?["deviceId"] as? String).to(equal("12345fsd"))
         expect(json?["userId"] as? String).to(equal("12345fsd"))
         expect(json?["clientId"] as? String).to(equal("12345fsd"))
         expect(json?["creditCardId"] as? String).to(equal("12345fsd"))
-        
     }
     
     func testGetCreditCard() {

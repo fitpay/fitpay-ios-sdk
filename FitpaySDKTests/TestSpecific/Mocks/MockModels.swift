@@ -171,8 +171,14 @@ class MockModels {
         return idVerification
     }
     
+    func getNotificationDetailOld() -> NotificationDetail? {
+        let notificationDetail = try? NotificationDetail("{\"_links\":{\"ackSync\":{\"href\":\"https://api.fit-pay.com/ackSync\"}}, \"id\":\"\(someId)\"}")
+        expect(notificationDetail).toNot(beNil())
+        return notificationDetail
+    }
+    
     func getNotificationDetail() -> NotificationDetail? {
-        let notificationDetail = try? NotificationDetail("{\"_links\":{\"ackSync\":{\"href\":\"https://api.fit-pay.com/ackSync\"}, \"creditCard\":{\"href\":\"https://api.fit-pay.com/creditCards/\(someId)\"}},\"type\": \"\(someType)\", \"id\":\"\(someId)\", \"deviceId\": \"\(someId)\", \"userId\": \"\(someId)\", \"clientId\": \"\(someId)\", \"creditCardId\": \"\(someId)\"}")
+        let notificationDetail = try? NotificationDetail("{\"_links\":{\"ackSync\":{\"href\":\"https://api.fit-pay.com/ackSync\"}, \"creditCard\":{\"href\":\"https://api.fit-pay.com/creditCards/\(someId)\"}},\"type\": \"\(someType)\", \"syncId\":\"\(someId)\", \"deviceId\": \"\(someId)\", \"userId\": \"\(someId)\", \"clientId\": \"\(someId)\", \"creditCardId\": \"\(someId)\"}")
         expect(notificationDetail).toNot(beNil())
         return notificationDetail
     }
