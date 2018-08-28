@@ -3,6 +3,7 @@ import Foundation
 import Alamofire
 
 open class CommitMetrics: Serializable {
+    
     public var syncId: String?
     public var deviceId: String?
     public var userId: String?
@@ -29,11 +30,16 @@ open class CommitMetrics: Serializable {
         case commitStatistics = "commits"
     }
     
+    // MARK: - Lifecycle
+    
     public init() {
         self.sdkVersion = FitpayConfig.sdkVersion
         self.osVersion = UIDevice.current.systemName + " " + UIDevice.current.systemVersion
     }
+    
+    // MARK: - Functions
 
+    // TODO: should be moved to Notification object
     open func sendCompleteSync() {
         guard let completeSync = notification?.links?.url("completeSync") else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without URL.")
