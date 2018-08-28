@@ -36,10 +36,6 @@ extension String {
         return randomNum.subString(0, length: size)
     }
     
-    func base64URLencoded() -> String? {
-        return self.data(using: String.Encoding.utf8)?.base64URLencoded()
-    }
-    
     func base64URLdecoded() -> Data? {
         let base64EncodedString = convertBase64URLtoBase64(self)
         return Data(base64Encoded: base64EncodedString, options: NSData.Base64DecodingOptions(rawValue: 0))

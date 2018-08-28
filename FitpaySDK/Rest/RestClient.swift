@@ -127,7 +127,6 @@ open class RestClient: NSObject {
         }
     }
     
-    
     public func getPlatformConfig(completion: @escaping (_ platform: PlatformConfig?, _ error: ErrorResponse?) -> Void) {
         restRequest.makeRequest(url: FitpayConfig.apiURL + "/mobile/config", method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil) { (resultValue, error) in
             guard let resultValue = resultValue as? [String: Any] else {
