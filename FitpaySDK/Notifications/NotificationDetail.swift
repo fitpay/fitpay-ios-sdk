@@ -2,6 +2,9 @@ import Foundation
 
 import Alamofire
 
+/// Notification model parsed from push notification
+///
+/// Equivalent to SyncInfo in Android
 open class NotificationDetail: Serializable, ClientModel {
     
     open var type: String?
@@ -9,19 +12,23 @@ open class NotificationDetail: Serializable, ClientModel {
     open var deviceId: String?
     open var userId: String?
     open var clientId: String?
-    open var cardId: String?
+    open var creditCardId: String?
     
     weak var client: RestClient?
     var links: [ResourceLink]?
+    
+    private let creditCardResourceKey = "creditCard"
+    private let deviceResourceKey = "device"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case type
-        case syncId = "id"
+        case id
+        case syncId
         case deviceId
         case userId
         case clientId
-        case cardId
+        case creditCardId
     }
     
     // MARK: - Lifecycle
@@ -31,11 +38,16 @@ open class NotificationDetail: Serializable, ClientModel {
         
         links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
         type = try? container.decode(.type)
+        
         syncId = try? container.decode(.syncId)
+        if (syncId == nil) { // for old notifications syncId comes through as id
+            syncId = try? container.decode(.id)
+        }
+        
         deviceId = try? container.decode(.deviceId)
         userId = try? container.decode(.userId)
         clientId = try? container.decode(.clientId)
-        cardId = try? container.decode(.cardId)
+        creditCardId = try? container.decode(.creditCardId)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -47,7 +59,7 @@ open class NotificationDetail: Serializable, ClientModel {
         try? container.encode(deviceId, forKey: .deviceId)
         try? container.encode(userId, forKey: .userId)
         try? container.encode(clientId, forKey: .clientId)
-        try? container.encode(cardId, forKey: .cardId)
+        try? container.encode(creditCardId, forKey: .creditCardId)
     }
     
     // MARK: - Public Functions
@@ -73,9 +85,8 @@ open class NotificationDetail: Serializable, ClientModel {
         }
     }
     
-    
     open func getCreditCard(completion: @escaping RestClient.CreditCardHandler) {
-        guard let creditCardUrl = self.links?.url("creditCard") else {
+        guard let creditCardUrl = self.links?.url(creditCardResourceKey) else {
             log.error("GET_CREDIT_CARD: trying to get credit card without URL.")
             return
         }
@@ -86,7 +97,20 @@ open class NotificationDetail: Serializable, ClientModel {
         }
 
         client.getCreditCard(creditCardUrl, completion: completion)
- 
+    }
+    
+    open func getDevice(completion: @escaping RestClient.DeviceHandler) {
+        guard let deviceUrl = self.links?.url(deviceResourceKey) else {
+            log.error("GET_DEVICE: trying to get device without URL.")
+            return
+        }
+        
+        guard let client = self.client else {
+            log.error("GET_DEVICE: trying to get device without rest client.")
+            return
+        }
+        
+        client.getDevice(deviceUrl, completion: completion)
     }
 
 }

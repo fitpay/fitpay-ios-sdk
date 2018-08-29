@@ -62,6 +62,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         case offset
         case totalResults
         case results
+        case verificationMethods
     }
 
     public required init(from decoder: Decoder) throws {
@@ -72,6 +73,9 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         offset = try? container.decode(.offset)
         totalResults = try? container.decode(.totalResults)
         results = try? container.decode([T].self, forKey: .results)
+        if results == nil { // hack becuase verification methods aren't strictly a result collection
+            results = try? container.decode([T].self, forKey: .verificationMethods)
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
