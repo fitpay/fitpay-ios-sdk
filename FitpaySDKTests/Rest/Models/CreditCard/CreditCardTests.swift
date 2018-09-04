@@ -21,13 +21,14 @@ class CreditCardTests: XCTestCase {
         expect(creditCard?.targetDeviceId).to(equal(mockModels.someId))
         expect(creditCard?.targetDeviceType).to(equal(mockModels.someType))
         expect(creditCard?.externalTokenReference).to(equal("someToken"))
-        
+                
         expect(creditCard?.links).toNot(beNil())
         expect(creditCard?.cardMetaData).toNot(beNil())
         expect(creditCard?.termsAssetReferences).toNot(beNil())
         expect(creditCard?.verificationMethods).toNot(beNil())
+        
         expect(creditCard?.topOfWalletAPDUCommands).toNot(beNil())
-
+        expect(creditCard?.topOfWalletAPDUCommands?.count).to(equal(1))
 
         let json = creditCard?.toJSON()
         expect(json?["creditCardId"] as? String).to(equal(mockModels.someId))
@@ -47,7 +48,6 @@ class CreditCardTests: XCTestCase {
         expect(json?["cardMetaData"]).toNot(beNil())
         expect(json?["termsAssetReferences"]).toNot(beNil())
         expect(json?["verificationMethods"]).toNot(beNil())
-        expect(json?["offlineSeActions.topOfWallet.apduCommands"]).toNot(beNil())
     }
     
    
