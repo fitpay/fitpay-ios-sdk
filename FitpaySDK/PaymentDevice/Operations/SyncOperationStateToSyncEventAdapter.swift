@@ -1,20 +1,30 @@
+import Foundation
 import RxSwift
 
 class SyncOperationStateToSyncEventAdapter {
     
-    init(stateObservable: Observable<SyncOperationState>,
-         publisher: PublishSubject<SyncEvent>) {
+    private var stateObservable: Observable<SyncOperationState>
+    private var syncEventsPublisher: PublishSubject<SyncEvent>
+    
+    private var disposeBag = DisposeBag()
+    
+    // MARK: - Lifecycle
+    
+    init(stateObservable: Observable<SyncOperationState>, publisher: PublishSubject<SyncEvent>) {
         self.stateObservable = stateObservable
         self.syncEventsPublisher = publisher
     }
+    
+    // MARK: - Functions
     
     func startAdapting() -> Observable<SyncEvent> {
         self.stateObservable.subscribe(onNext: { [weak self] (state) in
             var callComplete = false
             var syncEvent: SyncEvent? = nil
+            
             switch state {
             case .commitsReceived(let commits):
-                syncEvent = SyncEvent(event: .commitsReceived, data: ["commits":commits])
+                syncEvent = SyncEvent(event: .commitsReceived, data: ["commits": commits])
                 break
             case .completed(let error):
                 if let error = error {
@@ -50,7 +60,4 @@ class SyncOperationStateToSyncEventAdapter {
         return syncEventsPublisher
     }
     
-    private var stateObservable: Observable<SyncOperationState>
-    private var syncEventsPublisher: PublishSubject<SyncEvent>
-    private var disposeBag = DisposeBag()
 }

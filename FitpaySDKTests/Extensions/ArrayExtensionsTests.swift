@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class ArrayExtensionsTests: XCTestCase {
@@ -7,27 +9,30 @@ class ArrayExtensionsTests: XCTestCase {
         let testArray = ["Foo", "Bar", "FooBar"]
         let jsonString = testArray.JSONString
         
-        XCTAssertEqual(jsonString, "[\"Foo\",\"Bar\",\"FooBar\"]")
+        expect(jsonString).to(equal("[\"Foo\",\"Bar\",\"FooBar\"]"))
     }
     
     func testFIFO() {
         var testArray: [String] = []
         
+        let nilString = testArray.dequeue()
+        expect(nilString).to(beNil())
+        
         testArray.enqueue("Test")
-        XCTAssertEqual(testArray.count, 1)
-        XCTAssertEqual(testArray[0], "Test")
+        expect(testArray.count).to(equal(1))
+        expect(testArray[0]).to(equal("Test"))
 
         testArray.enqueue("Test2")
-        XCTAssertEqual(testArray.count, 2)
-        XCTAssertEqual(testArray[1], "Test2")
+        expect(testArray.count).to(equal(2))
+        expect(testArray[1]).to(equal("Test2"))
         
-        XCTAssertEqual(testArray.peekAtQueue(), "Test")
+        expect(testArray.peekAtQueue()).to(equal("Test"))
         
-        XCTAssertEqual(testArray.dequeue(), "Test")
-        XCTAssertEqual(testArray.count, 1)
+        expect(testArray.dequeue()).to(equal("Test"))
+        expect(testArray.count).to(equal(1))
         
-        XCTAssertEqual(testArray.dequeue(), "Test2")
-        XCTAssertEqual(testArray.count, 0)
+        expect(testArray.dequeue()).to(equal("Test2"))
+        expect(testArray.count).to(equal(0))
     }
 
     func testUrl() {
@@ -40,9 +45,9 @@ class ArrayExtensionsTests: XCTestCase {
 
         let testArray: [ResourceLink] = [resourceLink1, resourceLink2]
         
-        XCTAssertEqual(testArray.url("Foo"), resourceLink1.href)
-        XCTAssertEqual(testArray.url("Bar"), resourceLink2.href)
-        XCTAssertNil(testArray.url("FooBar"))
+        expect(testArray.url("Foo")).to(equal(resourceLink1.href))
+        expect(testArray.url("Bar")).to(equal(resourceLink2.href))
+        expect(testArray.url("FooBar")).to(beNil())
     }
 
     func testElementAt() {
@@ -55,25 +60,24 @@ class ArrayExtensionsTests: XCTestCase {
         
         let testArray: [ResourceLink] = [resourceLink1, resourceLink2]
         
-        XCTAssertEqual(testArray.elementAt("Foo"), resourceLink1)
-        XCTAssertEqual(testArray.elementAt("Bar"), resourceLink2)
-        XCTAssertNil(testArray.elementAt("FooBar"))
+        expect(testArray.elementAt("Foo")).to(equal(resourceLink1))
+        expect(testArray.elementAt("Bar")).to(equal(resourceLink2))
+        expect(testArray.elementAt("FooBar")).to(beNil())
     }
     
     func testRemoveObject() {
         var testArray = ["Foo", "Bar", "FooBar", "FooBar2"]
         
         testArray.removeObject("NotHere")
-        XCTAssertEqual(testArray.count, 4)
+        expect(testArray.count).to(equal(4))
 
         testArray.removeObject("Bar")
-        XCTAssertEqual(testArray.count, 3)
-        XCTAssertEqual(testArray[1], "FooBar")
+        expect(testArray.count).to(equal(3))
+        expect(testArray[1]).to(equal("FooBar"))
         
         testArray.removeObject("FooBar")
-        XCTAssertEqual(testArray.count, 2)
-        XCTAssertEqual(testArray[1], "FooBar2")
-
+        expect(testArray.count).to(equal(2))
+        expect(testArray[1]).to(equal("FooBar2"))
     }
 
 }

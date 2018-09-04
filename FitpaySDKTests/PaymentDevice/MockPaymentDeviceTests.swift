@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class MockPaymentDeviceTests: XCTestCase {
@@ -9,9 +11,11 @@ class MockPaymentDeviceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let myPaymentDevice = PaymentDevice()
-        self.paymentDevice = myPaymentDevice
-        let connector = MockPaymentDeviceConnector(paymentDevice: myPaymentDevice)
+        
+        Nimble.AsyncDefaults.Timeout = 4
+        
+        paymentDevice = PaymentDevice()
+        let connector = MockPaymentDeviceConnector(paymentDevice: paymentDevice)
         connector.connectDelayTime = 0.2
         connector.disconnectDelayTime = 0.2
         connector.apduExecuteDelayTime = 0.1
@@ -19,106 +23,105 @@ class MockPaymentDeviceTests: XCTestCase {
     }
     
     override func tearDown() {
-        self.paymentDevice.removeAllBindings()
-        self.paymentDevice = nil
+        paymentDevice.removeAllBindings()
+        paymentDevice = nil
         SyncManager.sharedInstance.removeAllSyncBindings()
+        
         super.tearDown()
     }
     
     // MARK: Tests
     
     func testConnectToDeviceCheck() {
-        let expectation = super.expectation(description: "connection to device check")
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
-            let deviceInfo = self.paymentDevice.deviceInfo
-            let error = (event.eventData as? [String:Any])?["error"]
+        waitUntil { done in
+            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+                let deviceInfo = self.paymentDevice.deviceInfo
+                let error = (event.eventData as? [String:Any])?["error"]
+                
+                expect(error).to(beNil())
+                expect(deviceInfo).toNot(beNil())
+                expect(deviceInfo!.deviceType).to(equal("WATCH"))
+                expect(deviceInfo!.manufacturerName).to(equal("Fitpay"))
+                expect(deviceInfo!.deviceName).to(equal("PSPS"))
+                expect(deviceInfo!.serialNumber).to(equal("074DCC022E14"))
+                expect(deviceInfo!.modelNumber).to(equal("FB404"))
+                expect(deviceInfo!.hardwareRevision).to(equal("1.0.0.0"))
+                expect(deviceInfo!.firmwareRevision).to(equal("1030.6408.1309.0001"))
+                expect(deviceInfo!.systemId).to(equal("0x123456FFFE9ABCDE"))
+                expect(deviceInfo!.osName).to(equal("IOS"))
+                expect(deviceInfo!.licenseKey).to(equal("6b413f37-90a9-47ed-962d-80e6a3528036"))
+                expect(deviceInfo!.bdAddress).to(equal("977214bf-d038-4077-bdf8-226b17d5958d"))
+                
+                done()
+            }
             
-            XCTAssertNil(error)
-            XCTAssertNotNil(deviceInfo)
-            XCTAssertEqual(deviceInfo!.deviceType, "WATCH")
-            XCTAssertEqual(deviceInfo!.manufacturerName, "Fitpay")
-            XCTAssertEqual(deviceInfo!.deviceName, "PSPS")
-            XCTAssertEqual(deviceInfo!.serialNumber, "074DCC022E14")
-            XCTAssertEqual(deviceInfo!.modelNumber, "FB404")
-            XCTAssertEqual(deviceInfo!.hardwareRevision, "1.0.0.0")
-            XCTAssertEqual(deviceInfo!.firmwareRevision, "1030.6408.1309.0001")
-            XCTAssertEqual(deviceInfo!.systemId, "0x123456FFFE9ABCDE")
-            XCTAssertEqual(deviceInfo!.osName, "IOS")
-            XCTAssertEqual(deviceInfo!.licenseKey, "6b413f37-90a9-47ed-962d-80e6a3528036")
-            XCTAssertEqual(deviceInfo!.bdAddress, "977214bf-d038-4077-bdf8-226b17d5958d")
-            
-            expectation.fulfill()
+            self.paymentDevice.connect()
         }
-        
-        self.paymentDevice.connect()
-        
-        super.waitForExpectations(timeout: 4, handler: nil)
     }
     
     func testAPDUPacket() {
-        let expectation = super.expectation(description: "sending apdu commands")
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
-            let error = (event.eventData as? [String: Any])?["error"]
-            
-            XCTAssertNil(error)
-            
-            self.paymentDevice.executeAPDUCommand(self.command1) { (command, state, error) in
-                XCTAssertNil(error)
-                XCTAssertNotNil(command)
-                XCTAssert(command!.responseCode == successResponse)
+        waitUntil { done in
+            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+                let error = (event.eventData as? [String: Any])?["error"]
                 
-                self.paymentDevice.executeAPDUCommand(self.command2) { (command, state, error) -> Void in
-                    XCTAssertNil(error)
-                    XCTAssertNotNil(command)
-                    XCTAssert(command!.responseCode == successResponse)
+                expect(error).to(beNil())
+                
+                self.paymentDevice.executeAPDUCommand(self.command1) { (command, state, error) in
+                    expect(error).to(beNil())
+                    expect(command).toNot(beNil())
+                    expect(command!.responseCode).to(equal(successResponse))
                     
-                    expectation.fulfill()
+                    self.paymentDevice.executeAPDUCommand(self.command2) { (command, state, error) -> Void in
+                        expect(error).to(beNil())
+                        expect(command).toNot(beNil())
+                        expect(command!.responseCode).to(equal(successResponse))
+                        
+                        done()
+                    }
                 }
             }
+            
+            self.paymentDevice.connect()
         }
-        
-        self.paymentDevice.connect()
-        
-        super.waitForExpectations(timeout: 4, handler: nil)
     }
     
     func testAPDUPackage() {
-        let expectation = super.expectation(description: "package check")
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
-        let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
-            let error = (event.eventData as? [String: Any])?["error"]
-            let package = ApduPackage()
-            package.apduCommands = [self.command1, self.command2]
-            
-            self.paymentDevice.executeAPDUPackage(package) { (error) in
-                var commandCounter = 0
-                let commands = package.apduCommands!
+        waitUntil { done in
+            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+                let error = (event.eventData as? [String: Any])?["error"]
+                let package = ApduPackage()
+                package.apduCommands = [self.command1, self.command2]
                 
-                func execute(command: APDUCommand) {
-                    self.paymentDevice.executeAPDUCommand(command) { (command, state, error) -> Void in
-                        XCTAssertNil(error)
-                        XCTAssertNotNil(command)
-                        XCTAssert(command!.responseCode == successResponse)
-                        
-                        commandCounter += 1
-                        
-                        if commandCounter < commands.count {
-                            execute(command: commands[commandCounter])
-                        } else {
-                            expectation.fulfill()
+                self.paymentDevice.executeAPDUPackage(package) { (error) in
+                    var commandCounter = 0
+                    let commands = package.apduCommands!
+                    
+                    func execute(command: APDUCommand) {
+                        self.paymentDevice.executeAPDUCommand(command) { (command, state, error) -> Void in
+                            expect(error).to(beNil())
+                            expect(command).toNot(beNil())
+                            expect(command!.responseCode).to(equal(successResponse))
+                            
+                            commandCounter += 1
+                            
+                            if commandCounter < commands.count {
+                                execute(command: commands[commandCounter])
+                            } else {
+                               done()
+                            }
                         }
                     }
+                    
+                    execute(command: commands[commandCounter])
                 }
                 
-                execute(command: commands[commandCounter])
             }
             
+            self.paymentDevice.connect()
         }
-        
-        self.paymentDevice.connect()
-        super.waitForExpectations(timeout: 4, handler: nil)
     }
 }

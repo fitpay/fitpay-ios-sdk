@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           FitpaySDK Docs
         </a>
-         (31% documented)
+         (33% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -895,9 +895,8 @@ Calls OnDeviceConnected event.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Changes interface with payment device. Default is BLE (BluetoothPaymentDeviceConnector).
-If you want to implement your own interface than it should confirm PaymentDeviceConnectable protocol.
-Also implementation should call PaymentDevice.callCompletionForEvent() for events.</p>
+                        <p>Changes interface with payment device. Default is Mock.
+Implementation should call PaymentDevice.callCompletionForEvent() for events.</p>
 
                       </div>
                       <div class="declaration">
@@ -931,7 +930,7 @@ Also implementation should call PaymentDevice.callCompletionForEvent() for event
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">APDUResponseHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">apduResponse</span><span class="p">:</span><span class="kt"><a href="../Classes/ApduResultMessage.html">ApduResultMessage</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">responseState</span><span class="p">:</span> <span class="kt"><a href="../Enums/APDUPackageResponseState.html">APDUPackageResponseState</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span><span class="kt">Error</span><span class="p">?)</span><span class="o">-&gt;</span><span class="kt">Void</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">APDUResponseHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">apduResponse</span><span class="p">:</span> <span class="kt"><a href="../Classes/ApduResultMessage.html">ApduResultMessage</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">responseState</span><span class="p">:</span> <span class="kt"><a href="../Enums/APDUPackageResponseState.html">APDUPackageResponseState</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span><span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -1001,7 +1000,7 @@ Also implementation should call PaymentDevice.callCompletionForEvent() for event
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">apduResponseHandler</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">apduResponse</span><span class="p">:</span><span class="kt"><a href="../Classes/ApduResultMessage.html">ApduResultMessage</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">responseState</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span><span class="kt">Error</span><span class="p">?)</span><span class="o">-&gt;</span><span class="kt">Void</span><span class="p">)?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">apduResponseHandler</span><span class="p">:</span> <span class="p">((</span><span class="n">_</span> <span class="nv">apduResponse</span><span class="p">:</span> <span class="kt"><a href="../Classes/ApduResultMessage.html">ApduResultMessage</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">responseState</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
 
                         </div>
                       </div>
@@ -1074,7 +1073,7 @@ Also implementation should call PaymentDevice.callCompletionForEvent() for event
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">callCompletionForEvent</span><span class="p">(</span><span class="n">_</span> <span class="nv">eventType</span><span class="p">:</span> <span class="kt"><a href="../Classes/PaymentDevice/PaymentDeviceEventTypes.html">PaymentDeviceEventTypes</a></span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">callCompletionForEvent</span><span class="p">(</span><span class="n">_</span> <span class="nv">eventType</span><span class="p">:</span> <span class="kt"><a href="../Classes/PaymentDevice/PaymentDeviceEventTypes.html">PaymentDeviceEventTypes</a></span><span class="p">,</span> <span class="nv">params</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:])</span></code></pre>
 
                         </div>
                       </div>

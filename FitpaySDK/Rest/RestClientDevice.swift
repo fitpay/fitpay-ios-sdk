@@ -96,6 +96,10 @@ extension RestClient {
         }
     }
     
+    func getDevice(_ url: String, completion: @escaping DeviceHandler) {
+        makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
     func addDeviceProperty(_ url: String, propertyPath: String, propertyValue: String, completion: @escaping DeviceHandler) {
         var paramsArray = [Any]()
         paramsArray.append(["op": "add", "path": propertyPath, "value": propertyValue])

@@ -29,7 +29,10 @@ class RestRequest: RestRequestable {
                 
             } else if response.result.error != nil {
                 let JSON = response.data!.UTF8String
-                let error = (try? ErrorResponse(JSON)) ?? ErrorResponse(domain: RestClient.self, errorCode: response.response?.statusCode ?? 0 , errorMessage: response.result.error?.localizedDescription)
+                var error = try? ErrorResponse(JSON)
+                if error == nil || error?.code == nil || error?.code == 0 {
+                    error = ErrorResponse(domain: RestClient.self, errorCode: response.response?.statusCode ?? 0 , errorMessage: response.error?.localizedDescription)
+                }
                 completion(nil, error)
                 
             } else {
@@ -51,7 +54,10 @@ class RestRequest: RestRequestable {
                 
             } else if response.error != nil {
                 let JSON = response.data!.UTF8String
-                let error = (try? ErrorResponse(JSON)) ?? ErrorResponse(domain: RestClient.self, errorCode: response.response?.statusCode ?? 0 , errorMessage: response.error?.localizedDescription)
+                var error = try? ErrorResponse(JSON)
+                if error == nil || error?.code == nil || error?.code == 0 {
+                    error = ErrorResponse(domain: RestClient.self, errorCode: response.response?.statusCode ?? 0 , errorMessage: response.error?.localizedDescription)
+                }
                 completion(nil, error)
                 
             } else {

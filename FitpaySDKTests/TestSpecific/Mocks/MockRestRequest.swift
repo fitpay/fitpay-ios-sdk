@@ -1,5 +1,4 @@
 import XCTest
-
 import Alamofire
 
 @testable import FitpaySDK
@@ -8,6 +7,7 @@ class MockRestRequest: RestRequestable {
 
     var lastParams: [String: Any]?
     var lastEncoding: ParameterEncoding?
+    var lastUrl: URLConvertible?
     
     func makeRequest(url: URLConvertible, method: HTTPMethod, parameters: Parameters?, encoding: ParameterEncoding, headers: HTTPHeaders?, completion: @escaping RestRequestable.RequestHandler) {
         guard let urlString = try? url.asURL().absoluteString else {
@@ -17,6 +17,7 @@ class MockRestRequest: RestRequestable {
         
         lastParams = parameters
         lastEncoding = encoding
+        lastUrl = url
         
         var data: Any? = nil
         
@@ -95,6 +96,7 @@ class MockRestRequest: RestRequestable {
         
         lastParams = nil
         lastEncoding = URLEncoding.default
+        lastUrl = url
         
         if urlString.contains("assets") {
             let imagePath =  Bundle(for: type(of: self)).path(forResource: "mocImage", ofType: "png")!

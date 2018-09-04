@@ -1,7 +1,7 @@
 import Foundation
 
 open class FitpayNotificationsManager: NSObject {
-
+    
     public static let sharedInstance = FitpayNotificationsManager()
     
     public typealias NotificationsPayload = [AnyHashable: Any]
@@ -80,24 +80,34 @@ open class FitpayNotificationsManager: NSObject {
         return eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: completion, queue: queue), eventId: eventType)
     }
     
-    /**
-     Removes bind.
-     */
+    /// Removes bind.
     open func removeSyncBinding(binding: FitpayEventBinding) {
         eventsDispatcher.removeBinding(binding)
     }
     
-    /**
-     Removes all synchronization bindings.
-     */
+    /// Removes all synchronization bindings.
     open func removeAllSyncBindings() {
         eventsDispatcher.removeAllBindings()
     }
     
     open func updateRestClientForNotificationDetail(_ notificationDetail: NotificationDetail?) {
-        if let notificationDetail = notificationDetail, notificationDetail.restClient == nil {
-            notificationDetail.restClient = self.restClient
+        if let notificationDetail = notificationDetail, notificationDetail.client == nil {
+            notificationDetail.client = self.restClient
         }
+    }
+    
+    /// Creates a notification detail from both old and new notification types
+    public func notificationDetailFromNotification(_ notification: NotificationsPayload?) -> NotificationDetail? {
+        var notificationDetail: NotificationDetail?
+        if let fpField2 = notification?["fpField2"] as? String {
+            notificationDetail = try? NotificationDetail(fpField2)
+            
+        } else if notification?["source"] as? String == "FitPay" {
+            notificationDetail = try? NotificationDetail(notification?["payload"])
+        }
+        
+        notificationDetail?.client = self.restClient
+        return notificationDetail
     }
     
     // MARK: - Private Functions
@@ -160,15 +170,6 @@ open class FitpayNotificationsManager: NSObject {
     
     private func callAllNotificationProcessedCompletion() {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: NotificationsEventType.allNotificationsProcessed, eventData: [:]))
-    }
-    
-    private func notificationDetailFromNotification(_ notification: NotificationsPayload?) -> NotificationDetail? {
-        if let fpField2 = notification?["fpField2"] as? String {
-            let notificationDetail = try? NotificationDetail(fpField2)
-            notificationDetail?.restClient = self.restClient
-            return notificationDetail
-        }
-        return nil
     }
     
 }

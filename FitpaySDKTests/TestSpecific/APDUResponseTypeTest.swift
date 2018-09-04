@@ -1,25 +1,29 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class APDUResponseTypeTest: XCTestCase {
 
     func testSuccesCode() {
-        let responceType = APDUResponseType(withCode: [0x90, 0x00])
-        XCTAssertEqual(responceType, APDUResponseType.success)
+        let responseType = APDUResponseType(withCode: [0x90, 0x00])
+        expect(responseType).to(equal(APDUResponseType.success))
     }
 
     func testWarningCode() {
-        let responceType = APDUResponseType(withCode:  [0x62, 0x63])
-        XCTAssertEqual(responceType, APDUResponseType.warning)
+        let responseType = APDUResponseType(withCode:  [0x62, 0x63])
+        expect(responseType).to(equal(APDUResponseType.warning))
+
     }
 
     func testConcatenationCode() {
-        let responceType = APDUResponseType(withCode: [0x61, 0x63])
-        XCTAssertEqual(responceType, APDUResponseType.concatenation)
+        let responseType = APDUResponseType(withCode: [0x61, 0x63])
+        expect(responseType).to(equal(APDUResponseType.concatenation))
+
     }
 
     func testErrorCode() {
-        let responceType = APDUResponseType(withCode: [0x61])
-        XCTAssertEqual(responceType, APDUResponseType.error)
+        let responseType = APDUResponseType(withCode: [0x61])
+        expect(responseType).to(equal(APDUResponseType.error))
     }
 }
