@@ -1,21 +1,22 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
-import UIKit
-
-class RtmMessageTests: BaseTestProvider {
+class RtmMessageTests: XCTestCase {
+    let mockModels = MockModels()
 
     func testResetDeviceResultParsing() {
         let rtmMessageResponse = mockModels.getRtmMessageResponse()
 
-        XCTAssertEqual(rtmMessageResponse?.callBackId, 1)
-        XCTAssertEqual(rtmMessageResponse?.type, mockModels.someType)
-        XCTAssertEqual(rtmMessageResponse?.success, true)
+        expect(rtmMessageResponse?.callBackId).to(equal(1))
+        expect(rtmMessageResponse?.type).to(equal(mockModels.someType))
+        expect(rtmMessageResponse?.success).to(equal(true))
 
         let json = rtmMessageResponse?.toJSON()
-        XCTAssertEqual(json?["callBackId"] as? Int, 1)
-        XCTAssertEqual(json?["type"] as? String, mockModels.someType)
-        XCTAssertEqual(json?["isSuccess"] as? Bool, true)
+        expect(json?["callBackId"] as? Int).to(equal(1))
+        expect(json?["type"] as? String).to(equal(mockModels.someType))
+        expect(json?["isSuccess"] as? Bool).to(equal(true))
     }
 
 }

@@ -1,10 +1,11 @@
 import XCTest
+import Alamofire
+import Nimble
 
 @testable import FitpaySDK
 
-import Alamofire
-
-class UsersTests: BaseTestProvider {
+class UsersTests: XCTestCase {
+    let mockModels = MockModels()
     
     var user: User!
     var restClient: RestClient!
@@ -35,7 +36,7 @@ class UsersTests: BaseTestProvider {
 
         user.deleteUser { (error) in
             if error != nil {
-                XCTFail("error deleting user")
+                fail("error deleting user")
             }
             
             expectation.fulfill()

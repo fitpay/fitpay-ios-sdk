@@ -44,7 +44,7 @@ open class RestClient: NSObject {
     var secret: Data {
         let secret = self.keyPair.generateSecretForPublicKey(key?.serverPublicKey ?? "")
         if secret == nil || secret?.count == 0 {
-            log.warning("Encription secret is empty.")
+            log.warning("REST_CLIENT: Encription secret is empty.")
         }
         return secret ?? Data()
     }
@@ -126,7 +126,6 @@ open class RestClient: NSObject {
             }
         }
     }
-    
     
     public func getPlatformConfig(completion: @escaping (_ platform: PlatformConfig?, _ error: ErrorResponse?) -> Void) {
         restRequest.makeRequest(url: FitpayConfig.apiURL + "/mobile/config", method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil) { (resultValue, error) in

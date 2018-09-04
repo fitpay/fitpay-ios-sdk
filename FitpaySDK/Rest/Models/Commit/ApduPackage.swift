@@ -18,7 +18,10 @@ import Foundation
     open var validUntilEpoch: Date?
     open var apduPackageUrl: String?
     open var category: APDUPackageCategory?
+    
+    /// Information about what the script is doing
     open var operation: APDUPackageOperation?
+    
     open var metadata: [String: Any]?
     
     var links: [ResourceLink]?

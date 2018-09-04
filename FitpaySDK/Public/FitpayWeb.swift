@@ -55,6 +55,8 @@ import WebKit
     ///   - paymentDevice: figuring out
     ///   - paymentDeviceConnector: figuring out
     ///   - frame: needed for initializing the wkWebView
+    ///   - script: script to be passed to `addUserScript` to perform actions like preventing zoom
+    ///   - language: language for text to be displayed in
     /// - Returns: WKWebview with correct configuration and frame
     @objc open func setupWebView(userEmail: String? = nil,
                                  userHasFitpayAccount: Bool = false,
@@ -96,7 +98,7 @@ import WebKit
     open func load(relativePath: RelativeWebPath) {
         guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
         
-        let configuredUrl = "\(FitpayConfig.webURL)\(relativePath)?config=\(encodedConfig)"
+        let configuredUrl = "\(FitpayConfig.webURL)\(relativePath.rawValue)?config=\(encodedConfig)"
         
         log.verbose("WV: loading \(configuredUrl)")
         
@@ -159,7 +161,6 @@ import WebKit
     }
     
 }
-
 
 extension FitpayWeb: WKNavigationDelegate {
     

@@ -1,7 +1,7 @@
 import XCTest
 @testable import FitpaySDK
 
-class ResetDeviceResultTests: BaseTestProvider {
+class ResetDeviceResultTests: XCTestCase {
 //
 //    func testResetDeviceResultParsing() {
 //        let resetDeviceResultParsing = mockModels.getResetDeviceResult()

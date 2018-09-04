@@ -1,3 +1,4 @@
+import Foundation
 
 extension Dictionary {
     var JSONString: String? {
@@ -11,8 +12,8 @@ func += <KeyType, ValueType> (left: inout Dictionary<KeyType, ValueType>, right:
     }
 }
 
-func + <KeyType, ValueType> (left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) -> [KeyType:ValueType] {
-    var dict: [KeyType : ValueType] = [KeyType : ValueType]()
+func + <KeyType, ValueType> (left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) -> [KeyType: ValueType] {
+    var dict: [KeyType: ValueType] = [KeyType: ValueType]()
     
     for (k, v) in left {
         dict.updateValue(v, forKey: k)

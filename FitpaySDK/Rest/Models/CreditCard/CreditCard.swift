@@ -4,10 +4,14 @@ import Foundation
 
     open var creditCardId: String?
     open var userId: String?
+    
+    @available(*, deprecated, message: "as of v1.0.3 - will stop being returned from the server")
     open var isDefault: Bool?
+    
     open var created: String?
     open var createdEpoch: TimeInterval?
     open var state: TokenizationState?
+    open var causedBy: CreditCardInitiator?
     open var cardType: String?
     open var cardMetaData: CardMetadata?
     open var termsAssetId: String?
@@ -98,6 +102,7 @@ import Foundation
         case created = "createdTs"
         case createdEpoch = "createdTsEpoch"
         case state
+        case causedBy
         case cardType
         case cardMetaData
         case termsAssetId
@@ -126,6 +131,7 @@ import Foundation
         created = try? container.decode(.created)
         createdEpoch = try container.decode(.createdEpoch, transformer: NSTimeIntervalTypeTransform())
         state = try? container.decode(.state)
+        causedBy = try? container.decode(.causedBy)
         cardType = try? container.decode(.cardType)
         cardMetaData = try? container.decode(.cardMetaData)
         termsAssetId = try? container.decode(.termsAssetId)
@@ -153,6 +159,7 @@ import Foundation
         try? container.encode(created, forKey: .created)
         try? container.encode(createdEpoch, forKey: .createdEpoch, transformer: NSTimeIntervalTypeTransform())
         try? container.encode(state, forKey: .state)
+        try? container.encode(causedBy, forKey: .causedBy)
         try? container.encode(cardType, forKey: .cardType)
         try? container.encode(cardMetaData, forKey: .cardMetaData)
         try? container.encode(termsAssetId, forKey: .termsAssetId)
@@ -171,7 +178,7 @@ import Foundation
     }
     
     func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
-        self.info = JWEObject.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        self.info = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
 
     /**
@@ -190,6 +197,7 @@ import Foundation
         }
     }
 
+    @available(*, deprecated, message: "as of v1.0.3")
     @objc open func getIsDefault() -> Bool {
         if let _isDefault = isDefault {
             return _isDefault

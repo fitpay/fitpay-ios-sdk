@@ -3,7 +3,6 @@ use_frameworks!
 inhibit_all_warnings!
 
 abstract_target 'all' do
-  pod 'JWTDecode', '~> 2.1'
     
   target 'FitpaySDK' do
     pod 'Alamofire', '~> 4.1'
@@ -12,6 +11,7 @@ abstract_target 'all' do
   
   target 'FitpaySDKTestsPods' do
     pod 'RxBlocking'
+    pod 'Nimble'
   end
 
 end

@@ -1,3 +1,5 @@
+import Foundation
+
 @objcMembers open class PaymentDevice: NSObject {
     
     var deviceInterface: PaymentDeviceConnectable!
@@ -14,7 +16,7 @@
     override public init() {
         super.init()
         self.paymentDeviceApduExecuter = PaymentDeviceApduExecuter(paymentDevice: self)
-        self.deviceInterface = BluetoothPaymentDeviceConnector(paymentDevice: self)
+        self.deviceInterface = MockPaymentDeviceConnector(paymentDevice: self)
     }
     
     // MARK: - Public
@@ -125,9 +127,8 @@
     }
     
     /**
-     Changes interface with payment device. Default is BLE (BluetoothPaymentDeviceConnector).
-     If you want to implement your own interface than it should confirm PaymentDeviceConnectable protocol.
-     Also implementation should call PaymentDevice.callCompletionForEvent() for events.
+     Changes interface with payment device. Default is Mock.
+     Implementation should call PaymentDevice.callCompletionForEvent() for events.
      */
     @objc open func changeDeviceInterface(_ interface: PaymentDeviceConnectable) -> NSError? {
         self.deviceInterface = interface
@@ -141,8 +142,8 @@
      - parameter responseState: state which will be sent to confirm endpoint. If nil then system will choose right value automatically.
      - parameter error: error which occurred during APDU command execution. If nil then there was no any error.
      */
-    public typealias APDUResponseHandler = (_ apduResponse:ApduResultMessage?, _ responseState: APDUPackageResponseState?, _ error:Error?)->Void
-    @objc open var apduResponseHandler: ((_ apduResponse:ApduResultMessage?, _ responseState: String?, _ error:Error?)->Void)?
+    public typealias APDUResponseHandler = (_ apduResponse: ApduResultMessage?, _ responseState: APDUPackageResponseState?, _ error:Error?) -> Void
+    @objc open var apduResponseHandler: ((_ apduResponse: ApduResultMessage?, _ responseState: String?, _ error: Error?) -> Void)?
     
     /// Handles id verification request
     ///
@@ -156,7 +157,7 @@
         }
     }
     
-    @objc open func callCompletionForEvent(_ eventType: PaymentDeviceEventTypes, params: [String:Any] = [:]) {
+    @objc open func callCompletionForEvent(_ eventType: PaymentDeviceEventTypes, params: [String: Any] = [:]) {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: params))
     }
     
@@ -227,7 +228,7 @@
             }
             
         } catch {
-            log.error("Can't execute message, error: \(error)")
+            log.error("APDU_DATA: Can't execute message, error: \(error)")
             completion(nil, nil, NSError.unhandledError(PaymentDevice.self))
         }
     }
