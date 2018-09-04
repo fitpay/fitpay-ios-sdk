@@ -77,7 +77,7 @@ open class SyncRequestQueue {
     }
     
     private func queueForDeviceWithoutDeviceIdentifier(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
-        log.warning("Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
+        log.warning("SYNC_DATA: Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
         
         let filterdDevices = paymentDevices.filter{$0.device?.deviceIdentifier == syncRequest.notification?.deviceId && $0.user?.id == syncRequest.notification?.userId }
         
@@ -87,7 +87,7 @@ open class SyncRequestQueue {
             syncRequest.paymentDevice = device.paymentDevice
         } else {
             guard let lastFullSyncRequest = self.lastFullSyncRequest else {
-                log.error("Can't find queue for empty SyncRequest")
+                log.error("SYNC_DATA: Can't find queue for empty SyncRequest")
                 return nil
             }
             
@@ -96,7 +96,7 @@ open class SyncRequestQueue {
             syncRequest.paymentDevice = lastFullSyncRequest.paymentDevice
         }
         
-        log.warning("Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
+        log.warning("SYNC_DATA: Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
         return queueFor(syncRequest: syncRequest)
     }
     
