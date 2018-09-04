@@ -22,12 +22,8 @@ class CommitsApplyer {
     private let eventsPublisher: PublishSubject<SyncEvent>
     private var disposeBag = DisposeBag()
     
-    var isRunning: Bool {
-        guard let thread = self.thread else {
-            return false
-        }
-        
-        return thread.isExecuting
+    var isRunning: Bool {        
+        return thread?.isExecuting ?? false
     }
     
     typealias CompletionHandler = (_ error: Error?) -> Void

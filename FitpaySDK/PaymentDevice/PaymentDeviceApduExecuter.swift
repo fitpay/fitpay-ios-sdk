@@ -1,20 +1,18 @@
 import Foundation
 
 class PaymentDeviceApduExecuter {
-    weak var paymentDevice: PaymentDevice?
-    
-    var isExecuting: Bool = false
-    var completion: PaymentDevice.APDUExecutionHandler!
-    var currentApduCommand: APDUCommand!
-    var prevResponsesData: Data?
-    
-    // bindings
+    private weak var paymentDevice: PaymentDevice?
     private weak var deviceDisconnectedBinding: FitpayEventBinding?
+
+    private var isExecuting: Bool = false
+    private var completion: PaymentDevice.APDUExecutionHandler!
+    private var currentApduCommand: APDUCommand!
+    private var prevResponsesData: Data?
+    
+    private var executionBlock: ExecutionBlock!
     
     typealias OnResponseReadyToHandle = (_ apduResultMessage: ApduResultMessage?, _ state: String?, _ error: Error?) -> Void
     typealias ExecutionBlock = (_ command: APDUCommand, _ completion: @escaping OnResponseReadyToHandle) -> Void
-    
-    var executionBlock: ExecutionBlock!
     
     // MARK: - Lifeycle
     
@@ -51,7 +49,9 @@ class PaymentDeviceApduExecuter {
         self.executionBlock(command, self.handleApduResponse)
     }
     
-    func executeConcatenationFor(command: APDUCommand, withPrevResult prevResult: ApduResultMessage) throws {
+    // MARK: - Private Functions
+    
+    private func executeConcatenationFor(command: APDUCommand, withPrevResult prevResult: ApduResultMessage) throws {
         guard let responseData = prevResult.responseData else {
             throw PaymentDeviceAPDUExecuterError.responseDataIsEmpty
         }
@@ -63,14 +63,12 @@ class PaymentDeviceApduExecuter {
         self.executionBlock(command, self.handleApduResponse)
     }
 
-    func removeDisconnectedBinding() {
+    private func removeDisconnectedBinding() {
         if let binding = self.deviceDisconnectedBinding {
             self.paymentDevice?.removeBinding(binding: binding)
             self.deviceDisconnectedBinding = nil
         }
     }
-    
-    // MARK: - Private Functions
     
     private func handleApduResponse(_ apduResultMessage: ApduResultMessage?, _ state: String?, _ error: Error?) {
         if let error = error {
@@ -119,7 +117,7 @@ class PaymentDeviceApduExecuter {
 
 extension PaymentDeviceApduExecuter {
     
-    enum PaymentDeviceAPDUExecuterError: Error {
+    private enum PaymentDeviceAPDUExecuterError: Error {
         case alreadyExecuting
         case deviceShouldBeConnected
         case wrong

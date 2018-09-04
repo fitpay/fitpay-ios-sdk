@@ -6,6 +6,17 @@ public enum APDUResponseType: Int {
     case warning
     case error
     
+    private static let successResponses: [[UInt8]] = [
+        [0x90, 0x00],
+        ]
+    
+    private static let warningResponses: [[UInt8]] = [
+        [0x62/*, XX */],
+        [0x63/*, XX */],
+        ]
+    
+    private static let concatenationResponse: UInt8 = 0x61
+    
     init(withCode code: [UInt8]) {
         guard code.count == 2 else {
             self = .error
@@ -56,16 +67,6 @@ public enum APDUResponseType: Int {
         self = APDUResponseType.error
     }
     
-    static let successResponses : [[UInt8]] = [
-        [0x90, 0x00],
-    ]
-    
-    static let warningResponses : [[UInt8]] = [
-        [0x62/*, XX */],
-        [0x63/*, XX */],
-    ]
-    
-    static let concatenationResponse: UInt8 = 0x61
 }
 
 
@@ -77,17 +78,13 @@ public protocol APDUResponseProtocol {
 
 extension APDUResponseProtocol {
     public var responseType: APDUResponseType? {
-        guard let responseCode = self.responseCode else {
-            return nil
-        }
+        guard let responseCode = self.responseCode else { return nil }
         
         return APDUResponseType(withCode: responseCode.bytesArray)
     }
     
     public var responseCode: Data? {
-        guard let responseData = self.responseData, responseData.count >= 2 else {
-            return nil
-        }
+        guard let responseData = self.responseData, responseData.count >= 2 else { return nil }
         
         return responseData.subdata(in: responseData.count - 2..<responseData.count)
     }
