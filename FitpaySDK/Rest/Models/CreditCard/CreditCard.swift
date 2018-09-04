@@ -23,7 +23,7 @@ import Foundation
     open var verificationMethods: [VerificationMethod]?
     open var externalTokenReference: String?
     open var info: CardInfo?
-    open var topOfWalletAPDUCommands: [APDUCommand]?
+    open var topOfWalletAPDUCommands: [APDUCommand]? 
     open var tokenLastFour: String?
     
     /// The credit card expiration month - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
@@ -34,6 +34,16 @@ import Foundation
     
     var links: [ResourceLink]?
     var encryptedData: String?
+    
+    // nested model to parse top of wallet commands correctly
+    private var offlineSeActions: OfflineSeActions?
+    private struct OfflineSeActions: Codable {
+        var topOfWallet: TopOfWallet?
+        
+        struct TopOfWallet: Codable {
+            var apduCommands: [APDUCommand]?
+        }
+    }
 
     private static let selfResourceKey              = "self"
     private static let acceptTermsResourceKey       = "acceptTerms"
@@ -115,7 +125,7 @@ import Foundation
         case targetDeviceType
         case verificationMethods
         case externalTokenReference
-        case topOfWalletAPDUCommands = "offlineSeActions.topOfWallet.apduCommands"
+        case offlineSeActions
         case tokenLastFour
         case expMonth
         case expYear
@@ -143,7 +153,10 @@ import Foundation
         targetDeviceType = try? container.decode(.targetDeviceType)
         verificationMethods = try? container.decode(.verificationMethods)
         externalTokenReference = try? container.decode(.externalTokenReference)
-        topOfWalletAPDUCommands = try? container.decode(.topOfWalletAPDUCommands)
+        
+        offlineSeActions = try? container.decode(.offlineSeActions)
+        topOfWalletAPDUCommands = offlineSeActions?.topOfWallet?.apduCommands
+                
         tokenLastFour = try? container.decode(.tokenLastFour)
         expMonth = try? container.decode(.expMonth)
         expYear = try? container.decode(.expYear)
@@ -155,7 +168,6 @@ import Foundation
         try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
         try? container.encode(creditCardId, forKey: .creditCardId)
         try? container.encode(userId, forKey: .userId)
-        try? container.encode(isDefault, forKey: .isDefault)
         try? container.encode(created, forKey: .created)
         try? container.encode(createdEpoch, forKey: .createdEpoch, transformer: NSTimeIntervalTypeTransform())
         try? container.encode(state, forKey: .state)
@@ -171,7 +183,6 @@ import Foundation
         try? container.encode(targetDeviceType, forKey: .targetDeviceType)
         try? container.encode(verificationMethods, forKey: .verificationMethods)
         try? container.encode(externalTokenReference, forKey: .externalTokenReference)
-        try? container.encode(topOfWalletAPDUCommands, forKey: .topOfWalletAPDUCommands)
         try? container.encode(tokenLastFour, forKey: .tokenLastFour)
         try? container.encode(expMonth, forKey: .expMonth)
         try? container.encode(expYear, forKey: .expYear)
