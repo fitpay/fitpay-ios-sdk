@@ -132,7 +132,7 @@ import Foundation
      - parameter responseState: state which will be sent to confirm endpoint. If nil then system will choose right value automatically.
      - parameter error: error which occurred during APDU command execution. If nil then there was no any error.
      */
-    public typealias APDUResponseHandler = (_ apduResponse: ApduResultMessage?, _ responseState: APDUPackageResponseState?, _ error:Error?) -> Void
+    public typealias APDUResponseHandler = (_ apduResponse: ApduResultMessage?, _ responseState: APDUPackageResponseState?, _ error: Error?) -> Void
     @objc open var apduResponseHandler: ((_ apduResponse: ApduResultMessage?, _ responseState: String?, _ error: Error?) -> Void)?
     
     /// Handles id verification request
@@ -186,8 +186,8 @@ import Foundation
         }
     }
     
-    func executeAPDUPackageAllowed() -> Bool {
-        return self.deviceInterface.executeAPDUPackage != nil
+    var executeAPDUPackageAllowed: Bool {
+        return deviceInterface.executeAPDUPackage != nil
     }
     
     func executeAPDUCommand(_ apduCommand: APDUCommand, completion: @escaping APDUExecutionHandler) {

@@ -79,9 +79,7 @@ class PaymentDeviceApduExecuter {
             return
         }
         
-        guard let apduCommand = self.currentApduCommand else {
-            return
-        }
+        guard let apduCommand = self.currentApduCommand else { return }
         
         var realResponse = apduResultMessage
         if var concatenateAPDUResponseTo = self.prevResponsesData {

@@ -57,8 +57,8 @@
 		273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773CD94207D53A300DFE113 /* IdVerificationTests.swift */; };
 		2742E584212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E585212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
-		2742E587212B5D42006D19A6 /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UInt8Extensions.swift */; };
-		2742E588212B5D42006D19A6 /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UInt8Extensions.swift */; };
+		2742E587212B5D42006D19A6 /* UIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UIntExtensions.swift */; };
+		2742E588212B5D42006D19A6 /* UIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UIntExtensions.swift */; };
 		2745F3DF20A345B900EF46A4 /* FitpayWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */; };
 		2746585C20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */; };
 		2746585D20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */; };
@@ -541,7 +541,7 @@
 		273C75D22121F07A005B9047 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		273C75D42121F07E005B9047 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2742E583212B5D0F006D19A6 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		2742E586212B5D42006D19A6 /* UInt8Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UInt8Extensions.swift; sourceTree = "<group>"; };
+		2742E586212B5D42006D19A6 /* UIntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntExtensions.swift; sourceTree = "<group>"; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
 		2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksPaymentDeviceConnector.swift; sourceTree = "<group>"; };
 		275AB51E212B733A00757849 /* ImageOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOptionTests.swift; sourceTree = "<group>"; };
@@ -830,7 +830,6 @@
 				0AD9229E1C1F7EFC007693AB /* Products */,
 				B2C94647591B581A09E4A254 /* Frameworks */,
 				006D1FC3632F93941B04336A /* Pods */,
-				27CF46FA212F47C900F90B38 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -934,7 +933,6 @@
 		2746585E20B74B7D001C13AA /* PaymentDeviceConnectors */ = {
 			isa = PBXGroup;
 			children = (
-				8472649F1CA53D0800DE801D /* BluetoothPaymentDeviceConnector.swift */,
 				2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */,
 				27C0242E20A3940900681023 /* MockPaymentDeviceConnector.swift */,
 			);
@@ -1599,7 +1597,7 @@
 				CD0382E7C3731302B80C1CBE /* NSErrorExtensions.swift */,
 				CD0386DA358049C9AC2135F6 /* JSONSerializationExtensions.swift */,
 				2742E583212B5D0F006D19A6 /* StringExtensions.swift */,
-				2742E586212B5D42006D19A6 /* UInt8Extensions.swift */,
+				2742E586212B5D42006D19A6 /* UIntExtensions.swift */,
 				27E0302B20ADCC29009120AD /* Codable */,
 			);
 			path = Extensions;
@@ -1918,7 +1916,7 @@
 				8C870F171D00EC630048A1DF /* Transforms.swift in Sources */,
 				27CFE12A21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				9AB68E3F1C84A1EC00A0E172 /* JWE.swift in Sources */,
-				2742E587212B5D42006D19A6 /* UInt8Extensions.swift in Sources */,
+				2742E587212B5D42006D19A6 /* UIntExtensions.swift in Sources */,
 				27A4AE76206D916A002255A1 /* UserEventStreamManager.swift in Sources */,
 				37139BE21F177B21001EEE73 /* SyncRequest.swift in Sources */,
 				37DB88761F0F87A600B070DA /* Image.swift in Sources */,
@@ -2208,7 +2206,7 @@
 				27F47B9E20EEB1ED0043B388 /* User.swift in Sources */,
 				27CFE12B21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				2735864620E13437005EDA9D /* CustomJSONArrayEncoding.swift in Sources */,
-				2742E588212B5D42006D19A6 /* UInt8Extensions.swift in Sources */,
+				2742E588212B5D42006D19A6 /* UIntExtensions.swift in Sources */,
 				3A640B4A1DDF110E008AD936 /* RtmMessageResponse.swift in Sources */,
 				27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */,
 				3A93A0851DB8CA2C00A9FEB4 /* Transaction.swift in Sources */,

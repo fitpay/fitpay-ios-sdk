@@ -26,6 +26,7 @@ import CoreBluetooth
     private var returnedData: [UInt8] = []
     private var currentCommand: BLECommandPackage?
     private var commandQueue: [BLECommandPackage] = []
+    private var apduCompletion: ((Error?) -> Void)?
     
     // MARK: - Lifecycle
     
@@ -128,6 +129,29 @@ import CoreBluetooth
         paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
     }
     
+    private func handleAPDUResponse() {
+        var index = 0
+        while index < expectedDataSize {
+            let groupId = returnedData[index]
+            //            let sequence = returnedData[index + 1] + returnedData[index + 2] // shift second bit
+            let continueOnFailure = returnedData[index + 3]
+            let length = Int(returnedData[index + 4])
+            let apduBytes = returnedData[index + 5 ..< length + 5]
+            //            let apduResponse = returnedData[(length - 1)] + returnedData[length] // shift first bit
+            print("\(groupId) \(continueOnFailure) \(length)")
+            index = index + 5 + length
+            
+            let packet = ApduResultMessage(responseData: Data(bytes: apduBytes))
+            
+//            print(self.paymentDevice?.apduResponseHandler)
+//            self.paymentDevice?.apduResponseHandler?(packet, nil, nil)
+//            self.paymentDevice?.apduResponseHandler = nil
+        }
+        
+        apduCompletion?(nil)
+        apduCompletion = nil
+    }
+    
     private func resetState() {
         expectedDataSize = 0
         returnedData = []
@@ -149,19 +173,20 @@ import CoreBluetooth
             guard let command = apdu.command else { continue }
             let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
 
-            
             let groupIdData = UInt8(apdu.groupId).data
-            let sequenceData = UInt8(apdu.sequence).data
+            let sequenceData = UInt16(apdu.sequence).data
             let continueData = continueInt.data
             let lengthData = UInt8(command.count / 2).data
             guard let commandData = command.hexToData() else { continue }
             
             let fullCommandData = groupIdData + sequenceData + continueData + lengthData + commandData
+            print("\(groupIdData.hex) \(sequenceData.hex) \(continueData.hex) \(lengthData.hex) \(commandData.hex)")
             data.append(fullCommandData)
         }
         
         return data
     }
+
 }
 
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
@@ -179,8 +204,9 @@ import CoreBluetooth
     }
     
     public func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping (Error?) -> Void) {
-        log.debug("HENDRICKS: executeAPDUPackage \(apduPackage)")
+        log.debug("HENDRICKS: executeAPDUPackage started")
         guard let apdus = apduPackage.apduCommands else { return }
+        apduCompletion = completion
         
         let data = buildAPDUData(apdus: apdus)
         
@@ -190,8 +216,6 @@ import CoreBluetooth
         let apduCountData = Data(bytes: &apdusCount, count: 2)
         let apduLengthData = Data(bytes: &dataCount, count: 4)
 
-        print(apduCountData.hex)
-        print(apduLengthData.hex)
         let commandData = apduCountData + apduLengthData
 
         let bleCommand = BLECommandPackage(.apduPackage, commandData: commandData, data: data)
@@ -295,7 +319,8 @@ import CoreBluetooth
             } else if (value.count == 5) { //length
                 log.debug("HENDRICKS: BLE Response OK with length")
                 let lengthData = Data(bytes: Array(value[1...4])).hex
-                expectedDataSize = Int(lengthData, radix: 16)!
+                expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
+                
                 returnedData = []
                 
                 //todo add timeout
@@ -313,10 +338,11 @@ import CoreBluetooth
                 
                 if currentCommand?.command == .ping {
                    handlePingResponse()
+                } else if currentCommand?.command == .apduPackage {
+                    handleAPDUResponse()
                 }
                 
                 resetState()
-
             }
 
         default:

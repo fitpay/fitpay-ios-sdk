@@ -163,7 +163,6 @@ class CommitsApplyer {
         
         let applyingStartDate = Date().timeIntervalSince1970
         
-        
         if apduPackage.isExpired {
             log.warning("SYNC_DATA: package ID(\(commit.commitId ?? "nil")) expired. ")
             apduPackage.state = APDUPackageResponseState.expired
@@ -184,17 +183,17 @@ class CommitsApplyer {
                 return
             }
             
-            if self?.paymentDevice.executeAPDUPackageAllowed() == true {
-                self?.paymentDevice.executeAPDUPackage(apduPackage, completion: { (error) in
-                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: nil, error: error, applyingStartDate: applyingStartDate, completion: { commitError in
+            if self?.paymentDevice.executeAPDUPackageAllowed == true {
+                self?.paymentDevice.executeAPDUPackage(apduPackage) { (error) in
+                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: nil, error: error, applyingStartDate: applyingStartDate) { commitError in
                         completion(commitError)
-                    })
-                })
+                    }
+                }
             } else {
                 self?.applyAPDUPackage(apduPackage, apduCommandIndex: 0, retryCount: 0) { (state, error) in
-                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: state, error: error, applyingStartDate: applyingStartDate, completion: { commitError in
+                    self?.packageProcessingFinished(commit: commit, apduPackage: apduPackage, state: state, error: error, applyingStartDate: applyingStartDate) { commitError in
                         completion(commitError)
-                    })
+                    }
                 }
             }
         }
@@ -344,25 +343,27 @@ class CommitsApplyer {
             return
         }
         
-        var mutableApduPackage = apduPackage.apduCommands![apduCommandIndex]
-        self.paymentDevice.executeAPDUCommand(mutableApduPackage) { [weak self] (apduPack, state, error) in
+        var mutableApduCommand = apduPackage.apduCommands![apduCommandIndex]
+        
+        self.paymentDevice.executeAPDUCommand(mutableApduCommand) { [weak self] (apduCommand, state, error) in
             apduPackage.state = state
             
-            if let apduPack = apduPack {
-                mutableApduPackage = apduPack
+            if let apduCommand = apduCommand {
+                mutableApduCommand = apduCommand
             }
             
-            if let error = error {
+            guard error == nil else {
                 completion(state, error)
-
-            } else {
-                self?.appliedApduCommands += 1
-                log.info("SYNC_DATA: PROCESSED \(self?.appliedApduCommands ?? 0)/\(self?.totalApduCommands ?? 0) COMMANDS")
-                
-                self?.eventsPublisher.onNext(SyncEvent(event: .apduCommandsProgress, data: ["applied": self?.appliedApduCommands ?? 0, "total": self?.totalApduCommands ?? 0]))
-                
-                self?.applyAPDUPackage(apduPackage, apduCommandIndex: apduCommandIndex + 1, retryCount: 0, completion: completion)
+                return
             }
+            
+            self?.appliedApduCommands += 1
+            log.info("SYNC_DATA: PROCESSED \(self?.appliedApduCommands ?? 0)/\(self?.totalApduCommands ?? 0) COMMANDS")
+            
+            self?.eventsPublisher.onNext(SyncEvent(event: .apduCommandsProgress, data: ["applied": self?.appliedApduCommands ?? 0, "total": self?.totalApduCommands ?? 0]))
+            
+            //process next
+            self?.applyAPDUPackage(apduPackage, apduCommandIndex: apduCommandIndex + 1, retryCount: 0, completion: completion)
         }
     }
     

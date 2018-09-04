@@ -14,7 +14,7 @@ public enum EventStatus: Int {
 
 open class FitpayEvent: NSObject {
 
-    open private(set) var eventId : FitpayEventTypeProtocol
+    open private(set) var eventId: FitpayEventTypeProtocol
     open private(set) var status: EventStatus
     open private(set) var reason: Error?
     open private(set) var date: Date
