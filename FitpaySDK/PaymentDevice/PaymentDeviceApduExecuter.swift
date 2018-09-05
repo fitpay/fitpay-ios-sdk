@@ -27,7 +27,7 @@ class PaymentDeviceApduExecuter {
             throw PaymentDeviceAPDUExecuterError.alreadyExecuting
         }
         
-        guard self.paymentDevice?.isConnected() == true else {
+        guard self.paymentDevice?.isConnected == true else {
             throw PaymentDeviceAPDUExecuterError.deviceShouldBeConnected
         }
         

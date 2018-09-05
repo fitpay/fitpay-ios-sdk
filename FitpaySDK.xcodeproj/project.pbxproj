@@ -884,11 +884,11 @@
 		2714B06920F4172C00321F22 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				27B131282134845600B4A9CF /* Codable */,
 				2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */,
 				916C8ABB20EA368000EEAD3A /* DataExtensionsTests.swift */,
 				27F5E5F321263636002ED57A /* DictionaryExtensionsTests.swift */,
 				27F5E5F6212638C5002ED57A /* JSONSerializationExtensionsTests.swift */,
+				27B131282134845600B4A9CF /* Codable */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

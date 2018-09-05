@@ -19,7 +19,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
     }
     
     open func start() -> Observable<SyncOperationConnectionState> {
-        if self.paymentDevice.isConnected() {
+        if self.paymentDevice.isConnected {
             log.verbose("SYNC_DATA: Validating device connection to sync.")
             
             publisher.onNext(.connected)

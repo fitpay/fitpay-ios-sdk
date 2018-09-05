@@ -71,7 +71,7 @@ import Foundation
      - parameter secsTimeout: timeout for connection process in seconds. If nil then there is no timeout.
      */
     open func connect(_ secsTimeout: Int? = nil) {
-        if isConnected() {
+        if isConnected {
             self.deviceInterface.resetToDefaultState()
         }
         
@@ -82,7 +82,7 @@ import Foundation
             DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
                 guard let strongSelf = self else { return }
                 
-                if (!strongSelf.isConnected() || strongSelf.deviceInfo == nil) {
+                if (!strongSelf.isConnected || strongSelf.deviceInfo == nil) {
                     strongSelf.deviceInterface.resetToDefaultState()
                     strongSelf.callCompletionForEvent(PaymentDeviceEventTypes.onDeviceConnected, params: ["error": NSError.error(code: PaymentDevice.ErrorCode.operationTimeout, domain: PaymentDevice.self)])
                     strongSelf.connectionState = .disconnected
@@ -105,7 +105,7 @@ import Foundation
     /**
      Returns true if phone connected to payment device and device info was collected.
      */
-    @objc open func isConnected() -> Bool {
+    @objc open var isConnected: Bool {
         return self.deviceInterface.isConnected()
     }
 
@@ -322,6 +322,20 @@ extension PaymentDevice {
         
     }
     
+    @available(*, deprecated, message: "as of v1.1.2")
+    @objc public enum SecurityNFCState: Int {
+        case disabled         = 0x00
+        case enabled          = 0x01
+        case doNotChangeState = 0xFF
+    }
+    
+    @available(*, deprecated, message: "as of v1.1.2")
+    @objc public enum DeviceControlState: Int {
+        case esePowerOFF    = 0x00
+        case esePowerON     = 0x02
+        case esePowerReset  = 0x01
+    }
+    
     @objc public enum ConnectionState: Int {
         case new = 0
         case disconnected
@@ -335,6 +349,7 @@ extension PaymentDevice {
         case onDeviceConnected = 0
         case onDeviceDisconnected
         case onNotificationReceived
+        case onSecurityStateChanged
         case onApplicationControlReceived
         case onConnectionStateChanged
         
@@ -350,6 +365,8 @@ extension PaymentDevice {
                 return "On device disconnected."
             case .onNotificationReceived:
                 return "On notification received, returns ['notificationData':NSData]."
+            case .onSecurityStateChanged:
+                return "On security state changed, return ['securityState':Int]."
             case .onApplicationControlReceived:
                 return "On application control received"
             case .onConnectionStateChanged:
