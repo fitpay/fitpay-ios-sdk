@@ -26,7 +26,9 @@ import CoreBluetooth
     private var returnedData: [UInt8] = []
     private var currentCommand: BLECommandPackage?
     private var commandQueue: [BLECommandPackage] = []
+    
     private var apduCompletion: ((Error?) -> Void)?
+    private var apduCommands: [APDUCommand]?
     
     // MARK: - Lifecycle
     
@@ -133,23 +135,20 @@ import CoreBluetooth
         var index = 0
         while index < expectedDataSize {
             let groupId = returnedData[index]
-            //            let sequence = returnedData[index + 1] + returnedData[index + 2] // shift second bit
-            let continueOnFailure = returnedData[index + 3]
+            let sequence = returnedData[index + 1] + returnedData[index + 2] << 8 // shift second bit
             let length = Int(returnedData[index + 4])
-            let apduBytes = returnedData[index + 5 ..< length + 5]
-            //            let apduResponse = returnedData[(length - 1)] + returnedData[length] // shift first bit
-            print("\(groupId) \(continueOnFailure) \(length)")
+            let apduBytes = returnedData[index + 5 ..< index + length + 5]
             index = index + 5 + length
             
             let packet = ApduResultMessage(responseData: Data(bytes: apduBytes))
             
-//            print(self.paymentDevice?.apduResponseHandler)
-//            self.paymentDevice?.apduResponseHandler?(packet, nil, nil)
-//            self.paymentDevice?.apduResponseHandler = nil
+            // update responseData on the appropriate apduCommand
+            apduCommands?.first(where: { $0.groupId == groupId && $0.sequence == sequence })?.responseData = packet.responseData
         }
         
         apduCompletion?(nil)
         apduCompletion = nil
+        apduCommands = nil
     }
     
     private func resetState() {
@@ -206,7 +205,9 @@ import CoreBluetooth
     public func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping (Error?) -> Void) {
         log.debug("HENDRICKS: executeAPDUPackage started")
         guard let apdus = apduPackage.apduCommands else { return }
+        
         apduCompletion = completion
+        apduCommands = apduPackage.apduCommands
         
         let data = buildAPDUData(apdus: apdus)
         
