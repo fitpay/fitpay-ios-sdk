@@ -117,7 +117,7 @@ class SyncOperation {
             case .next(let commits):
                 self?.state.value = .commitsReceived(commits: commits)
                 
-                let applayerStarted = self?.commitsApplyer.apply(commits) { (error) in
+                let applyerStarted = self?.commitsApplyer.apply(commits) { (error) in
                     
                     if let error = error {
                         log.error("SYNC_DATA: Commit applier returned a failure: \(error)")
@@ -131,7 +131,7 @@ class SyncOperation {
                     self?.state.value = .completed(nil)
                 }
                 
-                if applayerStarted ?? false == false {
+                if applyerStarted ?? false == false {
                     self?.state.value = .completed(NSError.error(code: SyncManager.ErrorCode.commitsApplyerIsBusy, domain: SyncOperation.self))
                 }
                 break
@@ -144,7 +144,7 @@ class SyncOperation {
     }
     
     private func sendCommitsMetric() {
-        guard (self.syncRequest?.notification) != nil else { return }
+        guard self.syncRequest?.notification != nil else { return }
         
         let currentTimestamp = Date().timeIntervalSince1970
         
