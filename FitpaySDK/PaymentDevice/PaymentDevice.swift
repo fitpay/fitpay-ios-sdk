@@ -4,13 +4,13 @@ import Foundation
     
     var deviceInterface: PaymentDeviceConnectable!
     
+    var commitProcessingTimeout: Double = 30
+
     private let eventsDispatcher = FitpayEventDispatcher()
     
     private var paymentDeviceApduExecuter: PaymentDeviceApduExecuter!
     
-    private weak var deviceDisconnectedBinding: FitpayEventBinding?
-    
-    var commitProcessingTimeout: Double = 30
+    private weak var deviceDisconnectedBinding: FitpayEventBinding?    
     
     // MARK: - Lifecycle
     
@@ -108,7 +108,14 @@ import Foundation
     @objc open var isConnected: Bool {
         return self.deviceInterface.isConnected()
     }
-
+    
+    /**
+     Tries to validate connection.
+     */
+    @objc open func validateConnection(completion: @escaping (_ isValid:Bool, _ error: NSError?) -> Void) {
+        self.deviceInterface.validateConnection(completion: completion)
+    }
+    
     /**
      Returns DeviceInfo if phone already connected to payment device.
      */
