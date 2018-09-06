@@ -224,9 +224,9 @@ import Foundation
     @objc open func getAcceptTermsUrl() -> String? {
         return self.links?.url(CreditCard.acceptTermsResourceKey)
     }
-
+    
     /**
-      Update acceptTerms url
+     Update acceptTerms url
      - param acceptTermsUrl url
      */
     @objc open func setAcceptTermsUrl(acceptTermsUrl: String) {
@@ -333,22 +333,23 @@ import Foundation
             completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
         }
     }
-
+    
     /**
      Mark the credit card as the default payment instrument. If another card is currently marked as the default, the default will automatically transition to the indicated credit card
      
      - parameter completion:   MakeDefaultHandler closure
      */
-    @objc open func makeDefault(_ completion: @escaping RestClient.CreditCardTransitionHandler) {
+    @objc open func makeDefault(deviceId: String? = nil, _ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.makeDefaultResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeDefault(url, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = self.links?.url(resource), let client = self.client else {
+            completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.makeDefault(url, deviceId: deviceId, completion: completion)
     }
-
+    
     /**
      Provides a transaction history (if available) for the user, results are limited by provider.
      
@@ -365,10 +366,10 @@ import Foundation
             completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
         }
     }
-
+    
     /**
-      Provides a fresh list of available verification methods for the credit card when an issuer requires additional authentication to verify the identity of the cardholder.
-
+     Provides a fresh list of available verification methods for the credit card when an issuer requires additional authentication to verify the identity of the cardholder.
+     
      - parameter completion:   VerifyMethodsHandler closure
      */
     open func getVerificationMethods(_ completion: @escaping RestClient.VerifyMethodsHandler) {
@@ -380,10 +381,10 @@ import Foundation
             completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
         }
     }
-
+    
     /**
-      Provides a user selected verification method
-
+     Provides a user selected verification method
+     
      - parameter completion:   VerifyMethodsHandler closure
      */
     open func getSelectedVerification(_ completion: @escaping RestClient.VerifyMethodHandler) {
@@ -395,6 +396,12 @@ import Foundation
             completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
         }
     }
-
+    
+    // MARK: - Private Functions
+    
+    func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: CreditCard.self, client: self.client, url: self.links?.url(resource), resource: resource)
+    }
+    
 }
 
