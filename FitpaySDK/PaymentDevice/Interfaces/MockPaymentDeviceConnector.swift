@@ -126,14 +126,14 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
         
         deviceInfo.deviceType = "WATCH"
         deviceInfo.manufacturerName = "Fitpay"
-        deviceInfo.deviceName = "PSPS"
+        deviceInfo.deviceName = "Mock Pay Device"
         deviceInfo.serialNumber = "074DCC022E14"
         deviceInfo.modelNumber = "FB404"
         deviceInfo.hardwareRevision = "1.0.0.0"
         deviceInfo.firmwareRevision = "1030.6408.1309.0001"
         deviceInfo.softwareRevision = "2.0.242009.6"
         deviceInfo.systemId = "0x123456FFFE9ABCDE"
-        deviceInfo.osName = "IOS"
+        deviceInfo.osName = "Mock OS"
         deviceInfo.licenseKey = "6b413f37-90a9-47ed-962d-80e6a3528036"
         deviceInfo.bdAddress = "977214bf-d038-4077-bdf8-226b17d5958d"
 
