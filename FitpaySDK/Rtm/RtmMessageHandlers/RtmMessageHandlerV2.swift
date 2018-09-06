@@ -1,6 +1,6 @@
 import Foundation
 
-class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
+class RtmMessageHandlerV2: NSObject, RtmMessageHandler, ClientModel {
     
     enum RtmMessageTypeVer2: String, RtmMessageTypeWithHandler {
         case rtmVersion = "version"
@@ -31,7 +31,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     
     var wvConfigStorage: WvConfigStorage!
     var webViewSessionData: SessionData?
-    var restClient: RestClient?
+    var client: RestClient?
 
     var syncCallBacks = [RtmMessage]()
     
@@ -106,7 +106,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
         }
 
         self.webViewSessionData = webViewSessionData
-        self.restClient = RestSession.GetUserAndDeviceWith(sessionData: webViewSessionData) { [weak self] (user, device, error) in
+        self.client = RestSession.GetUserAndDeviceWith(sessionData: webViewSessionData) { [weak self] (user, device, error) in
             guard error == nil else {
                 if let delegate = self?.outputDelegate {
                     delegate.send(rtmMessage: RtmMessageResponse(callbackId: message.callBackId,
@@ -150,7 +150,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
                                                              success: true), retries: 3)
             }
         }
-        FitpayNotificationsManager.sharedInstance.setRestClient(restClient)
+        FitpayNotificationsManager.sharedInstance.client = client
     }
 
     func logoutResponseMessage() -> RtmMessageResponse? {

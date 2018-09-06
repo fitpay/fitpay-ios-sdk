@@ -248,7 +248,6 @@ class RestClientTests: XCTestCase {
                     self.testHelper.acceptTermsForCreditCard(expectation, card: creditCard) { (card) in
                         self.testHelper.selectVerificationType(expectation, card: card) { (verificationMethod) in
                             self.testHelper.verifyCreditCard(expectation, verificationMethod: verificationMethod) { card in
-                                XCTAssertTrue(card!.isDefault!)
                                 self.testHelper.createAcceptVerifyAmExCreditCard(expectation, pan: "9999611111111114", user: user) { (creditCard) in
                                     self.testHelper.makeCreditCardDefault(expectation, card: creditCard) { (defaultCreditCard) in
                                         self.testHelper.deleteUser(user, expectation: expectation)

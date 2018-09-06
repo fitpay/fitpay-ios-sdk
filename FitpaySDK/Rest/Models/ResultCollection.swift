@@ -106,7 +106,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
                 completion(self.results, error)
             }
         } else {
-            log.error("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
+            log.warning("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
             completion(self.results, nil)
         }
     }
