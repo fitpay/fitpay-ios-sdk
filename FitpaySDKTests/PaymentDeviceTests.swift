@@ -230,7 +230,7 @@ class PaymentDeviceTests: XCTestCase {
                     XCTAssertNil(error)
                     XCTAssertNotNil(user)
                     
-                    //                user?.createNewDevice("SMART_STRAP", manufacturerName: "Fitpay", deviceName: "TestDevice2", serialNumber: "1.0.1", modelNumber: "1.0.0.0.1", hardwareRevision: "1.0.0.0.0.0.0.0.0.0.1", firmwareRevision: "1.0.851", softwareRevision: "1.0.0.1", systemId: "0x123456FFFE9ABCDE", osName: "ANDROID", licenseKey: "Some key", bdAddress: "", secureElementId: "4215b2c7-9999-1111-b224-388820601642", pairing: "2016-02-29T21:42:21.469Z", completion: { (device, error) -> Void in
+                    //                user?.createNewDevice("SMART_STRAP", manufacturerName: "Fitpay", deviceName: "TestDevice2", serialNumber: "1.0.1", modelNumber: "1.0.0.0.1", hardwareRevision: "1.0.0.0.0.0.0.0.0.0.1", firmwareRevision: "1.0.851", softwareRevision: "1.0.0.1", systemId: "0x123456FFFE9ABCDE", osName: "Mock OS", licenseKey: "Some key", bdAddress: "", secureElementId: "4215b2c7-9999-1111-b224-388820601642", pairing: "2016-02-29T21:42:21.469Z", completion: { (device, error) -> Void in
                     let _ = SyncManager.sharedInstance.sync(user!)
                     //                })
                     
