@@ -37,6 +37,8 @@
 		272C9341207E7F9500166820 /* UserEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */; };
 		272C9342207E7FA600166820 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		272C9343207E7FD800166820 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		272CDBEB2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CDBE82142C0680080C371 /* RestClientCreditCardTests.swift */; };
+		272CDBEC2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272CDBE82142C0680080C371 /* RestClientCreditCardTests.swift */; };
 		272E04352093B3BA000EAA9D /* RTMDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E04342093B3BA000EAA9D /* RTMDelegate.swift */; };
 		272E04362093B3BA000EAA9D /* RTMDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E04342093B3BA000EAA9D /* RTMDelegate.swift */; };
 		272E04382093B40A000EAA9D /* WVConfigStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E04372093B40A000EAA9D /* WVConfigStorage.swift */; };
@@ -528,6 +530,7 @@
 		2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionsTests.swift; sourceTree = "<group>"; };
 		2714B06E20F417B900321F22 /* ResourceLinkTypeTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkTypeTransform.swift; sourceTree = "<group>"; };
 		2716908D2106739E0026B927 /* RestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequest.swift; sourceTree = "<group>"; };
+		272CDBE82142C0680080C371 /* RestClientCreditCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientCreditCardTests.swift; sourceTree = "<group>"; };
 		272E04342093B3BA000EAA9D /* RTMDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTMDelegate.swift; sourceTree = "<group>"; };
 		272E04372093B40A000EAA9D /* WVConfigStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVConfigStorage.swift; sourceTree = "<group>"; };
 		2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformConfigTests.swift; sourceTree = "<group>"; };
@@ -1162,6 +1165,7 @@
 			isa = PBXGroup;
 			children = (
 				9AA50BDE1C7E096D000FA546 /* RestClientTests.swift */,
+				272CDBE82142C0680080C371 /* RestClientCreditCardTests.swift */,
 				9AA5BDAA1C7B54B600EDF2F6 /* RestSessionTests.swift */,
 				916C8AC020EA7C4900EEAD3A /* UnkeyedDecodingContainerTest.swift */,
 				27C0243220A4A1F900681023 /* Models */,
@@ -2109,6 +2113,7 @@
 				27F5E60221271224002ED57A /* MockCommitsFetcher.swift in Sources */,
 				91FD054E20D1653400092234 /* AddressTests.swift in Sources */,
 				37C94AAE1FE15E96009C0FE7 /* SyncManagerTests.swift in Sources */,
+				272CDBEC2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */,
 				9AA50BDF1C7E096D000FA546 /* RestClientTests.swift in Sources */,
 				0A7EE11B1CFE0A2B00503BC8 /* TestHelper.swift in Sources */,
 				2733BC7121175153002B6102 /* PlatformConfigTests.swift in Sources */,
@@ -2177,6 +2182,7 @@
 				91FD055B20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
 				273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */,
 				3A46E14E1DF023F9002D0270 /* RestClientTests.swift in Sources */,
+				272CDBEB2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */,
 				91A4AC4620EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
 				91FD055720D1653400092234 /* ApduPackageTests.swift in Sources */,
 				275AB520212B733A00757849 /* ImageOptionTests.swift in Sources */,
