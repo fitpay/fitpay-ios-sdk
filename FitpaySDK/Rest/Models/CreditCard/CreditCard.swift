@@ -347,7 +347,7 @@ import Foundation
             return
         }
         
-        client.makeDefault(url, deviceId: deviceId, completion: completion)
+        client.makeCreditCardDefault(url, deviceId: deviceId, completion: completion)
     }
     
     /**
