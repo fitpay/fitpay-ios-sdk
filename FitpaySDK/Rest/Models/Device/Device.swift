@@ -68,30 +68,44 @@ import Foundation
 
     open var secureElement: SecureElement?
     
+    /// Will be present if makeDefault is called on a Credit Card with this deviceId
+    open var defaultCreditCardId: String?
+    
     /// Extra metadata specific for a particular type of device
     open var metadata: [String: Any]?
 
+    /// returns true if user link is returned on the model and available to call
     open var userAvailable: Bool {
         return self.links?.url(Device.userResourceKey) != nil
     }
 
+    /// returns true if commits link is returned on the model and available to call
     open var listCommitsAvailable: Bool {
         return self.links?.url(Device.commitsResourceKey) != nil
+    }
+    
+    /// returns true if defaultCreditCard link is returned on the model and available to call
+    open var defaultCreditCardAvailable: Bool {
+        return self.links?.url(Device.defaultCreditCardKey) != nil
     }
 
     open var deviceResetUrl: String? {
         return self.links?.url(Device.deviceResetTasksKey)
     }
-
+    
     var links: [ResourceLink]?
+    weak var client: RestClient?
+
+    typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
     
     private static let userResourceKey = "user"
     private static let commitsResourceKey = "commits"
     private static let selfResourceKey = "self"
     private static let lastAckCommitResourceKey = "lastAckCommit"
     private static let deviceResetTasksKey = "deviceResetTasks"
-
-    weak var client: RestClient?
+    private static let defaultCreditCardKey = "defaultCreditCard"
+    
+    // MARK: - Lifecycle
     
     override public init() {
         super.init()
@@ -136,6 +150,7 @@ import Foundation
         case secureElement
         case metadata
         case profileId
+        case defaultCreditCardId
     }
 
     public required init(from decoder: Decoder) throws {
@@ -163,6 +178,7 @@ import Foundation
         secureElement = try? container.decode(.secureElement)
         metadata = try? container.decode([String: Any].self)
         profileId = try? container.decode(.profileId)
+        defaultCreditCardId = try? container.decode(.defaultCreditCardId)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -190,6 +206,7 @@ import Foundation
         try? container.encode(secureElement, forKey: .secureElement)
         try? container.encodeIfPresent(metadata, forKey: .metadata)
         try? container.encode(profileId, forKey: .profileId)
+        try? container.encode(defaultCreditCardId, forKey: .defaultCreditCardId)
     }
 
     var shortRTMRepersentation: String? {
@@ -248,12 +265,12 @@ import Foundation
             dic["profileId"] = ["profileId": profileId]
         }
 
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0)) else {
-            return nil
-        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0)) else { return nil }
 
         return String(data: jsonData, encoding: String.Encoding.utf8)
     }
+    
+    // MARK: - Functions
     
     /**
      Delete a single device
@@ -266,7 +283,7 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeDeleteCall(url, completion: completion)
         } else {
-            completion(ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(composeError(resource))
         }
     }
 
@@ -297,7 +314,7 @@ import Foundation
                 client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
             }
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
 
@@ -319,6 +336,16 @@ import Foundation
         }
     }
     
+    open func getDefaultCreditCard(completion: @escaping RestClient.CreditCardHandler) {
+        let resource = Device.defaultCreditCardKey
+        guard let url = links?.url(resource), let client = self.client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.getDefaultCreditCard(url, completion: completion)
+    }
+    
     /**
      Retrieves last acknowledge commit for device
      
@@ -330,7 +357,7 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
 
@@ -340,7 +367,7 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
 
@@ -352,11 +379,9 @@ import Foundation
         if let url = url, let client = self.client {
             client.addDeviceProperty(url, propertyPath: "/notificationToken", propertyValue: token, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
-
-    typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
     
     func updateNotificationTokenIfNeeded(completion: NotificationTokenUpdateCompletion? = nil) {
         let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
@@ -377,6 +402,12 @@ import Foundation
             }
             
         }
+    }
+    
+    // MARK: - Private Functions
+    
+    func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: Device.self, client: self.client, url: self.links?.url(resource), resource: resource)
     }
     
 }

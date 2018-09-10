@@ -46,4 +46,16 @@ class FitpayConfigTests: XCTestCase {
         expect(FitpayConfig.clientId).to(equal("testId3"))
     }
 
+    
+    func testConfigFromMissingFile() {
+        let t = type(of: self)
+        let bundle = Bundle(for: t.self)
+        
+        expect(FitpayConfig.clientId).to(equal("fp_webapp_pJkVp2Rl"))
+        
+        FitpayConfig.configure(fileName: "fitpayconfigNotHere", bundle: bundle)
+        
+        expect(FitpayConfig.clientId).to(equal("fp_webapp_pJkVp2Rl"))
+    }
+
 }

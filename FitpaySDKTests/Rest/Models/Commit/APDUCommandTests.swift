@@ -26,6 +26,21 @@ class APDUCommandTests: XCTestCase {
 
     }
     
+    func testAPDUCommandParsingMissingItems() {
+        let apduCommand = mockModels.getApduCommandWithMissingItems()
+        
+        expect(apduCommand?.groupId).to(equal(0))
+        expect(apduCommand?.sequence).to(equal(0))
+        expect(apduCommand?.continueOnFailure).to(beFalse())
+        
+        let json = apduCommand?.toJSON()
+
+        expect(json?["groupId"] as? Int).to(equal(0))
+        expect(json?["sequence"] as? Int).to(equal(0))
+        expect(json?["continueOnFailure"] as? Bool).to(beFalse())
+        
+    }
+    
     func testResponseDictionary() {
         let testResponseData = Data(base64Encoded: "eyJmb28iOiJiYXIyIn0=")
 
