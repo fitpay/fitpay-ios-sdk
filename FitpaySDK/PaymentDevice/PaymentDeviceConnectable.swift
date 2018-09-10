@@ -38,14 +38,14 @@
     ///
     /// - Returns: true if phone connected to payment device and device info was collected
     func isConnected() -> Bool
-
+    
     /// Async validation for connection between payment device and phone
     ///
     /// - Parameter completion: completion for async task.
     /// isValid should be true if connection is valid
     /// and device is ready for communications
     func validateConnection(completion: @escaping (_ isValid: Bool, _ error: NSError?) -> Void)
-
+    
     /// Should execute APDU command on payment device.
     /// Should call PaymentDevice.apduResponseHandler when preocessed
     ///

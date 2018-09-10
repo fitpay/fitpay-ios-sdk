@@ -1988,7 +1988,7 @@ extension Data {
     ///
     /// - returns: String representation of this Data object.
     
-    func hexadecimalString() -> String {
+    fileprivate func hexadecimalString() -> String {
         var hexstr = String()
         self.withUnsafeBytes { (data: UnsafePointer<UInt8>) -> Void in
             for i in UnsafeBufferPointer<UInt8>(start: data, count: count) {
@@ -1998,7 +1998,7 @@ extension Data {
         return hexstr
     }
     
-    func arrayOfBytes() -> [UInt8] {
+    fileprivate func arrayOfBytes() -> [UInt8] {
         let count = self.count / MemoryLayout<UInt8>.size
         var bytesArray = [UInt8](repeating: 0, count: count)
         (self as NSData).getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
@@ -2063,7 +2063,7 @@ extension String {
     /// - returns: Data represented by this hexadecimal string.
     ///            Returns nil if string contains characters outside the 0-9 and a-f range.
     
-    func dataFromHexadecimalString() -> Data? {
+    fileprivate func dataFromHexadecimalString() -> Data? {
         let trimmedString = self.trimmingCharacters(
             in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(
                 of: " ", with: "")

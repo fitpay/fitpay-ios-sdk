@@ -5,7 +5,6 @@ public class MockPaymentDeviceConnector: NSObject {
     
     var responseData: ApduResultMessage!
     var connected = false
-    var nfcState = PaymentDevice.SecurityNFCState.disabled
     var sendingAPDU: Bool = false
     
     var sequenceId: UInt16 = 0
@@ -86,14 +85,12 @@ public class MockPaymentDeviceConnector: NSObject {
     
 }
 
-// MARK: - PaymentDeviceConnectable
 extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
-    
+
     public func connect() {
         log.verbose("MOCK_DEVICE: connecting")
         DispatchQueue.main.asyncAfter(deadline: .now() + connectDelayTime) {
             self.connected = true
-            self.nfcState = PaymentDevice.SecurityNFCState.enabled
             let deviceInfo = self.deviceInfo()
             log.verbose("MOCK_DEVICE: triggering device data")
             self.paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected, params: ["deviceInfo": deviceInfo!])

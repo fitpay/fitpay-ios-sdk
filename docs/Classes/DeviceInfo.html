@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           FitpaySDK Docs
         </a>
-         (26% documented)
+         (28% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -156,6 +156,9 @@
                 <a class="nav-group-task-link" href="../Classes/FitpayWeb.html">FitpayWeb</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendrixPaymentDeviceConnector.html">HendrixPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/IdVerification.html">IdVerification</a>
               </li>
               <li class="nav-group-task">
@@ -192,12 +195,6 @@
                 <a class="nav-group-task-link" href="../Classes/PaymentDevice/ErrorCode.html">– ErrorCode</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/PaymentDevice/SecurityNFCState.html">– SecurityNFCState</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/PaymentDevice/DeviceControlState.html">– DeviceControlState</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/PaymentDevice/ConnectionState.html">– ConnectionState</a>
               </li>
               <li class="nav-group-task">
@@ -226,9 +223,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResultCollection.html">ResultCollection</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/RtmDeviceInfo.html">RtmDeviceInfo</a>
@@ -480,7 +474,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Type of Device</p>
+
+<p>Options include: <code>ACTIVITY_TRACKER</code>, <code>MOCK</code>, <code>PHONE</code> (host device only), <code>SMART_STRAP</code>, <code>TABLET</code> (host device only), <code>WATCH</code></p>
 
                       </div>
                       <div class="declaration">
@@ -1434,64 +1430,6 @@ by a manufacturer-defined identifier and is unique for each individual instance 
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="kd">func</span> <span class="nf">user</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html">RestClient</a></span><span class="o">.</span><span class="kt">UserHandler</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@FitpaySDK@objc(cs)DeviceInfo(py)createdEpochObjC"></a>
-                    <a name="//apple_ref/swift/Property/createdEpochObjC" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)DeviceInfo(py)createdEpochObjC">createdEpochObjC</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">createdEpochObjC</span><span class="p">:</span><span class="kt">NSNumber</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@CM@FitpaySDK@objc(cs)DeviceInfo(im)listCommitsObjCWithCommitsAfter:limit:offset:completion:"></a>
-                    <a name="//apple_ref/swift/Method/listCommitsObjC(commitsAfter:limit:offset:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@CM@FitpaySDK@objc(cs)DeviceInfo(im)listCommitsObjCWithCommitsAfter:limit:offset:completion:">listCommitsObjC(commitsAfter:limit:offset:completion:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">listCommitsObjC</span><span class="p">(</span><span class="nv">commitsAfter</span><span class="p">:</span><span class="kt">String</span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span> <span class="nv">offset</span><span class="p">:</span><span class="kt">Int</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span><span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ResultCollectionObjC.html">ResultCollectionObjC</a></span><span class="o">.</span><span class="kt">ResultCollectionHandler</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

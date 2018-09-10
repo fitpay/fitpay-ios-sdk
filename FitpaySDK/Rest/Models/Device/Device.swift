@@ -22,6 +22,9 @@ import Foundation
     /// The name of the device model
     open var deviceName: String?
     
+    /// Type of Device
+    ///
+    /// Options include: `ACTIVITY_TRACKER`, `MOCK`, `PHONE` (host device only), `SMART_STRAP`, `TABLET` (host device only), `WATCH`
     open var deviceType: String?
     
     /// The manufacturer name of the device
