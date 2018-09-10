@@ -136,6 +136,8 @@
 		27CFE12B21237BD200AE116B /* JWTAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CFE12921237BD200AE116B /* JWTAlgorithm.swift */; };
 		27D94AF020B48107001DD434 /* WVDeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */; };
 		27D94AF120B4810B001DD434 /* WVDeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */; };
+		27DC64E92143181B0097E6B8 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */; };
+		27DC64EA2143181B0097E6B8 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */; };
 		27E0302D20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0302E20ADE55C009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0303020ADE58A009120AD /* JSONCodingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */; };
@@ -582,6 +584,7 @@
 		27CFE12621237BC500AE116B /* JWSEncryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWSEncryption.swift; sourceTree = "<group>"; };
 		27CFE12921237BD200AE116B /* JWTAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTAlgorithm.swift; sourceTree = "<group>"; };
 		27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVDeviceStatus.swift; sourceTree = "<group>"; };
+		27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnkeyedDecodingContainerExtension.swift; sourceTree = "<group>"; };
 		27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeys.swift; sourceTree = "<group>"; };
 		27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeWebPath.swift; sourceTree = "<group>"; };
@@ -881,11 +884,12 @@
 		2714B06920F4172C00321F22 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				27B131282134845600B4A9CF /* Codable */,
 				2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */,
 				916C8ABB20EA368000EEAD3A /* DataExtensionsTests.swift */,
 				27F5E5F321263636002ED57A /* DictionaryExtensionsTests.swift */,
 				27F5E5F6212638C5002ED57A /* JSONSerializationExtensionsTests.swift */,
+				27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */,
+				27B131282134845600B4A9CF /* Codable */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1176,8 +1180,6 @@
 		27C0243220A4A1F900681023 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				275AB526212B794B00757849 /* CreditCard */,
-				275AB525212B793800757849 /* Device */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
 				91FD053520D1652F00092234 /* ImageTests.swift */,
 				91FD052F20D1652D00092234 /* IssuersTests.swift */,
@@ -1189,6 +1191,8 @@
 				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
 				27C0243320A4A21500681023 /* TransformsTests.swift */,
 				27F938FD2127765D0003D7A3 /* Commit */,
+				275AB526212B794B00757849 /* CreditCard */,
+				275AB525212B793800757849 /* Device */,
 				275AB51D212B732600757849 /* Images */,
 				27F5E617212735A6002ED57A /* User */,
 				27F5E616212734DE002ED57A /* Verification */,
@@ -2109,6 +2113,7 @@
 				91FD056F20D1664000092234 /* MockModels.swift in Sources */,
 				9AB68E441C84A25B00A0E172 /* JWETests.swift in Sources */,
 				37330EB620289E2000948BC6 /* TransactionTests.swift in Sources */,
+				27DC64E92143181B0097E6B8 /* StringExtensionsTests.swift in Sources */,
 				277380DA20E5716E00B84785 /* FitpayConfigTests.swift in Sources */,
 				27F5E60221271224002ED57A /* MockCommitsFetcher.swift in Sources */,
 				91FD054E20D1653400092234 /* AddressTests.swift in Sources */,
@@ -2178,6 +2183,7 @@
 				91FD055520D1653400092234 /* VerificationMethodTests.swift in Sources */,
 				91FD056520D1653500092234 /* CreditCardTests.swift in Sources */,
 				91FD054D20D1653400092234 /* IssuersTests.swift in Sources */,
+				27DC64EA2143181B0097E6B8 /* StringExtensionsTests.swift in Sources */,
 				27F5E60321271224002ED57A /* MockCommitsFetcher.swift in Sources */,
 				91FD055B20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
 				273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */,
