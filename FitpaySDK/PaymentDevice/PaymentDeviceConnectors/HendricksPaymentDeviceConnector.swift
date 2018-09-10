@@ -100,28 +100,32 @@ import CoreBluetooth
 
         while index < expectedDataSize {
             guard returnedData[index] == 0x24 else { return }
+            guard let type = PingResponse(rawValue: returnedData[index + 1]) else { return }
             
-            let type = PingResponse(rawValue: returnedData[index + 1])
             let length = Int(returnedData[index + 2])
             let nextIndex = index + 3 + length
             let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
             
-            if (type == .serial) {
+            switch type {
+            case .serial:
                 device.serialNumber = hex
-                
-            } else if (type == .version) {
+            case .version:
                 var version = "v"
                 for i in index + 3 ..< nextIndex {
                     version += String(returnedData[i]) + "."
                 }
                 device.firmwareRevision = String(version.dropLast())
-                
-            } else if (type == .deviceMode) {
+            case .deviceMode:
                 guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
-
-            } else if (type == .bootVersion) {
+                
+            case .bootVersion:
                 device.hardwareRevision = hex
                 
+            case .bleMac:
+                device.bdAddress = hex
+                
+            default:
+                break
             }
             
             index = nextIndex
@@ -297,7 +301,6 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
         addCommandtoQueue(BLECommandPackage(.ping))
-//        addCommandtoQueue(BLECommandPackage(.factoryReset))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -390,12 +393,19 @@ extension HendricksPaymentDeviceConnector {
     }
     
     enum PingResponse: UInt8 {
-        case serial         = 0x00
-        case version        = 0x01
-        case deviceId       = 0x02
-        case deviceMode     = 0x03
-        case bootVersion    = 0x04
-        case ack            = 0x06
+        case serial             = 0x00
+        case version            = 0x01
+        case deviceId           = 0x02
+        case deviceMode         = 0x03
+        case bootVersion        = 0x04
+        
+        case ack                = 0x06
+        
+        case bootloaderVersion  = 0x17
+        case appVersion         = 0x18
+        case d21BlVersion       = 0x19
+        case hardwareVersion    = 0x1A
+        case bleMac             = 0x1B
     }
     
     enum BLEResponses: UInt8 {
