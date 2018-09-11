@@ -5,6 +5,7 @@ protocol APDUConfirmOperationProtocol {
 }
 
 class APDUConfirmOperation: APDUConfirmOperationProtocol {
+    
     func startWith(commit: Commit) -> Observable<Void> {
         let publisher = PublishSubject<Void>()
         commit.confirmAPDU { (error) in
@@ -17,4 +18,5 @@ class APDUConfirmOperation: APDUConfirmOperationProtocol {
         }
         return publisher
     }
+    
 }

@@ -9,7 +9,6 @@ class APDUCommandTests: XCTestCase {
     func testAPDUCommandParsing() {
         let apduCommand = mockModels.getApduCommand()
 
-        expect(apduCommand?.links).toNot(beNil())
         expect(apduCommand?.commandId).to(equal(mockModels.someId))
         expect(apduCommand?.groupId).to(equal(1))
         expect(apduCommand?.sequence).to(equal(1))
@@ -18,7 +17,6 @@ class APDUCommandTests: XCTestCase {
         expect(apduCommand?.continueOnFailure).to(beTrue())
 
         let json = apduCommand?.toJSON()
-        expect(json?["_links"]).toNot(beNil())
         expect(json?["commandId"] as? String).to(equal(mockModels.someId))
         expect(json?["groupId"] as? Int).to(equal(1))
         expect(json?["sequence"] as? Int).to(equal(1))
@@ -26,6 +24,21 @@ class APDUCommandTests: XCTestCase {
         expect(json?["type"] as? String).to(equal(mockModels.someType))
         expect(json?["continueOnFailure"] as? Bool).to(beTrue())
 
+    }
+    
+    func testAPDUCommandParsingMissingItems() {
+        let apduCommand = mockModels.getApduCommandWithMissingItems()
+        
+        expect(apduCommand?.groupId).to(equal(0))
+        expect(apduCommand?.sequence).to(equal(0))
+        expect(apduCommand?.continueOnFailure).to(beFalse())
+        
+        let json = apduCommand?.toJSON()
+
+        expect(json?["groupId"] as? Int).to(equal(0))
+        expect(json?["sequence"] as? Int).to(equal(0))
+        expect(json?["continueOnFailure"] as? Bool).to(beFalse())
+        
     }
     
     func testResponseDictionary() {

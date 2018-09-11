@@ -16,6 +16,10 @@ extension Data {
         return dictionary
     }
     
+    var bytesArray: [UInt8] {
+        return [UInt8](self)
+    }
+    
     var errorMessages: [String]? {
         var messages: [String]? = []
         

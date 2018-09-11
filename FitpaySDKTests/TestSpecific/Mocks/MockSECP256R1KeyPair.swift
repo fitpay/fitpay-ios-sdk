@@ -19,6 +19,6 @@ class MockSECP256R1KeyPair: SECP256R1KeyPair {
         let publicKeyWithoutPrefix = publicKey.replacingCharacters(in: start..<end, with: "")
 
         // compute secret for public key without prefix
-        return try? CC.EC.computeSharedSecret(mocPrivateKey!.dataFromHexadecimalString()!, publicKey: publicKeyWithoutPrefix.hexToData()!)
+        return try? CC.EC.computeSharedSecret(mocPrivateKey!.hexToData()!, publicKey: publicKeyWithoutPrefix.hexToData()!)
     }
 }

@@ -100,6 +100,10 @@ extension RestClient {
         makeGetCall(url, parameters: nil, completion: completion)
     }
     
+    func getDefaultCreditCard(_ url: String, completion: @escaping CreditCardHandler) {
+        makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
     func addDeviceProperty(_ url: String, propertyPath: String, propertyValue: String, completion: @escaping DeviceHandler) {
         var paramsArray = [Any]()
         paramsArray.append(["op": "add", "path": propertyPath, "value": propertyValue])

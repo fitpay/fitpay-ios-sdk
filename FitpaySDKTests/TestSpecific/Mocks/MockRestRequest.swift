@@ -9,15 +9,24 @@ class MockRestRequest: RestRequestable {
     var lastEncoding: ParameterEncoding?
     var lastUrl: URLConvertible?
     
+    lazy var manager: SessionManager = {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        return SessionManager(configuration: configuration)
+    }()
+    
     func makeRequest(url: URLConvertible, method: HTTPMethod, parameters: Parameters?, encoding: ParameterEncoding, headers: HTTPHeaders?, completion: @escaping RestRequestable.RequestHandler) {
         guard let urlString = try? url.asURL().absoluteString else {
             completion(nil, ErrorResponse.unhandledError(domain: RestClient.self))
             return
         }
         
+        // create request but don't execute it so we can inspect how encoding affects the call
+        let request = self.manager.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers)
+                
         lastParams = parameters
         lastEncoding = encoding
-        lastUrl = url
+        lastUrl = request.request?.url
         
         var data: Any? = nil
         

@@ -8,7 +8,6 @@ enum FitpayServiceUUID: String {
 }
 
 enum FitpayPaymentCharacteristicUUID: String {
-    
     case APDUControlCharacteristic         = "0761f49b-5f56-4008-b203-fd2406db8c20"
     case APDUResultCharacteristic          = "840f2622-ff4a-4a56-91ab-b1e6dd977db4"
     case ContinuationControlCharacteristic = "cacc2825-0a2b-4cf2-a1a4-b9db27691382"
