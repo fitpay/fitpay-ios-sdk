@@ -1736,11 +1736,14 @@
 				TargetAttributes = {
 					0AD9229C1C1F7EFC007693AB = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0930;
+						LastSwiftMigration = 1000;
 					};
 					0AD922A61C1F7EFC007693AB = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0920;
+					};
+					3A93A07F1DB8CA2C00A9FEB4 = {
+						LastSwiftMigration = 1000;
 					};
 				};
 			};

@@ -82,5 +82,10 @@ extension Data {
         return base64
     }
     
+    func paddedTo(byteLength: Int) -> Data {
+        let bytesNeeded = Swift.max(byteLength - self.count, 0)
+        return self + Data(repeating: UInt8(0), count: bytesNeeded)
+    }
+    
 }
 

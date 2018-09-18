@@ -30,6 +30,8 @@ import CoreBluetooth
     private var apduCompletion: ((Error?) -> Void)?
     private var apduCommands: [APDUCommand]?
     
+    private var timer: Timer?
+    
     // MARK: - Lifecycle
     
     @objc public init(paymentDevice: PaymentDevice) {
@@ -44,7 +46,61 @@ import CoreBluetooth
         processNextCommand()
     }
     
+    public func addCreditCard(_ creditCard: CreditCard) {
+        print(creditCard.toJSON())
+        
+        // data
+        let lastFour = creditCard.info?.pan?.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        guard let lastFourData = lastFour?.data(using: .utf8)?.paddedTo(byteLength: 5) else { return }
+        
+        let exp = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
+        guard let expData = exp.data(using: .utf8)?.paddedTo(byteLength: 6) else { return }
+        
+        guard let financialServiceData =  creditCard.cardType!.data(using: .utf8)?.paddedTo(byteLength: 21) else { return }
+        guard let cardIdData = creditCard.creditCardId?.data(using: .utf8)?.paddedTo(byteLength: 37) else { return }
+        
+        var cardArtId = 0
+        let cardArtIdData = Data(bytes: &cardArtId, count: 2)
+        
+        var towId = 0
+        let towIdData = Data(bytes: &towId, count: 2)
+        
+        // card status
+        let cardStatusData = UInt8(0x07).data
+        
+        // card art data
+        guard let url = Bundle.main.url(forResource:"card_image", withExtension: "bin") else { return }
+        let cardArtData = try! Data(contentsOf: url)
+        
+        let towApduData = buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!)
+        var towSize = towApduData.count
+        let towSizeData = Data(bytes: &towSize, count: 4)
+        
+        var cardArtSize = cardArtData.count
+        let cardArtSizeData = Data(bytes: &cardArtSize, count: 4)
+        
+        let data = lastFourData + expData + financialServiceData + cardIdData + cardArtIdData + cardArtSizeData + towIdData + towSizeData + cardStatusData + cardArtData + towApduData
+        print("Data: \(lastFourData.hex) + \(expData.hex) + \(financialServiceData.hex) + \(cardIdData.hex) + \(cardArtIdData.hex) + \(cardArtSizeData.hex) + \(towIdData.hex) + \(towSizeData.hex) + \(cardStatusData.hex) + \(cardArtData) + \(towApduData.hex)")
+        
+        // command data
+
+        var metaSize = 82
+        let metaSizeData = Data(bytes: &metaSize, count: 4)
+
+        let commandData = cardIdData + metaSizeData + cardArtSizeData + towSizeData
+        print("-----")
+        print("CommandData: \(cardIdData.hex) + \(metaSizeData.hex) + \(cardArtSizeData.hex) + \(towSizeData.hex)")
+        
+        let bleCommand = BLECommandPackage(.addCard, commandData: commandData, data: data)
+        addCommandtoQueue(bleCommand)
+    }
+    
     // MARK: - Private Functions
+    
+    private func addCommandtoFrontOfQueue(_ bleCommand: BLECommandPackage) {
+        commandQueue.insert(bleCommand, at: 0)
+        processNextCommand()
+    }
     
     private func runCommand() {
         guard currentCommand == nil else {
@@ -68,6 +124,10 @@ import CoreBluetooth
         
         log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
+        if (command.command == .factoryReset) {
+            wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        }
+
         // start
         wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
         
@@ -81,12 +141,22 @@ import CoreBluetooth
         wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
         
         if let data = command.data {
-            log.debug("HENDRICKS: putting data: \(data.hex)")
+            log.verbose("HENDRICKS: putting data: \(data.hex)")
             wearablePeripheral.writeValue(data, for: dataCharacteristic, type: .withResponse)
         }
         
         // end
         wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        
+        timer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
+        
+    }
+    
+    @objc private func handleBleIssue() {
+        log.warning("HENDRICKS: Reseting due to no response or invalid response status")
+        
+        resetVariableState()
+        resetToDefaultState()
     }
     
     private func handlePingResponse() {
@@ -155,10 +225,12 @@ import CoreBluetooth
         apduCommands = nil
     }
     
-    private func resetState() {
+    private func resetVariableState() {
         expectedDataSize = 0
         returnedData = []
         currentCommand = nil
+        timer?.invalidate()
+        timer = nil
         
         processNextCommand()
     }
@@ -174,16 +246,17 @@ import CoreBluetooth
         
         for apdu in apdus {
             guard let command = apdu.command else { continue }
-            let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
+            guard let commandData = command.hexToData() else { continue }
 
+            let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
+            
             let groupIdData = UInt8(apdu.groupId).data
             let sequenceData = UInt16(apdu.sequence).data
             let continueData = continueInt.data
             let lengthData = UInt8(command.count / 2).data
-            guard let commandData = command.hexToData() else { continue }
             
             let fullCommandData = groupIdData + sequenceData + continueData + lengthData + commandData
-            print("\(groupIdData.hex) \(sequenceData.hex) \(continueData.hex) \(lengthData.hex) \(commandData.hex)")
+
             data.append(fullCommandData)
         }
         
@@ -237,7 +310,7 @@ import CoreBluetooth
     }
     
     public func resetToDefaultState() {
-        addCommandtoQueue(BLECommandPackage(.factoryReset))
+        addCommandtoFrontOfQueue(BLECommandPackage(.factoryReset))
     }
     
 }
@@ -312,28 +385,25 @@ import CoreBluetooth
             let status = Data(bytes: Array([value[0]]))
             guard status == BLEResponses.ok.rawValue.data else {
                 log.error("HENDRICKS: BLE Response Status not OK")
-                resetState()
+                handleBleIssue()
                 return
             }
             
             if (value.count == 1) { //status
                 log.debug("HENDRICKS: BLE Response OK with no length")
-                resetState()
+                resetVariableState()
                 
             } else if (value.count == 5) { //length
                 log.debug("HENDRICKS: BLE Response OK with length")
                 let lengthData = Data(bytes: Array(value[1...4])).hex
                 expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
                 
-                returnedData = []
-                
-                //todo add timeout
-                
             } else {
                 
             }
             
         case dataCharacteristicId:
+            print("didUpdateValueFor dataCharacteristicId \(String(describing: currentCommand?.command))")
             returnedData.append(contentsOf: value)
 
             if (returnedData.count == expectedDataSize) {
@@ -344,9 +414,11 @@ import CoreBluetooth
                    handlePingResponse()
                 } else if currentCommand?.command == .apduPackage {
                     handleAPDUResponse()
+                } else if currentCommand?.command == .addCard {
+                    print("hooray")
                 }
                 
-                resetState()
+                resetVariableState()
             }
 
         default:
@@ -354,9 +426,12 @@ import CoreBluetooth
         }
     }
     
+    public func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("didWriteValueFor \(characteristic) error: \(error)")
+    }
 }
 
-// MARK - Nested Enums
+// MARK - Nested Data
 
 extension HendricksPaymentDeviceConnector {
     
