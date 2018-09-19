@@ -6,7 +6,7 @@ open class FitpayNotificationsManager: NSObject {
     
     public typealias NotificationsPayload = [AnyHashable: Any]
     
-    var notificationsToken: String = ""
+    var notificationToken: String = ""
     
     private let eventsDispatcher = FitpayEventDispatcher()
     private var syncCompletedBinding: FitpayEventBinding?
@@ -54,9 +54,7 @@ open class FitpayNotificationsManager: NSObject {
      - parameter token: notifications token which should be provided by Firebase
      */
     open func updateNotificationsToken(_ token: String) {
-        notificationsToken = token
-        
-        SyncRequestQueue.sharedInstance.lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
+        notificationToken = token
     }
     
     /**
