@@ -7,7 +7,7 @@ class DeviceTests: XCTestCase {
     let mockModels = MockModels()
     
     func testDeviceInfoParsing() {
-        let deviceInfo = mockModels.getDeviceInfo()
+        let deviceInfo = mockModels.getDevice()
 
         expect(deviceInfo?.links).toNot(beNil())
         expect(deviceInfo?.shortRTMRepersentation).toNot(beNil())
@@ -63,7 +63,7 @@ class DeviceTests: XCTestCase {
     }
     
     func testDefaultCreditCardAvailable() {
-        let deviceInfo = mockModels.getDeviceInfo()
+        let deviceInfo = mockModels.getDevice()
         let deviceInfoNoLinks = mockModels.getDeviceInfoNoLinks()
         
         let defaultCreditCardAvailable = deviceInfo?.defaultCreditCardAvailable

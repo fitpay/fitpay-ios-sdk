@@ -7,6 +7,8 @@ class SyncRequestsQueueTests: XCTestCase {
     var requestsQueue: SyncRequestQueue!
     var mockSyncManager: MockSyncManager!
     
+    let mockModels = MockModels()
+    
     override func setUp() {
         super.setUp()
         
@@ -120,7 +122,7 @@ class SyncRequestsQueueTests: XCTestCase {
                 }
             }
             
-            self.requestsQueue.add(request: SyncRequest()) { (status, error) in
+            self.requestsQueue.add(request: self.getSyncRequest1()) { (status, error) in
                 expect(counter).to(equal(1))
                 expect(status).to(equal(.success))
                 expect(error).to(beNil())
@@ -191,11 +193,10 @@ class SyncRequestsQueueTests: XCTestCase {
     
     func testAddAndRemovePaymentDevice() {
         expect(self.requestsQueue.paymentDevices.count).to(equal(0))
-        let user = MockModels().getUser()
-        let deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "111-111-111"
-        let deviceInfo2 = Device()
-        deviceInfo2.deviceIdentifier = "222-222-222"
+        
+        let user = mockModels.getUser()
+        let deviceInfo = mockModels.getDevice(deviceId: "111-111-111")
+        let deviceInfo2 = mockModels.getDevice(deviceId: "222-222-222")
         let paymentDevice = PaymentDevice()
 
         requestsQueue.addPaymentDevice(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice)
@@ -209,22 +210,48 @@ class SyncRequestsQueueTests: XCTestCase {
         expect(self.requestsQueue.paymentDevices.contains(where: { $0.device?.deviceIdentifier == "222-222-222"})).to(beTrue())
     }
     
+    func testSyncRequestFromNotificationDoesNotSyncAfterRemovePaymentDevice() {
+        let user = mockModels.getUser()
+        let deviceInfo = mockModels.getDevice()
+        let paymentDevice = PaymentDevice()
+        
+        requestsQueue.addPaymentDevice(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice)
+        
+        waitUntil { done in
+            self.requestsQueue.add(request: self.getSyncRequestNotification()) { (status, error) in
+                expect(status).to(equal(.success))
+                expect(error).to(beNil())
+                
+                self.requestsQueue.removePaymentDevice(deviceId: self.mockModels.someId)
+                
+                self.requestsQueue.add(request: self.getSyncRequestNotification()) { (status, error) in
+                    expect(status).to(equal(.failed))
+                    expect(error as? SyncRequestQueue.SyncRequestQueueError).to(equal(SyncRequestQueue.SyncRequestQueueError.cantCreateQueueForSyncRequest))
+                    done()
+                    
+                }
+            }
+        }
+    }
+    
     // MARK: - Private Helpers
     
     private func getSyncRequest1() -> SyncRequest {
-        let deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "111-111-111"
+        let deviceInfo = mockModels.getDevice(deviceId: "111-111-111")!
         let request = SyncRequest(user: try! User("{\"id\":\"1\"}"), deviceInfo: deviceInfo, paymentDevice: PaymentDevice())
         SyncRequest.syncManager = self.mockSyncManager
         return request
     }
     
     private func getSyncRequest2() -> SyncRequest {
-        let deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "123-123-123"
+        let deviceInfo = mockModels.getDevice(deviceId: "123-123-123")!
         let request = SyncRequest(user: try! User("{\"id\":\"1\"}"), deviceInfo: deviceInfo, paymentDevice: PaymentDevice())
         SyncRequest.syncManager = self.mockSyncManager
         return request
     }
 
+    private func getSyncRequestNotification() -> SyncRequest {
+        let notificationDetail = MockModels().getNotificationDetail()
+        return SyncRequest(notification: notificationDetail)
+    }
 }

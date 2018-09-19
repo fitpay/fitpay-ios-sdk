@@ -61,7 +61,14 @@ open class SyncRequest {
         }
     }
 
-    public init(notification: NotificationDetail? = nil, initiator: SyncInitiator = .notDefined) {
+    /// Create sync request from Notificatoin
+    ///
+    /// This can be created with no parameters but will never sync as a deviceId is required moving forward
+    ///
+    /// - Parameters:
+    ///   - notification: Notification Detail created from a FitPay notification
+    ///   - initiator: where the sync is coming from, defaulting to notification
+    public init(notification: NotificationDetail? = nil, initiator: SyncInitiator = .notification) {
         self.requestTime = Date()
         self.syncId = notification?.syncId
         self.user = nil

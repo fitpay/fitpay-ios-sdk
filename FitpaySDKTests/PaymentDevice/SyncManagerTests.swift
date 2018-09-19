@@ -38,40 +38,6 @@ class SyncManagerTests: XCTestCase {
         }
     }
     
-    func testMakeSyncWithEmptySyncRequestWhenAlreadySyncing() {
-        var fetchesDuring1Sync = 0
-        var isFirstSync = true
-        
-        waitUntil { done in
-            self.fetcher.onStart = {
-                fetchesDuring1Sync += 1
-                expect(fetchesDuring1Sync).to(equal(1))
-                
-                if isFirstSync {
-                    self.syncQueue.add(request: SyncRequest()) { (status, error) in
-                        expect(status).to(equal(.success))
-                        expect(error).to(beNil())
-                        done()
-                    }
-                }
-                isFirstSync = false
-            }
-            
-            guard let commit = self.fetcher.getAPDUCommit() else {
-                fail("Bad parsing.")
-                return
-            }
-            self.fetcher.commits = [commit]
-            
-            self.syncQueue.add(request: self.getSyncRequest1()) { (status, error) in
-                expect(status).to(equal(.success))
-                expect(error).to(beNil())
-                fetchesDuring1Sync = 0
-            }
-        }
-        
-    }
-    
     func testMakeSyncWhenAlreadySyncing() {
         var fetchesDuring1Sync = 0
         var isFirstSync = true
