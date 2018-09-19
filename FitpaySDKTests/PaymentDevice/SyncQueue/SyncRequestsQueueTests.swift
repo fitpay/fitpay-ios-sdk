@@ -189,6 +189,26 @@ class SyncRequestsQueueTests: XCTestCase {
         }
     }
     
+    func testAddAndRemovePaymentDevice() {
+        expect(self.requestsQueue.paymentDevices.count).to(equal(0))
+        let user = MockModels().getUser()
+        let deviceInfo = Device()
+        deviceInfo.deviceIdentifier = "111-111-111"
+        let deviceInfo2 = Device()
+        deviceInfo2.deviceIdentifier = "222-222-222"
+        let paymentDevice = PaymentDevice()
+
+        requestsQueue.addPaymentDevice(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice)
+        expect(self.requestsQueue.paymentDevices.count).to(equal(1))
+        
+        requestsQueue.addPaymentDevice(user: user, deviceInfo: deviceInfo2, paymentDevice: paymentDevice)
+        expect(self.requestsQueue.paymentDevices.count).to(equal(2))
+        
+        requestsQueue.removePaymentDevice(deviceId: "111-111-111")
+        expect(self.requestsQueue.paymentDevices.count).to(equal(1))
+        expect(self.requestsQueue.paymentDevices.contains(where: { $0.device?.deviceIdentifier == "222-222-222"})).to(beTrue())
+    }
+    
     // MARK: - Private Helpers
     
     private func getSyncRequest1() -> SyncRequest {
@@ -206,4 +226,5 @@ class SyncRequestsQueueTests: XCTestCase {
         SyncRequest.syncManager = self.mockSyncManager
         return request
     }
+
 }

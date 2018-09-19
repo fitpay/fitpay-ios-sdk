@@ -115,7 +115,7 @@ open class FitpayNotificationsManager: NSObject {
     private func processNextNotificationIfAvailable() {
         log.verbose("NOTIFICATIONS_DATA: Processing next notification if available.")
         guard currentNotification == nil else {
-            log.verbose("NOTIFICATIONS_DATA: currentNotification was nil returning.")
+            log.verbose("NOTIFICATIONS_DATA: currentNotification was not nil returning.")
             return
         }
         
@@ -126,9 +126,7 @@ open class FitpayNotificationsManager: NSObject {
         }
         
         currentNotification = notificationsQueue.dequeue()
-        guard let currentNotification = self.currentNotification else {
-            return
-        }
+        guard let currentNotification = self.currentNotification else { return }
         
         var notificationType = NotificationType.withoutSync
         
