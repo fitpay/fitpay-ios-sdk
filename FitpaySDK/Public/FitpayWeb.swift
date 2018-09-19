@@ -124,8 +124,6 @@ import WebKit
     ///
     /// You should still call respondToA2AWith(success:error:)
     @objc open func load(issuerResponse: A2AIssuerResponse) {
-        wkWebView.load(wvConfig.getRequest())
-        
         guard let encodedConfig = wvConfig.getEncodedConfig(),
             let returnLocation = wvConfig.a2aReturnLocation,
             let encodedIssuerResponse = issuerResponse.getEncodedString() else { return }
