@@ -54,7 +54,7 @@ class UnkeyedDecodingContainerTest: XCTestCase {
         let bool = "true"
         let double = "2"
         let string = "\"some string\""
-        let deviceInfo = mockModels.getDeviceInfo()?.toJSONString() ?? ""
+        let deviceInfo = mockModels.getDevice()?.toJSONString() ?? ""
         let creditCard = mockModels.getCreditCard()?.toJSONString() ?? ""
         let transaction = mockModels.getTransaction()?.toJSONString() ?? ""
         let commit = mockModels.getCommit()?.toJSONString() ?? ""

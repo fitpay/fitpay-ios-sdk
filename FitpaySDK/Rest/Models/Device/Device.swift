@@ -384,7 +384,7 @@ import Foundation
     }
     
     func updateNotificationTokenIfNeeded(completion: NotificationTokenUpdateCompletion? = nil) {
-        let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
+        let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationToken
         guard !newNotificationToken.isEmpty && newNotificationToken != notificationToken else {
             completion?(false, nil)
             return
