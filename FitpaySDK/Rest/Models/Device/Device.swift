@@ -310,6 +310,7 @@ import Foundation
     /**
      Update the details of an existing device use nil if field doesn't need to be updated
      Cannot remove values with this function
+     Currently only supports firmwareRevision, softwareRevision and notificationToken but will support more properties in the future
      
      - parameter device: updated device
      */
