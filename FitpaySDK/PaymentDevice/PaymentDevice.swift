@@ -329,14 +329,14 @@ extension PaymentDevice {
         
     }
     
-    @available(*, deprecated, message: "as of v1.1.2")
+    @available(*, deprecated, message: "as of v1.2")
     @objc public enum SecurityNFCState: Int {
         case disabled         = 0x00
         case enabled          = 0x01
         case doNotChangeState = 0xFF
     }
     
-    @available(*, deprecated, message: "as of v1.1.2")
+    @available(*, deprecated, message: "as of v1.2")
     @objc public enum DeviceControlState: Int {
         case esePowerOFF    = 0x00
         case esePowerON     = 0x02
