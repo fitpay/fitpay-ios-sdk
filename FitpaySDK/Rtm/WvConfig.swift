@@ -203,8 +203,8 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.configStorage.rtmConfig!.accessToken = accessToken
         }
         
-        if self.configStorage.rtmConfig?.deviceInfo?.notificationToken == nil && FitpayNotificationsManager.sharedInstance.notificationsToken.isEmpty == false {
-            self.configStorage.rtmConfig?.deviceInfo?.notificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
+        if self.configStorage.rtmConfig?.deviceInfo?.notificationToken == nil && FitpayNotificationsManager.sharedInstance.notificationToken.isEmpty == false {
+            self.configStorage.rtmConfig?.deviceInfo?.notificationToken = FitpayNotificationsManager.sharedInstance.notificationToken
         }
         
         let JSONString = self.configStorage.rtmConfig?.jsonDict().JSONString
@@ -225,8 +225,8 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.configStorage.rtmConfig!.accessToken = accessToken
         }
         
-        if self.configStorage.rtmConfig?.deviceInfo?.notificationToken == nil && FitpayNotificationsManager.sharedInstance.notificationsToken.isEmpty == false {
-            self.configStorage.rtmConfig?.deviceInfo?.notificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
+        if self.configStorage.rtmConfig?.deviceInfo?.notificationToken == nil && FitpayNotificationsManager.sharedInstance.notificationToken.isEmpty == false {
+            self.configStorage.rtmConfig?.deviceInfo?.notificationToken = FitpayNotificationsManager.sharedInstance.notificationToken
         }
         
         let JSONString = self.configStorage.rtmConfig?.jsonDict().JSONString

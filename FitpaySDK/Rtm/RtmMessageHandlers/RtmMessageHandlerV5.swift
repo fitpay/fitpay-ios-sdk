@@ -122,8 +122,8 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
             return
         }
         
-        a2aVerificationDelegate?.verificationFinished(verificationInfo: appToAppVerification)
         wvConfigStorage.a2aReturnLocation = appToAppVerification.returnLocation
+        a2aVerificationDelegate?.verificationFinished(verificationInfo: appToAppVerification)
     }
 
     private func handleApiErrorDetails(_ message: RtmMessage) {

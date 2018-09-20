@@ -37,9 +37,6 @@ extension RestClient {
             log.verbose("REST_CLIENT: got headers: \(headers)")
             
             var parameters: [String: Any] = [:]
-            if (termsVersion != nil) {
-                parameters += ["termsVersion": termsVersion!]
-            }
             
             if let termsVersion = termsVersion {
                 parameters["termsVersion"] = termsVersion
@@ -161,17 +158,7 @@ extension RestClient {
                 }
             }
             
-            self.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { [weak self] (resultValue, error) in
-                guard let strongSelf = self else { return }
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let user = try? User(resultValue)
-                user?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                user?.client = self
-                completion(user, error)
-            }
+            self.makePatchCall(url, parameters: parameters, encoding: JSONEncoding.default, completion: completion)
         }
         
     }

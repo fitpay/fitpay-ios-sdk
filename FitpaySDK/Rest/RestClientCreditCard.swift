@@ -154,17 +154,7 @@ extension RestClient {
                 }
             }
             
-            self?.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                guard let strongSelf = self else { return }
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let card = try? CreditCard(resultValue)
-                card?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                card?.client = self
-                completion(card, error)
-            }
+            self?.makePatchCall(url, parameters: parameters, encoding: JSONEncoding.default, completion: completion)
         }
     }
     
