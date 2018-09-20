@@ -289,33 +289,39 @@ import Foundation
 
     /**
      Update the details of an existing device
-     (For optional? parameters use nil if field doesn't need to be updated) //TODO: consider adding default nil value
+     (For optional? parameters use nil if field doesn't need to be updated)
 
      - parameter firmwareRevision?: firmware revision
      - parameter softwareRevision?: software revision
+     - parameter softwareRevision?: notification token
      - parameter completion:        UpdateDeviceHandler closure
      */
-    @objc open func update(_ firmwareRevision: String?, softwareRevision: String?, notifcationToken: String?, completion: @escaping RestClient.DeviceHandler) {
+    @available(*, deprecated, message: "as of v1.2")
+    @objc open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            // if notification token not exists on platform then we need to create this field
-            if notifcationToken != nil && self.notificationToken == nil {
-                addNotificationToken(notifcationToken!) { (deviceInfo, error) in
-                    // notificationToken added, check do we need to update other fields
-                    if firmwareRevision == nil && softwareRevision == nil {
-                        completion(deviceInfo, error)
-                        return
-                    }
-                    
-                    client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
-                }
-            } else {
-                client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
-            }
-        } else {
+        guard let url = self.links?.url(resource), let client = self.client else {
             completion(nil, composeError(resource))
+            return
         }
+        
+        client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
+    }
+    
+    /**
+     Update the details of an existing device use nil if field doesn't need to be updated
+     Cannot remove values with this function
+     Currently only supports firmwareRevision, softwareRevision and notificationToken but will support more properties in the future
+     
+     - parameter device: updated device
+     */
+    @objc open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
+        let resource = Device.selfResourceKey
+        guard let url = self.links?.url(resource), let client = self.client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.updateDevice(url, device: device, completion: completion)
     }
 
     /**
@@ -390,8 +396,7 @@ import Foundation
             return
         }
         
-        update(nil, softwareRevision: nil, notifcationToken: newNotificationToken) {
-            [weak self] (device, error) in
+        addNotificationToken(newNotificationToken) { [weak self] (device, error) in
             if error == nil && device != nil {
                 log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken ?? "null token")")
                 self?.notificationToken = device?.notificationToken
