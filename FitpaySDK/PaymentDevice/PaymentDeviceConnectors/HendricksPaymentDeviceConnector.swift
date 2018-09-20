@@ -46,9 +46,7 @@ import CoreBluetooth
         processNextCommand()
     }
     
-    public func addCreditCard(_ creditCard: CreditCard) {
-        print(creditCard.toJSON())
-        
+    public func addCreditCard(_ creditCard: CreditCard) {        
         // data
         let lastFour = creditCard.info?.pan?.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
         guard let lastFourData = lastFour?.data(using: .utf8)?.paddedTo(byteLength: 5) else { return }
@@ -116,11 +114,11 @@ import CoreBluetooth
         }
         
         guard let wearablePeripheral = wearablePeripheral else { return }
-        guard let deviceService = wearablePeripheral.services?.filter({ $0.uuid == deviceServiceId }).first else { return }
+        guard let deviceService = wearablePeripheral.services?.first(where: { $0.uuid == deviceServiceId }) else { return }
         
-        guard let statusCharacteristic = deviceService.characteristics?.filter({ $0.uuid == statusCharacteristicId }).first else { return }
-        guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
-        guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
+        guard let statusCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == statusCharacteristicId }) else { return }
+        guard let commandCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == commandCharacteristicId }) else { return }
+        guard let dataCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == dataCharacteristicId }) else { return }
         
         log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
@@ -141,8 +139,15 @@ import CoreBluetooth
         wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
         
         if let data = command.data {
-            log.verbose("HENDRICKS: putting data: \(data.hex)")
-            wearablePeripheral.writeValue(data, for: dataCharacteristic, type: .withResponse)
+            let maxLength = 182
+            var startIndex = 0
+            while startIndex < data.count {
+                let end = min(startIndex + maxLength, data.count)
+                let parsedData = data[startIndex ..< end]
+                log.verbose("HENDRICKS: putting parsed data: \(parsedData.hex) + \(parsedData.count)")
+                wearablePeripheral.writeValue(parsedData, for: dataCharacteristic, type: .withResponse)
+                startIndex += maxLength
+            }
         }
         
         // end
@@ -353,6 +358,9 @@ import CoreBluetooth
         log.warning("HENDRICKS: Failed to Connect")
     }
     
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        log.debug("HENDRICKS: didDisconnect")
+    }
 }
 
 @objc extension HendricksPaymentDeviceConnector: CBPeripheralDelegate {
@@ -425,10 +433,7 @@ import CoreBluetooth
             log.warning("HENDRICKS: Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
     }
-    
-    public func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-        print("didWriteValueFor \(characteristic) error: \(error)")
-    }
+
 }
 
 // MARK - Nested Data
