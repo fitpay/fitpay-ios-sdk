@@ -30,9 +30,16 @@ class MockModels {
         return user
     }
     
-    func getDeviceInfo() -> Device? {
+    func getDevice(deviceId: String? = nil) -> Device? {
         let metadata = getCreditCardMetadata()?.toJSONString() ?? ""
-        let deviceInfo = try? Device("{ \"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}}, \"profileId\":\"\(someId)\", \"deviceIdentifier\":\"\(someId)\", \"deviceName\":\"\(someName)\", \"deviceType\":\"\(someType)\", \"manufacturerName\":\"\(someName)\", \"state\":\"12345fsd\", \"serialNumber\":\"987654321\", \"modelNumber\":\"1258PO\", \"hardwareRevision\":\"12345fsd\",  \"firmwareRevision\":\"12345fsd\", \"softwareRevision\":\"12345fsd\", \"notificationToken\":\"12345fsd\", \"createdTsEpoch\":\(timeEpoch), \"createdTs\":\"\(someDate)\", \"osName\":\"\(someName)\", \"systemId\":\"\(someId)\",\"licenseKey\":\"147PLO\", \"bdAddress\":\"someAddress\", \"pairing\":\"pairing\", \"secureElement\": { \"secureElementId\":\"\(someId)\", \"casdCert\":\"casd\" }, \"metadata\":\(metadata) }")
+        let deviceInfo = try? Device("{ \"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"defaultCreditCard\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards/677af018-01b1-47d9-9b08-0c18d89aa2e3\"}}, \"profileId\":\"\(someId)\", \"deviceIdentifier\":\"\(deviceId ?? someId)\", \"deviceName\":\"\(someName)\", \"deviceType\":\"\(someType)\", \"manufacturerName\":\"\(someName)\", \"state\":\"12345fsd\", \"serialNumber\":\"987654321\", \"modelNumber\":\"1258PO\", \"hardwareRevision\":\"12345fsd\", \"firmwareRevision\":\"12345fsd\", \"softwareRevision\":\"12345fsd\", \"notificationToken\":\"12345fsd\", \"createdTsEpoch\":\(timeEpoch), \"createdTs\":\"\(someDate)\", \"osName\":\"\(someName)\", \"systemId\": \"\(someId)\",\"licenseKey\":\"147PLO\", \"bdAddress\":\"someAddress\", \"pairing\":\"pairing\", \"secureElement\": { \"secureElementId\":\"\(someId)\", \"casdCert\":\"casd\" }, \"metadata\":\(metadata), \"defaultCreditCardId\": \"\(someId)\" }")
+        expect(deviceInfo).toNot(beNil())
+        return deviceInfo
+    }
+    
+    func getDeviceInfoNoLinks() -> Device? {
+        let metadata = getCreditCardMetadata()?.toJSONString() ?? ""
+        let deviceInfo = try? Device("{\"profileId\":\"\(someId)\", \"deviceIdentifier\":\"\(someId)\", \"deviceName\":\"\(someName)\", \"deviceType\":\"\(someType)\", \"manufacturerName\":\"\(someName)\", \"state\":\"12345fsd\", \"serialNumber\":\"987654321\", \"modelNumber\":\"1258PO\", \"hardwareRevision\":\"12345fsd\", \"firmwareRevision\":\"12345fsd\", \"softwareRevision\":\"12345fsd\", \"notificationToken\":\"12345fsd\", \"createdTsEpoch\":\(timeEpoch), \"createdTs\":\"\(someDate)\", \"osName\":\"\(someName)\", \"systemId\": \"\(someId)\",\"licenseKey\":\"147PLO\", \"bdAddress\":\"someAddress\", \"pairing\":\"pairing\", \"secureElement\": { \"secureElementId\":\"\(someId)\", \"casdCert\":\"casd\" }, \"metadata\":\(metadata), \"defaultCreditCardId\": \"\(someId)\" }")
         expect(deviceInfo).toNot(beNil())
         return deviceInfo
     }
@@ -58,7 +65,13 @@ class MockModels {
     }
     
     func getApduCommand() -> APDUCommand? {
-        let apduCommand = try? APDUCommand("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"commandId\": \"\(someId)\", \"groupId\": 1, \"sequence\": 1, \"command\": \"command\", \"type\": \"\(someType)\", \"continueOnFailure\": true}")
+        let apduCommand = try? APDUCommand("{\"commandId\": \"\(someId)\", \"groupId\": 1, \"sequence\": 1, \"command\": \"command\", \"type\": \"\(someType)\", \"continueOnFailure\": true}")
+        expect(apduCommand).toNot(beNil())
+        return apduCommand
+    }
+    
+    func getApduCommandWithMissingItems() -> APDUCommand? {
+        let apduCommand = try? APDUCommand("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"commandId\": \"\(someId)\", \"command\": \"command\", \"type\": \"\(someType)\"}")
         expect(apduCommand).toNot(beNil())
         return apduCommand
     }
@@ -140,7 +153,7 @@ class MockModels {
     }
     
     func getRtmConfig() -> RtmConfig? {
-        let info = getDeviceInfo()?.toJSONString() ?? ""
+        let info = getDevice()?.toJSONString() ?? ""
         let rtmConfig = try? RtmConfig("{\"clientId\":\"\(someId)\",\"redirectUri\":\"https://api.fit-pay.com\",\"userEmail\":\"someEmail\",\"paymentDevice\":\(info),\"account\":false,\"version\":\"2\",\"demoMode\":false,\"themeOverrideCssUrl\":\"https://api.fit-pay.com\",\"demoCardGroup\":\"someGroup\",\"accessToken\":\"someToken\",\"language\":\"en\",\"baseLangUrl\":\"https://api.fit-pay.com\",\"useWebCardScanner\":false}")
         expect(rtmConfig).toNot(beNil())
         return rtmConfig
@@ -159,7 +172,7 @@ class MockModels {
     }
     
     func getResultCollection() -> ResultCollection<Device>? {
-        let info = getDeviceInfo()?.toJSONString() ?? ""
+        let info = getDevice()?.toJSONString() ?? ""
         let resultCollection = try? ResultCollection<Device>("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"last\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}}, \"limit\":1, \"offset\":1, \"totalResults\":1, \"results\":[\(info)]}")
         expect(resultCollection).toNot(beNil())
         return resultCollection

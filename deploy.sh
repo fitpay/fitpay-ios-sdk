@@ -34,4 +34,6 @@ git commit -m "v$2"
 git push
 
 git checkout master
-git merge development
+git pull
+git merge develop
+git push

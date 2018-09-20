@@ -38,7 +38,7 @@ open class CommitMetrics: Serializable {
     }
     
     // MARK: - Functions
-
+    
     // TODO: should be moved to Notification object
     open func sendCompleteSync() {
         guard let completeSync = notification?.links?.url("completeSync") else {
@@ -52,7 +52,7 @@ open class CommitMetrics: Serializable {
         }
         
         let params: [String: Any]? = self.toJSON() != nil ? ["params": self.toJSON()!] : nil
-         client.makePostCall(completeSync, parameters: params, encoding: JSONEncoding.default) { (error) in
+        client.makePostCall(completeSync, parameters: params) { (error) in
             if let error = error {
                 log.error("SYNC_ACKNOWLEDGMENT: completeSync failed to send. Error: \(error)")
             } else if let syncId = self.syncId {

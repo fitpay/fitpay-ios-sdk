@@ -22,6 +22,9 @@ import Foundation
     /// The name of the device model
     open var deviceName: String?
     
+    /// Type of Device
+    ///
+    /// Options include: `ACTIVITY_TRACKER`, `MOCK`, `PHONE` (host device only), `SMART_STRAP`, `TABLET` (host device only), `WATCH`
     open var deviceType: String?
     
     /// The manufacturer name of the device
@@ -65,30 +68,44 @@ import Foundation
 
     open var secureElement: SecureElement?
     
+    /// Will be present if makeDefault is called on a Credit Card with this deviceId
+    open var defaultCreditCardId: String?
+    
     /// Extra metadata specific for a particular type of device
     open var metadata: [String: Any]?
 
+    /// returns true if user link is returned on the model and available to call
     open var userAvailable: Bool {
         return self.links?.url(Device.userResourceKey) != nil
     }
 
+    /// returns true if commits link is returned on the model and available to call
     open var listCommitsAvailable: Bool {
         return self.links?.url(Device.commitsResourceKey) != nil
+    }
+    
+    /// returns true if defaultCreditCard link is returned on the model and available to call
+    open var defaultCreditCardAvailable: Bool {
+        return self.links?.url(Device.defaultCreditCardKey) != nil
     }
 
     open var deviceResetUrl: String? {
         return self.links?.url(Device.deviceResetTasksKey)
     }
-
+    
     var links: [ResourceLink]?
+    weak var client: RestClient?
+
+    typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
     
     private static let userResourceKey = "user"
     private static let commitsResourceKey = "commits"
     private static let selfResourceKey = "self"
     private static let lastAckCommitResourceKey = "lastAckCommit"
     private static let deviceResetTasksKey = "deviceResetTasks"
-
-    weak var client: RestClient?
+    private static let defaultCreditCardKey = "defaultCreditCard"
+    
+    // MARK: - Lifecycle
     
     override public init() {
         super.init()
@@ -133,6 +150,7 @@ import Foundation
         case secureElement
         case metadata
         case profileId
+        case defaultCreditCardId
     }
 
     public required init(from decoder: Decoder) throws {
@@ -160,6 +178,7 @@ import Foundation
         secureElement = try? container.decode(.secureElement)
         metadata = try? container.decode([String: Any].self)
         profileId = try? container.decode(.profileId)
+        defaultCreditCardId = try? container.decode(.defaultCreditCardId)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -187,6 +206,7 @@ import Foundation
         try? container.encode(secureElement, forKey: .secureElement)
         try? container.encodeIfPresent(metadata, forKey: .metadata)
         try? container.encode(profileId, forKey: .profileId)
+        try? container.encode(defaultCreditCardId, forKey: .defaultCreditCardId)
     }
 
     var shortRTMRepersentation: String? {
@@ -245,12 +265,12 @@ import Foundation
             dic["profileId"] = ["profileId": profileId]
         }
 
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0)) else {
-            return nil
-        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0)) else { return nil }
 
         return String(data: jsonData, encoding: String.Encoding.utf8)
     }
+    
+    // MARK: - Functions
     
     /**
      Delete a single device
@@ -263,39 +283,45 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeDeleteCall(url, completion: completion)
         } else {
-            completion(ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(composeError(resource))
         }
     }
 
     /**
      Update the details of an existing device
-     (For optional? parameters use nil if field doesn't need to be updated) //TODO: consider adding default nil value
+     (For optional? parameters use nil if field doesn't need to be updated)
 
      - parameter firmwareRevision?: firmware revision
      - parameter softwareRevision?: software revision
+     - parameter softwareRevision?: notification token
      - parameter completion:        UpdateDeviceHandler closure
      */
-    @objc open func update(_ firmwareRevision: String?, softwareRevision: String?, notifcationToken: String?, completion: @escaping RestClient.DeviceHandler) {
+    @available(*, deprecated, message: "as of v1.2")
+    @objc open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            // if notification token not exists on platform then we need to create this field
-            if notifcationToken != nil && self.notificationToken == nil {
-                addNotificationToken(notifcationToken!) { (deviceInfo, error) in
-                    // notificationToken added, check do we need to update other fields
-                    if firmwareRevision == nil && softwareRevision == nil {
-                        completion(deviceInfo, error)
-                        return
-                    }
-                    
-                    client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
-                }
-            } else {
-                client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
-            }
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+        guard let url = self.links?.url(resource), let client = self.client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.updateDevice(url, firmwareRevision: firmwareRevision, softwareRevision: softwareRevision, notificationToken: notifcationToken, completion: completion)
+    }
+    
+    /**
+     Update the details of an existing device use nil if field doesn't need to be updated
+     Cannot remove values with this function
+     Currently only supports firmwareRevision, softwareRevision and notificationToken but will support more properties in the future
+     
+     - parameter device: updated device
+     */
+    @objc open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
+        let resource = Device.selfResourceKey
+        guard let url = self.links?.url(resource), let client = self.client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.updateDevice(url, device: device, completion: completion)
     }
 
     /**
@@ -316,6 +342,16 @@ import Foundation
         }
     }
     
+    open func getDefaultCreditCard(completion: @escaping RestClient.CreditCardHandler) {
+        let resource = Device.defaultCreditCardKey
+        guard let url = links?.url(resource), let client = self.client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.getDefaultCreditCard(url, completion: completion)
+    }
+    
     /**
      Retrieves last acknowledge commit for device
      
@@ -327,7 +363,7 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
 
@@ -337,7 +373,7 @@ import Foundation
         if let url = url, let client = self.client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
 
@@ -349,21 +385,18 @@ import Foundation
         if let url = url, let client = self.client {
             client.addDeviceProperty(url, propertyPath: "/notificationToken", propertyValue: token, completion: completion)
         } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+            completion(nil, composeError(resource))
         }
     }
-
-    typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
     
     func updateNotificationTokenIfNeeded(completion: NotificationTokenUpdateCompletion? = nil) {
-        let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationsToken
+        let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationToken
         guard !newNotificationToken.isEmpty && newNotificationToken != notificationToken else {
             completion?(false, nil)
             return
         }
         
-        update(nil, softwareRevision: nil, notifcationToken: newNotificationToken) {
-            [weak self] (device, error) in
+        addNotificationToken(newNotificationToken) { [weak self] (device, error) in
             if error == nil && device != nil {
                 log.debug("NOTIFICATIONS_DATA: NotificationToken updated to - \(device?.notificationToken ?? "null token")")
                 self?.notificationToken = device?.notificationToken
@@ -374,6 +407,12 @@ import Foundation
             }
             
         }
+    }
+    
+    // MARK: - Private Functions
+    
+    func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: Device.self, client: self.client, url: self.links?.url(resource), resource: resource)
     }
     
 }

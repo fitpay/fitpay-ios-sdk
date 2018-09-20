@@ -136,39 +136,3 @@ struct ApplicationControlMessage {
         }
     }
 }
-
-struct DeviceControlMessage {
-    let op: UInt8
-    let msg: NSMutableData
-    
-    init(operation: PaymentDevice.DeviceControlState) {
-        op = UInt8(operation.rawValue)
-        msg = NSMutableData()
-        var op8 = op
-        msg.append(&op8, length: MemoryLayout.size(ofValue: op))
-    }
-}
-
-struct SecurityStateMessage {
-    let nfcState: UInt8
-    let nfcErrorCode: UInt8
-    
-    init(msg: Data) {
-        if (msg.count == 0) {
-            nfcState = 0x00
-            nfcErrorCode = 0x00
-            return
-        }
-        
-        var buffer = [UInt8](repeating: 0x00, count: msg.count)
-        (msg as NSData).getBytes(&buffer, length: buffer.count)
-        
-        nfcState = buffer[0]
-        
-        if (buffer.count > 1) {
-            nfcErrorCode = buffer[1]
-        } else {
-            nfcErrorCode = 0x00
-        }
-    }
-}

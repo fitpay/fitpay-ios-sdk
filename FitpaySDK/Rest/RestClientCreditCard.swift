@@ -154,17 +154,7 @@ extension RestClient {
                 }
             }
             
-            self?.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                guard let strongSelf = self else { return }
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let card = try? CreditCard(resultValue)
-                card?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                card?.client = self
-                completion(card, error)
-            }
+            self?.makePatchCall(url, parameters: parameters, encoding: JSONEncoding.default, completion: completion)
         }
     }
     
@@ -246,14 +236,15 @@ extension RestClient {
         }
     }
     
-    func makeDefault(_ url: String, completion: @escaping CreditCardTransitionHandler) {
+    func makeCreditCardDefault(_ url: String, deviceId: String?, completion: @escaping CreditCardTransitionHandler) {
         self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
                 DispatchQueue.main.async { completion(false, nil, error) }
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+            let parameters: [String: Any]? = deviceId != nil ? ["deviceId": deviceId!] : nil
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: URLEncoding.queryString, headers: headers) { (resultValue, error) in
                 guard let resultValue = resultValue else {
                     self?.handleTransitionResponse(error, completion: completion)
                     return

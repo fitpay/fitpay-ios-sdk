@@ -4,6 +4,7 @@ import Alamofire
 open class RestClient: NSObject {
     
     typealias ResultCollectionHandler<T: Codable> = (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void
+    typealias RequestHandler = (_ resultValue: Any?, _ error: ErrorResponse?) -> Void
 
     /**
      FitPay uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, etc.), and codes in the 5xx range indicate an error with FitPay servers.
@@ -140,8 +141,7 @@ open class RestClient: NSObject {
     }
     
     // MARK: - Internal
-    typealias RequestHandler = (_ resultValue: Any?, _ error: ErrorResponse?) -> Void
-
+    
     func makeDeleteCall(_ url: String, completion: @escaping DeleteHandler) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
@@ -240,20 +240,60 @@ open class RestClient: NSObject {
         makeGetCall(url, parameters: parameters, completion: completion)
     }
     
-    func makePostCall(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding = CustomJSONArrayEncoding.default, completion: @escaping ConfirmHandler) {
+    func makePostCall(_ url: String, parameters: [String: Any]?, completion: @escaping ConfirmHandler) {
         self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
                 DispatchQueue.main.async { completion(error) }
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: encoding, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
                 completion(error)
             }
         }
     }
     
-
+    func makePatchCall<T: ClientModel & Serializable>(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding, completion: @escaping (T?, ErrorResponse?) -> Void) {
+        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+            guard let headers = headers else {
+                DispatchQueue.main.async {  completion(nil, error) }
+                return
+            }
+            
+            self?.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: encoding, headers: headers) { (resultValue, error) in
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
+                }
+                var result = try? T(resultValue)
+                result?.client = self
+                completion(result, error)
+            }
+        }
+    }
+    
+    func makePatchCall<T: ClientModel & Serializable & SecretApplyable>(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding, completion: @escaping (T?, ErrorResponse?) -> Void) {
+        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+            guard let headers = headers else {
+                DispatchQueue.main.async {  completion(nil, error) }
+                return
+            }
+            
+            self?.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: encoding, headers: headers) { (resultValue, error) in
+                guard let strongSelf = self else { return }
+                guard let resultValue = resultValue else {
+                    completion(nil, error)
+                    return
+                }
+                var result = try? T(resultValue)
+                result?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
+                result?.client = self
+                completion(result, error)
+            }
+        }
+        
+    }
+    
 }
 
 // MARK: - Confirm package

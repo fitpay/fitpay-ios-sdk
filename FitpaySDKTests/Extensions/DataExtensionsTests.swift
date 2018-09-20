@@ -43,23 +43,23 @@ class DataExtensionsTests: XCTestCase {
         expect(utf32Data?.UTF8String).to(beNil())
     }
 
-    func testArrayOfBytes() {
+    func testBytesArray() {
         let keyPair = MockSECP256R1KeyPair()
         guard let data = keyPair.generateSecretForPublicKey(keyPair.publicKey!) else {
             fail("bad secret")
             return
         }
-        let bytes = data.arrayOfBytes()
+        let bytes = data.bytesArray
         expect(bytes.count).to(equal(data.count))
     }
 
-    func testHexadecimalString() {
+    func testHex() {
         let keyPair = MockSECP256R1KeyPair()
         guard let data = keyPair.generateSecretForPublicKey(keyPair.mocPublicKey!) else {
             fail("bad secret")
             return
         }
-        let hexString = data.hexadecimalString()
+        let hexString = data.hex.uppercased()
         expect(hexString).to(equal("D9EA91F550D6C462FB25CC364D3069E84E72E44E9F64351161E30012D450E527"))
     }
 }
