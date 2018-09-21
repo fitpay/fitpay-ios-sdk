@@ -46,7 +46,7 @@ import CoreBluetooth
         processNextCommand()
     }
     
-    public func addCreditCard(_ creditCard: CreditCard) {        
+    public func addCreditCard(_ creditCard: CreditCard, cardArtData: Data) {
         // data
         let lastFour = creditCard.info?.pan?.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
         guard let lastFourData = lastFour?.data(using: .utf8)?.paddedTo(byteLength: 5) else { return }
@@ -65,11 +65,7 @@ import CoreBluetooth
         
         // card status
         let cardStatusData = UInt8(0x07).data
-        
-        // card art data
-        guard let url = Bundle.main.url(forResource:"card_image", withExtension: "bin") else { return }
-        let cardArtData = try! Data(contentsOf: url)
-        
+    
         let towApduData = buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!)
         var towSize = towApduData.count
         let towSizeData = Data(bytes: &towSize, count: 4)
@@ -267,7 +263,7 @@ import CoreBluetooth
         
         return data
     }
-
+    
 }
 
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
