@@ -28,6 +28,9 @@ sed -i'.original' -e "s/$1/$2/g" Info.plist
 rm *.original
 cd ..
 
+#update docs
+jazzy
+
 #git process
 git add -A
 git commit -m "v$2"
@@ -37,3 +40,7 @@ git checkout master
 git pull
 git merge develop  -m "v$2 merge development"
 git push
+
+#should create tag
+
+#should run cocoapods
