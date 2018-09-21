@@ -35,5 +35,5 @@ git push
 
 git checkout master
 git pull
-git merge develop
+git merge develop  -m "v$2 merge development"
 git push
