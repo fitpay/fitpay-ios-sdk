@@ -76,8 +76,8 @@ open class SyncRequestQueue {
     
     private func queueForDeviceWithoutDeviceIdentifier(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
         log.warning("SYNC_DATA: Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
-        
-        guard let paymentDevice = paymentDevices.filter({ $0.device?.deviceIdentifier == syncRequest.notification?.deviceId && $0.user?.id == syncRequest.notification?.userId }).first else {
+                
+        guard let paymentDevice = paymentDevices.filter({ $0.device?.deviceIdentifier == syncRequest.notification?.deviceId }).first else {
             return nil
         }
         
