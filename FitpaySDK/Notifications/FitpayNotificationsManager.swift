@@ -11,7 +11,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     /// - parameter event: Provides event with payload in eventData property
     public typealias NotificationsEventBlockHandler = (_ event: FitpayEvent) -> Void
     
-    var notificationsToken: String = ""
+    var notificationToken: String = ""
     var client: RestClient?
 
     private let eventsDispatcher = FitpayEventDispatcher()
@@ -52,9 +52,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
      - parameter token: notifications token which should be provided by Firebase
      */
     open func updateNotificationsToken(_ token: String) {
-        notificationsToken = token
-        
-        SyncRequestQueue.sharedInstance.lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
+        notificationToken = token
     }
     
     /**
@@ -113,7 +111,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     private func processNextNotificationIfAvailable() {
         log.verbose("NOTIFICATIONS_DATA: Processing next notification if available.")
         guard currentNotification == nil else {
-            log.verbose("NOTIFICATIONS_DATA: currentNotification was nil returning.")
+            log.verbose("NOTIFICATIONS_DATA: currentNotification was not nil returning.")
             return
         }
         
@@ -124,9 +122,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         }
         
         currentNotification = notificationsQueue.dequeue()
-        guard let currentNotification = self.currentNotification else {
-            return
-        }
+        guard let currentNotification = self.currentNotification else { return }
         
         var notificationType = NotificationType.withoutSync
         

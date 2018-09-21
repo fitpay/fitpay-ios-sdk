@@ -6,8 +6,6 @@ open class SyncRequestQueue {
     
     var paymentDevices: [PaymentDeviceStorage] = []
     
-    var lastFullSyncRequest: SyncRequest?
-
     private typealias DeviceIdentifier = String
     private var queues: [DeviceIdentifier: BindedToDeviceSyncRequestQueue] = [:]
     private let syncManager: SyncManagerProtocol
@@ -26,14 +24,16 @@ open class SyncRequestQueue {
     }
 
     // MARK: - Public Functions
+    
     public func addPaymentDevice(user: User?, deviceInfo: Device?, paymentDevice: PaymentDevice?) {
-        if !paymentDevices.contains(where: {
-            $0.device?.deviceIdentifier == deviceInfo?.deviceIdentifier &&
-            $0.user?.id == user?.id
-        }) {
+        if !paymentDevices.contains(where: { $0.device?.deviceIdentifier == deviceInfo?.deviceIdentifier && $0.user?.id == user?.id }) {
             let device = PaymentDeviceStorage(paymentDevice: paymentDevice, user: user, device: deviceInfo)
             paymentDevices.append(device)
         }
+    }
+    
+    public func removePaymentDevice(deviceId: String) {
+        paymentDevices = paymentDevices.filter({ $0.device?.deviceIdentifier != deviceId })
     }
     
     public func add(request: SyncRequest, completion: SyncRequestCompletion?) {
@@ -51,8 +51,6 @@ open class SyncRequestQueue {
         
         if !request.isEmptyRequest {
             addPaymentDevice(user: request.user, deviceInfo: request.deviceInfo, paymentDevice: request.paymentDevice)
-            lastFullSyncRequest = request
-            lastFullSyncRequest?.deviceInfo?.updateNotificationTokenIfNeeded()
         }
         
         queue.add(request: request)
@@ -78,25 +76,17 @@ open class SyncRequestQueue {
     
     private func queueForDeviceWithoutDeviceIdentifier(syncRequest: SyncRequest) -> BindedToDeviceSyncRequestQueue? {
         log.warning("SYNC_DATA: Searching queue for SyncRequest without deviceIdentifier (empty SyncRequests is deprecated)... ")
-        
-        let filterdDevices = paymentDevices.filter{$0.device?.deviceIdentifier == syncRequest.notification?.deviceId && $0.user?.id == syncRequest.notification?.userId }
-        
-        if let device = filterdDevices.first {
-            syncRequest.user = device.user
-            syncRequest.deviceInfo = device.device
-            syncRequest.paymentDevice = device.paymentDevice
-        } else {
-            guard let lastFullSyncRequest = self.lastFullSyncRequest else {
-                log.error("SYNC_DATA: Can't find queue for empty SyncRequest")
-                return nil
-            }
-            
-            syncRequest.user = lastFullSyncRequest.user
-            syncRequest.deviceInfo = lastFullSyncRequest.deviceInfo
-            syncRequest.paymentDevice = lastFullSyncRequest.paymentDevice
+                
+        guard let paymentDevice = paymentDevices.filter({ $0.device?.deviceIdentifier == syncRequest.notification?.deviceId }).first else {
+            return nil
         }
         
+        syncRequest.user = paymentDevice.user
+        syncRequest.deviceInfo = paymentDevice.device
+        syncRequest.paymentDevice = paymentDevice.paymentDevice
+        
         log.warning("SYNC_DATA: Putting SyncRequest without deviceIdentifier to the queue with deviceIdentifier - \(syncRequest.deviceInfo?.deviceIdentifier ?? "none")")
+        
         return queueFor(syncRequest: syncRequest)
     }
     
