@@ -69,6 +69,9 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("devices") && method == .get {
             data = loadDataFromJSONFile(filename: "listDevices")
             
+        } else if urlString.contains("devices") && method == .patch {
+            data = loadDataFromJSONFile(filename: "updateDevice")
+            
         } else if urlString.contains("/config/encryptionKeys") {
             data = loadDataFromJSONFile(filename: "getEncryptionKeyJson")
             
