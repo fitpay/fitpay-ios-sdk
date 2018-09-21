@@ -42,7 +42,7 @@ open class BaseLogsOutput: NSObject, LogsOutputProtocol {
     }
     
     open func send(level: LogLevel, message: String, file: String, function: String, line: Int) {
-        let _ = formMessage(level: level, message: message, file: file, function: function, line: line)
+        _ = formMessage(level: level, message: message, file: file, function: function, line: line)
         // send somewhere
     }
     

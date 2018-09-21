@@ -1,10 +1,32 @@
 disabled_rules:
  - trailing_whitespace
- 
+ - indentifier_name
+ - variable_name
+ - type_name
+ - cyclomatic_complexity
+ - todo
+ - force_try
+ - nesting
+ - syntactic_sugar
+ - force_cast
+ - for_where #like this rule but too many to fix right now
+ - control_statement #like this rule but too many to fix right now
+ - unneeded_break_in_switch #like this rule but too many to fix right now
+
 excluded:
  - Pods
  - Carthage
 
 line_length: 160
+line_length: 800
+function_body_length: 100
+type_body_length: 400
+
 force_cast: warning
 force_try: warning
+file_length:
+  warning: 500
+  error: 3000
+function_parameter_count:
+    warning: 8
+    error: 15

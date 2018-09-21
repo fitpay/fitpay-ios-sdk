@@ -109,7 +109,7 @@ open class RestClient: NSObject {
             }
             
             let params = ["result": executionResult.description]
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers) { (_, error) in
                 completion(error)
             }
         }
@@ -122,7 +122,7 @@ open class RestClient: NSObject {
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (_, error) in
                 completion(error)
             }
         }
@@ -149,7 +149,7 @@ open class RestClient: NSObject {
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers) { (_, error) in
                 completion(error)
             }
         }
@@ -247,7 +247,7 @@ open class RestClient: NSObject {
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (_, error) in
                 completion(error)
             }
         }
@@ -319,7 +319,7 @@ extension RestClient {
                 return
             }
             
-            self.restRequest.makeRequest(url: url, method: .post, parameters: package.responseDictionary, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+            self.restRequest.makeRequest(url: url, method: .post, parameters: package.responseDictionary, encoding: JSONEncoding.default, headers: headers) { (_, error) in
                 completion(error)
             }
         }
@@ -395,7 +395,7 @@ extension RestClient {
      */
     func deleteEncryptionKey(_ keyId: String, completion: @escaping DeleteHandler) {
         let headers = self.defaultHeaders
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (response, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (_, error) in
             completion(error)
         }
     }
@@ -550,4 +550,3 @@ public protocol AssetRetrivable {
     func retrieveAsset(_ completion: @escaping RestClient.AssetsHandler)
 
 }
-

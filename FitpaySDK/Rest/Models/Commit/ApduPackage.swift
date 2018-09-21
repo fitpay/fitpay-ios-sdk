@@ -63,7 +63,7 @@ import Foundation
         apduPackageUrl = try? container.decode(.apduPackageUrl)
         category = try? container.decode(.category)
         operation = try? container.decode(.operation)
-        metadata = try? container.decode([String : Any].self)
+        metadata = try? container.decode([String: Any].self)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -130,4 +130,3 @@ import Foundation
     }
 
 }
-

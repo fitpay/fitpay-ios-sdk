@@ -31,10 +31,10 @@ class SwKeyStore {
     }
     
     static func upsertKey(_ pemKey: String, keyTag: String,
-                               options: [NSString : AnyObject] = [:]) throws {
+                          options: [NSString: AnyObject] = [:]) throws {
         let pemKeyAsData = pemKey.data(using: String.Encoding.utf8)!
         
-        var parameters: [NSString : AnyObject] = [
+        var parameters: [NSString: AnyObject] = [
             kSecClass: kSecClassKey,
             kSecAttrKeyType: kSecAttrKeyTypeRSA,
             kSecAttrIsPermanent: true as AnyObject,
@@ -54,11 +54,11 @@ class SwKeyStore {
     }
     
     static func getKey(_ keyTag: String) throws -> String {
-        let parameters: [NSString : AnyObject] = [
-            kSecClass : kSecClassKey,
-            kSecAttrKeyType : kSecAttrKeyTypeRSA,
-            kSecAttrApplicationTag : keyTag as AnyObject,
-            kSecReturnData : true as AnyObject
+        let parameters: [NSString: AnyObject] = [
+            kSecClass: kSecClassKey,
+            kSecAttrKeyType: kSecAttrKeyTypeRSA,
+            kSecAttrApplicationTag: keyTag as AnyObject,
+            kSecReturnData: true as AnyObject
         ]
         var data: AnyObject?
         let status = SecItemCopyMatching(parameters as CFDictionary, &data)
@@ -74,8 +74,8 @@ class SwKeyStore {
     }
     
     static func delKey(_ keyTag: String) throws {
-        let parameters: [NSString : AnyObject] = [
-            kSecClass : kSecClassKey,
+        let parameters: [NSString: AnyObject] = [
+            kSecClass: kSecClassKey,
             kSecAttrApplicationTag: keyTag as AnyObject
         ]
         let status = SecItemDelete(parameters as CFDictionary)
@@ -119,7 +119,7 @@ class SwKeyConvert {
         typealias EncMode = PEM.EncryptedPrivateKey.EncMode
         
         static func encryptPEM(_ pemKey: String, passphrase: String,
-                                    mode: EncMode) throws -> String {
+                               mode: EncMode) throws -> String {
             do {
                 let derKey = try PEM.PrivateKey.toDER(pemKey)
                 return PEM.EncryptedPrivateKey.toPEM(derKey, passphrase: passphrase, mode: mode)
@@ -153,7 +153,7 @@ class SwKeyConvert {
             }
             return pkcs1DERKey
         }
-
+        
         static func derToPKCS1PEM(_ derKey: Data) -> String {
             return PEM.PublicKey.toPEM(derKey)
         }
@@ -455,7 +455,7 @@ class PEM {
                 throw SwError(.parse("iv"))
             }
             let aesKey = getAESKey(mode, passphrase: passphrase, iv: iv)
-            let base64Data = String(strippedKey[strippedKey.index(strippedKey.startIndex, offsetBy:aesHeaderLength)...])
+            let base64Data = String(strippedKey[strippedKey.index(strippedKey.startIndex, offsetBy: aesHeaderLength)...])
             guard let data = PEM.base64Decode(base64Data) else {
                 throw SwError(.parse("base64decode"))
             }
@@ -504,7 +504,7 @@ class PEM {
         }
         
         fileprivate static func getIV(_ strippedKey: String) -> Data? {
-            let ivInHex = String(strippedKey[strippedKey.index(strippedKey.startIndex, offsetBy:aesInfoLength) ..< strippedKey.index(strippedKey.startIndex, offsetBy:aesHeaderLength)])
+            let ivInHex = String(strippedKey[strippedKey.index(strippedKey.startIndex, offsetBy: aesInfoLength) ..< strippedKey.index(strippedKey.startIndex, offsetBy: aesHeaderLength)])
             return ivInHex.dataFromHexadecimalString()
         }
         
@@ -711,13 +711,13 @@ class CC {
     }
     
     static func crypt(_ opMode: OpMode, blockMode: BlockMode,
-                           algorithm: Algorithm, padding: Padding,
-                           data: Data, key: Data, iv: Data) throws -> Data {
+                      algorithm: Algorithm, padding: Padding,
+                      data: Data, key: Data, iv: Data) throws -> Data {
         if blockMode.needIV {
             guard iv.count == algorithm.blockSize else { throw CCError(.paramError) }
         }
         
-        var cryptor: CCCryptorRef? = nil
+        var cryptor: CCCryptorRef?
         var status = CCCryptorCreateWithMode!(
             opMode.rawValue, blockMode.rawValue,
             algorithm.rawValue, padding.rawValue,
@@ -732,13 +732,13 @@ class CC {
         var result = Data(count: needed)
         let resultCount = result.count
         var updateLen: size_t = 0
-        status = result.withUnsafeMutableBytes() { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+        status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
             return CCCryptorUpdate!( cryptor!, (data as NSData).bytes, data.count, resultBytes, resultCount, &updateLen)
         }
         guard status == noErr else { throw CCError(status) }
         
         var finalLen: size_t = 0
-        status = result.withUnsafeMutableBytes() { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+        status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
             return CCCryptorFinal!(cryptor!, resultBytes + updateLen, resultCount - updateLen, &finalLen)
         }
         guard status == noErr else { throw CCError(status) }
@@ -750,8 +750,8 @@ class CC {
     //The same behaviour as in the CCM pdf
     //http://csrc.nist.gov/publications/nistpubs/800-38C/SP800-38C_updated-July20_2007.pdf
     static func cryptAuth(_ opMode: OpMode, blockMode: AuthBlockMode, algorithm: Algorithm,
-                               data: Data, aData: Data,
-                               key: Data, iv: Data, tagLength: Int) throws -> Data {
+                          data: Data, aData: Data,
+                          key: Data, iv: Data, tagLength: Int) throws -> Data {
         let cryptFun = blockMode == .gcm ? GCM.crypt : CCM.crypt
         if opMode == .encrypt {
             let (cipher, tag) = try cryptFun(opMode, algorithm, data,
@@ -861,7 +861,6 @@ class CC {
     fileprivate typealias CCCryptorReleaseT = @convention(c)
         (_ cryptorRef: CCCryptorRef) -> CCCryptorStatus
     
-    
     fileprivate static let dl = dlopen("/usr/lib/system/libcommonCrypto.dylib", RTLD_NOW)
     fileprivate static let CCRandomGenerateBytes: CCRandomGenerateBytesT? =
         getFunc(dl!, f: "CCRandomGenerateBytes")
@@ -883,13 +882,12 @@ class CC {
     class GCM {
         
         static func crypt(_ opMode: OpMode, algorithm: Algorithm, data: Data,
-                               key: Data, iv: Data,
-                               aData: Data, tagLength: Int) throws -> (Data, Data) {
+                          key: Data, iv: Data,
+                          aData: Data, tagLength: Int) throws -> (Data, Data) {
             var result = Data(count: data.count)
             var tagLength_ = tagLength
             var tag = Data(count: tagLength)
-            let status = result.withUnsafeMutableBytes {
-                (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            let status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return tag.withUnsafeMutableBytes({ (tagBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                     return CCCryptorGCM!(opMode.rawValue, algorithm.rawValue,
                                          (key as NSData).bytes, key.count, (iv as NSData).bytes, iv.count,
@@ -925,9 +923,9 @@ class CC {
     class CCM {
         
         static func crypt(_ opMode: OpMode, algorithm: Algorithm, data: Data,
-                               key: Data, iv: Data,
-                               aData: Data, tagLength: Int) throws -> (Data, Data) {
-            var cryptor: CCCryptorRef? = nil
+                          key: Data, iv: Data,
+                          aData: Data, tagLength: Int) throws -> (Data, Data) {
+            var cryptor: CCCryptorRef?
             var status = CCCryptorCreateWithMode!(
                 opMode.rawValue, AuthBlockMode.ccm.rawValue,
                 algorithm.rawValue, Padding.noPadding.rawValue,
@@ -955,13 +953,13 @@ class CC {
             var result = Data(count: data.count)
             let resultCount = result.count
             var updateLen: size_t = 0
-            status = result.withUnsafeMutableBytes() { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCCryptorUpdate!(cryptor!, (data as NSData).bytes, data.count, resultBytes, resultCount, &updateLen)
             }
             guard status == noErr else { throw CCError(status) }
             
             var finalLen: size_t = 0
-            status = result.withUnsafeMutableBytes() { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCCryptorFinal!(cryptor!, resultBytes + updateLen, resultCount - updateLen, &finalLen)
             }
             guard status == noErr else { throw CCError(status) }
@@ -1021,8 +1019,8 @@ class CC {
         }
         
         static func generateKeyPair(_ keySize: Int = 4096) throws -> (Data, Data) {
-            var privateKey: CCRSACryptorRef? = nil
-            var publicKey: CCRSACryptorRef? = nil
+            var privateKey: CCRSACryptorRef?
+            var publicKey: CCRSACryptorRef?
             let status = CCRSACryptorGeneratePair!(
                 keySize,
                 65537,
@@ -1042,15 +1040,14 @@ class CC {
         }
         
         static func encrypt(_ data: Data, derKey: Data, tag: Data, padding: AsymmetricPadding,
-                                 digest: DigestAlgorithm) throws -> Data {
+                            digest: DigestAlgorithm) throws -> Data {
             let key = try importFromDERKey(derKey)
             defer { CCRSACryptorRelease!(key) }
             
             var bufferSize = getKeySize(key)
             var buffer = Data(count: bufferSize)
             
-            let status = buffer.withUnsafeMutableBytes {
-                (bufferBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            let status = buffer.withUnsafeMutableBytes { (bufferBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCRSACryptorEncrypt!(
                     key,
                     padding.rawValue,
@@ -1069,7 +1066,7 @@ class CC {
         }
         
         static func decrypt(_ data: Data, derKey: Data, tag: Data, padding: AsymmetricPadding,
-                                 digest: DigestAlgorithm) throws -> (Data, Int) {
+                            digest: DigestAlgorithm) throws -> (Data, Int) {
             let key = try importFromDERKey(derKey)
             defer { CCRSACryptorRelease!(key) }
             
@@ -1078,8 +1075,7 @@ class CC {
             var bufferSize = blockSize
             var buffer = Data(count: bufferSize)
             
-            let status = buffer.withUnsafeMutableBytes {
-                (bufferBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            let status = buffer.withUnsafeMutableBytes { (bufferBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCRSACryptorDecrypt!(
                     key,
                     padding.rawValue,
@@ -1097,7 +1093,7 @@ class CC {
         }
         
         fileprivate static func importFromDERKey(_ derKey: Data) throws -> CCRSACryptorRef {
-            var key: CCRSACryptorRef? = nil
+            var key: CCRSACryptorRef?
             let status = CCRSACryptorImport!(
                 (derKey as NSData).bytes,
                 derKey.count,
@@ -1110,8 +1106,7 @@ class CC {
         fileprivate static func exportToDERKey(_ key: CCRSACryptorRef) throws -> Data {
             var derKeyLength = 8192
             var derKey = Data(count: derKeyLength)
-            let status = derKey.withUnsafeMutableBytes {
-                (derKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            let status = derKey.withUnsafeMutableBytes { (derKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCRSACryptorExport!(key, derKeyBytes, &derKeyLength)
             }
             guard status == noErr else { throw CCError(status) }
@@ -1129,7 +1124,7 @@ class CC {
         }
         
         static func sign(_ message: Data, derKey: Data, padding: AsymmetricSAPadding,
-                              digest: DigestAlgorithm, saltLen: Int) throws -> Data {
+                         digest: DigestAlgorithm, saltLen: Int) throws -> Data {
             let key = try importFromDERKey(derKey)
             defer { CCRSACryptorRelease!(key) }
             guard getKeyType(key) == .privateKey else { throw CCError(.paramError) }
@@ -1140,16 +1135,15 @@ class CC {
             case .pkcs15:
                 let hash = CC.digest(message, alg: digest)
                 var signedDataLength = keySize
-                var signedData = Data(count:signedDataLength)
-                let status = signedData.withUnsafeMutableBytes({
-                    (signedDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+                var signedData = Data(count: signedDataLength)
+                let status = signedData.withUnsafeMutableBytes { (signedDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                     return CCRSACryptorSign!(
                         key,
                         AsymmetricPadding.pkcs1.rawValue,
                         (hash as NSData).bytes, hash.count,
                         digest.rawValue, 0 /*unused*/,
                         signedDataBytes, &signedDataLength)
-                })
+                }
                 guard status == noErr else { throw CCError(status) }
                 
                 signedData.count = signedDataLength
@@ -1165,8 +1159,8 @@ class CC {
         }
         
         static func verify(_ message: Data, derKey: Data, padding: AsymmetricSAPadding,
-                                digest: DigestAlgorithm, saltLen: Int,
-                                signedData: Data) throws -> Bool {
+                           digest: DigestAlgorithm, saltLen: Int,
+                           signedData: Data) throws -> Bool {
             let key = try importFromDERKey(derKey)
             defer { CCRSACryptorRelease!(key) }
             guard getKeyType(key) == .publicKey else { throw CCError(.paramError) }
@@ -1189,7 +1183,7 @@ class CC {
                 guard status == noErr else { throw CCError(status) }
                 return true
             case .pss:
-                let encoded = try crypt(signedData, key:key)
+                let encoded = try crypt(signedData, key: key)
                 return try verify_pss_padding(
                     digest,
                     saltLength: saltLen,
@@ -1217,7 +1211,7 @@ class CC {
         fileprivate static func mgf1(_ digest: DigestAlgorithm,
                                      seed: Data, maskLength: Int) -> Data {
             var tseed = seed
-            tseed.append(contentsOf: [0,0,0,0] as [UInt8])
+            tseed.append(contentsOf: [0, 0, 0, 0] as [UInt8])
             
             var interval = maskLength / digest.length
             if  maskLength % digest.length != 0 {
@@ -1345,7 +1339,7 @@ class CC {
             }
             
             let zeroLength = emLength - hash.count - saltLength - 2
-            let zeroString = Data(count:zeroLength)
+            let zeroString = Data(count: zeroLength)
             if db.subdata(in: 0 ..< zeroLength) != zeroString {
                 return false
             }
@@ -1353,7 +1347,7 @@ class CC {
                 return false
             }
             let salt = db.subdata(in: (db.count - saltLength) ..< db.count)
-            var mPrime = Data(count:8)
+            var mPrime = Data(count: 8)
             mPrime.append(hash)
             mPrime.append(salt)
             let mPrimeHash2 = CC.digest(mPrime, alg: digest)
@@ -1362,7 +1356,6 @@ class CC {
             }
             return true
         }
-        
         
         static func available() -> Bool {
             return CCRSACryptorGeneratePair != nil &&
@@ -1485,7 +1478,7 @@ class CC {
         
         //this is stateful in CommonCrypto too, sry
         class DH {
-            fileprivate var ref: CCDHRef? = nil
+            fileprivate var ref: CCDHRef?
             
             init(dhParam: DHParam) throws {
                 ref = CCDHCreate!(kCCDHRFC3526Group5!)
@@ -1530,7 +1523,6 @@ class CC {
             }
         }
         
-        
         static func available() -> Bool {
             return CCDHCreate != nil &&
                 CCDHRelease != nil &&
@@ -1569,8 +1561,8 @@ class CC {
     class EC {
         
         static func generateKeyPair(_ keySize: Int) throws -> (Data, Data) {
-            var privKey: CCECCryptorRef? = nil
-            var pubKey: CCECCryptorRef? = nil
+            var privKey: CCECCryptorRef?
+            var pubKey: CCECCryptorRef?
             let status = CCECCryptorGeneratePair!(
                 keySize,
                 &pubKey,
@@ -1592,9 +1584,8 @@ class CC {
             defer { CCECCryptorRelease!(privKey) }
             
             var signedDataLength = 4096
-            var signedData = Data(count:signedDataLength)
-            let status = signedData.withUnsafeMutableBytes {
-                (signedDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            var signedData = Data(count: signedDataLength)
+            let status = signedData.withUnsafeMutableBytes { (signedDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCECCryptorSignHash!(
                     privKey,
                     (hash as NSData).bytes, hash.count,
@@ -1607,8 +1598,8 @@ class CC {
         }
         
         static func verifyHash(_ publicKey: Data,
-                                    hash: Data,
-                                    signedData: Data) throws -> Bool {
+                               hash: Data,
+                               signedData: Data) throws -> Bool {
             let pubKey = try importKey(publicKey, format: .importKeyBinary, keyType: .keyPublic)
             defer { CCECCryptorRelease!(pubKey) }
             
@@ -1624,7 +1615,7 @@ class CC {
         }
         
         static func computeSharedSecret(_ privateKey: Data,
-                                             publicKey: Data) throws -> Data {
+                                        publicKey: Data) throws -> Data {
             let privKey = try importKey(privateKey, format: .importKeyBinary, keyType: .keyPrivate)
             let pubKey = try importKey(publicKey, format: .importKeyBinary, keyType: .keyPublic)
             defer {
@@ -1633,9 +1624,8 @@ class CC {
             }
             
             var outSize = 8192
-            var result = Data(count:outSize)
-            let status = result.withUnsafeMutableBytes {
-                (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            var result = Data(count: outSize)
+            let status = result.withUnsafeMutableBytes { (resultBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCECCryptorComputeSharedSecret!(privKey, pubKey, resultBytes, &outSize)
             }
             guard status == noErr else { throw CCError(status) }
@@ -1646,7 +1636,7 @@ class CC {
         
         fileprivate static func importKey(_ key: Data, format: KeyExternalFormat,
                                           keyType: KeyType) throws -> CCECCryptorRef {
-            var impKey: CCECCryptorRef? = nil
+            var impKey: CCECCryptorRef?
             let status = CCECCryptorImportKey!(format.rawValue,
                                                (key as NSData).bytes, key.count,
                                                keyType.rawValue, &impKey)
@@ -1658,9 +1648,8 @@ class CC {
         fileprivate static func exportKey(_ key: CCECCryptorRef, format: KeyExternalFormat,
                                           type: KeyType) throws -> Data {
             var expKeyLength = 8192
-            var expKey = Data(count:expKeyLength)
-            let status = expKey.withUnsafeMutableBytes {
-                (expKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            var expKey = Data(count: expKeyLength)
+            let status = expKey.withUnsafeMutableBytes { (expKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCECCryptorExportKey!(
                     format.rawValue,
                     expKeyBytes,
@@ -1844,13 +1833,12 @@ class CC {
         }
         
         static func PBKDF2(_ password: String, salt: Data,
-                                prf: PRFAlg, rounds: UInt32) throws -> Data {
+                           prf: PRFAlg, rounds: UInt32) throws -> Data {
             
-            var result = Data(count:prf.cc.digestLength)
+            var result = Data(count: prf.cc.digestLength)
             let resultCount = result.count
             let passwData = password.data(using: String.Encoding.utf8)!
-            let status = result.withUnsafeMutableBytes {
-                (passwDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            let status = result.withUnsafeMutableBytes { (passwDataBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCKeyDerivationPBKDF!(PBKDFAlgorithm.pbkdf2.rawValue,
                                              (passwData as NSData).bytes, passwData.count,
                                              (salt as NSData).bytes, salt.count,
@@ -1884,16 +1872,15 @@ class CC {
     class KeyWrap {
         
         fileprivate static let rfc3394IVData: [UInt8] = [0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6]
-        static let rfc3394IV = Data(bytes: UnsafePointer<UInt8>(rfc3394IVData), count:rfc3394IVData.count)
+        static let rfc3394IV = Data(bytes: UnsafePointer<UInt8>(rfc3394IVData), count: rfc3394IVData.count)
         
         static func SymmetricKeyWrap(_ iv: Data,
-                                          kek: Data,
-                                          rawKey: Data) throws -> Data {
+                                     kek: Data,
+                                     rawKey: Data) throws -> Data {
             let alg = WrapAlg.aes.rawValue
             var wrappedKeyLength = CCSymmetricWrappedSize!(alg, rawKey.count)
-            var wrappedKey = Data(count:wrappedKeyLength)
-            let status = wrappedKey.withUnsafeMutableBytes {
-                (wrappedKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            var wrappedKey = Data(count: wrappedKeyLength)
+            let status = wrappedKey.withUnsafeMutableBytes { (wrappedKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCSymmetricKeyWrap!(
                     alg,
                     (iv as NSData).bytes, iv.count,
@@ -1908,13 +1895,12 @@ class CC {
         }
         
         static func SymmetricKeyUnwrap(_ iv: Data,
-                                            kek: Data,
-                                            wrappedKey: Data) throws -> Data {
+                                       kek: Data,
+                                       wrappedKey: Data) throws -> Data {
             let alg = WrapAlg.aes.rawValue
             var rawKeyLength = CCSymmetricUnwrappedSize!(alg, wrappedKey.count)
-            var rawKey = Data(count:rawKeyLength)
-            let status = rawKey.withUnsafeMutableBytes {
-                (rawKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
+            var rawKey = Data(count: rawKeyLength)
+            let status = rawKey.withUnsafeMutableBytes { (rawKeyBytes: UnsafeMutablePointer<UInt8>) -> CCCryptorStatus in
                 return CCSymmetricKeyUnwrap!(
                     alg,
                     (iv as NSData).bytes, iv.count,
@@ -2001,7 +1987,7 @@ extension Data {
     fileprivate func arrayOfBytes() -> [UInt8] {
         let count = self.count / MemoryLayout<UInt8>.size
         var bytesArray = [UInt8](repeating: 0, count: count)
-        (self as NSData).getBytes(&bytesArray, length:count * MemoryLayout<UInt8>.size)
+        (self as NSData).getBytes(&bytesArray, length: count * MemoryLayout<UInt8>.size)
         return bytesArray
     }
     

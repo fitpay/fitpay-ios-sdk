@@ -1,4 +1,3 @@
-
 open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, SecretApplyable {
     open var limit: Int?
     open var offset: Int?
@@ -174,6 +173,5 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             }
         }
     }
-
 
 }

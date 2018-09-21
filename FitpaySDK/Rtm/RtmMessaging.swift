@@ -59,7 +59,7 @@ class RtmMessaging {
         
         switch rtmMessage.type ?? "" {
         case "version":
-            guard let versionDictionary = rtmMessage.data as? [String:Int], let versionInt = versionDictionary["version"] else {
+            guard let versionDictionary = rtmMessage.data as? [String: Int], let versionInt = versionDictionary["version"] else {
                 log.error("WV_DATA: Can't get version of rtm protocol. Data: \(String(describing: rtmMessage.data)).")
                 completion?(false)
                 return

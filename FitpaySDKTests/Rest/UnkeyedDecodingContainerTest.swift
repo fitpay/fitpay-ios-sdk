@@ -1,7 +1,7 @@
 import XCTest
 @testable import FitpaySDK
 
-fileprivate class MockModel: Serializable {
+private class MockModel: Serializable {
     var mockBoolArray: [Bool]?
     var mockDoubleArray: [Double]?
     var mockStringArray: [String]?

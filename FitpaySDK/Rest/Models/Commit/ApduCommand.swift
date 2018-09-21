@@ -51,4 +51,3 @@ open class APDUCommand: NSObject, Serializable, APDUResponseProtocol {
         }
     }
 }
-

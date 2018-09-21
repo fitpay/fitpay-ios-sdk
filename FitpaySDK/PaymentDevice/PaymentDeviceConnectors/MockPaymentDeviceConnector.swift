@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint:disable line_length
 public class MockPaymentDeviceConnector: NSObject {
     weak var paymentDevice: PaymentDevice!
     
@@ -143,7 +144,7 @@ extension MockPaymentDeviceConnector: PaymentDeviceConnectable {
     
 }
 
-//MARK: - Nested Objects
+// MARK: - Nested Objects
 
 extension MockPaymentDeviceConnector {
     
@@ -153,5 +154,3 @@ extension MockPaymentDeviceConnector {
     }
     
 }
-
-

@@ -3,7 +3,7 @@ import Foundation
 struct PaymentDeviceUtils {
     
     static func getStandardLocale(preferredLanguage: String, languageCode: String, regionCode: String) -> String? {
-        var locale: String? = nil
+        var locale: String?
         
         if preferredLanguage.count == 5 { // best case
             locale = preferredLanguage
@@ -30,6 +30,3 @@ struct PaymentDeviceUtils {
     }
     
 }
-
-
-

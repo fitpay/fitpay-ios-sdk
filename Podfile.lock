@@ -4,12 +4,14 @@ PODS:
   - RxBlocking (4.2.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.2.0)
+  - SwiftLint (0.27.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.1)
   - Nimble
   - RxBlocking
   - RxSwift (~> 4.1)
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -17,13 +19,15 @@ SPEC REPOS:
     - Nimble
     - RxBlocking
     - RxSwift
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
   RxBlocking: e339d8a6e752e25ade95ff858466c55436668f59
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: acc95e43cc47cdd1da730ff3389bb8cbadf96a21
+PODFILE CHECKSUM: 696eab8e4a26552ea72f4d0ec8a217f1af31a688
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

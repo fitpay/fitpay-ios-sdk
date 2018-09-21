@@ -72,7 +72,7 @@ class EventSource: NSObject {
         self.connect()
     }
     
-    //MARK: - Connect
+    // MARK: - Connect
     func connect() {
         var additionalHeaders = self.headers
         if let eventID = self.lastEventID {
@@ -98,13 +98,13 @@ class EventSource: NSObject {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }
     
-    //MARK: - Close
+    // MARK: - Close
     func close() {
         self.readyState = EventSourceState.closed
         self.urlSession?.invalidateAndCancel()
     }
 
-    //MARK: - EventListeners
+    // MARK: - EventListeners
     func onOpen(_ onOpenCallback: @escaping (() -> Void)) {
         self.onOpenCallback = onOpenCallback
     }
@@ -126,7 +126,7 @@ class EventSource: NSObject {
         self.eventListeners[event] = handler
     }
     
-    func removeEventListener(_ event: String) -> Void {
+    func removeEventListener(_ event: String) {
         self.eventListeners.removeValue(forKey: event)
     }
     
@@ -134,7 +134,7 @@ class EventSource: NSObject {
         return Array(self.eventListeners.keys)
     }
 
-    //MARK: - Private Helpers
+    // MARK: - Private Helpers
     private func extractEventsFromBuffer() -> [String] {
         var events = [String]()
         

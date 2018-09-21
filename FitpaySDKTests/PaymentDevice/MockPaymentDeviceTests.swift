@@ -19,7 +19,7 @@ class MockPaymentDeviceTests: XCTestCase {
         connector.connectDelayTime = 0.2
         connector.disconnectDelayTime = 0.2
         connector.apduExecuteDelayTime = 0.1
-        let _ = self.paymentDevice.changeDeviceInterface(connector)
+        _ = self.paymentDevice.changeDeviceInterface(connector)
     }
     
     override func tearDown() {
@@ -34,9 +34,9 @@ class MockPaymentDeviceTests: XCTestCase {
     
     func testConnectToDeviceCheck() {
         waitUntil { done in
-            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+            _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
                 let deviceInfo = self.paymentDevice.deviceInfo
-                let error = (event.eventData as? [String:Any])?["error"]
+                let error = (event.eventData as? [String: Any])?["error"]
                 
                 expect(error).to(beNil())
                 expect(deviceInfo).toNot(beNil())
@@ -63,17 +63,17 @@ class MockPaymentDeviceTests: XCTestCase {
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
         waitUntil { done in
-            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+            _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
                 let error = (event.eventData as? [String: Any])?["error"]
                 
                 expect(error).to(beNil())
                 
-                self.paymentDevice.executeAPDUCommand(self.command1) { (command, state, error) in
+                self.paymentDevice.executeAPDUCommand(self.command1) { (command, _, error) in
                     expect(error).to(beNil())
                     expect(command).toNot(beNil())
                     expect(command!.responseCode).to(equal(successResponse))
                     
-                    self.paymentDevice.executeAPDUCommand(self.command2) { (command, state, error) -> Void in
+                    self.paymentDevice.executeAPDUCommand(self.command2) { (command, _, error) -> Void in
                         expect(error).to(beNil())
                         expect(command).toNot(beNil())
                         expect(command!.responseCode).to(equal(successResponse))
@@ -91,7 +91,7 @@ class MockPaymentDeviceTests: XCTestCase {
         let successResponse = Data(bytes: UnsafePointer<UInt8>([0x90, 0x00] as [UInt8]), count: 2)
         
         waitUntil { done in
-            let _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
+            _ = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected) { (event) in
                 let error = (event.eventData as? [String: Any])?["error"]
                 let package = ApduPackage()
                 package.apduCommands = [self.command1, self.command2]
@@ -101,7 +101,7 @@ class MockPaymentDeviceTests: XCTestCase {
                     let commands = package.apduCommands!
                     
                     func execute(command: APDUCommand) {
-                        self.paymentDevice.executeAPDUCommand(command) { (command, state, error) -> Void in
+                        self.paymentDevice.executeAPDUCommand(command) { (command, _, error) -> Void in
                             expect(error).to(beNil())
                             expect(command).toNot(beNil())
                             expect(command!.responseCode).to(equal(successResponse))

@@ -1,5 +1,3 @@
-
-
 // TODO: where should this go?
 @objc public enum NonAPDUCommitState: Int, CustomStringConvertible {
     

@@ -97,4 +97,3 @@ class DateToIntTransform: CodingContainerTransformer {
         return nil
     }
 }
-

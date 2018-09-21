@@ -41,7 +41,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
                 let commits = result.results ?? []
                 
                 if result.nextAvailable {
-                    result.collectAllAvailable() { (results, error) in
+                    result.collectAllAvailable { (results, error) in
                         guard error == nil else {
                             self?.publisher.onError(error!)
                             return
@@ -81,7 +81,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
         if self.startFromSyncedCommit {
             if let getDeviceLastCommitId = self.connector?.getDeviceLastCommitId, let _ = self.connector?.setDeviceLastCommitId {
                 commitId = getDeviceLastCommitId()
-            } else if let deviceId = self.deviceInfo.deviceIdentifier{
+            } else if let deviceId = self.deviceInfo.deviceIdentifier {
                 commitId = self.syncStorage.getLastCommitId(deviceId)
             }
         }
