@@ -7,7 +7,7 @@ class JWSTests: XCTestCase {
     
     func testInitInvalidPartCount() {
         do {
-            let _ = try JWS(token: "token.with.more.than.threeparts")
+            _ = try JWS(token: "token.with.more.than.threeparts")
             fail("jws should fail with more than 3 parts")
         } catch let error {
             expect(error.localizedDescription).to(equal(JWTError.invalidPartCount.localizedDescription))
@@ -16,7 +16,7 @@ class JWSTests: XCTestCase {
     
     func testInitInvalidBody() {
         do {
-            let _ = try JWS(token: "eyJmb28iOiJiYXIifQ==.invalidbody.signature")
+            _ = try JWS(token: "eyJmb28iOiJiYXIifQ==.invalidbody.signature")
             fail("jws should fail with invalid body")
         } catch let error {
             expect(error.localizedDescription).to(equal(JWTError.invalidJSON.localizedDescription))

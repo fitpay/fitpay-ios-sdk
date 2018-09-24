@@ -18,7 +18,7 @@ class UserEventStream {
                 log.error("USER_EVENT_STREAM: error in event stream: \(error)")
             }
             
-            eventSource.onMessage { (id, event, data) in
+            eventSource.onMessage { (_, _, data) in
                 guard let jwtBodyString = JWE.decryptSigned(data, expectedKeyId: client.key?.keyId, secret: client.secret) else { return }
                 guard let streamEvent = try? jsonDecoder.decode(StreamEvent.self, from: jwtBodyString.data(using: String.Encoding.utf8)!) else { return }
                 

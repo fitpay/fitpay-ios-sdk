@@ -20,7 +20,7 @@ class SyncOperationStateToSyncEventAdapter {
     func startAdapting() -> Observable<SyncEvent> {
         self.stateObservable.subscribe(onNext: { [weak self] (state) in
             var callComplete = false
-            var syncEvent: SyncEvent? = nil
+            var syncEvent: SyncEvent?
             
             switch state {
             case .commitsReceived(let commits):

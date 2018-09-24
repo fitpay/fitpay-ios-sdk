@@ -73,19 +73,19 @@ class CommitsApplyer {
         var commitsApplied = 0
         commitStatistics = []
         for commit in commits {
-            var errorItr: Error? = nil
+            var errorItr: Error?
             
             // retry if error occurred
             for _ in 0 ..< maxCommitsRetries + 1 {
-                DispatchQueue.global().async() {
+                DispatchQueue.global().async {
                     self.processCommit(commit) { (error) -> Void in
                         errorItr = error
                         self.semaphore.signal()
                     }
                 }
                 
-                let _ = self.semaphore.wait(timeout: DispatchTime.distantFuture)
-                self.saveCommitStatistic(commit:commit, error: errorItr)
+                _ = self.semaphore.wait(timeout: DispatchTime.distantFuture)
+                self.saveCommitStatistic(commit: commit, error: errorItr)
                 
                 // if there is no error than leave retry cycle
                 if errorItr == nil {
@@ -94,7 +94,7 @@ class CommitsApplyer {
             }
             
             if let error = errorItr {
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async {
                     self.applyerCompletionHandler(error)
                 }
                 return
@@ -105,7 +105,7 @@ class CommitsApplyer {
             eventsPublisher.onNext(SyncEvent(event: .syncProgress, data: ["applied": commitsApplied, "total": commits.count]))
         }
         
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.applyerCompletionHandler(nil)
         }
     }
@@ -119,7 +119,7 @@ class CommitsApplyer {
         
         let commitCompletion = { (error: Error?) -> Void in
             if let deviceId = self.deviceInfo.deviceIdentifier, let commit = commit.commitId {
-                self.saveLastCommitId(deviceIdentifier:  deviceId, commitId: commit)
+                self.saveLastCommitId(deviceIdentifier: deviceId, commitId: commit)
             } else {
                 log.error("SYNC_DATA: Can't get deviceId or commitId.")
             }
@@ -139,7 +139,7 @@ class CommitsApplyer {
     
     private func saveLastCommitId(deviceIdentifier: String?, commitId: String?) {
         if let deviceId = deviceIdentifier, let storedCommitId = commitId {
-            if let setDeviceLastCommitId = self.paymentDevice.deviceInterface.setDeviceLastCommitId, let _ = self.paymentDevice.deviceInterface.getDeviceLastCommitId {
+            if let setDeviceLastCommitId = self.paymentDevice.deviceInterface.setDeviceLastCommitId, self.paymentDevice.deviceInterface.getDeviceLastCommitId != nil {
                 setDeviceLastCommitId(storedCommitId)
             } else {
                 self.syncStorage.setLastCommitId(deviceId, commitId: storedCommitId)
@@ -216,7 +216,7 @@ class CommitsApplyer {
             apduPackage.state = state
         }
         
-        var realError: NSError? = nil
+        var realError: NSError?
         if apduPackage.state == .notProcessed || apduPackage.state == .error {
             realError = error as NSError?
         }
@@ -234,7 +234,7 @@ class CommitsApplyer {
             if apduPackage.state == .notProcessed {
                 completion(realError)
             } else {
-                self.apduConfirmOperation.startWith(commit: commit).subscribe() { (e) in
+                self.apduConfirmOperation.startWith(commit: commit).subscribe { (e) in
                     switch e {
                     case .completed:
                         completion(realError)
@@ -272,7 +272,7 @@ class CommitsApplyer {
                     let eventData = ["commit": commit]
                     self?.eventsPublisher.onNext(SyncEvent(event: .commitProcessed, data: eventData))
                     
-                    var syncEvent: SyncEvent? = nil
+                    var syncEvent: SyncEvent?
                     switch commitType {
                     case .creditCardCreated:
                         syncEvent = SyncEvent(event: .cardAdded, data: eventData)
@@ -365,7 +365,7 @@ class CommitsApplyer {
     
     private func saveCommitStatistic(commit: Commit, error: Error?) {
         guard let commitType = commit.commitType else {
-            let statistic = CommitStatistic(commitId:commit.commitId, total:0, average:0, errorDesc:error?.localizedDescription)
+            let statistic = CommitStatistic(commitId: commit.commitId, total: 0, average: 0, errorDesc: error?.localizedDescription)
             self.commitStatistics.append(statistic)
             return
         }

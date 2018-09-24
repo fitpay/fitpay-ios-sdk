@@ -34,7 +34,7 @@ class RestSessionTests: XCTestCase {
         let email = TestHelper.getEmail()
         
         waitUntil { done in
-            self.client.createUser(email, password: self.password, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil, termsAccepted: nil, origin: nil, originAccountCreated: nil) { (user, error) in
+            self.client.createUser(email, password: self.password, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil, termsAccepted: nil, origin: nil, originAccountCreated: nil) { (_, error) in
                 self.session.login(username: email, password: self.password) { [unowned self] (error) -> Void in
                     expect(error).to(beNil())
                     expect(self.session.userId).toNot(beNil())

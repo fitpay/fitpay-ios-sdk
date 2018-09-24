@@ -1,4 +1,3 @@
-
 @objcMembers open class EncryptionKey: NSObject, Serializable {
 
     open var keyId: String?

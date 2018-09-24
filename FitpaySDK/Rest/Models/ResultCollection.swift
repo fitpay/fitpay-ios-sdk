@@ -1,4 +1,3 @@
-
 open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, SecretApplyable {
     open var limit: Int?
     open var offset: Int?
@@ -100,7 +99,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     public typealias CollectAllAvailableCompletion = (_ results: [T]?, _ error: ErrorResponse?) -> Void
 
     open func collectAllAvailable(_ completion: @escaping CollectAllAvailableCompletion) {
-        if let nextUrl = self.links?.url(self.nextResourceKey), let _ = self.results {
+        if let nextUrl = self.links?.url(self.nextResourceKey), self.results != nil {
             self.collectAllAvailable(self.results!, nextUrl: nextUrl) { (results, error) -> Void in
                 self.results = results
                 completion(self.results, error)
@@ -174,6 +173,5 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             }
         }
     }
-
 
 }

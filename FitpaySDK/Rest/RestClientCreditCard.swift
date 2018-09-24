@@ -3,7 +3,7 @@ import Alamofire
 
 extension RestClient {
     
-    //MARK - Completion Handlers
+    // MARK: - Completion Handlers
     
     /**
      Completion handler
@@ -55,7 +55,7 @@ extension RestClient {
      */
     public typealias VerifyMethodHandler = (_ verificationMethod: VerificationMethod?, _ error: ErrorResponse?) -> Void
     
-    //MARK - Internal Functions
+    // MARK: - Internal Functions
     
     func createCreditCard(_ url: String, cardInfo: CardInfo, deviceId: String?, completion: @escaping CreditCardHandler) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
@@ -256,7 +256,7 @@ extension RestClient {
         }
     }
     
-    //MARK: - Private Functions
+    // MARK: - Private Functions
     
     private func handleVerifyResponse(_ response: ErrorResponse?, completion: @escaping VerifyHandler) {
         guard let statusCode = response?.status else {

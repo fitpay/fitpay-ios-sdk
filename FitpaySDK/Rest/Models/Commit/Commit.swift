@@ -113,4 +113,3 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
 }
-

@@ -20,7 +20,7 @@ class JWE {
     private static let CekSize = 32
     private static let CekIVSize = 12
     
-    // MARK - Lifecycle
+    // MARK: - Lifecycle
     
     init(_ alg: JWTAlgorithm, enc: JWTEncryption, payload: String, keyId: String?) {
         self.header = JOSEHeader(encryption: enc, algorithm: alg)
@@ -161,7 +161,7 @@ class JWE {
         var dataWithTag = data
         dataWithTag.append(tag)
         
-        var decryptedData: Data? = nil
+        var decryptedData: Data?
         do {
             decryptedData = try CC.cryptAuth(.decrypt,
                                              blockMode: .gcm,
@@ -195,7 +195,7 @@ class JWE {
             let tag = encryptedWithTag.subdata(in: (encryptedWithTag.count-JWE.AuthenticationTagSize)..<encryptedWithTag.count)
             
             encryptResult = (cipherText, tag)
-        } catch  {
+        } catch {
             log.error("JWT: Can't encrypt data with a256gcm. Error: \(error).")
         }
         

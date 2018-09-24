@@ -16,4 +16,3 @@ import UIKit
     @objc public var payload: String?
     
 }
-

@@ -41,7 +41,7 @@ class VerificationMethodTests: XCTestCase {
     func testSelectVerificationTypeNoClient() {
         let verificationMethod = mockModels.getVerificationMethod()
         
-        verificationMethod?.selectVerificationType { (pending, verificationMethod, error) in
+        verificationMethod?.selectVerificationType { (_, verificationMethod, error) in
             expect(verificationMethod).to(beNil())
             expect(error?.localizedDescription).to(equal("RestClient is not set."))
         }
@@ -50,7 +50,7 @@ class VerificationMethodTests: XCTestCase {
     func testVerifyNoClient() {
         let verificationMethod = mockModels.getVerificationMethod()
         
-        verificationMethod?.verify("verificationCode") { (pending, verificationMethod, error) in
+        verificationMethod?.verify("verificationCode") { (_, verificationMethod, error) in
             expect(verificationMethod).to(beNil())
             expect(error?.localizedDescription).to(equal("RestClient is not set."))
         }

@@ -7,6 +7,7 @@ abstract_target 'all' do
   target 'FitpaySDK' do
     pod 'Alamofire', '~> 4.1'
     pod 'RxSwift', '~> 4.1'
+    pod 'SwiftLint'
   end
   
   target 'FitpaySDKTestsPods' do

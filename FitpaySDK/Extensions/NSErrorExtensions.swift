@@ -1,4 +1,3 @@
-
 import Foundation
 import Alamofire
 
@@ -17,24 +16,24 @@ extension NSError {
     }
     
     class func errorWithData(code: Int, domain: Any, data: Data?, alternativeError: NSError? = nil) -> NSError {
-        if let messages = data?.errorMessages,  messages.count > 0 {
-            return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: messages[0]])
+        if let messages = data?.errorMessages, messages.count > 0 {
+            return NSError(domain: "\(domain)", code: code, userInfo: [NSLocalizedDescriptionKey: messages[0]])
         } else if let message = data?.errorMessage {
-            return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: message])
+            return NSError(domain: "\(domain)", code: code, userInfo: [NSLocalizedDescriptionKey: message])
         } else if let message = data?.UTF8String {
             if message == "" {
-               return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: "UnexpectedError"])
+               return NSError(domain: "\(domain)", code: code, userInfo: [NSLocalizedDescriptionKey: "UnexpectedError"])
             }
             
-            return NSError(domain: "\(domain)", code:code, userInfo: [NSLocalizedDescriptionKey: message])
+            return NSError(domain: "\(domain)", code: code, userInfo: [NSLocalizedDescriptionKey: message])
         }
                 
-        let userInfo:[AnyHashable: Any] = alternativeError?.userInfo != nil ? alternativeError!.userInfo: [NSLocalizedDescriptionKey: "Failed to parse error message"]
+        let userInfo: [AnyHashable: Any] = alternativeError?.userInfo != nil ? alternativeError!.userInfo: [NSLocalizedDescriptionKey: "Failed to parse error message"]
         return NSError(domain: "\(domain)", code: code, userInfo: userInfo as? [String: Any] )
     }
     
-    class func errorWithData<T:RawIntValue>(errorCode: T, domain: AnyClass, data: Data?, alternativeError: NSError? = nil) -> NSError {
-        return NSError.errorWithData(code:errorCode.rawValue, domain: domain, data: data, alternativeError: alternativeError)
+    class func errorWithData<T: RawIntValue>(errorCode: T, domain: AnyClass, data: Data?, alternativeError: NSError? = nil) -> NSError {
+        return NSError.errorWithData(code: errorCode.rawValue, domain: domain, data: data, alternativeError: alternativeError)
     }
     
     class func errorWith<T>(dataResponse response: DataResponse<T>, domain: AnyClass) -> NSError {
@@ -42,7 +41,7 @@ extension NSError {
     }
 
     class func unhandledError(_ domain: Any) -> NSError {
-        return NSError(domain:"\(domain)", code:0, userInfo: [NSLocalizedDescriptionKey: "Unhandled error"])
+        return NSError(domain: "\(domain)", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unhandled error"])
     }
     
     class func clientUrlError(domain: Any, code: Int, client: RestClient?, url: String?, resource: String) -> NSError? {

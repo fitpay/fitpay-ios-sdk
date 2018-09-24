@@ -63,7 +63,7 @@ import Foundation
         apduPackageUrl = try? container.decode(.apduPackageUrl)
         category = try? container.decode(.category)
         operation = try? container.decode(.operation)
-        metadata = try? container.decode([String : Any].self)
+        metadata = try? container.decode([String: Any].self)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -90,44 +90,41 @@ import Foundation
     }
 
     open var responseDictionary: [String: Any] {
-        get {
-            var dic: [String: Any] = [:]
-
-            if let packageId = packageId {
-                dic["packageId"] = packageId
-            }
-
-            if let state = state {
-                dic["state"] = state.rawValue
-            }
-
-            if let executed = executedEpoch {
-                dic["executedTsEpoch"] = Int64(executed * 1000)
-            }
-
-            if let executedDuration = executedDuration {
-                dic["executedDuration"] = executedDuration
-            }
-
-            if state == APDUPackageResponseState.expired {
-                dic["apduResponses"] = []
-                return dic
-            }
-
-            if let apduResponses = apduCommands, apduResponses.count > 0 {
-                var responsesArray: [Any] = []
-                for resp in apduResponses {
-                    if let _ = resp.responseData {
-                        responsesArray.append(resp.responseDictionary)
-                    }
-                }
-                
-                dic["apduResponses"] = responsesArray
-            }
-
+        var dic: [String: Any] = [:]
+        
+        if let packageId = packageId {
+            dic["packageId"] = packageId
+        }
+        
+        if let state = state {
+            dic["state"] = state.rawValue
+        }
+        
+        if let executed = executedEpoch {
+            dic["executedTsEpoch"] = Int64(executed * 1000)
+        }
+        
+        if let executedDuration = executedDuration {
+            dic["executedDuration"] = executedDuration
+        }
+        
+        if state == APDUPackageResponseState.expired {
+            dic["apduResponses"] = []
             return dic
         }
+        
+        if let apduResponses = apduCommands, apduResponses.count > 0 {
+            var responsesArray: [Any] = []
+            for resp in apduResponses {
+                if resp.responseData != nil {
+                    responsesArray.append(resp.responseDictionary)
+                }
+            }
+            
+            dic["apduResponses"] = responsesArray
+        }
+        
+        return dic
     }
 
 }
-

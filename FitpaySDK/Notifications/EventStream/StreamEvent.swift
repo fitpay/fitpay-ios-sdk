@@ -24,4 +24,3 @@ public enum StreamEventType: String, Decodable {
     case heartbeat = "STREAM_HEARTBEAT"
     case sync = "SYNC"
 }
-
