@@ -354,7 +354,6 @@ import CoreBluetooth
             let mainDataSizeData = Data(bytes: &mainDataSize, count: 2)
             
             let imageHeader = imageVersion.data + imageMode.data + widthData + heightData + mainDataSizeData
-            print("imageHeader: \(imageVersion.data.hex) + \(imageMode.data.hex) + \(widthData.hex) + \(heightData.hex) + \(mainDataSizeData.hex)")
             
             completion(imageHeader + mainData)
         }
@@ -503,7 +502,6 @@ import CoreBluetooth
             }
             
         case dataCharacteristicId:
-            print("didUpdateValueFor dataCharacteristicId \(String(describing: currentCommand?.command))")
             returnedData.append(contentsOf: value)
 
             if (returnedData.count == expectedDataSize) {
@@ -515,7 +513,7 @@ import CoreBluetooth
                 } else if currentCommand?.command == .apduPackage {
                     handleAPDUResponse()
                 } else if currentCommand?.command == .addCard {
-                    print("hooray")
+                    //handle add card response
                 }
                 
                 resetVariableState()
