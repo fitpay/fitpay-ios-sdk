@@ -273,8 +273,11 @@ import CoreBluetooth
         let defaultCardHeight = 125
         let cardImage = creditCard.cardMetaData?.cardBackgroundCombined?.first
         
-        cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight)]) { (asset, error) in
-            guard let image = asset?.image else { return }
+        cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight)]) { (asset, _) in
+            guard let image = asset?.image else {
+                completion(Data())
+                return
+            }
             let pixelData = image.pixelData()!
             
             // determine if there is tranparency
