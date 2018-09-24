@@ -69,7 +69,7 @@ class SyncOperation {
         }
         
         // we need to update notification token first, because during sync we can receive push notifications
-        self.deviceInfo.updateNotificationTokenIfNeeded { [weak self] (_, error) in
+        self.deviceInfo.updateNotificationTokenIfNeeded { [weak self] (_, _) in
             self?.startSync()
         }
         
@@ -79,7 +79,7 @@ class SyncOperation {
     // MARK: - Private Functions
     
     private func startSync() {
-        self.connectOperation.start().subscribe() { [weak self] (event) in
+        self.connectOperation.start().subscribe { [weak self] (event) in
             switch event {
             case .error(let error):
                 self?.state.value = .completed(error)
@@ -107,7 +107,7 @@ class SyncOperation {
     }
     
     private func sync() {
-        self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe() { [weak self] (e) in
+        self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe { [weak self] (e) in
             switch e {
             case .error(let error):
                 log.error("SYNC_DATA: Can't fetch commits. Error: \(error)")

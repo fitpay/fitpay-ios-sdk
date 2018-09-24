@@ -10,51 +10,51 @@ open class FitpayEventsSubscriber {
     
     public typealias EventCallback = (FitpayEvent) -> Void
     
-    // MARK - Lifecycle
+    // MARK: - Lifecycle
     
     private init() {
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardAdded) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardAdded) { event in
             self.executeCallbacksForEvent(event: .cardCreated)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardActivated) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardActivated) { event in
             self.executeCallbacksForEvent(event: .cardActivated)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeactivated) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeactivated) { event in
             self.executeCallbacksForEvent(event: .cardDeactivated)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardReactivated) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardReactivated) { event in
             self.executeCallbacksForEvent(event: .cardReactivated)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeleted) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardDeleted) { event in
             self.executeCallbacksForEvent(event: .cardDeleted)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .setDefaultCard) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .setDefaultCard) { event in
             self.executeCallbacksForEvent(event: .setDefaultCard)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .resetDefaultCard) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .resetDefaultCard) { event in
             self.executeCallbacksForEvent(event: .resetDefaultCard)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardMetadataUpdated) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardMetadataUpdated) { event in
             self.executeCallbacksForEvent(event: .cardMetadataUpdated)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardProvisionFailed) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .cardProvisionFailed) { event in
             self.executeCallbacksForEvent(event: .cardProvisionFailed)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { event in
             self.executeCallbacksForEvent(event: .syncCompleted)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { event in
-            var error: Error? = nil
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { event in
+            var error: Error?
             if let nserror = (event.eventData as? [String: NSError])?["error"] {
                 error = SyncManager.ErrorCode(rawValue: nserror.code)
             }
@@ -62,10 +62,10 @@ open class FitpayEventsSubscriber {
             self.executeCallbacksForEvent(event: .syncCompleted, status: .failed, reason: error)
         }
         
-        let _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .apduPackageComplete) { event in
+        _ = SyncManager.sharedInstance.bindToSyncEvent(eventType: .apduPackageComplete) { event in
             
             var status = EventStatus.success
-            var error: Error? = nil
+            var error: Error?
             if let nserror = (event.eventData as? [String: NSError])?["error"] {
                 error = SyncManager.ErrorCode(rawValue: nserror.code)
                 status = .failed
@@ -91,7 +91,7 @@ open class FitpayEventsSubscriber {
     }
     
     open func unsubscribe(subscriber: AnyObject) {
-        var subscriberWithBindings: SubscriberWithBinding? = nil
+        var subscriberWithBindings: SubscriberWithBinding?
         for (i, subscriberItr) in subscribersWithBindings.enumerated() {
             if subscriberItr.subscriber === subscriber {
                 subscriberWithBindings = subscriberItr
@@ -164,7 +164,7 @@ open class FitpayEventsSubscriber {
 
 // MARK: - Nested Objects
 
-extension FitpayEventsSubscriber{
+extension FitpayEventsSubscriber {
     
     public enum EventType: Int, FitpayEventTypeProtocol {
         case cardCreated = 0

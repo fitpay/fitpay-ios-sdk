@@ -63,7 +63,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     private var bindings: [FitpayEventBinding] = []
     private var rtmVersionSent = false
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     
     convenience init(paymentDevice: PaymentDevice, userEmail: String?, isNewAccount: Bool) {
         self.init(paymentDevice: paymentDevice, rtmConfig: RtmConfig(userEmail: userEmail, deviceInfo: nil, hasAccount: !isNewAccount))
@@ -90,7 +90,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         self.unbindEvents()
     }
     
-    //MARK: - Public Functions
+    // MARK: - Public Functions
     
     /**
      This is the implementation of WKScriptMessageHandler, and handles any messages posted to the RTM bridge from 
@@ -142,7 +142,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
                 return
             }
             
-            completion(NSError.error(code:WvConfig.ErrorCode.deviceDataNotValid, domain: WvConfig.self))
+            completion(NSError.error(code: WvConfig.ErrorCode.deviceDataNotValid, domain: WvConfig.self))
         }
         
         self.configStorage.paymentDevice!.connect()
@@ -254,7 +254,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
 
         log.debug("WV_DATA: sending data to wv: \(jsonRepresentation)")
         
-        webview?.evaluateJavaScript("window.RtmBridge.resolve(\(jsonRepresentation))") { [weak self] (result, error) in
+        webview?.evaluateJavaScript("window.RtmBridge.resolve(\(jsonRepresentation))") { [weak self] (_, error) in
             if let error = error {
                 if retries > 0 {
                     log.warning("WV_DATA: Can't send message to wv... retrying...")
@@ -269,10 +269,10 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     }
 
     func sendStatusMessage(_ message: String, type: WVMessageType) {
-        sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.statusResponseMessage(message: message, type: type) ?? RtmMessageResponse(data:["message": message, "type": type.rawValue], type: "deviceStatus"))
+        sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.statusResponseMessage(message: message, type: type) ?? RtmMessageResponse(data: ["message": message, "type": type.rawValue], type: "deviceStatus"))
     }
     
-    //MARK: - Private
+    // MARK: - Private
     
     var rtmMessaging: RtmMessaging
     
@@ -281,12 +281,12 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     }
     
     private func sendVersion(version: RtmProtocolVersion) {
-        sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.versionResponseMessage(version: version) ?? RtmMessageResponse(data: ["version":version.rawValue], type: "version"))
+        sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.versionResponseMessage(version: version) ?? RtmMessageResponse(data: ["version": version.rawValue], type: "version"))
         rtmVersionSent = true
     }
 
     private func bindEvents() {
-        var binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncStarted) { [weak self] (event) in
+        var binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncStarted) { [weak self] (_) in
             self?.showStatusMessage(.syncGettingUpdates)
         }
         
@@ -294,7 +294,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.bindings.append(nonOptionalBinding)
         }
         
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (_) in
             log.debug("WV_DATA: received sync complete from SyncManager.")
             
             self?.resolveSync()
@@ -307,12 +307,12 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { [weak self] (event) in
             log.error("WV_DATA: received sync FAILED from SyncManager.")
-            let error = (event.eventData as? [String:Any])?["error"] as? NSError
+            let error = (event.eventData as? [String: Any])?["error"] as? NSError
             
             if error?.code == SyncManager.ErrorCode.cantConnectToDevice.rawValue {
                 self?.showStatusMessage(.syncUpdatingConnectionFailed)
             } else {
-                self?.showStatusMessage(.syncError, error: (event.eventData as? [String:Any])?["error"] as? Error)
+                self?.showStatusMessage(.syncError, error: (event.eventData as? [String: Any])?["error"] as? Error)
             }
         }
         
@@ -321,7 +321,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .commitsReceived) { [weak self] (event) in
-            guard let commits = (event.eventData as! [String:[Commit]])["commits"] else {
+            guard let commits = (event.eventData as! [String: [Commit]])["commits"] else {
                 self?.showStatusMessage(.syncNoUpdates)
                 return
             }
@@ -336,7 +336,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
             self.bindings.append(nonOptionalBinding)
         }
 
-        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .connectingToDevice) { [weak self] (event) in
+        binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .connectingToDevice) { [weak self] (_) in
             self?.showStatusMessage(.syncUpdatingConnectingToDevice)
         }
         
@@ -352,7 +352,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     }
 
     @objc private func logout() {
-        if let _ = self.configStorage.user {
+        if configStorage.user != nil {
             sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.logoutResponseMessage() ?? RtmMessageResponse(type: "logout"))
         }
     }
@@ -370,7 +370,7 @@ extension WvConfig: RtmOutputDelegate {
     
 }
 
-//MARK: - Enums
+// MARK: - Enums
 
 extension WvConfig {
     
@@ -406,7 +406,6 @@ extension WvConfig {
             }
         }
     }
-    
 
     // These responses must conform to what is expected by the web-view. Changing their structure also requires
     // changing them in the rtmIosImpl.js
@@ -427,6 +426,5 @@ extension WvConfig {
             }
         }
     }
-
     
 }

@@ -28,7 +28,7 @@ class MockRestRequest: RestRequestable {
         lastEncoding = encoding
         lastUrl = request.request?.url
         
-        var data: Any? = nil
+        var data: Any?
         
         if urlString.contains("commits") {
             data = loadDataFromJSONFile(filename: "getCommit")
@@ -54,13 +54,13 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("declineTerms") {
             data = loadDataFromJSONFile(filename: "declineTerms")
             
-        }  else if urlString.contains("creditCards") && method == .post  {
+        } else if urlString.contains("creditCards") && method == .post {
             data = loadDataFromJSONFile(filename: "createCreditCard")
             
-        }  else if urlString.contains("creditCards/") && method == .get {
+        } else if urlString.contains("creditCards/") && method == .get {
             data = loadDataFromJSONFile(filename: "retrieveCreditCard")
             
-        }  else if urlString.contains("creditCards") && method == .get {
+        } else if urlString.contains("creditCards") && method == .get {
             data = loadDataFromJSONFile(filename: "listCreditCards")
             
         } else if urlString.contains("devices") && method == .post {

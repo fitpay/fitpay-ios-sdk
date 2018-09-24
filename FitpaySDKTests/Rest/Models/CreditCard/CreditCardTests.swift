@@ -49,6 +49,5 @@ class CreditCardTests: XCTestCase {
         expect(json?["termsAssetReferences"]).toNot(beNil())
         expect(json?["verificationMethods"]).toNot(beNil())
     }
-    
    
 }

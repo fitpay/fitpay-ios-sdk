@@ -156,4 +156,3 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
 }
-

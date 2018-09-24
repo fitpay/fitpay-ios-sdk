@@ -4,7 +4,7 @@ struct Continuation {
     var uuid: CBUUID
     var dataParts: [Int: Data]
     
-    init()  {
+    init() {
         uuid = CBUUID()
         dataParts =  [Int: Data]()
     }
@@ -35,7 +35,7 @@ struct ContinuationPacketMessage {
     let data: Data
     
     init(msg: Data) {
-        let sortOrderRange : NSRange = NSMakeRange(0, 2)
+        let sortOrderRange: NSRange = NSRange(location: 0, length: 2)
         var buffer = [UInt8](repeating: 0x00, count: 2)
         (msg as NSData).getBytes(&buffer, range: sortOrderRange)
         
@@ -44,7 +44,7 @@ struct ContinuationPacketMessage {
         (sortOrderData as NSData).getBytes(&u16, length: 2)
         sortOrder = UInt16(littleEndian: u16)
         
-        let range : NSRange = NSMakeRange(2, msg.count - 2)
+        let range: NSRange = NSRange(location: 2, length: msg.count - 2)
         buffer = [UInt8](repeating: 0x00, count: (msg.count) - 2)
         (msg as NSData).getBytes(&buffer, range: range)
         
@@ -82,7 +82,7 @@ struct ContinuationControlMessage {
             isEnd = true
         }
         
-        let range = NSMakeRange(1, msg.count - 1)
+        let range = NSRange(location: 1, length: msg.count - 1)
         buffer = [UInt8](repeating: 0x00, count: (msg.count) - 1)
         (msg as NSData).getBytes(&buffer, range: range)
         
@@ -103,7 +103,7 @@ struct ContinuationControlMessage {
             crc32 = UInt32()
         } else if (data.count == 4) {
             uuid = CBUUID()
-            var u32 : UInt32 = 0
+            var u32: UInt32 = 0
             (data as NSData).getBytes(&u32, length: 4)
             crc32 = UInt32(littleEndian: u32)
         } else {
@@ -112,7 +112,6 @@ struct ContinuationControlMessage {
         }
     }
 }
-
 
 struct ApplicationControlMessage {
     let msg: Data
@@ -127,10 +126,10 @@ struct ApplicationControlMessage {
         deviceAction = UInt8(buffer[0])
         
         if msg.count > 1 {
-            let range: NSRange = NSMakeRange(1, msg.count - 1)
+            let range: NSRange = NSRange(location: 1, length: msg.count - 1)
             buffer = [UInt8](repeating: 0x00, count: msg.count - 1)
             (msg as NSData).getBytes(&buffer, range: range)
-            ATRHex = String(data:Data(bytes: UnsafePointer<UInt8>(buffer), count: 2), encoding: String.Encoding.utf8)!
+            ATRHex = String(data: Data(bytes: UnsafePointer<UInt8>(buffer), count: 2), encoding: String.Encoding.utf8)!
         } else {
             ATRHex = ""
         }

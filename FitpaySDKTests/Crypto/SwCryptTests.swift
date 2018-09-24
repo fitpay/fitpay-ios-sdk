@@ -4,8 +4,8 @@ import Nimble
 @testable import FitpaySDK
 
 class SwCryptTests: XCTestCase {
-    let privateKeyBytes: [UInt8] = [0x30 ,0x61, 0x02, 0x80, 0x80, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x04, 0x80, 0x30]
-    let publicKeyBytes: [UInt8] = [0x30 ,0x61, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x03, 0x03, 0x00, 0x00]
+    let privateKeyBytes: [UInt8] = [0x30, 0x61, 0x02, 0x80, 0x80, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x04, 0x80, 0x30]
+    let publicKeyBytes: [UInt8] = [0x30, 0x61, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x03, 0x03, 0x00, 0x00]
 }
 
 // MARK: - SwKeyStore tests
@@ -39,7 +39,7 @@ extension SwCryptTests {
         let base64String = Data(bytes: privateKeyBytes).base64EncodedString()
         let key = base64String
         do {
-            let _ = try SwKeyConvert.PrivateKey.pemToPKCS1DER(key)
+            _ = try SwKeyConvert.PrivateKey.pemToPKCS1DER(key)
             fail("PrivateKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.invalidKey.localizedDescription))
@@ -50,7 +50,7 @@ extension SwCryptTests {
         let utf8String = String("some string".utf8)
         let key = "-----BEGIN PRIVATE KEY-----\n"+utf8String+"\n-----END PRIVATE KEY-----"
         do {
-            let _ = try SwKeyConvert.PrivateKey.pemToPKCS1DER(key)
+            _ = try SwKeyConvert.PrivateKey.pemToPKCS1DER(key)
             fail("PrivateKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.invalidKey.localizedDescription))
@@ -90,7 +90,7 @@ extension SwCryptTests {
     func testDerToPKCS1PEMPrivateKey() {
         let data = Data(bytes: privateKeyBytes)
         let derToPKCS1PEM = SwKeyConvert.PrivateKey.derToPKCS1PEM(data)
-        let base64String = Data(bytes:  privateKeyBytes).base64EncodedString()
+        let base64String = Data(bytes: privateKeyBytes).base64EncodedString()
         let key = "-----BEGIN RSA PRIVATE KEY-----\n"+base64String+"\n-----END RSA PRIVATE KEY-----"
         expect(derToPKCS1PEM).to(equal(key))
     }
@@ -118,7 +118,7 @@ extension SwCryptTests {
         expect(encryptedPem).toNot(beNil())
         
         do {
-            let _ = try SwKeyConvert.PrivateKey.decryptPEM(encryptedPem ?? "", passphrase: "none")
+            _ = try SwKeyConvert.PrivateKey.decryptPEM(encryptedPem ?? "", passphrase: "none")
             fail("PrivateKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.badPassphrase.localizedDescription))
@@ -127,7 +127,7 @@ extension SwCryptTests {
     
     func testDecryptPEMKeyNotEncrypted() {
         do {
-            let _ = try SwKeyConvert.PrivateKey.decryptPEM("-----BEGIN RSA PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED,8316430F0483BD0187DAAEB83D0A84B8\n\nM5ehyBKpeqAUXa9KU2ZVIVVzFvAe2ymh8WSjBNtCxo4=\n-----END RSA PRIVATE KEY-----", passphrase: "some")
+            _ = try SwKeyConvert.PrivateKey.decryptPEM("-----BEGIN RSA PRIVATE KEY-----\nProc-Type: 4,ENCRYPTED,8316430F0483BD0187DAAEB83D0A84B8\n\nM5ehyBKpeqAUXa9KU2ZVIVVzFvAe2ymh8WSjBNtCxo4=\n-----END RSA PRIVATE KEY-----", passphrase: "some")
             fail("PrivateKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.keyNotEncrypted.localizedDescription))
@@ -148,7 +148,7 @@ extension SwCryptTests {
         let base64String = Data(bytes: publicKeyBytes).base64EncodedString()
         let key = base64String
         do {
-            let _ = try SwKeyConvert.PublicKey.pemToPKCS1DER(key)
+            _ = try SwKeyConvert.PublicKey.pemToPKCS1DER(key)
             fail("PublicKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.invalidKey.localizedDescription))
@@ -159,7 +159,7 @@ extension SwCryptTests {
         let utf8String = String("some string".utf8)
         let key = "-----BEGIN KEY-----\n"+utf8String+"\n-----END KEY-----"
         do {
-            let _ = try SwKeyConvert.PublicKey.pemToPKCS1DER(key)
+            _ = try SwKeyConvert.PublicKey.pemToPKCS1DER(key)
             fail("PublicKey conversion should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(SwKeyConvert.SwError.invalidKey.localizedDescription))
@@ -264,7 +264,7 @@ extension SwCryptTests {
     
     func testGenerateKeyPairFail() {
         do {
-            let _ = try CC.RSA.generateKeyPair(0)
+            _ = try CC.RSA.generateKeyPair(0)
             fail("generateKeyPair should fail")
         } catch let error {
             expect(error.localizedDescription).to(equal(CC.CCError.decodeError.localizedDescription))
@@ -293,7 +293,7 @@ extension SwCryptTests {
         let signedData = try? CC.RSA.sign(data, derKey: keys?.0 ?? Data(), padding: CC.RSA.AsymmetricSAPadding.pss, digest: CC.DigestAlgorithm.rmd160, saltLen: 15)
         expect(signedData).toNot(beNil())
         
-        let verifyData = (try? CC.RSA.verify(data, derKey:  keys?.1 ?? Data(), padding: CC.RSA.AsymmetricSAPadding.pss, digest: CC.DigestAlgorithm.rmd160, saltLen: 15, signedData: signedData ?? Data())) ?? false
+        let verifyData = (try? CC.RSA.verify(data, derKey: keys?.1 ?? Data(), padding: CC.RSA.AsymmetricSAPadding.pss, digest: CC.DigestAlgorithm.rmd160, saltLen: 15, signedData: signedData ?? Data())) ?? false
         expect(verifyData).to(beTrue())
     }
 }
@@ -361,4 +361,3 @@ extension SwCryptTests {
     }
 
 }
-

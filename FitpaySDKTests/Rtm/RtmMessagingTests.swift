@@ -23,7 +23,7 @@ class RtmMessagingTests: XCTestCase {
                 done()
             }
             
-            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0,"data": ["version": 3]]) { (success) in
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0, "data": ["version": 3]]) { (success) in
                 expect(success).to(beTrue())
             }
             
@@ -36,11 +36,11 @@ class RtmMessagingTests: XCTestCase {
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver3: handler]
         
         waitUntil { done in
-            self.rtmMessaging.received(message: ["type": "version","callBackId": 0,"data": ["version": 99]]) { (success) in
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0, "data": ["version": 99]]) { (success) in
                 expect(success).to(beFalse())
             }
             
-            self.rtmMessaging.received(message: ["type": "ping","callBackId": 1]) { (success) in
+            self.rtmMessaging.received(message: ["type": "ping", "callBackId": 1]) { (success) in
                 expect(success).to(beFalse())
                 done()
             }
@@ -58,7 +58,7 @@ class RtmMessagingTests: XCTestCase {
                 done()
             }
             
-            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0,"data": ["version": 2]]) {
+            self.rtmMessaging.received(message: ["type": "version", "callBackId": 0, "data": ["version": 2]]) {
                 expect($0).to(beTrue())
             }
             
@@ -73,13 +73,12 @@ class RtmMessagingTests: XCTestCase {
         let handler = MockRtmMessageHandler(wvConfigStorage: wvConfigStorage)
         rtmMessaging.handlersMapping = [WvConfig.RtmProtocolVersion.ver2: handler]
         
-        
         waitUntil { done in
             handler.completion = { (_) in
                 done()
             }
             
-            self.rtmMessaging.received(message: ["type": "UnknownType", "callBackId": 21,"data": ["string parameter": "Some Details", "number parameter": 99]])
+            self.rtmMessaging.received(message: ["type": "UnknownType", "callBackId": 21, "data": ["string parameter": "Some Details", "number parameter": 99]])
             
             self.rtmMessaging.received(message: ["type": "version", "callBackId": 0, "data": ["version": 2]]) { (success) in
                 expect(success).to(beTrue())

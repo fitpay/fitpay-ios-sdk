@@ -3,6 +3,7 @@ import Nimble
 
 @testable import FitpaySDK
 
+// swiftlint:disable line_length
 class MockModels {
     let someId = "12345fsd"
     let someType = "someType"

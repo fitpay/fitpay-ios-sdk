@@ -1,4 +1,3 @@
-
 import RxSwift
 
 /**
@@ -97,7 +96,7 @@ protocol SyncManagerProtocol {
             throw ErrorCode.syncAlreadyStarted
         }
         
-        if let deviceId = request.notification?.deviceId, let userId = request.notification?.userId  {
+        if let deviceId = request.notification?.deviceId, let userId = request.notification?.userId {
             if deviceId != request.deviceInfo?.deviceIdentifier && userId != request.user?.id {
                   throw ErrorCode.cantConnectToDevice
             }
@@ -118,7 +117,7 @@ protocol SyncManagerProtocol {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: event, eventData: params))
     }
     
-    func getAllCardsWithToWAPDUCommands(user: User?,_ completion: @escaping ToWAPDUCommandsHandler) {
+    func getAllCardsWithToWAPDUCommands(user: User?, _ completion: @escaping ToWAPDUCommandsHandler) {
         if user == nil {
             completion(nil, NSError.error(code: SyncManager.ErrorCode.unknownError, domain: SyncManager.self))
             return
@@ -157,7 +156,7 @@ protocol SyncManagerProtocol {
             syncedIds.append(syncId)
         }
         
-        log.debug("SYNC_DATA: Sync started for device id: \(request.deviceInfo?.deviceIdentifier ?? "none")")
+        log.debug("SYNC_DATA: Sync started for device id: \(String(describing: request.deviceInfo?.deviceIdentifier))")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let syncOperation = SyncOperation(paymentDevice: paymentDevice,
@@ -205,7 +204,7 @@ protocol SyncManagerProtocol {
                 callCompletionForSyncEvent(SyncEventType.syncFailed, params: eventParams)
             }
         } else {
-            log.debug("SYNC_DATA: Sync finished successfully. Device id: \(request.deviceInfo?.deviceIdentifier ?? "none")")
+            log.debug("SYNC_DATA: Sync finished successfully. Device id: \(String(describing: request.deviceInfo?.deviceIdentifier))")
             callCompletionForSyncEvent(SyncEventType.syncCompleted, params: eventParams)
         }
         
@@ -216,7 +215,7 @@ protocol SyncManagerProtocol {
             }
             
             if let cards = cards {
-                self.callCompletionForSyncEvent(SyncEventType.receivedCardsWithTowApduCommands, params: ["cards":cards])
+                self.callCompletionForSyncEvent(SyncEventType.receivedCardsWithTowApduCommands, params: ["cards": cards])
             }
         }
     }
@@ -266,4 +265,3 @@ extension SyncManager {
     }
     
 }
-

@@ -5,7 +5,7 @@ class JOSEHeader {
     var cty: String?
     var enc: JWTEncryption?
     var alg: JWTAlgorithm?
-    var iv : Data?
+    var iv: Data?
     var tag: Data?
     var kid: String?
     
