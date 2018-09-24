@@ -148,6 +148,8 @@
 		27D94AF120B4810B001DD434 /* WVDeviceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */; };
 		27DC64E92143181B0097E6B8 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */; };
 		27DC64EA2143181B0097E6B8 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */; };
+		27DE5B1921598C00009E75D7 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE5B1821598C00009E75D7 /* UIImageExtensions.swift */; };
+		27DE5B1A21598C06009E75D7 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DE5B1821598C00009E75D7 /* UIImageExtensions.swift */; };
 		27E0302D20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0302E20ADE55C009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0303020ADE58A009120AD /* JSONCodingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */; };
@@ -598,6 +600,7 @@
 		27CFE12921237BD200AE116B /* JWTAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTAlgorithm.swift; sourceTree = "<group>"; };
 		27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVDeviceStatus.swift; sourceTree = "<group>"; };
 		27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
+		27DE5B1821598C00009E75D7 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnkeyedDecodingContainerExtension.swift; sourceTree = "<group>"; };
 		27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeys.swift; sourceTree = "<group>"; };
 		27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeWebPath.swift; sourceTree = "<group>"; };
@@ -1610,9 +1613,10 @@
 				9A12277F1C89CF5C006968D7 /* ArrayExtensions.swift */,
 				CD038C64E5144812C865F0AA /* DataExtensions.swift */,
 				CD03877A3C526340ECB9C853 /* DictionaryExtensions.swift */,
-				CD0382E7C3731302B80C1CBE /* NSErrorExtensions.swift */,
 				CD0386DA358049C9AC2135F6 /* JSONSerializationExtensions.swift */,
+				CD0382E7C3731302B80C1CBE /* NSErrorExtensions.swift */,
 				2742E583212B5D0F006D19A6 /* StringExtensions.swift */,
+				27DE5B1821598C00009E75D7 /* UIImageExtensions.swift */,
 				2742E586212B5D42006D19A6 /* UIntExtensions.swift */,
 				27E0302B20ADCC29009120AD /* Codable */,
 			);
@@ -1963,6 +1967,7 @@
 				37D0CFF21EDD5E6A0049B5AA /* RtmMessageHandlerV2.swift in Sources */,
 				91185B7920615E0C00E5E1CE /* A2AVerificationError.swift in Sources */,
 				3A9180BB1DE8824A00C183CE /* FitpayEventsSubscriber.swift in Sources */,
+				27DE5B1921598C00009E75D7 /* UIImageExtensions.swift in Sources */,
 				CD038952A85B6214173CC785 /* Commit.swift in Sources */,
 				0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */,
 				2782F83720F6B86E004774E8 /* TokenizationState.swift in Sources */,
@@ -2260,6 +2265,7 @@
 				3A93A0871DB8CA2C00A9FEB4 /* Transforms.swift in Sources */,
 				3A93A0881DB8CA2C00A9FEB4 /* JWE.swift in Sources */,
 				371CB3011F444ACF0019A766 /* NonAPDUConfirmOperation.swift in Sources */,
+				27DE5B1A21598C06009E75D7 /* UIImageExtensions.swift in Sources */,
 				374D0C9B1F56FD620060A4FC /* IdVerification.swift in Sources */,
 				37DB88781F0F8B7500B070DA /* Image.swift in Sources */,
 				37D0CFF31EDD5E6A0049B5AA /* RtmMessageHandlerV2.swift in Sources */,
