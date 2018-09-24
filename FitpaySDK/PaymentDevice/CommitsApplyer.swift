@@ -139,7 +139,7 @@ class CommitsApplyer {
     
     private func saveLastCommitId(deviceIdentifier: String?, commitId: String?) {
         if let deviceId = deviceIdentifier, let storedCommitId = commitId {
-            if let setDeviceLastCommitId = self.paymentDevice.deviceInterface.setDeviceLastCommitId, let _ = self.paymentDevice.deviceInterface.getDeviceLastCommitId {
+            if let setDeviceLastCommitId = self.paymentDevice.deviceInterface.setDeviceLastCommitId, self.paymentDevice.deviceInterface.getDeviceLastCommitId != nil {
                 setDeviceLastCommitId(storedCommitId)
             } else {
                 self.syncStorage.setLastCommitId(deviceId, commitId: storedCommitId)

@@ -79,7 +79,7 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
     func generateCommitIdFromWhichWeShouldStart() -> Observable<String> {
         var commitId = ""
         if self.startFromSyncedCommit {
-            if let getDeviceLastCommitId = self.connector?.getDeviceLastCommitId, let _ = self.connector?.setDeviceLastCommitId {
+            if let getDeviceLastCommitId = self.connector?.getDeviceLastCommitId, self.connector?.setDeviceLastCommitId != nil {
                 commitId = getDeviceLastCommitId()
             } else if let deviceId = self.deviceInfo.deviceIdentifier {
                 commitId = self.syncStorage.getLastCommitId(deviceId)

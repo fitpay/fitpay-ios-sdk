@@ -156,7 +156,7 @@ protocol SyncManagerProtocol {
             syncedIds.append(syncId)
         }
         
-        log.debug("SYNC_DATA: Sync started for device id: \(request.deviceInfo?.deviceIdentifier)")
+        log.debug("SYNC_DATA: Sync started for device id: \(String(describing: request.deviceInfo?.deviceIdentifier))")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let syncOperation = SyncOperation(paymentDevice: paymentDevice,
@@ -204,7 +204,7 @@ protocol SyncManagerProtocol {
                 callCompletionForSyncEvent(SyncEventType.syncFailed, params: eventParams)
             }
         } else {
-            log.debug("SYNC_DATA: Sync finished successfully. Device id: \(request.deviceInfo?.deviceIdentifier)")
+            log.debug("SYNC_DATA: Sync finished successfully. Device id: \(String(describing: request.deviceInfo?.deviceIdentifier))")
             callCompletionForSyncEvent(SyncEventType.syncCompleted, params: eventParams)
         }
         

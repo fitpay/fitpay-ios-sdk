@@ -1,5 +1,6 @@
 import Foundation
 
+// swiftlint:disable all
 class SwKeyStore {
     
     enum SecError: OSStatus, Error {

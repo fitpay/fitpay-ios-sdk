@@ -352,7 +352,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     }
 
     @objc private func logout() {
-        if let _ = self.configStorage.user {
+        if configStorage.user != nil {
             sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.logoutResponseMessage() ?? RtmMessageResponse(type: "logout"))
         }
     }
