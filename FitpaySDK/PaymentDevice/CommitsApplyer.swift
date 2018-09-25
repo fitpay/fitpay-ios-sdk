@@ -238,11 +238,9 @@ class CommitsApplyer {
                     switch e {
                     case .completed:
                         completion(realError)
-                        break
                     case .error(let error):
                         log.debug("SYNC_DATA: Apdu package confirmed with error: \(error).")
                         completion(error)
-                        break
                     case .next:
                         break
                     }
@@ -276,40 +274,28 @@ class CommitsApplyer {
                     switch commitType {
                     case .creditCardCreated:
                         syncEvent = SyncEvent(event: .cardAdded, data: eventData)
-                        break
                     case .creditCardDeleted:
                         syncEvent = SyncEvent(event: .cardDeleted, data: eventData)
-                        break
                     case .creditCardActivated:
                         syncEvent = SyncEvent(event: .cardActivated, data: eventData)
-                        break
                     case .creditCardDeactivated:
                         syncEvent = SyncEvent(event: .cardDeactivated, data: eventData)
-                        break
                     case .creditCardReactivated:
                         syncEvent = SyncEvent(event: .cardReactivated, data: eventData)
-                        break
                     case .setDefaultCreditCard:
                         syncEvent = SyncEvent(event: .setDefaultCard, data: eventData)
-                        break
                     case .resetDefaultCreditCard:
                         syncEvent = SyncEvent(event: .resetDefaultCard, data: eventData)
-                        break
                     case .apduPackage:
                         log.warning("SYNC_DATA: Processed APDU package inside nonapdu handler.")
-                        break
                     case .creditCardProvisionFailed:
                         syncEvent = SyncEvent(event: .cardProvisionFailed, data: eventData)
-                        break
                     case .creditCardProvisionSuccess:
                         syncEvent = SyncEvent(event: .cardProvisionSuccess, data: eventData)
-                        break
                     case .creditCardMetaDataUpdated:
                         syncEvent = SyncEvent(event: .cardMetadataUpdated, data: eventData)
-                        break
                     case .unknown:
                         log.warning("SYNC_DATA: Received new (unknown) commit type - \(commit.commitTypeString ?? "").")
-                        break
                     }
                     
                     if let syncEvent = syncEvent {
@@ -318,11 +304,9 @@ class CommitsApplyer {
                     
                     completion(nil)
                     
-                    break
                 case .error(let error):
                     log.debug("SYNC_DATA: non APDU commit confirmed with error: \(error).")
                     completion(error)
-                    break
                 case .next:
                     break
                 }

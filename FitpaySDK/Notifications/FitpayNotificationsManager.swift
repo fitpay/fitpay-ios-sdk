@@ -22,7 +22,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     
 
     
-    // MARK - Public Functions
+    // MARK: - Public Functions
     public func setRestClient(_ client: RestClient?) {
         self.client = client
     }
@@ -139,12 +139,10 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
                 self.currentNotification = nil
                 self.processNextNotificationIfAvailable()
             }
-            break
         case .withoutSync: // just call completion
             log.debug("NOTIFICATIONS_DATA: notification was non-sync.")
             self.currentNotification = nil
             processNextNotificationIfAvailable()
-            break
         }
     }
     
@@ -153,10 +151,8 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         switch notificationType {
         case .withSync:
             eventType = .receivedSyncNotification
-            break
         case .withoutSync:
             eventType = .receivedSimpleNotification
-            break
         }
         
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: payload))

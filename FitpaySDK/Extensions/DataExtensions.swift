@@ -3,17 +3,15 @@ import Foundation
 extension Data {
     
     var UTF8String: String? {
-        return self.stringWithEncoding(String.Encoding.utf8)
+        return stringWithEncoding(String.Encoding.utf8)
     }
     
     @inline(__always) func stringWithEncoding(_ encoding: String.Encoding) -> String? {
         return String(data: self, encoding: encoding)
     }
     
-    var dictionary: Dictionary<String, Any>? {
-        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options: .mutableContainers) as! [String: Any] else { return nil }
-        
-        return dictionary
+    var dictionary: [String: Any]? {
+        return try? JSONSerialization.jsonObject(with: self, options: .mutableContainers) as! [String: Any]
     }
     
     var bytesArray: [UInt8] {
@@ -23,9 +21,8 @@ extension Data {
     var errorMessages: [String]? {
         var messages: [String]? = []
         
-        guard let dict: [String: Any] = self.dictionary,
-            let errors = dict["errors"] as? [[String: String]] else {
-                return messages
+        guard let errors = dictionary?["errors"] as? [[String: String]] else {
+            return messages
         }
         
         for error in errors {
@@ -38,9 +35,8 @@ extension Data {
     }
     
     var errorMessage: String? {
-        guard let dict = self.dictionary,
-            let messageDict = dict as? [String: String],
-            let message = messageDict["message"] else {
+        guard let dictionary = dictionary as? [String: String],
+            let message = dictionary["message"] else {
                 return nil
         }
         
@@ -60,9 +56,9 @@ extension Data {
     }
     
     var reverseEndian: Data {
-        var inData = [UInt8](repeating: 0, count: self.count)
-        (self as NSData).getBytes(&inData, length: self.count)
-        var outData = [UInt8](repeating: 0, count: self.count)
+        var inData = [UInt8](repeating: 0, count: count)
+        (self as NSData).getBytes(&inData, length: count)
+        var outData = [UInt8](repeating: 0, count: count)
         var outPos = inData.count
         for i in 0 ..< inData.count {
             outPos -= 1

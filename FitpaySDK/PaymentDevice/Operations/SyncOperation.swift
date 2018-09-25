@@ -56,10 +56,8 @@ class SyncOperation {
                 break
             case .started:
                 self?.isSyncing = true
-                break
             case .completed:
                 self?.isSyncing = false
-                break
             }
         }).disposed(by: disposeBag)
         
@@ -83,23 +81,18 @@ class SyncOperation {
             switch event {
             case .error(let error):
                 self?.state.value = .completed(error)
-                break
             case .next(let state):
                 switch state {
                 case .connected:
                     self?.state.value = .connected
                     self?.sync()
-                    break
                 case .connecting:
                     self?.state.value = .connecting
-                    break
                 case .disconnected:
                     if self?.isSyncing == true {
                         self?.state.value = .completed(SyncOperationError.paymentDeviceDisconnected)
                     }
-                    break
                 }
-                break
             case .completed:
                 break
             }
@@ -113,7 +106,6 @@ class SyncOperation {
                 log.error("SYNC_DATA: Can't fetch commits. Error: \(error)")
                 self?.sendCommitsMetric()
                 self?.state.value = .completed(SyncManager.ErrorCode.cantFetchCommits)
-                break
             case .next(let commits):
                 self?.state.value = .commitsReceived(commits: commits)
                 
@@ -134,10 +126,8 @@ class SyncOperation {
                 if applyerStarted ?? false == false {
                     self?.state.value = .completed(NSError.error(code: SyncManager.ErrorCode.commitsApplyerIsBusy, domain: SyncOperation.self))
                 }
-                break
             case .completed:
                 self?.sendCommitsMetric()
-                break
             }
             }.disposed(by: disposeBag)
         

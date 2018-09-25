@@ -31,14 +31,6 @@ extension NSError {
         let userInfo: [AnyHashable: Any] = alternativeError?.userInfo != nil ? alternativeError!.userInfo: [NSLocalizedDescriptionKey: "Failed to parse error message"]
         return NSError(domain: "\(domain)", code: code, userInfo: userInfo as? [String: Any] )
     }
-    
-    class func errorWithData<T: RawIntValue>(errorCode: T, domain: AnyClass, data: Data?, alternativeError: NSError? = nil) -> NSError {
-        return NSError.errorWithData(code: errorCode.rawValue, domain: domain, data: data, alternativeError: alternativeError)
-    }
-    
-    class func errorWith<T>(dataResponse response: DataResponse<T>, domain: AnyClass) -> NSError {
-        return errorWithData(code: response.response?.statusCode ?? 0, domain: domain, data: response.data, alternativeError: response.result.error as NSError?)
-    }
 
     class func unhandledError(_ domain: Any) -> NSError {
         return NSError(domain: "\(domain)", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unhandled error"])
