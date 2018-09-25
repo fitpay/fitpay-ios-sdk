@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class RestClientTests: XCTestCase {
@@ -247,7 +249,6 @@ class RestClientTests: XCTestCase {
                     self.testHelper.acceptTermsForCreditCard(expectation, card: creditCard) { (card) in
                         self.testHelper.selectVerificationType(expectation, card: card) { (verificationMethod) in
                             self.testHelper.verifyCreditCard(expectation, verificationMethod: verificationMethod) { card in
-                                XCTAssertTrue(card!.isDefault!)
                                 self.testHelper.createAcceptVerifyAmExCreditCard(expectation, pan: "9999611111111114", user: user) { (creditCard) in
                                     self.testHelper.makeCreditCardDefault(expectation, card: creditCard) { (_) in
                                         self.testHelper.deleteUser(user, expectation: expectation)
@@ -495,13 +496,16 @@ class RestClientTests: XCTestCase {
         self.testHelper.createAndLoginUser(expectation) { [unowned self] (user) in
             
             self.testHelper.createDevice(expectation, user: user) { (user, device) in
-                
-                let firmwareRev = "2.7.7.7"
-                let softwareRev = "6.8.1"
-                device?.update(firmwareRev, softwareRevision: softwareRev, notifcationToken: nil) { (updatedDevice, error) -> Void in
-                    XCTAssertNil(error)
-                    XCTAssertNotNil(updatedDevice)
-                    
+                expect(device).toNot(beNil())
+                device?.firmwareRevision = "2.7.7.7"
+                device?.softwareRevision = "6.8.1"
+
+                device?.updateDevice(device!) { (updatedDevice, error) -> Void in
+                    expect(error).to(beNil())
+                    expect(updatedDevice).toNot(beNil())
+                    expect(updatedDevice!.firmwareRevision).to(equal("2.7.7.7"))
+                    expect(updatedDevice!.softwareRevision).to(equal("6.8.1"))
+
                     self.testHelper.deleteUser(user, expectation: expectation)
                 }
             }

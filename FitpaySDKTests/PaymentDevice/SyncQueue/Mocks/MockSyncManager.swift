@@ -22,18 +22,6 @@ class MockSyncManager: SyncManagerProtocol {
         self.startSync(request: request)
     }
     
-    func syncWithLastRequest() throws {
-        guard let lastSyncRequest = self.lastSyncRequest else {
-            throw NSError.unhandledError(MockSyncManager.self)
-        }
-        
-        if isSyncing && synchronousModeOn {
-            throw NSError.unhandledError(MockSyncManager.self)
-        }
-        
-        self.startSync(request: lastSyncRequest)
-    }
-    
     func bindToSyncEvent(eventType: SyncEventType, completion: @escaping SyncEventBlockHandler) -> FitpayEventBinding? {
         return eventsDispatcher.addListenerToEvent(FitpayBlockEventListener(completion: completion), eventId: eventType)
     }

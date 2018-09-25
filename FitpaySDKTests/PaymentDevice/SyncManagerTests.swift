@@ -9,6 +9,7 @@ class SyncManagerTests: XCTestCase {
     var syncManager: SyncManager!
     var syncQueue: SyncRequestQueue!
     var fetcher: SyncMockCommitsFetcher!
+    let mockModels = MockModels()
     
     override func setUp() {
         super.setUp()
@@ -226,8 +227,7 @@ class SyncManagerTests: XCTestCase {
 extension SyncManagerTests {
     
     func getSyncRequest1(device passedDevice: PaymentDevice? = nil) -> SyncRequest {
-        let deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "111-111-111"
+        let deviceInfo = mockModels.getDevice(deviceId: "111-111-111")!
         let device: PaymentDevice
         if passedDevice == nil {
             device = PaymentDevice()

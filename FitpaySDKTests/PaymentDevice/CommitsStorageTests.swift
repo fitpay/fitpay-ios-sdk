@@ -14,14 +14,15 @@ class CommitsStorageTests: XCTestCase {
     var syncQueue: SyncRequestQueue!
     var fetcher: MockCommitsFetcher!
     
+    let mockModels = MockModels()
+    
     override func setUp() {
         super.setUp()
         
         Nimble.AsyncDefaults.Timeout = 4
         
-        deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "222-222-222"
-        
+        deviceInfo = mockModels.getDevice(deviceId: "222-222-222")!
+
         paymentDevice = PaymentDevice()
         
         fetcher = MockCommitsFetcher()
