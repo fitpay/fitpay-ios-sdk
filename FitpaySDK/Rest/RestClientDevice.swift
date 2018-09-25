@@ -3,7 +3,7 @@ import Alamofire
 
 extension RestClient {
     
-    //MARK: - Completion Handlers
+    // MARK: - Completion Handlers
     
     /**
      Completion handler

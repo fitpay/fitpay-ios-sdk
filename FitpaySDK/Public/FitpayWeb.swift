@@ -138,7 +138,6 @@ import WebKit
         wkWebView.load(request)
     }
     
-    
     /// Get the config to construct a url on your own if needed
     @objc open func getConfig() -> String? {
         return wvConfig.getEncodedConfig()

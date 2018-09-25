@@ -109,7 +109,6 @@ class SyncManagerTests: XCTestCase {
                 done()
             }
         }
-       
         
     }
     
@@ -236,7 +235,7 @@ extension SyncManagerTests {
             mockConnector.connectDelayTime = 0.1
             mockConnector.apduExecuteDelayTime = 0.01
             mockConnector.paymentDevice = device
-            let _ = device.changeDeviceInterface(mockConnector)
+            _ = device.changeDeviceInterface(mockConnector)
         } else {
             device = passedDevice!
         }
@@ -248,7 +247,7 @@ extension SyncManagerTests {
     
 }
 
-// MARK: -  Mocks
+// MARK: - Mocks
 
 extension SyncManagerTests {
     
@@ -272,7 +271,7 @@ extension SyncManagerTests {
     
     class SyncMockCommitsFetcher: MockCommitsFetcher {
         
-        var onStart: () -> () = {
+        var onStart: () -> Void = {
             
         }
         
@@ -322,4 +321,3 @@ extension SyncManagerTests {
         
     }
 }
-

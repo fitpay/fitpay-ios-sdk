@@ -32,23 +32,20 @@ open class APDUCommand: NSObject, Serializable, APDUResponseProtocol {
     }
 
     open var responseDictionary: [String: Any] {
-        get {
-            var dic: [String: Any] = [:]
-            
-            if let commandId = commandId {
-                dic["commandId"] = commandId
-            }
-            
-            if let responseCode = responseCode {
-                dic["responseCode"] = responseCode.hex
-            }
-            
-            if let responseData = responseData {
-                dic["responseData"] = responseData.hex
-            }
-            
-            return dic
+        var dic: [String: Any] = [:]
+        
+        if let commandId = commandId {
+            dic["commandId"] = commandId
         }
+        
+        if let responseCode = responseCode {
+            dic["responseCode"] = responseCode.hex
+        }
+        
+        if let responseData = responseData {
+            dic["responseData"] = responseData.hex
+        }
+        
+        return dic
     }
 }
-

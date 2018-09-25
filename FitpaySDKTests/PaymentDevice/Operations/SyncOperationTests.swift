@@ -66,7 +66,7 @@ class SyncOperationTests: XCTestCase {
             fail("Timeouted.")
             return
         }
-        events.forEach{ print("Event: \($0.event.eventDescription()), data: \($0.data)") }
+        events.forEach { print("Event: \($0.event.eventDescription()), data: \($0.data)") }
         expect(events.contains { $0.event == SyncEventType.apduPackageComplete }).to(beTrue())
         expect(events.last?.event).to(equal(SyncEventType.syncCompleted))
     }
@@ -81,7 +81,7 @@ class SyncOperationTests: XCTestCase {
             fail("Timeouted.")
             return
         }
-        events.forEach{ print("Event: \($0.event.eventDescription()), data: \($0.data)") }
+        events.forEach { print("Event: \($0.event.eventDescription()), data: \($0.data)") }
         expect(events.contains { $0.event == SyncEventType.apduPackageComplete }).to(beTrue())
         expect(events.contains { $0.event == SyncEventType.cardAdded }).to(beTrue())
         expect(events.last?.event).to(equal(SyncEventType.syncCompleted))
@@ -120,7 +120,6 @@ class SyncOperationTests: XCTestCase {
                 }
             }).disposed(by: self.disposeBag)
         }
-       
         
     }
     
@@ -135,10 +134,9 @@ class SyncOperationTests: XCTestCase {
             return
         }
         
-        events.forEach{ print("Event: \($0.event.eventDescription()), data: \($0.data)") }
+        events.forEach { print("Event: \($0.event.eventDescription()), data: \($0.data)") }
         
         expect(events.contains { $0.event == SyncEventType.cardAdded }).to(beTrue())
         expect(events.last?.event).to(equal(SyncEventType.syncCompleted))
     }
 }
-

@@ -39,7 +39,7 @@ class MockSyncManager: SyncManagerProtocol {
         
         DispatchQueue.main.asyncAfter(deadline: self.delayForSync) { [weak self] in
             self?.isSyncing = false
-            self?.callCompletionForSyncEvent(.syncCompleted, params: ["request":request])
+            self?.callCompletionForSyncEvent(.syncCompleted, params: ["request": request])
         }
     }
     

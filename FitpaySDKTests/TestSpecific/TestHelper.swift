@@ -3,6 +3,7 @@ import Nimble
 
 @testable import FitpaySDK
 
+// swiftlint:disable line_length
 class TestHelper {
     
     var session: RestSession!
@@ -148,7 +149,7 @@ class TestHelper {
     }
     
     func getCreditCardsForUser(_ expectation: XCTestExpectation, user: User?, completion: @escaping (_ user: User?, _ result: ResultCollection<CreditCard>?) -> Void) {
-        user?.getCreditCards(excludeState:[], limit: 10, offset: 0) { [unowned self] (result, error) -> Void in
+        user?.getCreditCards(excludeState: [], limit: 10, offset: 0) { [unowned self] (result, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.limit)
@@ -169,7 +170,7 @@ class TestHelper {
     }
     
     func acceptTermsForCreditCard(_ expectation: XCTestExpectation, card: CreditCard?, completion:@escaping (_ card: CreditCard?) -> Void) {
-        card?.acceptTerms { (pending, acceptedCard, error) in
+        card?.acceptTerms { (_, acceptedCard, error) in
             
             XCTAssertNil(error)
             XCTAssertNotNil(acceptedCard)
@@ -188,7 +189,7 @@ class TestHelper {
         }
     }
     
-    func editAcceptTermsUrlSuccess(_ card: CreditCard?){
+    func editAcceptTermsUrlSuccess(_ card: CreditCard?) {
         let randomText = TestHelper.randomStringWithLength(10)
         
         //update acceptTerms url
@@ -204,7 +205,7 @@ class TestHelper {
     func selectVerificationType(_ expectation: XCTestExpectation, card: CreditCard?, completion: @escaping (_ verificationMethod: VerificationMethod?) -> Void) {
         let verificationMethod = card?.verificationMethods?.first
         
-        verificationMethod?.selectVerificationType { (pending, verificationMethod, error) in
+        verificationMethod?.selectVerificationType { (_, verificationMethod, error) in
             XCTAssertNotNil(verificationMethod)
             XCTAssertEqual(verificationMethod?.state, .awaitingVerification)
             XCTAssertNil(error)
@@ -223,12 +224,12 @@ class TestHelper {
     }
     
     func verifyCreditCard(_ expectation: XCTestExpectation, verificationMethod: VerificationMethod?, completion: @escaping (_ card: CreditCard?) -> Void) {
-        verificationMethod?.verify("12345") { (pending, verificationMethod, error) -> Void in
+        verificationMethod?.verify("12345") { (_, verificationMethod, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(verificationMethod)
             XCTAssertEqual(verificationMethod?.state, .verified)
             
-            verificationMethod?.retrieveCreditCard { (creditCard, error) in
+            verificationMethod?.retrieveCreditCard { (creditCard, _) in
                 self.waitForActive(creditCard!) { (activeCard) in
                     completion(activeCard)
                 }
@@ -237,7 +238,7 @@ class TestHelper {
     }
     
     func makeCreditCardDefault(_ expectation: XCTestExpectation, card: CreditCard?, completion: @escaping (_ defaultCreditCard: CreditCard?) -> Void) {
-        card?.makeDefault { (pending, defaultCreditCard, error) -> Void in
+        card?.makeDefault { (_, defaultCreditCard, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(defaultCreditCard)
             completion(defaultCreditCard)
@@ -263,7 +264,7 @@ class TestHelper {
         let time = DispatchTime.now() + 2
         
         DispatchQueue.main.asyncAfter(deadline: time) {
-            pendingCard.getCard() { (creditCard, error) in
+            pendingCard.getCard { (creditCard, error) in
                 guard error == nil else {
                     fail("failed to retrieve credit card will polling for active state")
                     return
@@ -294,7 +295,7 @@ class TestHelper {
     }
     
     func deactivateCreditCard(_ expectation: XCTestExpectation, creditCard: CreditCard?, completion: @escaping (_ deactivatedCard: CreditCard?) -> Void) {
-        creditCard?.deactivate(causedBy: .cardholder, reason: "lost card") { (pending, creditCard, error) in
+        creditCard?.deactivate(causedBy: .cardholder, reason: "lost card") { (_, creditCard, error) in
             XCTAssertNil(error)
             XCTAssertEqual(creditCard?.state, TokenizationState.deactivated)
             completion(creditCard)

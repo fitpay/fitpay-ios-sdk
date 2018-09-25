@@ -3,7 +3,7 @@ extension String {
     func hexToData() -> Data? {
         let trimmedString = self.trimmingCharacters(in: CharacterSet(charactersIn: "<> ")).replacingOccurrences(of: " ", with: "")
         let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .caseInsensitive)
-        let found = regex.firstMatch(in: trimmedString, options: [], range: NSMakeRange(0, trimmedString.count))
+        let found = regex.firstMatch(in: trimmedString, options: [], range: NSRange(location: 0, length: trimmedString.count))
         
         if found == nil || found?.range.location == NSNotFound || trimmedString.count % 2 != 0 { return nil }
         

@@ -11,7 +11,7 @@ extension Data {
     }
     
     var dictionary: Dictionary<String, Any>? {
-        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options:.mutableContainers) as! [String: Any] else { return nil }
+        guard let dictionary: [String: Any] = try? JSONSerialization.jsonObject(with: self, options: .mutableContainers) as! [String: Any] else { return nil }
         
         return dictionary
     }
@@ -52,7 +52,7 @@ extension Data {
         
         var byte: UInt8 = 0
         for i in 0 ..< self.count {
-            (self as NSData).getBytes(&byte, range: NSMakeRange(i, 1))
+            (self as NSData).getBytes(&byte, range: NSRange(location: i, length: 1))
             s += String(format: "%02x", byte)
         }
         
@@ -63,7 +63,7 @@ extension Data {
         var inData = [UInt8](repeating: 0, count: self.count)
         (self as NSData).getBytes(&inData, length: self.count)
         var outData = [UInt8](repeating: 0, count: self.count)
-        var outPos = inData.count;
+        var outPos = inData.count
         for i in 0 ..< inData.count {
             outPos -= 1
             outData[i] = inData[outPos]
@@ -83,4 +83,3 @@ extension Data {
     }
     
 }
-

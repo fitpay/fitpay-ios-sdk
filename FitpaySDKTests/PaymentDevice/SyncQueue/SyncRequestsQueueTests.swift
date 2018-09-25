@@ -173,7 +173,6 @@ class SyncRequestsQueueTests: XCTestCase {
             }
         }
         
-        
     }
     
     func testMakeSyncWithoutDeviceInfo() {

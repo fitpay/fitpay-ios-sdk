@@ -34,7 +34,7 @@ class RestClientCreditCardTests: XCTestCase {
     
     func testMakeDefaultWithDeviceId() {
         waitUntil { done in
-            self.client.makeCreditCardDefault("https://baseurl.com/user/123/creditCards/456/makeDefault", deviceId: "123456") { (result, creditCard, error) in
+            self.client.makeCreditCardDefault("https://baseurl.com/user/123/creditCards/456/makeDefault", deviceId: "123456") { (_, creditCard, error) in
                 let urlString = try? self.restRequest.lastUrl?.asURL().absoluteString
 
                 expect(error).to(beNil())
@@ -47,7 +47,7 @@ class RestClientCreditCardTests: XCTestCase {
     
     func testMakeDefaultWithoutDeviceId() {
         waitUntil { done in
-            self.client.makeCreditCardDefault("https://baseurl.com/user/123/creditCards/456/makeDefault", deviceId: nil) { (result, creditCard, error) in
+            self.client.makeCreditCardDefault("https://baseurl.com/user/123/creditCards/456/makeDefault", deviceId: nil) { (_, creditCard, error) in
                 let urlString = try? self.restRequest.lastUrl?.asURL().absoluteString
                 
                 expect(error).to(beNil())

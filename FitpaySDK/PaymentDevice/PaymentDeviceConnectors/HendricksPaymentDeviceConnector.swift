@@ -138,7 +138,7 @@ import CoreBluetooth
             let sequence = returnedData[index + 1] + returnedData[index + 2] << 8 // shift second bit
             let length = Int(returnedData[index + 4])
             let apduBytes = returnedData[index + 5 ..< index + length + 5]
-            index = index + 5 + length
+            index += 5 + length
             
             let packet = ApduResultMessage(responseData: Data(bytes: apduBytes))
             
@@ -353,7 +353,7 @@ import CoreBluetooth
     
 }
 
-// MARK - Nested Enums
+// MARK: - Nested Enums
 
 extension HendricksPaymentDeviceConnector {
     

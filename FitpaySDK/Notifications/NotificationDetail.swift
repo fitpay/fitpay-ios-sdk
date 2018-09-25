@@ -114,4 +114,3 @@ open class NotificationDetail: Serializable, ClientModel {
     }
 
 }
-

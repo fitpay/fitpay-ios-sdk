@@ -7,7 +7,7 @@ class JWTUtilsTests: XCTestCase {
     
     func testdecodeJWTPartInvalidJSON() {
         do {
-            let _ = try JWTUtils.decodeJWTPart("notjson")
+            _ = try JWTUtils.decodeJWTPart("notjson")
             fail("jws should fail with invalidJSON")
         } catch let error {
             expect(error.localizedDescription).to(equal(JWTError.invalidJSON.localizedDescription))
@@ -16,7 +16,7 @@ class JWTUtilsTests: XCTestCase {
     
     func testdecodeJWTPartInvaliBas64URL() {
         do {
-            let _ = try JWTUtils.decodeJWTPart("eyJmb28iO +_-iJiYXIifQ==")
+            _ = try JWTUtils.decodeJWTPart("eyJmb28iO +_-iJiYXIifQ==")
             fail("decodeJWTPart should fail with invalidBase64Url")
         } catch let error {
             expect(error.localizedDescription).to(equal(JWTError.invalidBase64Url.localizedDescription))

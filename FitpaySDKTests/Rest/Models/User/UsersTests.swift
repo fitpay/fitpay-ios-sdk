@@ -69,7 +69,7 @@ class UsersTests: XCTestCase {
     func testGetCreditCardsWithDeviceId() {
         let expectation = self.expectation(description: "getCreditCards")
         
-        user?.getCreditCards(excludeState: [], limit: 10, offset: 0, deviceId: "1234") { (creditCardCollection, error) in
+        user?.getCreditCards(excludeState: [], limit: 10, offset: 0, deviceId: "1234") { (_, _) in
             XCTAssertEqual(self.restRequest.lastParams?["deviceId"] as? String, "1234")
             let lastEncodingAsURL = self.restRequest.lastEncoding as? URLEncoding
             XCTAssertNotNil(lastEncodingAsURL)
@@ -86,7 +86,7 @@ class UsersTests: XCTestCase {
         let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "Jeremiah Harris", address: address, riskData: nil)
         
-        user.createCreditCard(cardInfo: creditCardInfo, deviceId: "1234") { (creditCard, error) in
+        user.createCreditCard(cardInfo: creditCardInfo, deviceId: "1234") { (_, _) in
             XCTAssertEqual(self.restRequest.lastParams?["deviceId"] as? String, "1234")
             let lastEncodingAsJson = self.restRequest.lastEncoding as? JSONEncoding
             XCTAssertNotNil(lastEncodingAsJson)
