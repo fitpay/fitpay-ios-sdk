@@ -1,31 +1,30 @@
 import Foundation
 
-open class FitpayNotificationsManager: NSObject {
+open class FitpayNotificationsManager: NSObject, ClientModel {
     
     public static let sharedInstance = FitpayNotificationsManager()
     
     public typealias NotificationsPayload = [AnyHashable: Any]
     
-    var notificationToken: String = ""
+    /// NotificationsEventBlockHandler
+    ///
+    /// - parameter event: Provides event with payload in eventData property
+    public typealias NotificationsEventBlockHandler = (_ event: FitpayEvent) -> Void
     
+    var notificationToken: String = ""
+    var client: RestClient?
+
     private let eventsDispatcher = FitpayEventDispatcher()
     private var syncCompletedBinding: FitpayEventBinding?
     private var syncFailedBinding: FitpayEventBinding?
     private var notificationsQueue = [NotificationsPayload]()
     private var currentNotification: NotificationsPayload?
-    private var restClient: RestClient?
     
-    /**
-     Completion handler
-     
-     - parameter event: Provides event with payload in eventData property
-     */
-    public typealias NotificationsEventBlockHandler = (_ event: FitpayEvent) -> Void
+
     
     // MARK: - Public Functions
-    
     public func setRestClient(_ client: RestClient?) {
-        restClient = client
+        self.client = client
     }
     
     /**
@@ -89,7 +88,7 @@ open class FitpayNotificationsManager: NSObject {
     
     open func updateRestClientForNotificationDetail(_ notificationDetail: NotificationDetail?) {
         if let notificationDetail = notificationDetail, notificationDetail.client == nil {
-            notificationDetail.client = self.restClient
+            notificationDetail.client = self.client
         }
     }
     
@@ -103,7 +102,7 @@ open class FitpayNotificationsManager: NSObject {
             notificationDetail = try? NotificationDetail(notification?["payload"])
         }
         
-        notificationDetail?.client = self.restClient
+        notificationDetail?.client = self.client
         return notificationDetail
     }
     
@@ -140,12 +139,10 @@ open class FitpayNotificationsManager: NSObject {
                 self.currentNotification = nil
                 self.processNextNotificationIfAvailable()
             }
-            break
         case .withoutSync: // just call completion
             log.debug("NOTIFICATIONS_DATA: notification was non-sync.")
             self.currentNotification = nil
             processNextNotificationIfAvailable()
-            break
         }
     }
     
@@ -154,10 +151,8 @@ open class FitpayNotificationsManager: NSObject {
         switch notificationType {
         case .withSync:
             eventType = .receivedSyncNotification
-            break
         case .withoutSync:
             eventType = .receivedSimpleNotification
-            break
         }
         
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: eventType, eventData: payload))

@@ -98,7 +98,6 @@ class TestHelper {
         XCTAssertNotNil(card?.links)
         XCTAssertNotNil(card?.creditCardId)
         XCTAssertNotNil(card?.userId)
-        XCTAssertNotNil(card?.isDefault)
         XCTAssertNotNil(card?.created)
         XCTAssertNotNil(card?.createdEpoch)
         XCTAssertNotNil(card?.state)
@@ -242,7 +241,6 @@ class TestHelper {
         card?.makeDefault { (_, defaultCreditCard, error) -> Void in
             XCTAssertNil(error)
             XCTAssertNotNil(defaultCreditCard)
-            XCTAssertTrue(defaultCreditCard!.isDefault!)
             completion(defaultCreditCard)
         }
     }

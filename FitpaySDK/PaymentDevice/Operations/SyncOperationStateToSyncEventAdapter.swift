@@ -25,7 +25,6 @@ class SyncOperationStateToSyncEventAdapter {
             switch state {
             case .commitsReceived(let commits):
                 syncEvent = SyncEvent(event: .commitsReceived, data: ["commits": commits])
-                break
             case .completed(let error):
                 if let error = error {
                     syncEvent = SyncEvent(event: .syncFailed, data: ["error": error])
@@ -33,16 +32,12 @@ class SyncOperationStateToSyncEventAdapter {
                     syncEvent = SyncEvent(event: .syncCompleted, data: [:])
                 }
                 callComplete = true
-                break
             case .connected:
                 syncEvent = SyncEvent(event: .connectingToDeviceCompleted, data: [:])
-                break
             case .connecting:
                 syncEvent = SyncEvent(event: .connectingToDevice, data: [:])
-                break
             case .started:
                 syncEvent = SyncEvent(event: .syncStarted, data: [:])
-                break
             case .waiting:
                 break
             }

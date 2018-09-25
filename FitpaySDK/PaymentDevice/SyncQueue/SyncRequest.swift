@@ -28,9 +28,6 @@ open class SyncRequest {
     
     private var state = SyncRequestState.pending
     
-    // we should capture restClient to prevent deallocation
-    private var restClient: RestClient?
-    
     // MARK: - Lifecycle
     
     /// Creates sync request.
@@ -44,7 +41,6 @@ open class SyncRequest {
     ///   - initiator: syncInitiator Enum object. Defaults to .NotDefined.
     ///   - notificationAsc: NotificationDetail object.
     public init(requestTime: Date = Date(), syncId: String? = nil, user: User, deviceInfo: Device, paymentDevice: PaymentDevice, initiator: SyncInitiator = .notDefined, notification: NotificationDetail? = nil) {
-        
         self.requestTime = requestTime
         self.syncId = syncId
         self.user = user
@@ -52,13 +48,6 @@ open class SyncRequest {
         self.paymentDevice = paymentDevice
         self.syncInitiator = initiator
         self.notification = notification
-        
-        // capture restClient reference
-        if user.client != nil {
-            self.restClient = user.client
-        } else if deviceInfo.client != nil {
-            self.restClient = deviceInfo.client
-        }
     }
 
     /// Create sync request from Notificatoin
@@ -77,10 +66,8 @@ open class SyncRequest {
         self.syncInitiator = initiator
         self.notification = notification
         
-        if SyncRequest.syncManager.synchronousModeOn == false {
-            if (user == nil || deviceInfo == nil || paymentDevice == nil) {
-                assert(false, "You should pass all params to SyncRequest in parallel sync mode.")
-            }
+        if !SyncRequest.syncManager.synchronousModeOn && isEmptyRequest {
+            assert(false, "You should pass all params to SyncRequest in parallel sync mode.")
         }
         
     }

@@ -104,7 +104,6 @@ class PaymentDeviceApduExecuter {
                 completion(apduCommand, nil, NSError.error(code: PaymentDevice.ErrorCode.apduErrorResponse, domain: PaymentDeviceApduExecuter.self))
                 return
             }
-            break
         default: break
         }
         

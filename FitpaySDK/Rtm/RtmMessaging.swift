@@ -95,7 +95,6 @@ class RtmMessaging {
                 preVersionBuffer = []
             }
             
-            break
         default:
             if !receivedWrongVersion {
                 log.debug("WV_DATA: Adding message to the buffer. Will be used after we will receive rtm version.")

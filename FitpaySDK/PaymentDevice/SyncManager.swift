@@ -175,11 +175,9 @@ protocol SyncManagerProtocol {
             case .syncCompleted:
                 self.syncFinishedFor(request: request, withError: nil)
                 self.syncOperations.removeValue(forKey: deviceInfo)
-                break
             case .syncFailed:
                 self.syncFinishedFor(request: request, withError: event.data["error"] as? Error)
                 self.syncOperations.removeValue(forKey: deviceInfo)
-                break
             default:
                 self.callCompletionForSyncEvent(event.event, params: event.data)
             }

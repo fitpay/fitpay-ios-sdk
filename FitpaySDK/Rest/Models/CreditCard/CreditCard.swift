@@ -210,11 +210,7 @@ import Foundation
 
     @available(*, deprecated, message: "as of v1.0.3")
     @objc open func getIsDefault() -> Bool {
-        if let _isDefault = isDefault {
-            return _isDefault
-        }
-        
-        return false
+        return isDefault ?? false
     }
 
     /**

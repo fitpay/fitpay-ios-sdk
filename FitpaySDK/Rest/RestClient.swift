@@ -241,7 +241,7 @@ open class RestClient: NSObject {
     }
     
     func makePostCall(_ url: String, parameters: [String: Any]?, completion: @escaping ConfirmHandler) {
-        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
                 DispatchQueue.main.async { completion(error) }
                 return
@@ -312,6 +312,7 @@ extension RestClient {
             return
         }
         
+        // TOOD: Think this can be standard post
         // encoding is different than standard post
         self.prepareAuthAndKeyHeaders { (headers, error) in
             guard let headers = headers else {
@@ -350,10 +351,9 @@ extension RestClient {
      - parameter completion:      CreateEncryptionKeyHandler closure
      */
     func createEncryptionKey(clientPublicKey: String, completion: @escaping EncryptionKeyHandler) {
-        let headers = self.defaultHeaders
         let parameters = ["clientPublicKey": clientPublicKey]
         
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -377,8 +377,7 @@ extension RestClient {
      - parameter completion: EncryptionKeyHandler closure
      */
     func encryptionKey(_ keyId: String, completion: @escaping EncryptionKeyHandler) {
-        let headers = self.defaultHeaders
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -394,17 +393,16 @@ extension RestClient {
      - parameter completion: DeleteHandler
      */
     func deleteEncryptionKey(_ keyId: String, completion: @escaping DeleteHandler) {
-        let headers = self.defaultHeaders
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (_, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (_, error) in
             completion(error)
         }
     }
     
     func createKeyIfNeeded(_ completion: @escaping EncryptionKeyHandler) {
-        if let key = self.key, !key.isExpired() {
+        if let key = key, !key.isExpired() {
             completion(key, nil)
         } else {
-            self.createEncryptionKey(clientPublicKey: self.keyPair.publicKey!) { [weak self] (encryptionKey, error) in
+            createEncryptionKey(clientPublicKey: keyPair.publicKey!) { [weak self] (encryptionKey, error) in
                 if let error = error {
                     completion(nil, error)
                 } else if let encryptionKey = encryptionKey {
@@ -424,15 +422,15 @@ extension RestClient {
     typealias AuthHeaderHandler = (_ headers: [String: String]?, _ error: ErrorResponse?) -> Void
     
     func createAuthHeaders(_ completion: AuthHeaderHandler) {
-        if self.session.isAuthorized {
-            completion(self.defaultHeaders + ["Authorization": "Bearer " + self.session.accessToken!], nil)
+        if session.isAuthorized {
+            completion(self.defaultHeaders + ["Authorization": "Bearer " + session.accessToken!], nil)
         } else {
             completion(nil, ErrorResponse(domain: RestClient.self, errorCode: ErrorCode.unauthorized.rawValue, errorMessage: "\(ErrorCode.unauthorized)"))
         }
     }
     
     func prepareAuthAndKeyHeaders(_ completion: @escaping AuthHeaderHandler) {
-        self.createAuthHeaders { [weak self] (headers, error) in
+        createAuthHeaders { [weak self] (headers, error) in
             if let error = error {
                 completion(nil, error)
             } else {

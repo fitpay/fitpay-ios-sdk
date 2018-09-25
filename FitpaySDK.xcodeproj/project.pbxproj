@@ -66,10 +66,10 @@
 		2746585D20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */; };
 		274FB87521405A4800ECCA82 /* UIntExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */; };
 		274FB87621405A4800ECCA82 /* UIntExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */; };
-		27524763214060D2003B11D9 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27524762214060D2003B11D9 /* NotificationDetailTests.swift */; };
-		27524764214060D2003B11D9 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27524762214060D2003B11D9 /* NotificationDetailTests.swift */; };
 		275AB51F212B733A00757849 /* ImageOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageOptionTests.swift */; };
 		275AB520212B733A00757849 /* ImageOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageOptionTests.swift */; };
+		2762F117215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */; };
+		2762F118215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */; };
 		276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		276CD260209A65C500076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
 		277380DA20E5716E00B84785 /* FitpayConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277380D920E5716E00B84785 /* FitpayConfigTests.swift */; };
@@ -115,6 +115,8 @@
 		278B4BFE2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
 		27982EBC20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
+		27A21A10215564AC00052F36 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */; };
+		27A21A11215564AC00052F36 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */; };
 		27A4AE76206D916A002255A1 /* UserEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */; };
 		27A5B65A20AF40260012BFB4 /* ImageWithOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B8884C20A4C9DC0027969D /* ImageWithOptions.swift */; };
 		27B1312A2134846E00B4A9CF /* JSONCodingKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B131292134846E00B4A9CF /* JSONCodingKeysTests.swift */; };
@@ -560,8 +562,8 @@
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
 		2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksPaymentDeviceConnector.swift; sourceTree = "<group>"; };
 		274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIntExtensionsTests.swift; sourceTree = "<group>"; };
-		27524762214060D2003B11D9 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailTests.swift; path = FitpaySDKTests/Notifications/NotificationDetailTests.swift; sourceTree = SOURCE_ROOT; };
 		275AB51E212B733A00757849 /* ImageOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOptionTests.swift; sourceTree = "<group>"; };
+		2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtensionsTests.swift; sourceTree = "<group>"; };
 		276CD25E209A5D1700076648 /* FitpayConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfig.swift; sourceTree = "<group>"; };
 		277380D920E5716E00B84785 /* FitpayConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfigTests.swift; sourceTree = "<group>"; };
 		277380DE20E572CE00B84785 /* fitpayconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fitpayconfig.json; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 		2786DB01207512410079ED15 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
 		278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRtmMessageHandler.swift; sourceTree = "<group>"; };
 		27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainerExtension.swift; sourceTree = "<group>"; };
+		27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailTests.swift; path = FitpaySDKTests/Notifications/NotificationDetailTests.swift; sourceTree = SOURCE_ROOT; };
 		27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEventStreamManager.swift; sourceTree = "<group>"; };
 		27B131292134846E00B4A9CF /* JSONCodingKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeysTests.swift; sourceTree = "<group>"; };
 		27B3F203215A9E27003CADDC /* UIImageExtensionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensionsTests.swift; sourceTree = "<group>"; };
@@ -892,7 +895,7 @@
 				27B8884E20A4FA120027969D /* A2AVerification */,
 				27257F44208160CF00633826 /* Crypto */,
 				2714B06920F4172C00321F22 /* Extensions */,
-				275247612140604A003B11D9 /* Notifications */,
+				27A21A0E2155646300052F36 /* Notifications */,
 				2773CD92207D537D00DFE113 /* PaymentDevice */,
 				277380D820E5715200B84785 /* Public */,
 				27C0243120A4A1F400681023 /* Rest */,
@@ -909,6 +912,7 @@
 				916C8ABB20EA368000EEAD3A /* DataExtensionsTests.swift */,
 				27F5E5F321263636002ED57A /* DictionaryExtensionsTests.swift */,
 				27F5E5F6212638C5002ED57A /* JSONSerializationExtensionsTests.swift */,
+				2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */,
 				27DC64E82143181B0097E6B8 /* StringExtensionsTests.swift */,
 				27B3F203215A9E27003CADDC /* UIImageExtensionsTests.swift */,
 				274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */,
@@ -985,15 +989,6 @@
 				3701AE3A1F13BA1B00550890 /* SyncEvent.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		275247612140604A003B11D9 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				27524762214060D2003B11D9 /* NotificationDetailTests.swift */,
-			);
-			name = Notifications;
-			path = Notif;
 			sourceTree = "<group>";
 		};
 		275AB51D212B732600757849 /* Images */ = {
@@ -1202,6 +1197,15 @@
 				277C181620B33748003BD78B /* ResetDeviceResult.swift */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		27A21A0E2155646300052F36 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */,
+			);
+			name = Notifications;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		27B131282134845600B4A9CF /* Codable */ = {
@@ -1489,11 +1493,11 @@
 		9AB68E371C84A1EC00A0E172 /* JWT */ = {
 			isa = PBXGroup;
 			children = (
-				9AB68E3A1C84A1EC00A0E172 /* JWE.swift */,
 				9AB68E391C84A1EC00A0E172 /* JOSEHeader.swift */,
-				27CFE12921237BD200AE116B /* JWTAlgorithm.swift */,
+				9AB68E3A1C84A1EC00A0E172 /* JWE.swift */,
 				27CFE120212371D900AE116B /* JWS.swift */,
 				27CFE12621237BC500AE116B /* JWSEncryption.swift */,
+				27CFE12921237BD200AE116B /* JWTAlgorithm.swift */,
 				27CFE11D21236FF500AE116B /* JWTError.swift */,
 				27CFE1232123794000AE116B /* JWTUtils.swift */,
 			);
@@ -2134,6 +2138,7 @@
 				91FD055620D1653400092234 /* ApduPackageTests.swift in Sources */,
 				2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */,
 				91FD054A20D1653400092234 /* CommitStatisticTests.swift in Sources */,
+				2762F117215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				27F5E5FC21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
 				273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,
 				1F5DE2C51FEA7E3B00BB0531 /* CommitsStorageTests.swift in Sources */,
@@ -2156,7 +2161,6 @@
 				27C0243520A4A27F00681023 /* TransformsTests.swift in Sources */,
 				91FD056220D1653500092234 /* CommitTests.swift in Sources */,
 				27F5E5F7212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
-				27524763214060D2003B11D9 /* NotificationDetailTests.swift in Sources */,
 				9AA5BDAB1C7B54B600EDF2F6 /* RestSessionTests.swift in Sources */,
 				27B8885120A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				91FD056F20D1664000092234 /* MockModels.swift in Sources */,
@@ -2165,6 +2169,7 @@
 				37330EB620289E2000948BC6 /* TransactionTests.swift in Sources */,
 				27DC64E92143181B0097E6B8 /* StringExtensionsTests.swift in Sources */,
 				277380DA20E5716E00B84785 /* FitpayConfigTests.swift in Sources */,
+				27A21A10215564AC00052F36 /* NotificationDetailTests.swift in Sources */,
 				27F5E60221271224002ED57A /* MockCommitsFetcher.swift in Sources */,
 				91FD054E20D1653400092234 /* AddressTests.swift in Sources */,
 				37C94AAE1FE15E96009C0FE7 /* SyncManagerTests.swift in Sources */,
@@ -2206,6 +2211,7 @@
 				3A46E14A1DF023F9002D0270 /* RestSessionTests.swift in Sources */,
 				27B8885220A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				27F5E5FD21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
+				2762F118215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				91FD054F20D1653400092234 /* AddressTests.swift in Sources */,
 				27C0243620A4A28100681023 /* TransformsTests.swift in Sources */,
 				3A46E14D1DF023F9002D0270 /* JWETests.swift in Sources */,
@@ -2228,7 +2234,6 @@
 				2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
 				27F5E5F8212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
 				91FD056320D1653500092234 /* CommitTests.swift in Sources */,
-				27524764214060D2003B11D9 /* NotificationDetailTests.swift in Sources */,
 				91A4AC4C20EBD5AC005D057F /* APDUResponseTypeTest.swift in Sources */,
 				37C94AAF1FE15E96009C0FE7 /* SyncManagerTests.swift in Sources */,
 				91FD055520D1653400092234 /* VerificationMethodTests.swift in Sources */,
@@ -2237,6 +2242,7 @@
 				91FD054D20D1653400092234 /* IssuersTests.swift in Sources */,
 				27DC64EA2143181B0097E6B8 /* StringExtensionsTests.swift in Sources */,
 				27F5E60321271224002ED57A /* MockCommitsFetcher.swift in Sources */,
+				27A21A11215564AC00052F36 /* NotificationDetailTests.swift in Sources */,
 				91FD055B20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
 				273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */,
 				3A46E14E1DF023F9002D0270 /* RestClientTests.swift in Sources */,
