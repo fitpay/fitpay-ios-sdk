@@ -130,13 +130,13 @@ class MockModels {
     
     func getCreditCardMetadata() -> CardMetadata? {
         let image = getImage()?.toJSONString() ?? ""
-        let creditCardMetadata = try? CardMetadata("{\"labelColor\":\"00000\",\"issuerName\":\"\(someName)\",\"shortDescription\":\"Chase Freedom Visa\",\"longDescription\":\"Chase Freedom Visa with the super duper rewards\",\"contactUrl\":\"www.chase.com\",\"contactPhone\":\"18001234567\",\"contactEmail\":\"goldcustomer@chase.com\",\"termsAndConditionsUrl\":\"http://visa.com/terms\",\"privacyPolicyUrl\":\"http://visa.com/privacy\",\"brandLogo\":[\(image)],\"cardBackground\":[\(image)],\"cardBackgroundCombined\":[\(image)],\"icon\":[\(image),[\(image)]],\"issuerLogo\":[\(image)]}")
+        let creditCardMetadata = try? CardMetadata("{\"foregroundColor\":\"00000\",\"issuerName\":\"\(someName)\",\"shortDescription\":\"Chase Freedom Visa\",\"longDescription\":\"Chase Freedom Visa with the super duper rewards\",\"contactUrl\":\"www.chase.com\",\"contactPhone\":\"18001234567\",\"contactEmail\":\"goldcustomer@chase.com\",\"termsAndConditionsUrl\":\"http://visa.com/terms\",\"privacyPolicyUrl\":\"http://visa.com/privacy\",\"brandLogo\":[\(image)],\"coBrandLogo\":[\(image)],\"cardBackground\":[\(image)],\"cardBackgroundCombined\":[\(image)],\"cardBackgroundCombinedEmbossed\":[\(image)],\"icon\":[\(image),\(image)],\"issuerLogo\":[\(image)]}")
         expect(creditCardMetadata).toNot(beNil())
         return creditCardMetadata
     }
     
     func getTermsAssetReferences() -> TermsAssetReferences? {
-        let termsAssetReferences = try? TermsAssetReferences("{\"_links\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"},\"mimeType\":\"text/html\"}")
+        let termsAssetReferences = try? TermsAssetReferences("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/termsAssetReference\"}},\"mimeType\":\"text/html\"}")
         expect(termsAssetReferences).toNot(beNil())
         return termsAssetReferences
     }

@@ -26,4 +26,16 @@ class AddressTests: XCTestCase {
         expect(json?["countryCode"] as? String).to(equal("US"))
 
     }
+    
+    func testAddressManualInit() {
+        let address = Address(street1: "123 Lane", street2: "2", street3: "3", city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: "US")
+        
+        expect(address.street1).to(equal("123 Lane"))
+        expect(address.street2).to(equal("2"))
+        expect(address.street3).to(equal("3"))
+        expect(address.city).to(equal("Boulder"))
+        expect(address.state).to(equal("Colorado"))
+        expect(address.postalCode).to(equal("80401"))
+        expect(address.countryCode).to(equal("US"))
+    }
 }

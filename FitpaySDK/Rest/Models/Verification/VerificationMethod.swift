@@ -20,15 +20,15 @@ import Foundation
     var links: [ResourceLink]?
 
     open var selectAvailable: Bool {
-        return self.links?.url(VerificationMethod.selectResourceKey) != nil
+        return links?.url(VerificationMethod.selectResourceKey) != nil
     }
 
     open var verifyAvailable: Bool {
-        return self.links?.url(VerificationMethod.verifyResourceKey) != nil
+        return links?.url(VerificationMethod.verifyResourceKey) != nil
     }
 
     open var cardAvailable: Bool {
-        return self.links?.url(VerificationMethod.cardResourceKey) != nil
+        return links?.url(VerificationMethod.cardResourceKey) != nil
     }
 
     private enum CodingKeys: String, CodingKey {

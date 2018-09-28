@@ -1,6 +1,7 @@
 import Foundation
 
 open class TermsAssetReferences: NSObject, ClientModel, Serializable, AssetRetrivable {
+    
     open var mimeType: String?
     
     var client: RestClient?
@@ -29,12 +30,12 @@ open class TermsAssetReferences: NSObject, ClientModel, Serializable, AssetRetri
     
     @objc open func retrieveAsset(_ completion: @escaping RestClient.AssetsHandler) {
         let resource = TermsAssetReferences.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.assets(url, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: TermsAssetReferences.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, ErrorResponse.clientUrlError(domain: TermsAssetReferences.self, client: self.client, url: links?.url(resource), resource: resource))
+            return
         }
+        
+        client.assets(url, completion: completion)
     }
 }
