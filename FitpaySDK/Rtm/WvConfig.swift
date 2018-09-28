@@ -80,7 +80,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         
         self.rtmMessaging.outputDelegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: UIApplication.willEnterForegroundNotification, object: nil)
         self.bindEvents()
     }
 

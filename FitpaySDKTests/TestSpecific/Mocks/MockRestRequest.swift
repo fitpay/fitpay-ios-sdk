@@ -112,7 +112,7 @@ class MockRestRequest: RestRequestable {
         
         if urlString.contains("assets") {
             let imagePath =  Bundle(for: type(of: self)).path(forResource: "mocImage", ofType: "png")!
-            let data = UIImagePNGRepresentation(UIImage(contentsOfFile: imagePath)!)
+            let data = UIImage(contentsOfFile: imagePath)!.pngData()
             if let data = data {
                 completion(data, nil)
             }
