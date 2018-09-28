@@ -127,7 +127,7 @@ class CommitsApplyer {
             completion(error)
         }
         
-        switch (commitType) {
+        switch commitType {
         case CommitType.apduPackage:
             log.verbose("SYNC_DATA: processing APDU commit.")
             processAPDUCommit(commit, completion: commitCompletion)
@@ -354,7 +354,7 @@ class CommitsApplyer {
             return
         }
         
-        switch (commitType) {
+        switch commitType {
         case CommitType.apduPackage:
             let total = commit.payload?.apduPackage?.executedDuration ?? 0
             let commandsCount = commit.payload?.apduPackage?.apduCommands?.count ?? 1

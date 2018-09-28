@@ -64,19 +64,19 @@ class JOSEHeader {
         paramsDict["iv"]  = iv!.base64URLencoded()
         paramsDict["tag"] = tag!.base64URLencoded()
         
-        if (kid != nil) {
-            paramsDict["kid"] = kid!
+        if let kid = kid {
+            paramsDict["kid"] = kid
         }
         
-        if (sender != nil) {
-            paramsDict["sender"] = sender!
+        if let sender = sender {
+            paramsDict["sender"] = sender
         }
         
-        if (destination != nil) {
-            paramsDict["destination"] = destination!
+        if let destination = destination {
+            paramsDict["destination"] = destination
         }
         
-        if (cty == nil) {
+        if cty == nil {
             cty = "application/json"
         }
         

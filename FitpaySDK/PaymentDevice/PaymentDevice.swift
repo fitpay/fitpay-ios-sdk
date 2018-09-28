@@ -82,7 +82,7 @@ import Foundation
             DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
                 guard let strongSelf = self else { return }
                 
-                if (!strongSelf.isConnected || strongSelf.deviceInfo == nil) {
+                if !strongSelf.isConnected || strongSelf.deviceInfo == nil {
                     strongSelf.deviceInterface.resetToDefaultState()
                     strongSelf.callCompletionForEvent(PaymentDeviceEventTypes.onDeviceConnected, params: ["error": NSError.error(code: PaymentDevice.ErrorCode.operationTimeout, domain: PaymentDevice.self)])
                     strongSelf.connectionState = .disconnected

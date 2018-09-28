@@ -7,23 +7,23 @@ extension KeyedEncodingContainer {
         try self.encode(transformed, forKey: key)
     }
     
-    mutating func encode(_ value: Dictionary<String, Any>, forKey key: Key) throws {
+    mutating func encode(_ value: [String: Any], forKey key: Key) throws {
         var container = self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         try container.encodeJSONDictionary(value)
     }
     
-    mutating func encodeIfPresent(_ value: Dictionary<String, Any>?, forKey key: Key) throws {
+    mutating func encodeIfPresent(_ value: [String: Any]?, forKey key: Key) throws {
         if let value = value {
             try encode(value, forKey: key)
         }
     }
     
-    mutating func encode(_ value: Array<Any>, forKey key: Key) throws {
+    mutating func encode(_ value: [Any], forKey key: Key) throws {
         var container = self.nestedUnkeyedContainer(forKey: key)
         try container.encodeJSONArray(value)
     }
     
-    mutating func encodeIfPresent(_ value: Array<Any>?, key: Key) throws {
+    mutating func encodeIfPresent(_ value: [Any]?, key: Key) throws {
         if let value = value {
             try encode(value, forKey: key)
         }
@@ -33,7 +33,7 @@ extension KeyedEncodingContainer {
 
 extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
     
-    mutating func encodeJSONDictionary(_ value: Dictionary<String, Any>) throws {
+    mutating func encodeJSONDictionary(_ value: [String: Any]) throws {
         try value.forEach { (key, value) in
             let key = JSONCodingKeys(stringValue: key)!
             switch value {
@@ -54,4 +54,5 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
             }
         }
     }
+    
 }

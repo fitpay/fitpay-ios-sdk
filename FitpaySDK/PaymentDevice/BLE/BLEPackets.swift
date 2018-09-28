@@ -18,7 +18,7 @@ struct Continuation {
         let dataFromParts = NSMutableData()
         var expectedKey = 0
         for (key, value) in dataParts {
-            if (key != expectedKey) {
+            if key != expectedKey {
                 return nil
             }
             
@@ -74,7 +74,7 @@ struct ContinuationControlMessage {
         (msg as NSData).getBytes(&buffer, length: buffer.count)
         
         type = buffer[0]
-        if (buffer[0] == 0x00) {
+        if buffer[0] == 0x00 {
             isBeginning = true
             isEnd = false
         } else {
@@ -87,7 +87,7 @@ struct ContinuationControlMessage {
         (msg as NSData).getBytes(&buffer, range: range)
         
         data = Data(bytes: UnsafePointer<UInt8>(buffer), count: (msg.count) - 1)
-        if (data.count == 16) {
+        if data.count == 16 {
             //reverse bytes for little endian representation
             var inData = [UInt8](repeating: 0, count: data.count)
             (data as NSData).getBytes(&inData, length: data.count)
@@ -101,7 +101,7 @@ struct ContinuationControlMessage {
             let out = Data(bytes: UnsafePointer<UInt8>(outData), count: outData.count)
             uuid = CBUUID(data: out)
             crc32 = UInt32()
-        } else if (data.count == 4) {
+        } else if data.count == 4 {
             uuid = CBUUID()
             var u32: UInt32 = 0
             (data as NSData).getBytes(&u32, length: 4)

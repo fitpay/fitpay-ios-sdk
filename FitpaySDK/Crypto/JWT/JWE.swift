@@ -46,7 +46,7 @@ class JWE {
             throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == .A256GCMKW && header?.enc == .A256GCM) {
+        if header?.alg == .A256GCMKW && header?.enc == .A256GCM {
             let cek = String.random(JWE.CekSize).data(using: String.Encoding.utf8)
             let cekIV = String.random(JWE.CekIVSize).data(using: String.Encoding.utf8)
             
@@ -86,7 +86,7 @@ class JWE {
             throw JWTError.headerNotSpecified
         }
         
-        if (header?.alg == .A256GCMKW && header?.enc == .A256GCM) {
+        if header?.alg == .A256GCMKW && header?.enc == .A256GCM {
             guard header!.iv != nil else {
                 throw JWTError.headersIVNotSpecified
             }
@@ -102,10 +102,10 @@ class JWE {
             let aad = jwe[0].data(using: String.Encoding.utf8)
             
             // ensure that we have 16 bytes in Authentication Tag
-            if ((tag?.count)! < JWE.AuthenticationTagSize) {
+            if tag!.count < JWE.AuthenticationTagSize {
                 let concatedCtAndTag = NSMutableData(data: ct!)
                 concatedCtAndTag.append(tag!)
-                if (concatedCtAndTag.length > JWE.AuthenticationTagSize) {
+                if concatedCtAndTag.length > JWE.AuthenticationTagSize {
                     ct = concatedCtAndTag.subdata(with: NSRange(location: 0, length: concatedCtAndTag.length-JWE.AuthenticationTagSize))
                     tag = concatedCtAndTag.subdata(with: NSRange(location: concatedCtAndTag.length-JWE.AuthenticationTagSize, length: JWE.AuthenticationTagSize))
                 }

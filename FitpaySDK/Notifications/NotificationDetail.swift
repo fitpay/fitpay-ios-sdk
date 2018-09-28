@@ -40,7 +40,7 @@ open class NotificationDetail: Serializable, ClientModel {
         type = try? container.decode(.type)
         
         syncId = try? container.decode(.syncId)
-        if (syncId == nil) { // for old notifications syncId comes through as id
+        if syncId == nil { // for old notifications syncId comes through as id
             syncId = try? container.decode(.id)
         }
         

@@ -92,6 +92,7 @@ open class FitpayEventsSubscriber {
     
     open func unsubscribe(subscriber: AnyObject) {
         var subscriberWithBindings: SubscriberWithBinding?
+        
         for (i, subscriberItr) in subscribersWithBindings.enumerated() {
             if subscriberItr.subscriber === subscriber {
                 subscriberWithBindings = subscriberItr

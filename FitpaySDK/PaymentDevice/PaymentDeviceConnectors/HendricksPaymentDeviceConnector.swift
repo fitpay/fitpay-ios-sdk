@@ -122,7 +122,7 @@ import CoreBluetooth
         
         log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
-        if (command.command == .factoryReset) {
+        if command.command == .factoryReset {
             wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
         }
 
@@ -285,7 +285,7 @@ import CoreBluetooth
             
             for i in stride(from: 0, to: pixelData.count, by: 4) {
                 let a = pixelData[i + 3]
-                if (a < 255) {
+                if a < 255 {
                     transparency = true
                     break
                 }
@@ -310,7 +310,7 @@ import CoreBluetooth
                 
                 var color: UInt16 = (red << 11) | (green << 5) | blue
                 
-                if (i == 0) { // handle first case differently
+                if i == 0 { // handle first case differently
                     previousColor = (color: color, alpha: alpha)
                 } else {
                     pixelCounter += 1
@@ -323,7 +323,7 @@ import CoreBluetooth
                 let lastPixel = i + 4 == pixelData.count
                 
                 if (color: color, alpha: alpha) != previousColor! || pixelCounter >= maxPixelCount || lastPixel {
-                    if (!lastPixel) {
+                    if !lastPixel {
                         pixelCounter -= 1
                     }
                     
@@ -488,11 +488,11 @@ import CoreBluetooth
                 return
             }
             
-            if (value.count == 1) { //status
+            if value.count == 1 { //status
                 log.debug("HENDRICKS: BLE Response OK with no length")
                 resetVariableState()
                 
-            } else if (value.count == 5) { //length
+            } else if value.count == 5 { //length
                 log.debug("HENDRICKS: BLE Response OK with length")
                 let lengthData = Data(bytes: Array(value[1...4])).hex
                 expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
@@ -504,7 +504,7 @@ import CoreBluetooth
         case dataCharacteristicId:
             returnedData.append(contentsOf: value)
 
-            if (returnedData.count == expectedDataSize) {
+            if returnedData.count == expectedDataSize {
                 let hexData = Data(bytes: returnedData).hex
                 log.verbose("HENDRICKS: all data received \(hexData)")
                 

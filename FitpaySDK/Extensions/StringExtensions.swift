@@ -54,7 +54,7 @@ extension String {
         tempEncodedString = tempEncodedString.replacingOccurrences(of: "_", with: "/")
         
         let equalsToBeAdded = encodedString.count % 4
-        if (equalsToBeAdded > 0) {
+        if equalsToBeAdded > 0 {
             for _ in 0..<equalsToBeAdded {
                 tempEncodedString += "="
             }

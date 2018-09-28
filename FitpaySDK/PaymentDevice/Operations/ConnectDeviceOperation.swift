@@ -67,7 +67,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             let deviceInfo = (event.eventData as? [String: Any])?["deviceInfo"] as? Device
             let error = (event.eventData as? [String: Any])?["error"] as? Error
             
-            guard (error == nil && deviceInfo != nil) else {
+            guard error == nil && deviceInfo != nil else {
                 observable.onError(error ?? SyncOperationError.couldNotConnectToDevice)
                 return
             }

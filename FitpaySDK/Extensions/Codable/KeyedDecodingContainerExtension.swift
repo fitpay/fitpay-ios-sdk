@@ -1,13 +1,13 @@
 extension KeyedDecodingContainer {
     
-    func decode(_ type: Dictionary<String, Any>.Type, forKey key: K) throws -> Dictionary<String, Any> {
+    func decode(_ type: [String: Any].Type, forKey key: K) throws -> [String: Any] {
         let container = try self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         let dictionary = try container.decode(type)
         return dictionary
     }
 
-    func decode(_ type: Dictionary<String, Any>.Type) throws -> Dictionary<String, Any> {
-        var dictionary = Dictionary<String, Any>()
+    func decode(_ type: [String: Any].Type) throws -> [String: Any] {
+        var dictionary = [String: Any]()
 
         for key in allKeys {
             if let boolValue = try? decode(Bool.self, forKey: key) {
@@ -42,13 +42,13 @@ extension KeyedDecodingContainer {
         return object
     }
     
-    func decode(_ type: Array<Any>.Type, forKey key: K) throws -> Array<Any> {
+    func decode(_ type: Array<Any>.Type, forKey key: K) throws -> [Any] {
         var container = try self.nestedUnkeyedContainer(forKey: key)
         let object = try container.decode(type, array: true)
         return object
     }
     
-    func decode<T>(_ type: Array<T>.Type, key: K) throws -> Array<T> {
+    func decode<T>(_ type: Array<T>.Type, key: K) throws -> [T] {
         var container = try self.nestedUnkeyedContainer(forKey: key)
         let object = try container.decode(type, array: true)
         return object!

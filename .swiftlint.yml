@@ -7,10 +7,8 @@ disabled_rules:
  - todo
  - force_try
  - nesting
- - syntactic_sugar
  - force_cast
- - for_where #like this rule but too many to fix right now
- - control_statement #like this rule but too many to fix right now
+ - for_where
 
 excluded:
  - Pods
@@ -24,7 +22,7 @@ type_body_length: 400
 force_cast: warning
 force_try: warning
 file_length:
-  warning: 500
+  warning: 700
   error: 3000
 function_parameter_count:
     warning: 8

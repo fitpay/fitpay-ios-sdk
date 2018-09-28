@@ -20,8 +20,6 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     private var notificationsQueue = [NotificationsPayload]()
     private var currentNotification: NotificationsPayload?
     
-
-    
     // MARK: - Public Functions
     public func setRestClient(_ client: RestClient?) {
         self.client = client

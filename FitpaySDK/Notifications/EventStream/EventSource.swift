@@ -20,7 +20,7 @@ class EventSource: NSObject {
     private(set) var retryTime = 3000
     
     private var eventListeners = Dictionary<String, (_ id: String?, _ event: String?, _ data: String?) -> Void>()
-    private var headers: Dictionary<String, String>
+    private var headers: [String: String]
     
     var urlSession: Foundation.URLSession?
     var task: URLSessionDataTask?
@@ -33,7 +33,7 @@ class EventSource: NSObject {
     private let uniqueIdentifier: String
     private let validNewlineCharacters = ["\r\n", "\n", "\r"]
     
-    var event = Dictionary<String, String>()
+    var event = [String: String]()
     
     var lastEventID: String? {
         set {
@@ -123,15 +123,15 @@ class EventSource: NSObject {
     }
     
     func addEventListener(_ event: String, handler: @escaping ((_ id: String?, _ event: String?, _ data: String?) -> Void)) {
-        self.eventListeners[event] = handler
+        eventListeners[event] = handler
     }
     
     func removeEventListener(_ event: String) {
-        self.eventListeners.removeValue(forKey: event)
+        eventListeners.removeValue(forKey: event)
     }
     
-    func events() -> Array<String> {
-        return Array(self.eventListeners.keys)
+    func events() -> [String] {
+        return Array(eventListeners.keys)
     }
 
     // MARK: - Private Helpers
@@ -212,7 +212,7 @@ class EventSource: NSObject {
     }
 
     private func parseEvent(_ eventString: String) -> (id: String?, event: String?, data: String?) {
-        var event = Dictionary<String, String>()
+        var event = [String: String]()
         
         for line in eventString.components(separatedBy: CharacterSet.newlines) as [String] {
             autoreleasepool {
