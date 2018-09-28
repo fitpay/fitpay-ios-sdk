@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (4.7.3)
-  - Nimble (7.1.3)
-  - RxBlocking (4.2.0):
+  - Nimble (7.3.1)
+  - RxBlocking (4.3.1):
     - RxSwift (~> 4.0)
-  - RxSwift (4.2.0)
+  - RxSwift (4.3.1)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
@@ -23,9 +23,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
-  RxBlocking: e339d8a6e752e25ade95ff858466c55436668f59
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  RxBlocking: 64c051285261ca2339481e91b5f70eb06b03660a
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
 PODFILE CHECKSUM: 696eab8e4a26552ea72f4d0ec8a217f1af31a688
