@@ -4,18 +4,23 @@ open class ImageWithOptions: Image {
 
     private static let selfResourceKey = "self"
 
+    // MARK: - Public Functions
+    
     open func retrieveAssetWith(options: [ImageAssetOption] = [], completion: @escaping RestClient.AssetsHandler) {
         let resource = ImageWithOptions.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client, let urlString = updateUrlAssetWith(urlString: url, options: options) {
-            client.assets(urlString, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: Image.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+
+        guard let url = links?.url(resource), let client = client, let urlString = updateUrlAssetWith(urlString: url, options: options) else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.assets(urlString, completion: completion)
+
     }
     
-    func updateUrlAssetWith(urlString: String, options: [ImageAssetOption]) -> String? {
+    // MARK: - Private Functions
+    
+    private func updateUrlAssetWith(urlString: String, options: [ImageAssetOption]) -> String? {
         guard var url = URLComponents(string: urlString) else { return urlString }
         guard url.queryItems != nil else { return urlString }
         
@@ -35,6 +40,10 @@ open class ImageWithOptions: Image {
         }
         
         return (try? url.asURL())?.absoluteString
+    }
+    
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?.url(resource), resource: resource)
     }
     
 }

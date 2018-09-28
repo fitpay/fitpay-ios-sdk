@@ -148,7 +148,13 @@ class MockModels {
     }
     
     func getImage() -> Image? {
-        let image = try? Image("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
+        let image = try? Image("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/assets?assetId=-498647650&adapterId=1131178c-aab5-438b-ab9d-a6572cb64c8c&adapterData=40\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
+        expect(image).toNot(beNil())
+        return image
+    }
+    
+    func getImageWithOptions() -> ImageWithOptions? {
+        let image = try? ImageWithOptions("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/assets?assetId=-498647650&adapterId=1131178c-aab5-438b-ab9d-a6572cb64c8c&adapterData=40\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
         expect(image).toNot(beNil())
         return image
     }
