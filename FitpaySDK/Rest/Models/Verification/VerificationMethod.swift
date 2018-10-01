@@ -143,4 +143,5 @@ import Foundation
     private func composeError(_ resource: String) -> ErrorResponse? {
         return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?.url(resource), resource: resource)
     }
+    
 }

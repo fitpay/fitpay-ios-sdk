@@ -19,7 +19,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     var links: [ResourceLink]?
     var encryptedData: String?
     var info: UserInfo?
-
+    
     weak var client: RestClient?
     
     private static let creditCardsResourceKey = "creditCards"
@@ -71,12 +71,13 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     ///   - completion: CreateCreditCardHandler closure
     @objc public func createCreditCard(cardInfo: CardInfo, deviceId: String? = nil, completion: @escaping RestClient.CreditCardHandler) {
         let resource = User.creditCardsResourceKey
-        let url = self.links?.url(resource)
-        if  let url = url, let client = self.client {
-            client.createCreditCard(url, cardInfo: cardInfo, deviceId: deviceId, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.createCreditCard(url, cardInfo: cardInfo, deviceId: deviceId, completion: completion)
     }
     
     /**
@@ -89,12 +90,13 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
      */
     public func getCreditCards(excludeState: [String], limit: Int, offset: Int, deviceId: String? = nil, completion: @escaping RestClient.CreditCardsHandler) {
         let resource = User.creditCardsResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.creditCards(url, excludeState: excludeState, limit: limit, offset: offset, deviceId: deviceId, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.creditCards(url, excludeState: excludeState, limit: limit, offset: offset, deviceId: deviceId, completion: completion)
     }
     
     /**
@@ -106,12 +108,13 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
      */
     public func getDevices(limit: Int, offset: Int, completion: @escaping RestClient.DevicesHandler) {
         let resource = User.devicesResourceKey
-        let url = self.links?.url(resource)
-        if  let url = url, let client = self.client {
-            client.makeGetCall(url, limit: limit, offset: offset, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, limit: limit, offset: offset, completion: completion)
     }
     
     /**
@@ -121,32 +124,35 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
      */
     @objc public func createDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
         let resource = User.devicesResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.createNewDevice(url, deviceInfo: device, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.createNewDevice(url, deviceInfo: device, completion: completion)
     }
     
     @objc public func deleteUser(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = User.selfResourceKey
-        let url = self.links?.url(resource)
-        if  let url = url, let client = self.client {
-            client.makeDeleteCall(url, completion: completion)
-        } else {
-            completion(ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(composeError(resource))
+            return
         }
+        
+        client.makeDeleteCall(url, completion: completion)
     }
     
     @objc public func updateUser(firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion: @escaping RestClient.UserHandler) {
         let resource = User.selfResourceKey
-        let url = self.links?.url(resource)
-        if  let url = url, let client = self.client {
-            client.updateUser(url, firstName: firstName, lastName: lastName, birthDate: birthDate, originAccountCreated: originAccountCreated, termsAccepted: termsAccepted, termsVersion: termsVersion, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: User.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.updateUser(url, firstName: firstName, lastName: lastName, birthDate: birthDate, originAccountCreated: originAccountCreated, termsAccepted: termsAccepted, termsVersion: termsVersion, completion: completion)
     }
     
     // MARK: - Internal Functions
@@ -155,4 +161,9 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
         info = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
+    // MARK: - Private Functions
+    
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: User.self, client: client, url: links?.url(resource), resource: resource)
+    }
 }
