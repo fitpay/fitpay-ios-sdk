@@ -100,7 +100,7 @@ import Foundation
         let resource = VerificationMethod.selectResourceKey
         
         guard let url = links?.url(resource), let client = client else {
-             completion(false, nil,  composeError(resource))
+             completion(false, nil, composeError(resource))
             return
         }
 
@@ -117,7 +117,7 @@ import Foundation
         let resource = VerificationMethod.verifyResourceKey
         
         guard let url = links?.url(resource), let client = client else {
-             completion(false, nil,  composeError(resource))
+             completion(false, nil, composeError(resource))
             return
         }
         
