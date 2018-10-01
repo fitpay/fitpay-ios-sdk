@@ -5,9 +5,7 @@ class ResourceLinkTypeTransform: CodingContainerTransformer {
     typealias Input = [String: [String: String]]
     
     func transform(_ decoded: Input?) -> Output? {
-        guard let links = decoded else {
-            return nil
-        }
+        guard let links = decoded else { return nil }
         
         var list = [ResourceLink]()
         
@@ -22,10 +20,9 @@ class ResourceLinkTypeTransform: CodingContainerTransformer {
         
     }
     
+    // TODO: do we ever really want to encode links? - not hurting anything
     func transform(_ encoded: Output?) -> Input? {
-        guard let links = encoded else {
-            return nil
-        }
+        guard let links = encoded else { return nil }
         
         var map = [String: [String: String]]()
         

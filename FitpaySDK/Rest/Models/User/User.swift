@@ -149,10 +149,10 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
         }
     }
     
-    // MARK: - Internal Helpers
+    // MARK: - Internal Functions
     
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        self.info = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        info = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
 }

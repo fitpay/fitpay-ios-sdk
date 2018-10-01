@@ -116,6 +116,8 @@ class MockRestRequest: RestRequestable {
             if let data = data {
                 completion(data, nil)
             }
+        } else if urlString.contains("termsAssetReference") {
+            completion("html".data(using: .utf8), nil)
         }
     }
     

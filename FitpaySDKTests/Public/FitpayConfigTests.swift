@@ -5,13 +5,11 @@ import Nimble
 
 class FitpayConfigTests: XCTestCase {
     
-    override func tearDown() {
+    override func setUp() {
         FitpayConfig.configure(clientId: "fp_webapp_pJkVp2Rl")
     }
-
-    func testConfigByClientId() {
-        expect(FitpayConfig.clientId).to(beNil())
-        
+    
+    func testConfigByClientId() {        
         FitpayConfig.configure(clientId: "testId")
 
         expect(FitpayConfig.clientId).to(equal("testId"))

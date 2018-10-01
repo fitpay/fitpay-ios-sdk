@@ -20,15 +20,15 @@ import Foundation
     var links: [ResourceLink]?
 
     open var selectAvailable: Bool {
-        return self.links?.url(VerificationMethod.selectResourceKey) != nil
+        return links?.url(VerificationMethod.selectResourceKey) != nil
     }
 
     open var verifyAvailable: Bool {
-        return self.links?.url(VerificationMethod.verifyResourceKey) != nil
+        return links?.url(VerificationMethod.verifyResourceKey) != nil
     }
 
     open var cardAvailable: Bool {
-        return self.links?.url(VerificationMethod.cardResourceKey) != nil
+        return links?.url(VerificationMethod.cardResourceKey) != nil
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -98,12 +98,13 @@ import Foundation
     /// - Parameter completion: VerifyHandler closure
     @objc open func selectVerificationType(_ completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.selectResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.selectVerificationType(url, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+             completion(false, nil, composeError(resource))
+            return
         }
+
+        client.selectVerificationType(url, completion: completion)
     }
 
     /// If the selected verification method requires the submission of a one time passcode (OTP), this transition will be available.
@@ -114,12 +115,13 @@ import Foundation
     ///   - completion: VerifyHandler closure
     @objc open func verify(_ verificationCode: String, completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.verifyResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.verify(url, verificationCode: verificationCode, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+             completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.verify(url, verificationCode: verificationCode, completion: completion)
     }
 
     /// Retrieves the details of an existing credit card. You need only supply the unique identifier that was returned upon creation.
@@ -127,11 +129,18 @@ import Foundation
     /// - Parameter completion: CreditCardHandler closure
     @objc open func retrieveCreditCard(_ completion: @escaping RestClient.CreditCardHandler) {
         let resource = VerificationMethod.cardResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
+    // MARK: - Private Functions
+    
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?.url(resource), resource: resource)
     }
 }

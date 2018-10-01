@@ -57,6 +57,8 @@
 		273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA81D8208F8BF400FFBB56 /* PaymentDeviceUtilsTests.swift */; };
 		273C75D82121F79C005B9047 /* PaymentDeviceUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA81D8208F8BF400FFBB56 /* PaymentDeviceUtilsTests.swift */; };
 		273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773CD94207D53A300DFE113 /* IdVerificationTests.swift */; };
+		273D5B3F215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */; };
+		273D5B40215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */; };
 		2742E584212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E585212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E587212B5D42006D19A6 /* UIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UIntExtensions.swift */; };
@@ -66,8 +68,12 @@
 		2746585D20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */; };
 		274FB87521405A4800ECCA82 /* UIntExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */; };
 		274FB87621405A4800ECCA82 /* UIntExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */; };
-		275AB51F212B733A00757849 /* ImageOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageOptionTests.swift */; };
-		275AB520212B733A00757849 /* ImageOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageOptionTests.swift */; };
+		275AB51F212B733A00757849 /* ImageAssetOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageAssetOptionTests.swift */; };
+		275AB520212B733A00757849 /* ImageAssetOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AB51E212B733A00757849 /* ImageAssetOptionTests.swift */; };
+		275B7296215E8F18009531A8 /* CardMetaDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B7295215E8F18009531A8 /* CardMetaDataTests.swift */; };
+		275B7297215E8F18009531A8 /* CardMetaDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B7295215E8F18009531A8 /* CardMetaDataTests.swift */; };
+		275D7F63215ED96D0038A6CF /* ImageWithOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D7F62215ED96D0038A6CF /* ImageWithOptionsTests.swift */; };
+		275D7F64215ED96D0038A6CF /* ImageWithOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D7F62215ED96D0038A6CF /* ImageWithOptionsTests.swift */; };
 		2762F117215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */; };
 		2762F118215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */; };
 		276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CD25E209A5D1700076648 /* FitpayConfig.swift */; };
@@ -557,12 +563,15 @@
 		2735864320E127CE005EDA9D /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		273C75D22121F07A005B9047 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		273C75D42121F07E005B9047 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAssetReferencesTests.swift; sourceTree = "<group>"; };
 		2742E583212B5D0F006D19A6 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2742E586212B5D42006D19A6 /* UIntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntExtensions.swift; sourceTree = "<group>"; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
 		2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksPaymentDeviceConnector.swift; sourceTree = "<group>"; };
 		274FB87421405A4800ECCA82 /* UIntExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIntExtensionsTests.swift; sourceTree = "<group>"; };
-		275AB51E212B733A00757849 /* ImageOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOptionTests.swift; sourceTree = "<group>"; };
+		275AB51E212B733A00757849 /* ImageAssetOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssetOptionTests.swift; sourceTree = "<group>"; };
+		275B7295215E8F18009531A8 /* CardMetaDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMetaDataTests.swift; sourceTree = "<group>"; };
+		275D7F62215ED96D0038A6CF /* ImageWithOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithOptionsTests.swift; sourceTree = "<group>"; };
 		2762F116215ACC6E004E130B /* NSErrorExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtensionsTests.swift; sourceTree = "<group>"; };
 		276CD25E209A5D1700076648 /* FitpayConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfig.swift; sourceTree = "<group>"; };
 		277380D920E5716E00B84785 /* FitpayConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayConfigTests.swift; sourceTree = "<group>"; };
@@ -994,7 +1003,9 @@
 		275AB51D212B732600757849 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				275AB51E212B733A00757849 /* ImageOptionTests.swift */,
+				275AB51E212B733A00757849 /* ImageAssetOptionTests.swift */,
+				91FD053520D1652F00092234 /* ImageTests.swift */,
+				275D7F62215ED96D0038A6CF /* ImageWithOptionsTests.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -1011,8 +1022,10 @@
 			isa = PBXGroup;
 			children = (
 				91FD053020D1652D00092234 /* AddressTests.swift */,
-				91FD053B20D1653200092234 /* CreditCardTests.swift */,
 				27B6BCF92130588F005D6DEA /* CardInfoTests.swift */,
+				275B7295215E8F18009531A8 /* CardMetaDataTests.swift */,
+				91FD053B20D1653200092234 /* CreditCardTests.swift */,
+				273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */,
 			);
 			path = CreditCard;
 			sourceTree = "<group>";
@@ -1139,8 +1152,8 @@
 		2782F82320F6B5D9004774E8 /* Verification */ = {
 			isa = PBXGroup;
 			children = (
-				2782F82D20F6B619004774E8 /* Enums */,
 				CD0385770D2621125F59B8DD /* VerificationMethod.swift */,
+				2782F82D20F6B619004774E8 /* Enums */,
 			);
 			path = Verification;
 			sourceTree = "<group>";
@@ -1251,7 +1264,6 @@
 			isa = PBXGroup;
 			children = (
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
-				91FD053520D1652F00092234 /* ImageTests.swift */,
 				91FD052F20D1652D00092234 /* IssuersTests.swift */,
 				91300F7020ED066200ACD3E6 /* PayloadTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
@@ -1273,12 +1285,12 @@
 		27C34A3E20CEC5C5005EE649 /* CreditCard */ = {
 			isa = PBXGroup;
 			children = (
-				2782F83920F6B873004774E8 /* Enums */,
 				CD03869312A30FB6257C3313 /* Address.swift */,
 				27C34A4220CEC635005EE649 /* CardInfo.swift */,
 				27C34A3B20CEC5B1005EE649 /* CardMetaData.swift */,
 				CD038848A71603F14A4F8CD7 /* CreditCard.swift */,
 				27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */,
+				2782F83920F6B873004774E8 /* Enums */,
 			);
 			path = CreditCard;
 			sourceTree = "<group>";
@@ -2127,7 +2139,7 @@
 				27B1312A2134846E00B4A9CF /* JSONCodingKeysTests.swift in Sources */,
 				91A4AC4820EBCD39005D057F /* RtmMessageTests.swift in Sources */,
 				27FC9AF22124A82C00D748A4 /* JWSTests.swift in Sources */,
-				275AB51F212B733A00757849 /* ImageOptionTests.swift in Sources */,
+				275AB51F212B733A00757849 /* ImageAssetOptionTests.swift in Sources */,
 				27B6BCFA2130588F005D6DEA /* CardInfoTests.swift in Sources */,
 				27B3F204215A9E27003CADDC /* UIImageExtensionsTests.swift in Sources */,
 				916C8ABE20EA587E00EEAD3A /* DataExtensionsTests.swift in Sources */,
@@ -2138,6 +2150,7 @@
 				91FD055620D1653400092234 /* ApduPackageTests.swift in Sources */,
 				2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */,
 				91FD054A20D1653400092234 /* CommitStatisticTests.swift in Sources */,
+				275B7296215E8F18009531A8 /* CardMetaDataTests.swift in Sources */,
 				2762F117215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				27F5E5FC21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
 				273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,
@@ -2146,6 +2159,7 @@
 				27F5E61321272B12002ED57A /* MockFailedSyncManger.swift in Sources */,
 				27F5E5F421263636002ED57A /* DictionaryExtensionsTests.swift in Sources */,
 				91FD055A20D1653500092234 /* EncryptionKeyTests.swift in Sources */,
+				275D7F63215ED96D0038A6CF /* ImageWithOptionsTests.swift in Sources */,
 				91FD056C20D1653500092234 /* DeviceTests.swift in Sources */,
 				91A4AC4520EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
 				91FD054C20D1653400092234 /* IssuersTests.swift in Sources */,
@@ -2161,6 +2175,7 @@
 				27C0243520A4A27F00681023 /* TransformsTests.swift in Sources */,
 				91FD056220D1653500092234 /* CommitTests.swift in Sources */,
 				27F5E5F7212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
+				273D5B3F215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */,
 				9AA5BDAB1C7B54B600EDF2F6 /* RestSessionTests.swift in Sources */,
 				27B8885120A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				91FD056F20D1664000092234 /* MockModels.swift in Sources */,
@@ -2211,6 +2226,7 @@
 				3A46E14A1DF023F9002D0270 /* RestSessionTests.swift in Sources */,
 				27B8885220A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				27F5E5FD21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
+				275B7297215E8F18009531A8 /* CardMetaDataTests.swift in Sources */,
 				2762F118215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				91FD054F20D1653400092234 /* AddressTests.swift in Sources */,
 				27C0243620A4A28100681023 /* TransformsTests.swift in Sources */,
@@ -2219,6 +2235,7 @@
 				27F5E5F521263636002ED57A /* DictionaryExtensionsTests.swift in Sources */,
 				91300F6F20ECF15C00ACD3E6 /* NSErrorExtensionTests.swift in Sources */,
 				916C8AC220EA7C4900EEAD3A /* UnkeyedDecodingContainerTest.swift in Sources */,
+				275D7F64215ED96D0038A6CF /* ImageWithOptionsTests.swift in Sources */,
 				91A4AC4920EBCD39005D057F /* RtmMessageTests.swift in Sources */,
 				91300F7220ED066200ACD3E6 /* PayloadTests.swift in Sources */,
 				91FD054920D1653400092234 /* RtmConfigTests.swift in Sources */,
@@ -2234,6 +2251,7 @@
 				2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
 				27F5E5F8212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
 				91FD056320D1653500092234 /* CommitTests.swift in Sources */,
+				273D5B40215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */,
 				91A4AC4C20EBD5AC005D057F /* APDUResponseTypeTest.swift in Sources */,
 				37C94AAF1FE15E96009C0FE7 /* SyncManagerTests.swift in Sources */,
 				91FD055520D1653400092234 /* VerificationMethodTests.swift in Sources */,
@@ -2249,7 +2267,7 @@
 				272CDBEB2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */,
 				91A4AC4620EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
 				91FD055720D1653400092234 /* ApduPackageTests.swift in Sources */,
-				275AB520212B733A00757849 /* ImageOptionTests.swift in Sources */,
+				275AB520212B733A00757849 /* ImageAssetOptionTests.swift in Sources */,
 				3A46E14F1DF023F9002D0270 /* TestHelper.swift in Sources */,
 				916C8ABF20EA587E00EEAD3A /* DataExtensionsTests.swift in Sources */,
 				27F5E60021271217002ED57A /* MockNonAPDUConfirm.swift in Sources */,
@@ -2673,7 +2691,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(FRAMEWORK_SEARCH_PATHS) @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -2693,7 +2711,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks $(FRAMEWORK_SEARCH_PATHS) @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fitpay.FitpaySDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -2728,7 +2746,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -2763,7 +2781,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

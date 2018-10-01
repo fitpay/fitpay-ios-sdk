@@ -1,13 +1,14 @@
 import Foundation
 
 open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
+    
     open var mimeType: String?
     open var height: Int?
     open var width: Int?
     
-    var client: RestClient?
-    
     open var links: [ResourceLink]?
+    
+    weak var client: RestClient?
     
     private static let selfResourceKey = "self"
 
@@ -17,6 +18,8 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
         case height
         case width
     }
+    
+    // MARK: - Lifecycle
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -36,15 +39,23 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
         try? container.encode(width, forKey: .width)
     }
     
+    // MARK: - Public Functions
+    
     open func retrieveAsset(_ completion: @escaping RestClient.AssetsHandler) {
         let resource = Image.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.assets(url, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: Image.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.assets(url, completion: completion)
+    }
+    
+    // MARK: - Private Functions
+    
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?.url(resource), resource: resource)
     }
     
 }

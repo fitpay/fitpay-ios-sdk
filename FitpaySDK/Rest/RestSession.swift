@@ -7,7 +7,7 @@ import Alamofire
     open var accessToken: String?
     
     open var isAuthorized: Bool {
-        return self.accessToken != nil
+        return accessToken != nil
     }
     
     private var restRequest: RestRequestable = RestRequest()

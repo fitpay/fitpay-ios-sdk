@@ -4,7 +4,18 @@ import Nimble
 @testable import FitpaySDK
 
 class VerificationMethodTests: XCTestCase {
-    let mockModels = MockModels()
+    
+    private let mockModels = MockModels()
+    private let mockRestRequest = MockRestRequest()
+    private var session: RestSession?
+    private var client: RestClient?
+    
+    override func setUp() {
+        session = RestSession(sessionData: nil, restRequest: mockRestRequest)
+        session!.accessToken = "authorized"
+        
+        client = RestClient(session: session!, restRequest: mockRestRequest)
+    }
         
     func testVerificationMethodParsing() {
         let verificationMethod = mockModels.getVerificationMethod()
@@ -37,33 +48,6 @@ class VerificationMethodTests: XCTestCase {
         expect(json?["verifiedTsEpoch"] as? Int64).to(equal(mockModels.timeEpoch))
         expect(json?["appToAppContext"]).toNot(beNil())
     }
-
-    func testSelectVerificationTypeNoClient() {
-        let verificationMethod = mockModels.getVerificationMethod()
-        
-        verificationMethod?.selectVerificationType { (_, verificationMethod, error) in
-            expect(verificationMethod).to(beNil())
-            expect(error?.localizedDescription).to(equal("RestClient is not set."))
-        }
-    }
-    
-    func testVerifyNoClient() {
-        let verificationMethod = mockModels.getVerificationMethod()
-        
-        verificationMethod?.verify("verificationCode") { (_, verificationMethod, error) in
-            expect(verificationMethod).to(beNil())
-            expect(error?.localizedDescription).to(equal("RestClient is not set."))
-        }
-    }
-    
-    func testRetrieveCreditCardNoClient() {
-        let verificationMethod = mockModels.getVerificationMethod()
-        
-        verificationMethod?.retrieveCreditCard { (creditCard, error) in
-            expect(creditCard).to(beNil())
-            expect(error?.localizedDescription).to(equal("RestClient is not set."))
-        }
-    }
     
     func testSelectAvailable() {
         let verificationMethod = mockModels.getVerificationMethod()
@@ -90,12 +74,71 @@ class VerificationMethodTests: XCTestCase {
     func testCardAvailable() {
         let verificationMethod = mockModels.getVerificationMethod()
         let verificationMethodNoLinks = mockModels.getVerificationMethodWithoutLinks()
-
+        
         let cardAvailable = verificationMethod?.cardAvailable
         expect(cardAvailable).to(beTrue())
         
         let cardNotAvailable = verificationMethodNoLinks?.cardAvailable
         expect(cardNotAvailable).toNot(beTrue())
+    }
+
+    func testSelectVerificationTypeNoClient() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        
+        verificationMethod?.selectVerificationType { (_, verificationMethod, error) in
+            expect(verificationMethod).to(beNil())
+            expect(error?.localizedDescription).to(equal("RestClient is not set."))
+        }
+    }
+    
+    func testSelectVerificationType() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        verificationMethod?.client = client
+        
+        verificationMethod?.selectVerificationType { (pending, verificationMethod, error) in
+            expect(error).to(beNil())
+            expect(verificationMethod).toNot(beNil())
+            expect(pending).to(beFalse())
+        }
+    }
+    
+    func testVerifyNoClient() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        
+        verificationMethod?.verify("verificationCode") { (_, verificationMethod, error) in
+            expect(verificationMethod).to(beNil())
+            expect(error?.localizedDescription).to(equal("RestClient is not set."))
+        }
+    }
+    
+    func testVerify() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        verificationMethod?.client = client
+
+        verificationMethod?.verify("verificationCode") { (pending, verificationMethod, error) in
+            expect(error).to(beNil())
+            expect(verificationMethod).toNot(beNil())
+            expect(pending).to(beFalse())
+        }
+    }
+    
+    func testRetrieveCreditCardNoClient() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        
+        verificationMethod?.retrieveCreditCard { (creditCard, error) in
+            expect(creditCard).to(beNil())
+            expect(error?.localizedDescription).to(equal("RestClient is not set."))
+        }
+    }
+    
+    func testRetrieveCreditCard() {
+        let verificationMethod = mockModels.getVerificationMethod()
+        verificationMethod?.client = client
+
+        verificationMethod?.retrieveCreditCard { (creditCard, error) in
+            expect(error).to(beNil())
+            expect(creditCard).toNot(beNil())
+        }
     }
     
 }

@@ -85,7 +85,7 @@ class MockModels {
     
     func getVerificationMethod() -> VerificationMethod? {
         let a2AContext = getA2AContext()?.toJSONString() ?? ""
-        let verificationMethod = try? VerificationMethod("{\"_links\":{\"select\":{\"href\":\"https://api.fit-pay.com/select\"}, \"verify\":{\"href\":\"https://api.fit-pay.com/verify\"}, \"card\":{\"href\":\"https://api.fit-pay.com/card\"}},\"verificationId\": \"\(someId)\", \"state\": \"AVAILABLE_FOR_SELECTION\", \"methodType\": \"TEXT_TO_CARDHOLDER_NUMBER\", \"value\": \"someValue\", \"verificationResult\": \"SUCCESS\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"lastModifiedTs\": \"\(someDate)\", \"lastModifiedTsEpoch\": \(timeEpoch), \"verifiedTs\": \"\(someDate)\", \"verifiedTsEpoch\": \(timeEpoch), \"appToAppContext\":\(a2AContext)}")
+        let verificationMethod = try? VerificationMethod("{\"_links\":{\"select\":{\"href\":\"https://api.fit-pay.com/select\"}, \"verify\":{\"href\":\"https://api.fit-pay.com/verify\"}, \"card\":{\"href\":\"https://api.fit-pay.com/creditCards\"}},\"verificationId\": \"\(someId)\", \"state\": \"AVAILABLE_FOR_SELECTION\", \"methodType\": \"TEXT_TO_CARDHOLDER_NUMBER\", \"value\": \"someValue\", \"verificationResult\": \"SUCCESS\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"lastModifiedTs\": \"\(someDate)\", \"lastModifiedTsEpoch\": \(timeEpoch), \"verifiedTs\": \"\(someDate)\", \"verifiedTsEpoch\": \(timeEpoch), \"appToAppContext\":\(a2AContext)}")
         expect(verificationMethod).toNot(beNil())
         return verificationMethod
     }
@@ -118,7 +118,7 @@ class MockModels {
     func getCreditCard() -> CreditCard? {
         let apduCommand = getApduCommand()?.toJSONString() ?? ""
 
-        let creditCard = try? CreditCard("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}}, \"creditCardId\": \"\(someId)\",\"userId\": \"\(someId)\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"state\": \"NOT_ELIGIBLE\", \"cardType\": \"\(someType)\", \"termsAssetId\": \"\(someId)\", \"eligibilityExpiration\": \"\(someDate)\", \"eligibilityExpirationEpoch\": \(timeEpoch), \"encryptedData\":\"\(someEncryptionData)\", \"targetDeviceId\": \"\(someId)\", \"targetDeviceType\": \"\(someType)\", \"externalTokenReference\": \"someToken\", \"offlineSeActions\": {\"topOfWallet\": {\"apduCommands\": [\(apduCommand)]}}, \"tokenLastFour\": \"4321\"}")
+        let creditCard = try? CreditCard("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"acceptTerms\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/acceptTerms\"}, \"declineTerms\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/declineTerms\"}, \"deactivate\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/deactivate\"}, \"reactivate\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/reactivate\"}, \"makeDefault\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/makeDefault\"}, \"transactions\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/transactions\"}, \"verificationMethods\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/verificationMethods\"}, \"selectedVerification\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/selectedVerification\"}}, \"creditCardId\": \"\(someId)\",\"userId\": \"\(someId)\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"state\": \"NOT_ELIGIBLE\", \"cardType\": \"\(someType)\", \"termsAssetId\": \"\(someId)\", \"eligibilityExpiration\": \"\(someDate)\", \"eligibilityExpirationEpoch\": \(timeEpoch), \"encryptedData\":\"\(someEncryptionData)\", \"targetDeviceId\": \"\(someId)\", \"targetDeviceType\": \"\(someType)\", \"externalTokenReference\": \"someToken\", \"offlineSeActions\": {\"topOfWallet\": {\"apduCommands\": [\(apduCommand)]}}, \"tokenLastFour\": \"4321\"}")
         
         creditCard?.cardMetaData = getCreditCardMetadata()
         creditCard?.termsAssetReferences = [getTermsAssetReferences()!]
@@ -130,13 +130,13 @@ class MockModels {
     
     func getCreditCardMetadata() -> CardMetadata? {
         let image = getImage()?.toJSONString() ?? ""
-        let creditCardMetadata = try? CardMetadata("{\"labelColor\":\"00000\",\"issuerName\":\"\(someName)\",\"shortDescription\":\"Chase Freedom Visa\",\"longDescription\":\"Chase Freedom Visa with the super duper rewards\",\"contactUrl\":\"www.chase.com\",\"contactPhone\":\"18001234567\",\"contactEmail\":\"goldcustomer@chase.com\",\"termsAndConditionsUrl\":\"http://visa.com/terms\",\"privacyPolicyUrl\":\"http://visa.com/privacy\",\"brandLogo\":[\(image)],\"cardBackground\":[\(image)],\"cardBackgroundCombined\":[\(image)],\"icon\":[\(image),[\(image)]],\"issuerLogo\":[\(image)]}")
+        let creditCardMetadata = try? CardMetadata("{\"foregroundColor\":\"00000\",\"issuerName\":\"\(someName)\",\"shortDescription\":\"Chase Freedom Visa\",\"longDescription\":\"Chase Freedom Visa with the super duper rewards\",\"contactUrl\":\"www.chase.com\",\"contactPhone\":\"18001234567\",\"contactEmail\":\"goldcustomer@chase.com\",\"termsAndConditionsUrl\":\"http://visa.com/terms\",\"privacyPolicyUrl\":\"http://visa.com/privacy\",\"brandLogo\":[\(image)],\"coBrandLogo\":[\(image)],\"cardBackground\":[\(image)],\"cardBackgroundCombined\":[\(image)],\"cardBackgroundCombinedEmbossed\":[\(image)],\"icon\":[\(image),\(image)],\"issuerLogo\":[\(image)]}")
         expect(creditCardMetadata).toNot(beNil())
         return creditCardMetadata
     }
     
     func getTermsAssetReferences() -> TermsAssetReferences? {
-        let termsAssetReferences = try? TermsAssetReferences("{\"_links\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"},\"mimeType\":\"text/html\"}")
+        let termsAssetReferences = try? TermsAssetReferences("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/termsAssetReference\"}},\"mimeType\":\"text/html\"}")
         expect(termsAssetReferences).toNot(beNil())
         return termsAssetReferences
     }
@@ -148,7 +148,13 @@ class MockModels {
     }
     
     func getImage() -> Image? {
-        let image = try? Image("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
+        let image = try? Image("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/assets?assetId=-498647650&adapterId=1131178c-aab5-438b-ab9d-a6572cb64c8c&adapterData=40\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
+        expect(image).toNot(beNil())
+        return image
+    }
+    
+    func getImageWithOptions() -> ImageWithOptions? {
+        let image = try? ImageWithOptions("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/assets?assetId=-498647650&adapterId=1131178c-aab5-438b-ab9d-a6572cb64c8c&adapterData=40\", \"encryptedData\": \"\(someEncryptionData)\"}},\"mimeType\":\"image/gif\",\"height\":20,\"width\":60}")
         expect(image).toNot(beNil())
         return image
     }
