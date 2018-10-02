@@ -203,11 +203,11 @@ class MockModels {
         return notificationDetail
     }
     
-//    func getResetDeviceResult() -> ResetDeviceResult? {
-//        let resetDeviceResult = try? ResetDeviceResult(loadDataFromJSONFile(filename: "resetDeviceTask"))
-//        XCTAssertNotNil(resetDeviceResult)
-//        return resetDeviceResult
-//    }
+    func getResetDeviceResult() -> ResetDeviceResult? {
+        let resetDeviceResult = try? ResetDeviceResult("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/resetDeviceTasks/464c0897-dd8a-45d5-bc5b-5592cddb363e\"}},\"resetId\":\"464c0897-dd8a-45d5-bc5b-5592cddb363e\",\"status\":\"IN_PROGRESS\",\"seStatus\":\"IN_PROGRESS\"}")
+        XCTAssertNotNil(resetDeviceResult)
+        return resetDeviceResult
+    }
 
     func getPayload() -> Payload? {
         let creditCard = getCreditCard()?.toJSONString()

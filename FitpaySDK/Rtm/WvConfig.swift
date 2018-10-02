@@ -53,12 +53,12 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     }
         
     var configStorage = WvConfigStorage()
-
-    var url = FitpayConfig.webURL
     
     var webview: WKWebView?
     var connectionBinding: FitpayEventBinding?
     var syncCallBacks = [RtmMessage]()
+    
+    var rtmMessaging: RtmMessaging
     
     private var bindings: [FitpayEventBinding] = []
     private var rtmVersionSent = false
@@ -72,7 +72,6 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     init(paymentDevice: PaymentDevice, rtmConfig: RtmConfigProtocol) {
         self.configStorage.paymentDevice = paymentDevice
         self.configStorage.rtmConfig = rtmConfig
-        self.url = FitpayConfig.webURL
         
         self.rtmMessaging = RtmMessaging(wvConfigStorage: self.configStorage)
         
@@ -210,7 +209,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         let JSONString = self.configStorage.rtmConfig?.jsonDict().JSONString
         let utfString = JSONString?.data(using: String.Encoding.utf8, allowLossyConversion: true)
         let encodedConfig = utfString?.base64URLencoded()
-        let configuredUrl = "\(url)?config=\(encodedConfig ?? "cantGenerateConfig_badJson?")"
+        let configuredUrl = "\(FitpayConfig.webURL)?config=\(encodedConfig ?? "cantGenerateConfig_badJson?")"
         
         log.verbose("WV_DATA: \(configuredUrl)")
         
@@ -235,15 +234,6 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         guard let encodedConfig = utfString?.base64URLencoded() else { return nil}
         
         return encodedConfig
-    }
-    
-    func showStatusMessage(_ status: WVDeviceStatus, message: String? = nil, error: Error? = nil) {
-        var realMessage = message ?? status.defaultMessage()
-        if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as NSError?) {
-            realMessage = newMessage
-        }
-        
-        sendStatusMessage(realMessage, type: status.statusMessageType())
     }
     
     func sendRtmMessage(rtmMessage: RtmMessageResponse, retries: Int = 3) {
@@ -274,10 +264,17 @@ class WvConfig: NSObject, WKScriptMessageHandler {
     
     // MARK: - Private
     
-    var rtmMessaging: RtmMessaging
+    private func showStatusMessage(_ status: WVDeviceStatus, message: String? = nil, error: Error? = nil) {
+        var realMessage = message ?? status.defaultMessage()
+        if let newMessage = rtmDelegate?.willDisplayStatusMessage?(status, defaultMessage: realMessage, error: error as NSError?) {
+            realMessage = newMessage
+        }
+        
+        sendStatusMessage(realMessage, type: status.statusMessageType())
+    }
     
     private func resolveSync() {
-        self.rtmMessaging.messageHandler?.resolveSync()
+        rtmMessaging.messageHandler?.resolveSync()
     }
     
     private func sendVersion(version: RtmProtocolVersion) {
@@ -291,7 +288,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         if let nonOptionalBinding = binding {
-            self.bindings.append(nonOptionalBinding)
+            bindings.append(nonOptionalBinding)
         }
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncCompleted) { [weak self] (_) in
@@ -302,7 +299,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         if let nonOptionalBinding = binding {
-            self.bindings.append(nonOptionalBinding)
+            bindings.append(nonOptionalBinding)
         }
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .syncFailed) { [weak self] (event) in
@@ -317,7 +314,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         if let nonOptionalBinding = binding {
-            self.bindings.append(nonOptionalBinding)
+            bindings.append(nonOptionalBinding)
         }
         
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .commitsReceived) { [weak self] (event) in
@@ -333,7 +330,7 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         if let nonOptionalBinding = binding {
-            self.bindings.append(nonOptionalBinding)
+            bindings.append(nonOptionalBinding)
         }
 
         binding = SyncManager.sharedInstance.bindToSyncEvent(eventType: .connectingToDevice) { [weak self] (_) in
@@ -341,19 +338,19 @@ class WvConfig: NSObject, WKScriptMessageHandler {
         }
         
         if let nonOptionalBinding = binding {
-            self.bindings.append(nonOptionalBinding)
+            bindings.append(nonOptionalBinding)
         }
     }
     
     private func unbindEvents() {
-        for binding in self.bindings {
+        for binding in bindings {
             SyncManager.sharedInstance.removeSyncBinding(binding: binding)
         }
     }
 
     @objc private func logout() {
         if configStorage.user != nil {
-            sendRtmMessage(rtmMessage: self.rtmMessaging.messageHandler?.logoutResponseMessage() ?? RtmMessageResponse(type: "logout"))
+            sendRtmMessage(rtmMessage: rtmMessaging.messageHandler?.logoutResponseMessage() ?? RtmMessageResponse(type: "logout"))
         }
     }
 }
@@ -361,11 +358,11 @@ class WvConfig: NSObject, WKScriptMessageHandler {
 extension WvConfig: RtmOutputDelegate {
     
     func send(rtmMessage: RtmMessageResponse, retries: Int) {
-        self.sendRtmMessage(rtmMessage: rtmMessage, retries: retries)
+        sendRtmMessage(rtmMessage: rtmMessage, retries: retries)
     }
     
     func show(status: WVDeviceStatus, message: String?, error: Error?) {
-        self.showStatusMessage(status, message: message, error: error)
+        showStatusMessage(status, message: message, error: error)
     }
     
 }

@@ -1,3 +1,5 @@
+import Foundation
+
 open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, SecretApplyable {
     open var limit: Int?
     open var offset: Int?
@@ -11,15 +13,15 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     private let previousResourceKey = "previous"
 
     open var nextAvailable: Bool {
-        return self.links?.url(self.nextResourceKey) != nil
+        return links?.url(nextResourceKey) != nil
     }
 
     open var lastAvailable: Bool {
-        return self.links?.url(self.lastResourceKey) != nil
+        return links?.url(lastResourceKey) != nil
     }
 
     open var previousAvailable: Bool {
-        return self.links?.url(self.previousResourceKey) != nil
+        return links?.url(previousResourceKey) != nil
     }
 
     var client: RestClient? {

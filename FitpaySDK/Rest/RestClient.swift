@@ -399,7 +399,7 @@ extension RestClient {
     }
     
     func createKeyIfNeeded(_ completion: @escaping EncryptionKeyHandler) {
-        if let key = key, !key.isExpired() {
+        if let key = key, !key.isExpired {
             completion(key, nil)
         } else {
             createEncryptionKey(clientPublicKey: keyPair.publicKey!) { [weak self] (encryptionKey, error) in

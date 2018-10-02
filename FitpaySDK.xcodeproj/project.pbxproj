@@ -32,6 +32,10 @@
 		2714B07020F417B900321F22 /* ResourceLinkTypeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06E20F417B900321F22 /* ResourceLinkTypeTransform.swift */; };
 		2716908E2106739E0026B927 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716908D2106739E0026B927 /* RestRequest.swift */; };
 		2716908F2106739E0026B927 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716908D2106739E0026B927 /* RestRequest.swift */; };
+		271848632162CBE900FBB04C /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D12722162C864004811A3 /* AssetTests.swift */; };
+		271848642162CBE900FBB04C /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D12722162C864004811A3 /* AssetTests.swift */; };
+		271848662162D0A900FBB04C /* ResourceLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271848652162D0A900FBB04C /* ResourceLinkTests.swift */; };
+		271848672162D0A900FBB04C /* ResourceLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271848652162D0A900FBB04C /* ResourceLinkTests.swift */; };
 		27198B09206D7E9E00BCBFCD /* (null) in Sources */ = {isa = PBXBuildFile; };
 		27198B0A206D7E9E00BCBFCD /* (null) in Sources */ = {isa = PBXBuildFile; };
 		272C9341207E7F9500166820 /* UserEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */; };
@@ -554,7 +558,9 @@
 		2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionsTests.swift; sourceTree = "<group>"; };
 		2714B06E20F417B900321F22 /* ResourceLinkTypeTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkTypeTransform.swift; sourceTree = "<group>"; };
 		2716908D2106739E0026B927 /* RestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequest.swift; sourceTree = "<group>"; };
+		271848652162D0A900FBB04C /* ResourceLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkTests.swift; sourceTree = "<group>"; };
 		272CDBE82142C0680080C371 /* RestClientCreditCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientCreditCardTests.swift; sourceTree = "<group>"; };
+		272D12722162C864004811A3 /* AssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetTests.swift; sourceTree = "<group>"; };
 		272E04342093B3BA000EAA9D /* RTMDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTMDelegate.swift; sourceTree = "<group>"; };
 		272E04372093B40A000EAA9D /* WVConfigStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVConfigStorage.swift; sourceTree = "<group>"; };
 		2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformConfigTests.swift; sourceTree = "<group>"; };
@@ -1075,6 +1081,7 @@
 		2772BF5D20D19560007B2E3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				91A4AC4720EBCD39005D057F /* RtmMessageTests.swift */,
 				91FD052D20D1652C00092234 /* RtmConfigTests.swift */,
 			);
 			path = Models;
@@ -1263,13 +1270,14 @@
 		27C0243220A4A1F900681023 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				272D12722162C864004811A3 /* AssetTests.swift */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
 				91FD052F20D1652D00092234 /* IssuersTests.swift */,
 				91300F7020ED066200ACD3E6 /* PayloadTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
 				91A4AC4420EBBD46005D057F /* ResetDeviceResultTests.swift */,
+				271848652162D0A900FBB04C /* ResourceLinkTests.swift */,
 				91FD052920D1652A00092234 /* ResultCollectionTests.swift */,
-				91A4AC4720EBCD39005D057F /* RtmMessageTests.swift */,
 				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
 				27C0243320A4A21500681023 /* TransformsTests.swift */,
 				27F938FD2127765D0003D7A3 /* Commit */,
@@ -2148,6 +2156,7 @@
 				91FD055020D1653400092234 /* A2AIssuerResponseTests.swift in Sources */,
 				9194320120D020480086B39B /* MockPaymentDeviceTests.swift in Sources */,
 				91FD055620D1653400092234 /* ApduPackageTests.swift in Sources */,
+				271848632162CBE900FBB04C /* AssetTests.swift in Sources */,
 				2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */,
 				91FD054A20D1653400092234 /* CommitStatisticTests.swift in Sources */,
 				275B7296215E8F18009531A8 /* CardMetaDataTests.swift in Sources */,
@@ -2167,6 +2176,7 @@
 				9134BB0120FCA99500368FA2 /* SwCryptTests.swift in Sources */,
 				27FC9AF52124AFB600D748A4 /* JWTUtilsTests.swift in Sources */,
 				27F5E61221272B12002ED57A /* MockSyncManager.swift in Sources */,
+				271848662162D0A900FBB04C /* ResourceLinkTests.swift in Sources */,
 				91FD055420D1653400092234 /* VerificationMethodTests.swift in Sources */,
 				37D0CFE41ED599C00049B5AA /* SyncRequestsQueueTests.swift in Sources */,
 				37D908221F1E546700AA9F86 /* RtmMessagingTests.swift in Sources */,
@@ -2224,6 +2234,7 @@
 				91FD055920D1653500092234 /* ImageTests.swift in Sources */,
 				91FD056D20D1653500092234 /* DeviceTests.swift in Sources */,
 				3A46E14A1DF023F9002D0270 /* RestSessionTests.swift in Sources */,
+				271848642162CBE900FBB04C /* AssetTests.swift in Sources */,
 				27B8885220A4FBA40027969D /* A2AContextTests.swift in Sources */,
 				27F5E5FD21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
 				275B7297215E8F18009531A8 /* CardMetaDataTests.swift in Sources */,
@@ -2243,6 +2254,7 @@
 				27FC9AF62124AFB600D748A4 /* JWTUtilsTests.swift in Sources */,
 				27F5E61421272B14002ED57A /* MockSyncManager.swift in Sources */,
 				270800AA210E29DA0071E8B1 /* MockRestRequest.swift in Sources */,
+				271848672162D0A900FBB04C /* ResourceLinkTests.swift in Sources */,
 				37330EB720289E2100948BC6 /* TransactionTests.swift in Sources */,
 				91FD054320D1653400092234 /* CommitMetricsTests.swift in Sources */,
 				273C75D62121F74B005B9047 /* SwCryptTests.swift in Sources */,

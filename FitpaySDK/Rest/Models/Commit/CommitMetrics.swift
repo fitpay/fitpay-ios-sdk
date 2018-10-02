@@ -15,7 +15,7 @@ open class CommitMetrics: Serializable {
     
     open var notification: NotificationDetail? {
         didSet {
-            self.syncId = self.notification?.syncId
+            syncId = self.notification?.syncId
         }
     }
     

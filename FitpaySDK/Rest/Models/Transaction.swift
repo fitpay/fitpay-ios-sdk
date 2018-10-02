@@ -1,3 +1,5 @@
+import Foundation
+
 // TODO: Document well
 /// don't store / must have agreement to display outside of fitpay webview
 open class Transaction: NSObject, ClientModel, Serializable {

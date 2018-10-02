@@ -1,5 +1,6 @@
 import Foundation
 
+/// Representation of a Secure Element
 @objc open class SecureElement: NSObject, Codable {
     
     /// The ID of a secure element in a payment capable device

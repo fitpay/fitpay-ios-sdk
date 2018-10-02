@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class PayloadTests: XCTestCase {
@@ -7,11 +9,11 @@ class PayloadTests: XCTestCase {
     func testCreditCardPayloadParsing() {
         let payload = mockModels.getPayload()
 
-        XCTAssertNotNil(payload?.creditCard)
-        XCTAssertNotNil(payload?.apduPackage)
+        expect(payload?.creditCard).toNot(beNil())
+        expect(payload?.apduPackage).toNot(beNil())
 
         let json = payload?.toJSON()
-        XCTAssertNotNil(json?["creditCardId"])
-        XCTAssertNotNil(json?["packageId"])
+        expect(json?["creditCardId"]).toNot(beNil())
+        expect(json?["packageId"]).toNot(beNil())
     }
 }

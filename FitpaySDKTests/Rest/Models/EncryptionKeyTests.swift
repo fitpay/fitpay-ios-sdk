@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class EncryptionKeyTests: XCTestCase {
@@ -7,26 +9,46 @@ class EncryptionKeyTests: XCTestCase {
     func testEncryptionKeyParsing() {
         let encryptionKey = mockModels.getEncryptionKey()
 
-        XCTAssertNotNil(encryptionKey?.links)
-        XCTAssertEqual(encryptionKey?.keyId, mockModels.someId)
-        XCTAssertEqual(encryptionKey?.created, mockModels.someDate)
-        XCTAssertEqual(encryptionKey?.createdEpoch, NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch))
-        XCTAssertEqual(encryptionKey?.expiration, mockModels.someDate)
-        XCTAssertEqual(encryptionKey?.expirationEpoch, NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch))
-        XCTAssertEqual(encryptionKey?.serverPublicKey, "someKey")
-        XCTAssertEqual(encryptionKey?.clientPublicKey, "someKey")
-        XCTAssertEqual(encryptionKey?.active, true)
+        expect(encryptionKey?.links).toNot(beNil())
+        expect(encryptionKey?.keyId).to(equal(mockModels.someId))
+        expect(encryptionKey?.created).to(equal(mockModels.someDate))
+        expect(encryptionKey?.createdEpoch).to(equal(NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch)))
+        expect(encryptionKey?.expiration).to(equal(mockModels.someDate))
+        expect(encryptionKey?.expirationEpoch).to(equal(NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch)))
+        expect(encryptionKey?.serverPublicKey).to(equal("someKey"))
+        expect(encryptionKey?.clientPublicKey).to(equal("someKey"))
+        expect(encryptionKey?.active).to(equal(true))
 
         let json = encryptionKey?.toJSON()
-        XCTAssertNotNil(json?["_links"])
-        XCTAssertEqual(json?["keyId"] as? String, mockModels.someId)
-        XCTAssertEqual(json?["createdTs"] as? String, mockModels.someDate)
-        XCTAssertEqual(json?["createdTsEpoch"] as? Int64, mockModels.timeEpoch)
-        XCTAssertEqual(json?["expirationTs"] as? String, mockModels.someDate)
-        XCTAssertEqual(json?["expirationTsEpoch"] as? Int64, mockModels.timeEpoch)
-        XCTAssertEqual(json?["serverPublicKey"] as? String, "someKey")
-        XCTAssertEqual(json?["clientPublicKey"] as? String, "someKey")
-        XCTAssertEqual(json?["active"] as? Bool, true)
+        expect(json?["_links"]).toNot(beNil())
+        expect(json?["keyId"] as? String).to(equal(mockModels.someId))
+        expect(json?["createdTs"] as? String).to(equal(mockModels.someDate))
+        expect(json?["createdTsEpoch"] as? Int64).to(equal(mockModels.timeEpoch))
+        expect(json?["expirationTs"] as? String).to(equal(mockModels.someDate))
+        expect(json?["expirationTsEpoch"] as? Int64).to(equal(mockModels.timeEpoch))
+        expect(json?["serverPublicKey"] as? String).to(equal("someKey"))
+        expect(json?["clientPublicKey"] as? String).to(equal("someKey"))
+        expect(json?["active"] as? Bool).to(equal(true))
+    }
+    
+    func testIsExpired() {
+        let encryptionKey = mockModels.getEncryptionKey()
+        
+        expect(encryptionKey?.isExpired).to(beTrue())
+        
+        let date = Date()
+        var components = DateComponents()
+        components.setValue(2100, for: .year)
+        let futureDate = Calendar.current.date(byAdding: components, to: date)
+        
+        encryptionKey?.expirationEpoch = futureDate?.timeIntervalSince1970
+        
+        expect(encryptionKey?.isExpired).to(beFalse())
+
+        encryptionKey?.expirationEpoch = nil
+        
+        expect(encryptionKey?.isExpired).to(beFalse())
+
     }
 
 }
