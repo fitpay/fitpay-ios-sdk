@@ -1020,6 +1020,7 @@
 			isa = PBXGroup;
 			children = (
 				91FD053F20D1653400092234 /* DeviceTests.swift */,
+				91A4AC4420EBBD46005D057F /* ResetDeviceResultTests.swift */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -1275,7 +1276,6 @@
 				91FD052F20D1652D00092234 /* IssuersTests.swift */,
 				91300F7020ED066200ACD3E6 /* PayloadTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
-				91A4AC4420EBBD46005D057F /* ResetDeviceResultTests.swift */,
 				271848652162D0A900FBB04C /* ResourceLinkTests.swift */,
 				91FD052920D1652A00092234 /* ResultCollectionTests.swift */,
 				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
