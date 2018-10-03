@@ -14,7 +14,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     
     weak var client: RestClient? {
         didSet {
-            payload?.creditCard?.client = self.client
+            payload?.creditCard?.client = client
         }
     }
     
@@ -60,56 +60,54 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     // MARK: - Functions
     
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        self.payload = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
-        self.payload?.creditCard?.client = self.client
+        payload = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret)
+        payload?.creditCard?.client = client
     }
     
     func confirmNonAPDUCommitWith(result: NonAPDUCommitState, completion: @escaping RestClient.ConfirmHandler) {
-        guard self.commitType != CommitType.apduPackage else {
+        let resource = Commit.confirmResourceKey
+
+        guard commitType != CommitType.apduPackage else {
             log.error("COMMIT: Trying send confirm for APDU commit but should be non APDU.")
             completion(ErrorResponse.unhandledError(domain: Commit.self))
             return
         }
         
-        let resource = Commit.confirmResourceKey
-        guard let url = self.links?.url(resource) else {
+        guard let url = links?.url(resource) else {
             completion(nil)
             return
         }
         
-        guard let client = self.client else {
-            completion(ErrorResponse.clientUrlError(domain: Commit.self, client: nil, url: url, resource: resource))
+        guard let client = client else {
+            completion(composeError(resource))
             return
         }
         
-        log.verbose("COMMIT: Confirming Non-APDU commit - \(commitId ?? "")")
+        log.verbose("COMMIT: Confirming Non-APDU commit - \(String(describing: commitId))")
         client.confirm(url, executionResult: result, completion: completion)
     }
     
     func confirmAPDU(_ completion: @escaping RestClient.ConfirmHandler) {
-        guard self.commitType == CommitType.apduPackage else {
-            completion(ErrorResponse.unhandledError(domain: Commit.self))
-            return
-        }
-        
         let resource = Commit.apduResponseResourceKey
-        guard let url = self.links?.url(resource) else {
-            completion(ErrorResponse.clientUrlError(domain: Commit.self, client: client, url: nil, resource: resource))
-            return
-        }
-        
-        guard let client = self.client else {
-            completion(ErrorResponse.clientUrlError(domain: Commit.self, client: nil, url: url, resource: resource))
-            return
-        }
-        
-        guard let apduPackage = self.payload?.apduPackage else {
+
+        guard commitType == CommitType.apduPackage, let apduPackage = payload?.apduPackage else {
             completion(ErrorResponse.unhandledError(domain: Commit.self))
             return
         }
         
-        log.verbose("COMMIT: Confirming APDU commit - \(commitId ?? "")")
+        guard let url = links?.url(resource), let client = client else {
+            completion(composeError(resource))
+            return
+        }
+        
+        log.verbose("COMMIT: Confirming APDU commit - \(String(describing: commitId))")
         client.confirmAPDUPackage(url, package: apduPackage, completion: completion)
     }
     
+    // MARK: - Private Functions
+    
+    func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: Commit.self, client: client, url: links?.url(resource), resource: resource)
+    }
+
 }

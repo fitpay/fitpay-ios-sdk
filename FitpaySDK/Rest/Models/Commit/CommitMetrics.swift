@@ -39,7 +39,7 @@ open class CommitMetrics: Serializable {
     
     // MARK: - Functions
     
-    // TODO: should be moved to Notification object
+    // TODO: should be moved to Notification object and have optional completion block to test
     open func sendCompleteSync() {
         guard let completeSync = notification?.links?.url("completeSync") else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without URL.")

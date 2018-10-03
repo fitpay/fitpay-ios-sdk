@@ -46,7 +46,13 @@ class MockModels {
     }
     
     func getCommit() -> Commit? {
-        let commit = try? Commit("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}},\"commitType\":\"\(someType)\",\"createdTs\":\(timeEpoch),\"commitId\":\"\(someId)\",\"previousCommit\":\"2\",\"encryptedData\":\"\(someEncryptionData)\"}")
+        let commit = try? Commit("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"confirm\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9/confirm\"}},\"commitType\":\"UNKNOWN\",\"createdTs\":\(timeEpoch),\"commitId\":\"\(someId)\",\"previousCommit\":\"2\",\"encryptedData\":\"\(someEncryptionData)\"}")
+        expect(commit).toNot(beNil())
+        return commit
+    }
+    
+    func getAPDUCommit() -> Commit? {
+        let commit = try? Commit("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"confirm\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9/confirm\"}, \"apduResponse\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9/apduResponse\"}},\"commitType\":\"APDU_PACKAGE\",\"createdTs\":\(timeEpoch),\"commitId\":\"\(someId)\",\"previousCommit\":\"2\",\"encryptedData\":\"\(someEncryptionData)\"}")
         expect(commit).toNot(beNil())
         return commit
     }
