@@ -95,8 +95,8 @@ import Foundation
         return links?.url(Device.defaultCreditCardKey) != nil
     }
 
-    // TODO: create method instead of returning URL?
     /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
+    @available(*, deprecated, message: "as of v1.2.1 - a reset method will be added in the future")
     open var deviceResetUrl: String? {
         return links?.url(Device.deviceResetTasksKey)
     }
