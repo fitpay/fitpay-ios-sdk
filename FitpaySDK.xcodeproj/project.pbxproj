@@ -26,6 +26,12 @@
 		270800AC210E2AC70071E8B1 /* AuthorizationDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 2709D5C52107BB8E00E2D6B9 /* AuthorizationDetails.json */; };
 		2709D5CB2107C4A200E2D6B9 /* fitpayTestNetworkConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 2709D5C82107C29800E2D6B9 /* fitpayTestNetworkConfig.json */; };
 		2709D5CC2107C4A200E2D6B9 /* fitpayTestNetworkConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 2709D5C82107C29800E2D6B9 /* fitpayTestNetworkConfig.json */; };
+		270F47EB2165424300C97A77 /* HendricksCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47EA2165424300C97A77 /* HendricksCreditCard.swift */; };
+		270F47EC2165424300C97A77 /* HendricksCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47EA2165424300C97A77 /* HendricksCreditCard.swift */; };
+		270F47EE2165425500C97A77 /* HendricksObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47ED2165425500C97A77 /* HendricksObject.swift */; };
+		270F47EF2165425500C97A77 /* HendricksObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47ED2165425500C97A77 /* HendricksObject.swift */; };
+		270F47F1216543B900C97A77 /* HendricksUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47F0216543B900C97A77 /* HendricksUtils.swift */; };
+		270F47F2216543B900C97A77 /* HendricksUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F47F0216543B900C97A77 /* HendricksUtils.swift */; };
 		2714B06B20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */; };
 		2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */; };
 		2714B06F20F417B900321F22 /* ResourceLinkTypeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06E20F417B900321F22 /* ResourceLinkTypeTransform.swift */; };
@@ -63,6 +69,12 @@
 		273C75D92121F7A9005B9047 /* IdVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773CD94207D53A300DFE113 /* IdVerificationTests.swift */; };
 		273D5B3F215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */; };
 		273D5B40215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */; };
+		273D8CAD216572A9006AFC72 /* HendricksCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAC216572A9006AFC72 /* HendricksCategory.swift */; };
+		273D8CAE216572A9006AFC72 /* HendricksCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAC216572A9006AFC72 /* HendricksCategory.swift */; };
+		273D8CB021666523006AFC72 /* HendricksIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAF21666523006AFC72 /* HendricksIdentity.swift */; };
+		273D8CB121666523006AFC72 /* HendricksIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAF21666523006AFC72 /* HendricksIdentity.swift */; };
+		273D8CB32166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */; };
+		273D8CB42166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */; };
 		2742E584212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E585212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E587212B5D42006D19A6 /* UIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UIntExtensions.swift */; };
@@ -555,6 +567,9 @@
 		270800A8210E29DA0071E8B1 /* MockRestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRestRequest.swift; sourceTree = "<group>"; };
 		2709D5C52107BB8E00E2D6B9 /* AuthorizationDetails.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AuthorizationDetails.json; sourceTree = "<group>"; };
 		2709D5C82107C29800E2D6B9 /* fitpayTestNetworkConfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fitpayTestNetworkConfig.json; sourceTree = "<group>"; };
+		270F47EA2165424300C97A77 /* HendricksCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksCreditCard.swift; sourceTree = "<group>"; };
+		270F47ED2165425500C97A77 /* HendricksObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksObject.swift; sourceTree = "<group>"; };
+		270F47F0216543B900C97A77 /* HendricksUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksUtils.swift; sourceTree = "<group>"; };
 		2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionsTests.swift; sourceTree = "<group>"; };
 		2714B06E20F417B900321F22 /* ResourceLinkTypeTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkTypeTransform.swift; sourceTree = "<group>"; };
 		2716908D2106739E0026B927 /* RestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequest.swift; sourceTree = "<group>"; };
@@ -570,6 +585,9 @@
 		273C75D22121F07A005B9047 /* RxBlocking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		273C75D42121F07E005B9047 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAssetReferencesTests.swift; sourceTree = "<group>"; };
+		273D8CAC216572A9006AFC72 /* HendricksCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksCategory.swift; sourceTree = "<group>"; };
+		273D8CAF21666523006AFC72 /* HendricksIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksIdentity.swift; sourceTree = "<group>"; };
+		273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendrickMiscellaneous.swift; sourceTree = "<group>"; };
 		2742E583212B5D0F006D19A6 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2742E586212B5D42006D19A6 /* UIntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntExtensions.swift; sourceTree = "<group>"; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
@@ -920,6 +938,20 @@
 			path = FitpaySDKTests;
 			sourceTree = "<group>";
 		};
+		270F47E92165421C00C97A77 /* Hendricks */ = {
+			isa = PBXGroup;
+			children = (
+				2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */,
+				270F47EA2165424300C97A77 /* HendricksCreditCard.swift */,
+				270F47ED2165425500C97A77 /* HendricksObject.swift */,
+				270F47F0216543B900C97A77 /* HendricksUtils.swift */,
+				273D8CAC216572A9006AFC72 /* HendricksCategory.swift */,
+				273D8CAF21666523006AFC72 /* HendricksIdentity.swift */,
+				273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */,
+			);
+			path = Hendricks;
+			sourceTree = "<group>";
+		};
 		2714B06920F4172C00321F22 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -976,7 +1008,7 @@
 		2746585E20B74B7D001C13AA /* PaymentDeviceConnectors */ = {
 			isa = PBXGroup;
 			children = (
-				2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */,
+				270F47E92165421C00C97A77 /* Hendricks */,
 				27C0242E20A3940900681023 /* MockPaymentDeviceConnector.swift */,
 			);
 			path = PaymentDeviceConnectors;
@@ -1987,6 +2019,7 @@
 				0A1B6A3D1CDBEBF700EBD014 /* RtmConfig.swift in Sources */,
 				27F5085A20EEB9700010CE05 /* UserInfo.swift in Sources */,
 				CD03895E2EB9EE7415958B59 /* Transaction.swift in Sources */,
+				270F47F1216543B900C97A77 /* HendricksUtils.swift in Sources */,
 				2782F82520F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85020F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
 				8C870F171D00EC630048A1DF /* Transforms.swift in Sources */,
@@ -2078,6 +2111,7 @@
 				3786F97F1F1E03BA00693B6A /* RtmMessaging.swift in Sources */,
 				CD0385C5EFAB73A715B73025 /* PaymentDevice.swift in Sources */,
 				91185B7A20615E0C00E5E1CE /* A2AVerificationRequest.swift in Sources */,
+				270F47EB2165424300C97A77 /* HendricksCreditCard.swift in Sources */,
 				374B62671EC9DAB300A7CE62 /* ApduResponseProtocol.swift in Sources */,
 				27E0302D20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */,
 				27CFE121212371D900AE116B /* JWS.swift in Sources */,
@@ -2093,6 +2127,7 @@
 				37D0CFE81EDC3D5E0049B5AA /* FitpayCardScanner.swift in Sources */,
 				27EA81E2208F97CF00FFBB56 /* KeyedDecodingContainerExtension.swift in Sources */,
 				371CB3001F444ACF0019A766 /* NonAPDUConfirmOperation.swift in Sources */,
+				273D8CB021666523006AFC72 /* HendricksIdentity.swift in Sources */,
 				2745F3DF20A345B900EF46A4 /* FitpayWeb.swift in Sources */,
 				1F5BBD802017450200F16B4F /* NotificationDetail.swift in Sources */,
 				CD038D8BCA3144FBB29E8DE4 /* NSErrorExtensions.swift in Sources */,
@@ -2106,11 +2141,13 @@
 				2746585C20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift in Sources */,
 				27EA81DF208F96F700FFBB56 /* StreamEvent.swift in Sources */,
 				916CE9C220A18CA100C2F621 /* KeyedEncodingContainerExtension.swift in Sources */,
+				273D8CAD216572A9006AFC72 /* HendricksCategory.swift in Sources */,
 				27D94AF020B48107001DD434 /* WVDeviceStatus.swift in Sources */,
 				2742E584212B5D0F006D19A6 /* StringExtensions.swift in Sources */,
 				CD0381C2A8FBB873B221A20F /* RawIntValue.swift in Sources */,
 				37D0CFF51EDDA27E0049B5AA /* RtmMessageHandlerV3.swift in Sources */,
 				3A640B471DDF110E008AD936 /* RtmMessage.swift in Sources */,
+				273D8CB32166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */,
 				9A7C78831CC77F210097BAB9 /* FitpayEventListener.swift in Sources */,
 				2716908E2106739E0026B927 /* RestRequest.swift in Sources */,
 				3701AE581F16180000550890 /* FetchCommitsOperation.swift in Sources */,
@@ -2122,6 +2159,7 @@
 				37139BDB1F164695001EEE73 /* APDUConfirmOperation.swift in Sources */,
 				CD03864C52B317B02135FF7D /* DataExtensions.swift in Sources */,
 				2782F83E20F6BA4F004774E8 /* SyncInitiator.swift in Sources */,
+				270F47EE2165425500C97A77 /* HendricksObject.swift in Sources */,
 				27CFE11E21236FF500AE116B /* JWTError.swift in Sources */,
 				3A640B491DDF110E008AD936 /* RtmMessageResponse.swift in Sources */,
 				3AF3A8F11DDB15AE0037E105 /* ConsoleOutput.swift in Sources */,
@@ -2299,6 +2337,7 @@
 				916FC0C220A0366A0071B66D /* SerializableExtension.swift in Sources */,
 				3A93A0821DB8CA2C00A9FEB4 /* RtmConfig.swift in Sources */,
 				916CE9C320A18CA300C2F621 /* KeyedEncodingContainerExtension.swift in Sources */,
+				270F47F2216543B900C97A77 /* HendricksUtils.swift in Sources */,
 				2782F82620F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85120F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
 				27F47B9E20EEB1ED0043B388 /* User.swift in Sources */,
@@ -2390,6 +2429,7 @@
 				374B626B1EC9F9EF00A7CE62 /* PaymentDeviceApduExecuter.swift in Sources */,
 				3A640B4B1DDF1127008AD936 /* FitpaySDKLogger.swift in Sources */,
 				37F781B11F17C8FA00742E15 /* SyncRequestsQueue.swift in Sources */,
+				270F47EC2165424300C97A77 /* HendricksCreditCard.swift in Sources */,
 				374B62681EC9DAB300A7CE62 /* ApduResponseProtocol.swift in Sources */,
 				371CB2FE1F4449C50019A766 /* SyncFactory.swift in Sources */,
 				3786F9801F1E03BA00693B6A /* RtmMessaging.swift in Sources */,
@@ -2405,6 +2445,7 @@
 				3A93A0AC1DB8CA2C00A9FEB4 /* PaymentDevice.swift in Sources */,
 				91185B7D2061694400E5E1CE /* FitpayA2aVerrificationDelegate.swift in Sources */,
 				3767B81D1ED31EDD007443D2 /* RestClientCreditCard.swift in Sources */,
+				273D8CB121666523006AFC72 /* HendricksIdentity.swift in Sources */,
 				3A640B481DDF110E008AD936 /* RtmMessage.swift in Sources */,
 				3A93A0AD1DB8CA2C00A9FEB4 /* JOSEHeader.swift in Sources */,
 				37D0CFE91EDC3D5E0049B5AA /* FitpayCardScanner.swift in Sources */,
@@ -2418,11 +2459,13 @@
 				3701AE481F14C29900550890 /* ConnectDeviceOperation.swift in Sources */,
 				3A93A0AF1DB8CA2C00A9FEB4 /* DictionaryExtensions.swift in Sources */,
 				37D0CFF61EDDA27E0049B5AA /* RtmMessageHandlerV3.swift in Sources */,
+				273D8CAE216572A9006AFC72 /* HendricksCategory.swift in Sources */,
 				27198B0A206D7E9E00BCBFCD /* (null) in Sources */,
 				2742E585212B5D0F006D19A6 /* StringExtensions.swift in Sources */,
 				3A93A0B01DB8CA2C00A9FEB4 /* Asset.swift in Sources */,
 				3A93A0B21DB8CA2C00A9FEB4 /* NSErrorExtensions.swift in Sources */,
 				3701AE591F16180000550890 /* FetchCommitsOperation.swift in Sources */,
+				273D8CB42166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */,
 				3A93A0B31DB8CA2C00A9FEB4 /* RawIntValue.swift in Sources */,
 				2716908F2106739E0026B927 /* RestRequest.swift in Sources */,
 				3A93A0B41DB8CA2C00A9FEB4 /* FitpayEventListener.swift in Sources */,
@@ -2434,6 +2477,7 @@
 				3A93A0B71DB8CA2C00A9FEB4 /* DataExtensions.swift in Sources */,
 				3A93A0B91DB8CA2C00A9FEB4 /* SyncManager.swift in Sources */,
 				2782F83F20F6BA4F004774E8 /* SyncInitiator.swift in Sources */,
+				270F47EF2165425500C97A77 /* HendricksObject.swift in Sources */,
 				27CFE11F21236FF500AE116B /* JWTError.swift in Sources */,
 				3701AE3C1F13BA1B00550890 /* SyncEvent.swift in Sources */,
 				3A93A0BA1DB8CA2C00A9FEB4 /* SecretApplyable.swift in Sources */,
