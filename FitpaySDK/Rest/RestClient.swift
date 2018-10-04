@@ -503,41 +503,6 @@ extension RestClient {
     
 }
 
-// MARK: - Reset Device Tasks
-
-extension RestClient {
-    
-    /**
-     Completion handler
-     
-     - parameter error: Provides error object, or nil if no error occurs
-     */
-    public typealias ResetHandler = (_ resetDeviceTask: ResetDeviceResult?, _ error: ErrorResponse?) -> Void
-    
-    /**
-     Creates a request for resetting a device
-     
-     - parameter deviceId:  device id
-     - parameter userId: user id
-     - parameter completion:      ResetHandler closure
-     */
-
-    func resetDeviceTasks(_ url: String, completion: @escaping ResetHandler) {
-        makeGetCall(url, parameters: nil, completion: completion)
-    }
-    
-    /**
-     Creates a request for getting reset status
-     
-     - parameter resetId:  reset device task id
-     - parameter completion:   ResetHandler closure
-     */
-    func resetDeviceStatus(_ url: String, completion: @escaping ResetHandler) {
-        makeGetCall(url, parameters: nil, completion: completion)
-    }
-    
-}
-
 /**
  Retrieve an individual asset (i.e. terms and conditions)
  

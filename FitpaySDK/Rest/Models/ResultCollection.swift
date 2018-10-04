@@ -45,7 +45,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             _client = newValue
             if let results = self.results {
                 for result in results {
-                    if var result = result as? ClientModel {
+                    if let result = result as? ClientModel {
                         result.client = newValue
                     } else {
                         log.error("RESULT_COLLECTION: Failed to convert \(result) to ClientModel")
