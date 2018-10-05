@@ -19,6 +19,7 @@ open class NotificationDetail: Serializable, ClientModel {
     
     private let creditCardResourceKey = "creditCard"
     private let deviceResourceKey = "device"
+    private let ackSyncResourceKey = "ackSync"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -65,7 +66,7 @@ open class NotificationDetail: Serializable, ClientModel {
     // MARK: - Public Functions
 
     open func sendAckSync() {
-        guard let ackSyncUrl = self.links?.url("ackSync") else {
+        guard let ackSyncUrl = self.links?.url(ackSyncResourceKey) else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without URL.")
             return
         }

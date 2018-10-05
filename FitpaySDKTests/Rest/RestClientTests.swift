@@ -115,36 +115,6 @@ class RestClientTests: XCTestCase {
         
         waitForExpectations(timeout: 10, handler: nil)
     }
-   
-    func testResetDeviceTasks() {
-        let expectation = self.expectation(description: "'resetDeviceTasks' creates key")
-        
-        testHelper.createAndLoginUser(expectation) { [unowned self] (user) in
-            self.testHelper.createDevice(expectation, user: user) { [unowned self] (user, device) in
-                guard let resetUrlString = device?.deviceResetUrl else {
-                    XCTAssert(false, "No url.")
-                    return
-                }
-                
-                self.client.resetDeviceTasks(resetUrlString) { (resetDeviceResult, error) in
-                    XCTAssertNil(error)
-                    
-                    guard let resetUrlString = resetDeviceResult?.deviceResetUrl else {
-                        XCTAssert(false, "No url.")
-                        return
-                    }
-                    
-                    self.client.resetDeviceStatus(resetUrlString) { (_, error) in
-                        XCTAssertNil(error)
-                        
-                        self.testHelper.deleteUser(user, expectation: expectation)
-                    }
-                }
-            }
-        }
-        
-        waitForExpectations(timeout: 10, handler: nil)
-    }
     
     func testUserCreate() {
         let expectation = super.expectation(description: "'user' created")
