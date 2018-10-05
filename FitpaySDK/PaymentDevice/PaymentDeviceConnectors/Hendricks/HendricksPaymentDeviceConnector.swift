@@ -41,7 +41,7 @@ import CoreBluetooth
     
     // MARK: - Public Functions
     
-    public func addCommandtoQueue(_ blePackage: BLEPackage) {
+    public func addPackagetoQueue(_ blePackage: BLEPackage) {
         packageQueue.enqueue(blePackage)
         processNextCommand()
     }
@@ -49,7 +49,7 @@ import CoreBluetooth
     public func addCreditCard(_ hendricksCard: HendricksCard) {
         hendricksCard.getCreditCardData { (commandData, data) in
             let bleCommand = BLEPackage(.addCard, commandData: commandData, data: data)
-            self.addCommandtoQueue(bleCommand)
+            self.addPackagetoQueue(bleCommand)
         }
     }
     
@@ -58,21 +58,31 @@ import CoreBluetooth
             let categories = result as? [HendricksCategory]
             completion(categories)
         }
-        addCommandtoQueue(package)
+        addPackagetoQueue(package)
     }
     
-    public func getCategoryObjects(categoryId: Int) {
+    public func getCategoryObjects(categoryId: Int, completion: @escaping ([HendricksObject]?) -> Void) {
         var catId = categoryId
         let catIdData = Data(bytes: &catId, count: 2)
-        addCommandtoQueue(BLEPackage(.getCatData, commandData: catIdData, data: nil))
+        
+        let package = BLEPackage(.getCatData, commandData: catIdData) { result in
+            let objects = result as? [HendricksObject]
+            completion(objects)
+        }
+        addPackagetoQueue(package)
     }
     
-    public func removeCategoryObject(categoryId: Int, objectId: Int) {
+    public func removeCategoryObject(categoryId: Int, objectId: Int, completion: @escaping () -> Void) {
         var catId = categoryId
         let catIdData = Data(bytes: &catId, count: 2)
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
-        addCommandtoQueue(BLEPackage(.getCatData, commandData: catIdData + objIdData, data: nil))
+        
+        let package = BLEPackage(.removeCat, commandData: catIdData + objIdData) { result in
+            completion()
+        }
+        
+        addPackagetoQueue(package)
     }
     
     // MARK: - Private Functions
@@ -205,6 +215,9 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatData()
             
+        case .removeCat:
+            currentPackage.completion?(nil)
+            
         default:
             break
         }
@@ -310,15 +323,13 @@ import CoreBluetooth
                 objects.append(identity)
                 
                 index += 67
-
+                
             default:
                 break
             }
         }
         
-        print("\(objectCount)")
-        print("here")
-        
+        currentPackage?.completion?(objects)
     }
 }
 
@@ -355,7 +366,7 @@ import CoreBluetooth
         
         let bleCommand = BLEPackage(.apduPackage, commandData: commandData, data: data)
         
-        addCommandtoQueue(bleCommand)
+        addPackagetoQueue(bleCommand)
     }
     
     public func executeAPDUCommand(_ apduCommand: APDUCommand) {
@@ -434,7 +445,7 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: statusCharacteristic)
         peripheral.setNotifyValue(true, for: dataCharacteristic)
         
-        addCommandtoQueue(BLEPackage(.ping))
+        addPackagetoQueue(BLEPackage(.ping))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {

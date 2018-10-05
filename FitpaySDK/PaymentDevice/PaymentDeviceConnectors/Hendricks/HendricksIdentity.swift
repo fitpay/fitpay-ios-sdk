@@ -7,7 +7,7 @@ public class HendricksIdentity: HendricksObject {
     
     private var nameLength = 21
     
-    init(firstName: String?, middleName: String?, lastName: String?) {
+    public init(firstName: String?, middleName: String?, lastName: String?) {
         super.init()
         
         self.firstName = firstName
@@ -31,7 +31,7 @@ public class HendricksIdentity: HendricksObject {
 
     }
     
-    func getData() -> Data {
+    public func getData() -> Data {
         var firstNameData = firstName?.prefix(21).data(using: .utf8) ?? Data()
         var middleNameData = middleName?.prefix(21).data(using: .utf8) ?? Data()
         var lastNameData = lastName?.prefix(21).data(using: .utf8) ?? Data()
