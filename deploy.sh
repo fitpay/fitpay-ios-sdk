@@ -11,7 +11,7 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
-cd ~/workspace/fitpay-ios-sdk/
+# checkout develop
 git checkout develop
 
 # exit if not clean
@@ -20,7 +20,7 @@ if ! git diff-index --quiet HEAD --; then
   exit 1
 fi
 
-#update versions
+# update versions
 sed -i'.original' -e "s/$1/$2/g" FitpaySDK.podspec
 rm *.original
 cd FitpaySDK
@@ -28,19 +28,23 @@ sed -i'.original' -e "s/$1/$2/g" Info.plist
 rm *.original
 cd ..
 
-#update docs
+# update docs
 jazzy
 
-#git process
+# commit and push develop
 git add -A
 git commit -m "v$2"
 git push
 
+# switch to master and merge develop
 git checkout master
 git pull
 git merge develop  -m "v$2 merge development"
 git push
 
-#should create tag
+# create tag
+git tag -a "v$2" -m "v$2"
+git push origin "v$2"
 
-#should run cocoapods
+# run cocoapods
+pod trunk push FitpaySDK.podspec --allow-warnings
