@@ -213,7 +213,7 @@ import CoreBluetooth
             handleGetCategoriesResponse()
             
         case .getCatData:
-            handleGetCatData()
+            handleGetCatDataResponse()
             
         case .removeCat:
             currentPackage.completion?(nil)
@@ -305,7 +305,7 @@ import CoreBluetooth
         currentPackage?.completion?(categories)
     }
     
-    private func handleGetCatData() {
+    private func handleGetCatDataResponse() {
         guard let commandData = currentPackage?.commandData else { return }
         let categoryId = Int(commandData[0] + commandData[1] << 8)
         
@@ -322,8 +322,12 @@ import CoreBluetooth
                 let identity = HendricksIdentity(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
                 objects.append(identity)
                 
-                index += 67
-                
+                index += identity.totalLength + 4
+            case .card:
+                let card = HendricksCard(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+                objects.append(card)
+
+                index += card.totalLength + 4
             default:
                 break
             }

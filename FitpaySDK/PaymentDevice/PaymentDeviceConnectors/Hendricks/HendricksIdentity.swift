@@ -1,11 +1,13 @@
 import Foundation
 
 public class HendricksIdentity: HendricksObject {
+    
     public var firstName: String?
     public var middleName: String?
     public var lastName: String?
     
-    private var nameLength = 21
+    let totalLength = 63
+    private let nameLength = 21
     
     public init(firstName: String?, middleName: String?, lastName: String?) {
         super.init()
@@ -27,7 +29,6 @@ public class HendricksIdentity: HendricksObject {
         middleName = String(bytes: Array(returnedData[runningIndex..<runningIndex + nameLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += nameLength
         lastName = String(bytes: Array(returnedData[runningIndex..<runningIndex + nameLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
-
 
     }
     

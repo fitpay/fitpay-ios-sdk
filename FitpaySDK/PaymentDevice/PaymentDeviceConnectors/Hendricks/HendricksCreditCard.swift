@@ -2,11 +2,56 @@ import Foundation
 
 public class HendricksCard: HendricksObject {
     
-    var creditCard: CreditCard?
+    var lastFour: String
+    var expDate: String
+    var type: String
+    var cardId: String
+    var cardArtId = 0
+    var towId = 0
+    var cardStatus = 0x07
     
-    init(creditCard: CreditCard) {
-        super.init()
+    var artSize: Int?
+    var towSize: Int?
+    
+    private var creditCard: CreditCard?
+    
+    let totalLength = 83
+    private let lastFourLength = 5
+    private let expDateLength = 6
+    private let typeLength = 21
+    private let cardIdLength = 37
+    private let metaSize = 82
+
+    public init(creditCard: CreditCard) {
         self.creditCard = creditCard
+        
+        lastFour = creditCard.info!.pan!.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        expDate = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
+        type = creditCard.cardType!
+        cardId = creditCard.creditCardId!
+        
+        super.init()
+
+    }
+    
+    init(categoryId: Int, objectId: Int, returnedData: [UInt8], index: Int) {
+        var runningIndex = index
+
+        lastFour = String(bytes: Array(returnedData[runningIndex..<runningIndex + lastFourLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        runningIndex += lastFourLength
+        expDate = String(bytes: Array(returnedData[runningIndex..<runningIndex + expDateLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        runningIndex += expDateLength
+        type = String(bytes: Array(returnedData[runningIndex..<runningIndex + typeLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        runningIndex += typeLength
+        cardId = String(bytes: Array(returnedData[runningIndex..<runningIndex + cardIdLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        runningIndex += cardIdLength
+
+        
+        super.init()
+        
+        self.categoryId = categoryId
+        self.objectId = objectId
+
     }
     
     public func getCreditCardData(completion: @escaping (_ commandData: Data, _ data: Data) -> Void) {
@@ -15,23 +60,19 @@ public class HendricksCard: HendricksObject {
         processCreditCardImage(creditCard) { (cardArtData) in
             
             // data
-            let lastFour = creditCard.info?.pan?.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
-            guard let lastFourData = lastFour?.data(using: .utf8)?.paddedTo(byteLength: 5) else { return }
+            guard let lastFourData = self.lastFour.data(using: .utf8)?.paddedTo(byteLength: self.lastFourLength) else { return }
+            guard let expData = self.expDate.data(using: .utf8)?.paddedTo(byteLength: self.expDateLength) else { return }
+            guard let financialServiceData = self.type.data(using: .utf8)?.paddedTo(byteLength: self.typeLength) else { return }
+            guard let cardIdData = self.cardId.data(using: .utf8)?.paddedTo(byteLength: self.cardIdLength) else { return }
             
-            let exp = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
-            guard let expData = exp.data(using: .utf8)?.paddedTo(byteLength: 6) else { return }
+            var tempCardArtId = self.cardArtId
+            let cardArtIdData = Data(bytes: &tempCardArtId, count: 2)
             
-            guard let financialServiceData =  creditCard.cardType!.data(using: .utf8)?.paddedTo(byteLength: 21) else { return }
-            guard let cardIdData = creditCard.creditCardId?.data(using: .utf8)?.paddedTo(byteLength: 37) else { return }
-            
-            var cardArtId = 0
-            let cardArtIdData = Data(bytes: &cardArtId, count: 2)
-            
-            var towId = 0
-            let towIdData = Data(bytes: &towId, count: 2)
+            var tempTowId = self.towId
+            let towIdData = Data(bytes: &tempTowId, count: 2)
             
             // card status
-            let cardStatusData = UInt8(0x07).data // TODO: map correct card status
+            let cardStatusData = UInt8(self.cardStatus).data
             
             let towApduData = creditCard.topOfWalletAPDUCommands != nil ? HendricksUtils.buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
             var towSize = towApduData.count
@@ -46,8 +87,8 @@ public class HendricksCard: HendricksObject {
             let data = dataFirstHalf + dataSecondHalf
             
             // command data
-            var metaSize = 82
-            let metaSizeData = Data(bytes: &metaSize, count: 4)
+            var tempMetaSize = self.metaSize
+            let metaSizeData = Data(bytes: &tempMetaSize, count: 4)
             
             let commandData = cardIdData + metaSizeData + cardArtSizeData + towSizeData
             
