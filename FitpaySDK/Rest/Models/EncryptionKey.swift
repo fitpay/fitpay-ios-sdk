@@ -1,3 +1,4 @@
+import Foundation
 
 @objcMembers open class EncryptionKey: NSObject, Serializable {
 
@@ -11,6 +12,14 @@
     open var active: Bool?
     
     var links: [ResourceLink]?
+    
+    var isExpired: Bool {
+        guard let expirationEpoch = self.expirationEpoch else { return false }
+        
+        let platoformRequestTimeout: Double = 60
+        let isExpired = expirationEpoch - platoformRequestTimeout < Date().timeIntervalSince1970
+        return isExpired
+    }
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -52,14 +61,4 @@
         try? container.encode(active, forKey: .active)
     }
 
-    /**
-     Validates encryption key expiration date
-     */
-    func isExpired() -> Bool {
-        let currentEpoch = Date().timeIntervalSince1970
-        guard let expirationEpoch = self.expirationEpoch else { return false }
-        let platoformRequestTimeout: Double = 60
-        let isExpired = expirationEpoch - platoformRequestTimeout < currentEpoch
-        return isExpired
-    }
 }

@@ -7,12 +7,12 @@ public enum APDUResponseType: Int {
     case error
     
     private static let successResponses: [[UInt8]] = [
-        [0x90, 0x00],
+        [0x90, 0x00]
         ]
     
     private static let warningResponses: [[UInt8]] = [
         [0x62/*, XX */],
-        [0x63/*, XX */],
+        [0x63/*, XX */]
         ]
     
     private static let concatenationResponse: UInt8 = 0x61
@@ -68,7 +68,6 @@ public enum APDUResponseType: Int {
     }
     
 }
-
 
 public protocol APDUResponseProtocol {
     var responseData: Data? { get set }

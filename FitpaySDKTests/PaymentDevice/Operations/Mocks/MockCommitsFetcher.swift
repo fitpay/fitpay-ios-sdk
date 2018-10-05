@@ -5,7 +5,9 @@ import RxBlocking
 
 @testable import FitpaySDK
 
+// swiftlint:disable line_length
 class MockCommitsFetcher: FetchCommitsOperationProtocol {
+
     var deviceInfo: Device!
     
     var commits: [Commit] = []

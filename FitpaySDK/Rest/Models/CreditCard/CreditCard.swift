@@ -32,8 +32,48 @@ import Foundation
     /// The credit card expiration year in 4 digits - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
     open var expYear: Int?
     
+    open var acceptTermsAvailable: Bool {
+        return links?.url(CreditCard.acceptTermsResourceKey) != nil
+    }
+
+    open var declineTermsAvailable: Bool {
+        return links?.url(CreditCard.declineTermsResourceKey) != nil
+    }
+
+    open var deactivateAvailable: Bool {
+        return links?.url(CreditCard.deactivateResourceKey) != nil
+    }
+
+    open var reactivateAvailable: Bool {
+        return links?.url(CreditCard.reactivateResourceKey) != nil
+    }
+
+    open var makeDefaultAvailable: Bool {
+        return links?.url(CreditCard.makeDefaultResourceKey) != nil
+    }
+
+    open var listTransactionsAvailable: Bool {
+        return links?.url(CreditCard.transactionsResourceKey) != nil
+    }
+    
+    open var verificationMethodsAvailable: Bool {
+        return links?.url(CreditCard.getVerificationMethodsKey) != nil
+    }
+    
+    open var selectedVerificationMethodAvailable: Bool {
+        return links?.url(CreditCard.selectedVerificationKey) != nil
+    }
+    
     var links: [ResourceLink]?
     var encryptedData: String?
+    
+    weak var client: RestClient? {
+        didSet {
+            verificationMethods?.forEach({ $0.client = client })
+            termsAssetReferences?.forEach({ $0.client = client })
+            cardMetaData?.client = client
+        }
+    }
     
     // nested model to parse top of wallet commands correctly
     private var offlineSeActions: OfflineSeActions?
@@ -44,7 +84,7 @@ import Foundation
             var apduCommands: [APDUCommand]?
         }
     }
-
+    
     private static let selfResourceKey              = "self"
     private static let acceptTermsResourceKey       = "acceptTerms"
     private static let declineTermsResourceKey      = "declineTerms"
@@ -54,55 +94,6 @@ import Foundation
     private static let transactionsResourceKey      = "transactions"
     private static let getVerificationMethodsKey    = "verificationMethods"
     private static let selectedVerificationKey      = "selectedVerification"
-
-    private weak var _client: RestClient?
-
-    var client: RestClient? {
-        get {
-            return self._client
-        }
-        set {
-            self._client = newValue
-
-            if let verificationMethods = self.verificationMethods {
-                for verificationMethod in verificationMethods {
-                    verificationMethod.client = self.client
-                }
-            }
-
-            if let termsAssetReferences = self.termsAssetReferences {
-                for termsAssetReference in termsAssetReferences {
-                    termsAssetReference.client = self.client
-                }
-            }
-
-            self.cardMetaData?.client = self.client
-        }
-    }
-
-    open var acceptTermsAvailable: Bool {
-        return self.links?.url(CreditCard.acceptTermsResourceKey) != nil
-    }
-
-    open var declineTermsAvailable: Bool {
-        return self.links?.url(CreditCard.declineTermsResourceKey) != nil
-    }
-
-    open var deactivateAvailable: Bool {
-        return self.links?.url(CreditCard.deactivateResourceKey) != nil
-    }
-
-    open var reactivateAvailable: Bool {
-        return self.links?.url(CreditCard.reactivateResourceKey) != nil
-    }
-
-    open var makeDefaultAvailable: Bool {
-        return self.links?.url(CreditCard.makeDefaultResourceKey) != nil
-    }
-
-    open var listTransactionsAvailable: Bool {
-        return self.links?.url(CreditCard.transactionsResourceKey) != nil
-    }
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -188,33 +179,11 @@ import Foundation
         try? container.encode(expYear, forKey: .expYear)
     }
     
-    func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
-        self.info = JWE.decrypt(self.encryptedData, expectedKeyId: expectedKeyId, secret: secret)
-    }
-
-    /**
-     Get the the credit card. This is useful for updated the card with the most recent data and some properties change asynchronously
-
-     - parameter completion:   CreditCardHandler closure
-     */
-    @objc open func getCard(_ completion: @escaping RestClient.CreditCardHandler) {
-        let resource = CreditCard.selfResourceKey
-        let url = self.links?.url(resource)
-
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
-        }
-    }
+    // MARK: - Public Functions
 
     @available(*, deprecated, message: "as of v1.0.3")
     @objc open func getIsDefault() -> Bool {
-        if let _isDefault = isDefault {
-            return _isDefault
-        }
-        
-        return false
+        return isDefault ?? false
     }
 
     /**
@@ -222,7 +191,7 @@ import Foundation
      - return acceptTerms url
      */
     @objc open func getAcceptTermsUrl() -> String? {
-        return self.links?.url(CreditCard.acceptTermsResourceKey)
+        return links?.url(CreditCard.acceptTermsResourceKey)
     }
     
     /**
@@ -230,12 +199,28 @@ import Foundation
      - param acceptTermsUrl url
      */
     @objc open func setAcceptTermsUrl(acceptTermsUrl: String) {
-        guard let link = self.links?.elementAt(CreditCard.acceptTermsResourceKey) else {
+        guard let link = links?.elementAt(CreditCard.acceptTermsResourceKey) else {
             log.error("CREDIT_CARD: The card is not in a state to accept terms anymore")
             return
         }
         
         link.href = acceptTermsUrl
+    }
+    
+    /**
+     Get the the credit card. This is useful for updated the card with the most recent data and some properties change asynchronously
+     
+     - parameter completion:   CreditCardHandler closure
+     */
+    @objc open func getCard(_ completion: @escaping RestClient.CreditCardHandler) {
+        let resource = CreditCard.selfResourceKey
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
     
     /**
@@ -245,12 +230,13 @@ import Foundation
      */
     @objc open func deleteCard(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = CreditCard.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeDeleteCall(url, completion: completion)
-        } else {
-            completion(ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(composeError(resource))
+            return
         }
+        
+        client.makeDeleteCall(url, completion: completion)
     }
 
     /**
@@ -262,12 +248,13 @@ import Foundation
      */
     @objc open func updateCard(name: String?, address: Address, completion: @escaping RestClient.CreditCardHandler) {
         let resource = CreditCard.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.updateCreditCard(url, name: name, address: address, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.updateCreditCard(url, name: name, address: address, completion: completion)
     }
 
     /**
@@ -277,12 +264,13 @@ import Foundation
      */
     @objc open func acceptTerms(_ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.acceptTermsResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.acceptCall(url, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.acceptCall(url, completion: completion)
     }
 
     /**
@@ -292,12 +280,13 @@ import Foundation
      */
     @objc open func declineTerms(_ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.declineTermsResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.acceptCall(url, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.acceptCall(url, completion: completion)
     }
 
     /**
@@ -309,12 +298,13 @@ import Foundation
      */
     open func deactivate(causedBy: CreditCardInitiator, reason: String, completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.deactivateResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.activationCall(url, causedBy: causedBy, reason: reason, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.activationCall(url, causedBy: causedBy, reason: reason, completion: completion)
     }
 
     /**
@@ -326,12 +316,13 @@ import Foundation
      */
     open func reactivate(causedBy: CreditCardInitiator, reason: String, completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.reactivateResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.activationCall(url, causedBy: causedBy, reason: reason, completion: completion)
-        } else {
-            completion(false, nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(false, nil, composeError(resource))
+            return
         }
+        
+        client.activationCall(url, causedBy: causedBy, reason: reason, completion: completion)
     }
     
     /**
@@ -342,7 +333,7 @@ import Foundation
     @objc open func makeDefault(deviceId: String? = nil, _ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.makeDefaultResourceKey
         
-        guard let url = self.links?.url(resource), let client = self.client else {
+        guard let url = links?.url(resource), let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
@@ -359,12 +350,13 @@ import Foundation
      */
     open func listTransactions(limit: Int, offset: Int, completion: @escaping RestClient.TransactionsHandler) {
         let resource = CreditCard.transactionsResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, limit: limit, offset: offset, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, limit: limit, offset: offset, completion: completion)
     }
     
     /**
@@ -374,12 +366,13 @@ import Foundation
      */
     open func getVerificationMethods(_ completion: @escaping RestClient.VerifyMethodsHandler) {
         let resource = CreditCard.getVerificationMethodsKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
     
     /**
@@ -389,19 +382,25 @@ import Foundation
      */
     open func getSelectedVerification(_ completion: @escaping RestClient.VerifyMethodHandler) {
         let resource = CreditCard.selectedVerificationKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+
+        client.makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
+    // MARK: - Internal Functions
+
+    func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
+        info = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
     // MARK: - Private Functions
-    
-    func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: CreditCard.self, client: self.client, url: self.links?.url(resource), resource: resource)
+
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: links?.url(resource), resource: resource)
     }
     
 }
-

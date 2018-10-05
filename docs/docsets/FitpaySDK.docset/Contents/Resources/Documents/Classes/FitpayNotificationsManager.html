@@ -147,6 +147,15 @@
                 <a class="nav-group-task-link" href="../Classes/FitpayWeb.html">FitpayWeb</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector.html">HendricksPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector/BLECommandPackage.html">– BLECommandPackage</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/IdVerification.html">IdVerification</a>
               </li>
               <li class="nav-group-task">
@@ -414,7 +423,7 @@
             <h1>FitpayNotificationsManager</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">FitpayNotificationsManager</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">FitpayNotificationsManager</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span></code></pre>
 
                 </div>
               </div>
@@ -494,7 +503,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Completion handler</p>
+                        <p>NotificationsEventBlockHandler</p>
 
                       </div>
                       <div class="declaration">
@@ -527,12 +536,23 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20Functions"></a>
+                <a name="//apple_ref/swift/Section/Public Functions" class="dashAnchor"></a>
+                <a href="#/Public%20Functions">
+                  <h3 class="section-name">Public Functions</h3>
+                </a>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC13setRestClientyAA0fG0CSgF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC13setRestClientyyAA0fG0CSgF"></a>
                     <a name="//apple_ref/swift/Method/setRestClient(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC13setRestClientyAA0fG0CSgF">setRestClient(_:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC13setRestClientyyAA0fG0CSgF">setRestClient(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -557,9 +577,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC18handleNotificationys10DictionaryVys11AnyHashableVypGF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC18handleNotificationyySDys11AnyHashableVypGF"></a>
                     <a name="//apple_ref/swift/Method/handleNotification(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC18handleNotificationys10DictionaryVys11AnyHashableVypGF">handleNotification(_:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC18handleNotificationyySDys11AnyHashableVypGF">handleNotification(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -606,9 +626,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC06updateC5TokenySSF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC06updateC5TokenyySSF"></a>
                     <a name="//apple_ref/swift/Method/updateNotificationsToken(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC06updateC5TokenySSF">updateNotificationsToken(_:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC06updateC5TokenyySSF">updateNotificationsToken(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -652,9 +672,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC11bindToEventAA0aG7BindingCSgAA0cG4TypeO05eventI0_yAA0aG0Cc10completiontF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC11bindToEvent9eventType10completionAA0aG7BindingCSgAA0cgI0O_yAA0aG0CctF"></a>
                     <a name="//apple_ref/swift/Method/bindToEvent(eventType:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC11bindToEventAA0aG7BindingCSgAA0cG4TypeO05eventI0_yAA0aG0Cc10completiontF">bindToEvent(eventType:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC11bindToEvent9eventType10completionAA0aG7BindingCSgAA0cgI0O_yAA0aG0CctF">bindToEvent(eventType:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -710,9 +730,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC11bindToEventAA0aG7BindingCSgAA0cG4TypeO05eventI0_yAA0aG0Cc10completionSo13DispatchQueueC5queuetF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC11bindToEvent9eventType10completion5queueAA0aG7BindingCSgAA0cgI0O_yAA0aG0CcSo012OS_dispatch_K0CtF"></a>
                     <a name="//apple_ref/swift/Method/bindToEvent(eventType:completion:queue:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC11bindToEventAA0aG7BindingCSgAA0cG4TypeO05eventI0_yAA0aG0Cc10completionSo13DispatchQueueC5queuetF">bindToEvent(eventType:completion:queue:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC11bindToEvent9eventType10completion5queueAA0aG7BindingCSgAA0cgI0O_yAA0aG0CcSo012OS_dispatch_K0CtF">bindToEvent(eventType:completion:queue:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -780,9 +800,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC17removeSyncBindingyAA0a5EventG0C7binding_tF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC17removeSyncBinding7bindingyAA0a5EventG0C_tF"></a>
                     <a name="//apple_ref/swift/Method/removeSyncBinding(binding:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC17removeSyncBindingyAA0a5EventG0C7binding_tF">removeSyncBinding(binding:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC17removeSyncBinding7bindingyAA0a5EventG0C_tF">removeSyncBinding(binding:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -834,9 +854,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC37updateRestClientForNotificationDetailyAA0iJ0CSgF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC37updateRestClientForNotificationDetailyyAA0iJ0CSgF"></a>
                     <a name="//apple_ref/swift/Method/updateRestClientForNotificationDetail(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC37updateRestClientForNotificationDetailyAA0iJ0CSgF">updateRestClientForNotificationDetail(_:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC37updateRestClientForNotificationDetailyyAA0iJ0CSgF">updateRestClientForNotificationDetail(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -861,9 +881,9 @@ you should call fetchCompletionHandler if this function was called from backgrou
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK0A20NotificationsManagerC34notificationDetailFromNotificationAA0hF0CSgs10DictionaryVys11AnyHashableVypGSgF"></a>
+                    <a name="/s:9FitpaySDK0A20NotificationsManagerC34notificationDetailFromNotificationyAA0hF0CSgSDys11AnyHashableVypGSgF"></a>
                     <a name="//apple_ref/swift/Method/notificationDetailFromNotification(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC34notificationDetailFromNotificationAA0hF0CSgs10DictionaryVys11AnyHashableVypGSgF">notificationDetailFromNotification(_:)</a>
+                    <a class="token" href="#/s:9FitpaySDK0A20NotificationsManagerC34notificationDetailFromNotificationyAA0hF0CSgSDys11AnyHashableVypGSgF">notificationDetailFromNotification(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">

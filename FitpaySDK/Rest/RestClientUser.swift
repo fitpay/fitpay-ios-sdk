@@ -13,7 +13,7 @@ extension RestClient {
      */
     public typealias UserHandler = (_ user: User?, _ error: ErrorResponse?) -> Void
     
-    //MARK: - Public Functions
+    // MARK: - Public Functions
     
     /**
      Creates a new user within your organization
@@ -116,7 +116,7 @@ extension RestClient {
      - parameter termsVersion:         terms version formatted as [0.0.0]
      - parameter completion:           UpdateUserHandler closure
      */
-    @objc public func updateUser(_ url: String,  firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion: @escaping UserHandler) {
+    @objc public func updateUser(_ url: String, firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion: @escaping UserHandler) {
         prepareAuthAndKeyHeaders { (headers, error) in
             guard let headers = headers else {
                 completion(nil, error)

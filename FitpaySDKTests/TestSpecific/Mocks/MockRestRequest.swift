@@ -28,7 +28,7 @@ class MockRestRequest: RestRequestable {
         lastEncoding = encoding
         lastUrl = request.request?.url
         
-        var data: Any? = nil
+        var data: Any?
         
         if urlString.contains("commits") {
             data = loadDataFromJSONFile(filename: "getCommit")
@@ -54,13 +54,13 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("declineTerms") {
             data = loadDataFromJSONFile(filename: "declineTerms")
             
-        }  else if urlString.contains("creditCards") && method == .post  {
+        } else if urlString.contains("creditCards") && method == .post {
             data = loadDataFromJSONFile(filename: "createCreditCard")
             
-        }  else if urlString.contains("creditCards/") && method == .get {
+        } else if urlString.contains("creditCards/") && method == .get {
             data = loadDataFromJSONFile(filename: "retrieveCreditCard")
             
-        }  else if urlString.contains("creditCards") && method == .get {
+        } else if urlString.contains("creditCards") && method == .get {
             data = loadDataFromJSONFile(filename: "listCreditCards")
             
         } else if urlString.contains("devices") && method == .post {
@@ -68,6 +68,9 @@ class MockRestRequest: RestRequestable {
             
         } else if urlString.contains("devices") && method == .get {
             data = loadDataFromJSONFile(filename: "listDevices")
+            
+        } else if urlString.contains("devices") && method == .patch {
+            data = loadDataFromJSONFile(filename: "updateDevice")
             
         } else if urlString.contains("/config/encryptionKeys") {
             data = loadDataFromJSONFile(filename: "getEncryptionKeyJson")
@@ -109,10 +112,12 @@ class MockRestRequest: RestRequestable {
         
         if urlString.contains("assets") {
             let imagePath =  Bundle(for: type(of: self)).path(forResource: "mocImage", ofType: "png")!
-            let data = UIImagePNGRepresentation(UIImage(contentsOfFile: imagePath)!)
+            let data = UIImage(contentsOfFile: imagePath)!.pngData()
             if let data = data {
                 completion(data, nil)
             }
+        } else if urlString.contains("termsAssetReference") {
+            completion("html".data(using: .utf8), nil)
         }
     }
     

@@ -1,6 +1,6 @@
 import Foundation
 
-class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
+class RtmMessageHandlerV2: NSObject, RtmMessageHandler, ClientModel {
     
     enum RtmMessageTypeVer2: String, RtmMessageTypeWithHandler {
         case rtmVersion = "version"
@@ -31,7 +31,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     
     var wvConfigStorage: WvConfigStorage!
     var webViewSessionData: SessionData?
-    var restClient: RestClient?
+    var client: RestClient?
 
     var syncCallBacks = [RtmMessage]()
     
@@ -62,10 +62,10 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     func handleSync(_ message: RtmMessage) {
         log.verbose("WV_DATA: Handling rtm sync.")
         
-        guard let _ = self.webViewSessionData,
-            let user = self.wvConfigStorage.user,
-            let deviceInfo = self.wvConfigStorage.device,
-            let paymentDevice = self.wvConfigStorage.paymentDevice else {
+        guard webViewSessionData != nil,
+            let user = wvConfigStorage.user,
+            let deviceInfo = wvConfigStorage.device,
+            let paymentDevice = wvConfigStorage.paymentDevice else {
                 log.warning("WV_DATA: rtm not yet configured to handle syncs requests, failing sync.")
                 if let delegate = self.outputDelegate {
                     delegate.send(rtmMessage: RtmMessageResponse(callbackId: self.syncCallBacks.first?.callBackId ?? 0,
@@ -86,10 +86,10 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
     private func handleSync(_ event: StreamEvent) {
         log.verbose("WV_DATA: Handling event sync.")
         
-        guard let _ = self.webViewSessionData,
-            let user = self.wvConfigStorage.user,
-            let deviceInfo = self.wvConfigStorage.device,
-            let paymentDevice = self.wvConfigStorage.paymentDevice else {
+        guard webViewSessionData != nil,
+            let user = wvConfigStorage.user,
+            let deviceInfo = wvConfigStorage.device,
+            let paymentDevice = wvConfigStorage.paymentDevice else {
                 log.warning("WV_DATA: rtm not yet configured to handle syncs requests, failing sync.")
                 return
         }
@@ -106,7 +106,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
         }
 
         self.webViewSessionData = webViewSessionData
-        self.restClient = RestSession.GetUserAndDeviceWith(sessionData: webViewSessionData) { [weak self] (user, device, error) in
+        self.client = RestSession.GetUserAndDeviceWith(sessionData: webViewSessionData) { [weak self] (user, device, error) in
             guard error == nil else {
                 if let delegate = self?.outputDelegate {
                     delegate.send(rtmMessage: RtmMessageResponse(callbackId: message.callBackId,
@@ -137,7 +137,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
             // start EventStream
             if let userId = user?.id, FitpayConfig.Web.automaticallySubscribeToUserEventStream {
                 UserEventStreamManager.sharedInstance.subscribe(userId: userId, sessionData: webViewSessionData) { event in
-                    if (event.type == .sync && FitpayConfig.Web.automaticallySyncFromUserEventStream) {
+                    if event.type == .sync && FitpayConfig.Web.automaticallySyncFromUserEventStream {
                         self?.handleSync(event)
                     }
                 }
@@ -150,7 +150,7 @@ class RtmMessageHandlerV2: NSObject, RtmMessageHandler {
                                                              success: true), retries: 3)
             }
         }
-        FitpayNotificationsManager.sharedInstance.setRestClient(restClient)
+        FitpayNotificationsManager.sharedInstance.client = client
     }
 
     func logoutResponseMessage() -> RtmMessageResponse? {

@@ -36,4 +36,17 @@ class CommitMetricsTests: XCTestCase {
         expect(commitMetric.osVersion).to(contain("iOS "))
     }
     
+    func testSetNotification() {
+        let notification = mockModels.getNotificationDetail()
+        let commitMetric = CommitMetrics()
+        
+        expect(commitMetric.syncId).to(beNil())
+        
+        commitMetric.notification = notification
+        
+        expect(commitMetric.syncId).toNot(beNil())
+        expect(commitMetric.syncId).to(equal(notification?.syncId))
+
+    }
+        
 }

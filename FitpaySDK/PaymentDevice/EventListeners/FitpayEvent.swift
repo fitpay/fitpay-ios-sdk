@@ -19,7 +19,7 @@ open class FitpayEvent: NSObject {
     open private(set) var reason: Error?
     open private(set) var date: Date
     
-    open private(set) var eventData : Any
+    open private(set) var eventData: Any
     
     public init(eventId: FitpayEventTypeProtocol, eventData: Any, status: EventStatus = .success, reason: Error? = nil) {
         

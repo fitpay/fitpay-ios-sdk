@@ -31,7 +31,7 @@ class DecimalNumberTypeTransform: CodingContainerTransformer {
             let handler = NSDecimalNumberHandler(roundingMode: .plain, scale: 3, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
             return NSDecimalNumber(decimal: number.decimalValue).rounding(accordingToBehavior: handler)
         } else if let double = decoded as? Double {
-            return NSDecimalNumber(floatLiteral: double)
+            return NSDecimalNumber(value: double)
         }
         return nil
     }
@@ -97,4 +97,3 @@ class DateToIntTransform: CodingContainerTransformer {
         return nil
     }
 }
-

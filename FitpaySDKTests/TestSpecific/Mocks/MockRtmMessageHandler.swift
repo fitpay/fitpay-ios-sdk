@@ -4,7 +4,7 @@ import XCTest
 
 class MockRtmMessageHandler: RtmMessageHandler {
     
-    var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
+    weak var a2aVerificationDelegate: FitpayA2AVerificationDelegate?
     
     var wvConfigStorage: WvConfigStorage!
     

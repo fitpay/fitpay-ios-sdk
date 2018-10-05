@@ -50,8 +50,8 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
     // rx
     private var publisher: BehaviorSubject<SyncOperationConnectionState>
     // bindings
-    private weak var deviceConnectedBinding : FitpayEventBinding?
-    private weak var deviceDisconnectedBinding : FitpayEventBinding?
+    private weak var deviceConnectedBinding: FitpayEventBinding?
+    private weak var deviceDisconnectedBinding: FitpayEventBinding?
     
     private func connect(observable: BehaviorSubject<SyncOperationConnectionState>) {
         if let binding = self.deviceConnectedBinding {
@@ -67,7 +67,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             let deviceInfo = (event.eventData as? [String: Any])?["deviceInfo"] as? Device
             let error = (event.eventData as? [String: Any])?["error"] as? Error
             
-            guard (error == nil && deviceInfo != nil) else {
+            guard error == nil && deviceInfo != nil else {
                 observable.onError(error ?? SyncOperationError.couldNotConnectToDevice)
                 return
             }
@@ -81,7 +81,7 @@ open class ConnectDeviceOperation: ConnectDeviceOperationProtocol {
             observable.onNext(.connected)
         }
         
-        self.deviceDisconnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected) { [weak self] (event) in
+        self.deviceDisconnectedBinding = self.paymentDevice.bindToEvent(eventType: PaymentDevice.PaymentDeviceEventTypes.onDeviceDisconnected) { [weak self] (_) in
             
             if let binding = self?.deviceConnectedBinding {
                 self?.paymentDevice.removeBinding(binding: binding)

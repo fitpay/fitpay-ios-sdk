@@ -47,4 +47,18 @@ class CardInfoTests: XCTestCase {
         expect(json?["cvv"]).to(beNil())
         expect(json?["name"] as? String).to(equal("someName"))
     }
+    
+    func testCardInfoManualInit() {
+        let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
+        let riskData = IdVerification()
+        let cardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "John Wick", address: address, riskData: riskData)
+        
+        expect(cardInfo.address).to(equal(address))
+        expect(cardInfo.riskData).to(equal(riskData))
+        expect(cardInfo.pan).to(equal("123456"))
+        expect(cardInfo.expMonth).to(equal(12))
+        expect(cardInfo.expYear).to(equal(2020))
+        expect(cardInfo.cvv).to(equal("123"))
+        expect(cardInfo.name).to(equal("John Wick"))
+    }
 }

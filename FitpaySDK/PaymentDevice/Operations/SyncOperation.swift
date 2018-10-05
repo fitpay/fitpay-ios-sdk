@@ -56,10 +56,8 @@ class SyncOperation {
                 break
             case .started:
                 self?.isSyncing = true
-                break
             case .completed:
                 self?.isSyncing = false
-                break
             }
         }).disposed(by: disposeBag)
         
@@ -69,7 +67,7 @@ class SyncOperation {
         }
         
         // we need to update notification token first, because during sync we can receive push notifications
-        self.deviceInfo.updateNotificationTokenIfNeeded { [weak self] (_, error) in
+        self.deviceInfo.updateNotificationTokenIfNeeded { [weak self] (_, _) in
             self?.startSync()
         }
         
@@ -79,27 +77,22 @@ class SyncOperation {
     // MARK: - Private Functions
     
     private func startSync() {
-        self.connectOperation.start().subscribe() { [weak self] (event) in
+        self.connectOperation.start().subscribe { [weak self] (event) in
             switch event {
             case .error(let error):
                 self?.state.value = .completed(error)
-                break
             case .next(let state):
                 switch state {
                 case .connected:
                     self?.state.value = .connected
                     self?.sync()
-                    break
                 case .connecting:
                     self?.state.value = .connecting
-                    break
                 case .disconnected:
                     if self?.isSyncing == true {
                         self?.state.value = .completed(SyncOperationError.paymentDeviceDisconnected)
                     }
-                    break
                 }
-                break
             case .completed:
                 break
             }
@@ -107,13 +100,12 @@ class SyncOperation {
     }
     
     private func sync() {
-        self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe() { [weak self] (e) in
+        self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe { [weak self] (e) in
             switch e {
             case .error(let error):
                 log.error("SYNC_DATA: Can't fetch commits. Error: \(error)")
                 self?.sendCommitsMetric()
                 self?.state.value = .completed(SyncManager.ErrorCode.cantFetchCommits)
-                break
             case .next(let commits):
                 self?.state.value = .commitsReceived(commits: commits)
                 
@@ -134,10 +126,8 @@ class SyncOperation {
                 if applyerStarted ?? false == false {
                     self?.state.value = .completed(NSError.error(code: SyncManager.ErrorCode.commitsApplyerIsBusy, domain: SyncOperation.self))
                 }
-                break
             case .completed:
                 self?.sendCommitsMetric()
-                break
             }
             }.disposed(by: disposeBag)
         

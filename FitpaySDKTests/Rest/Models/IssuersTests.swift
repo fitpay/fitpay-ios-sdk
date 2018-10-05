@@ -1,4 +1,6 @@
 import XCTest
+import Nimble
+
 @testable import FitpaySDK
 
 class IssuersTests: XCTestCase {
@@ -7,11 +9,11 @@ class IssuersTests: XCTestCase {
     func testIssuersParsing() {
         let issuers = mockModels.getIssuers()
 
-        XCTAssertNotNil(issuers?.links)
-        XCTAssertNotNil(issuers?.countries)
+        expect(issuers?.links).toNot(beNil())
+        expect(issuers?.countries).toNot(beNil())
 
         let json = issuers?.toJSON()
-        XCTAssertNotNil(json?["_links"])
-        XCTAssertNotNil(json?["countries"])
+        expect(json?["_links"]).toNot(beNil())
+        expect(json?["countries"]).toNot(beNil())
     }
 }

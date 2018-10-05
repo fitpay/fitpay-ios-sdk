@@ -14,14 +14,15 @@ class CommitsStorageTests: XCTestCase {
     var syncQueue: SyncRequestQueue!
     var fetcher: MockCommitsFetcher!
     
+    let mockModels = MockModels()
+    
     override func setUp() {
         super.setUp()
         
         Nimble.AsyncDefaults.Timeout = 4
         
-        deviceInfo = Device()
-        deviceInfo.deviceIdentifier = "222-222-222"
-        
+        deviceInfo = mockModels.getDevice(deviceId: "222-222-222")!
+
         paymentDevice = PaymentDevice()
         
         fetcher = MockCommitsFetcher()
@@ -53,7 +54,6 @@ class CommitsStorageTests: XCTestCase {
                 
             }).disposed(by: self.disposeBag)
         }
-        
         
     }
     
@@ -112,7 +112,7 @@ class CommitsStorageTests: XCTestCase {
         connector.apduExecuteDelayTime = 0.1
         
         waitUntil { done in
-            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (status, error) in
+            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (_, _) in
                 let storedDeviceCommitId = connector.getDeviceLastCommitId()
                 expect(storedDeviceCommitId).to(equal("21321312"))
                 done()
@@ -134,9 +134,8 @@ class CommitsStorageTests: XCTestCase {
         connector.disconnectDelayTime = 0.2
         connector.apduExecuteDelayTime = 0.1
         
-        
         waitUntil { done in
-            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (status, error) in
+            self.syncQueue.add(request: self.getSyncRequest(connector: connector)) { (_, _) in
                 let storedDeviceCommitId = MockSyncStorage.sharedMockInstance.getLastCommitId(self.deviceInfo.deviceIdentifier!)
                 expect(storedDeviceCommitId).to(equal("21321312"))
                 done()
@@ -179,11 +178,11 @@ extension CommitsStorageTests { // Mocks
         public static let sharedMockInstance = MockSyncStorage()
         var commits =  [String: String]()
         
-        override public func getLastCommitId(_ deviceId:String) -> String {
+        override public func getLastCommitId(_ deviceId: String) -> String {
             return commits[deviceId] ?? String()
         }
         
-        override public func setLastCommitId(_ deviceId:String, commitId:String) -> Void {
+        override public func setLastCommitId(_ deviceId: String, commitId: String) {
             commits[deviceId] = commitId
         }
     }
@@ -193,11 +192,10 @@ extension CommitsStorageTests { // Private Helpers
     
     private func getSyncRequest(connector: MockPaymentDeviceConnector) -> SyncRequest {
         let device = self.paymentDevice!
-        let _ = device.changeDeviceInterface(connector)
+        _ = device.changeDeviceInterface(connector)
         let request = SyncRequest(user: try! User("{\"id\":\"1\"}"), deviceInfo: deviceInfo, paymentDevice: device)
         SyncRequest.syncManager = self.syncManager
         return request
     }
     
 }
-

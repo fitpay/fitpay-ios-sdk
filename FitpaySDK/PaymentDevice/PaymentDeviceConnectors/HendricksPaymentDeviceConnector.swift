@@ -30,6 +30,8 @@ import CoreBluetooth
     private var apduCompletion: ((Error?) -> Void)?
     private var apduCommands: [APDUCommand]?
     
+    private var timer: Timer?
+    
     // MARK: - Lifecycle
     
     @objc public init(paymentDevice: PaymentDevice) {
@@ -44,7 +46,59 @@ import CoreBluetooth
         processNextCommand()
     }
     
+    public func addCreditCard(_ creditCard: CreditCard) {
+        
+        processCreditCardImage(creditCard) { (cardArtData) in
+            
+            // data
+            let lastFour = creditCard.info?.pan?.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+            guard let lastFourData = lastFour?.data(using: .utf8)?.paddedTo(byteLength: 5) else { return }
+            
+            let exp = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
+            guard let expData = exp.data(using: .utf8)?.paddedTo(byteLength: 6) else { return }
+            
+            guard let financialServiceData =  creditCard.cardType!.data(using: .utf8)?.paddedTo(byteLength: 21) else { return }
+            guard let cardIdData = creditCard.creditCardId?.data(using: .utf8)?.paddedTo(byteLength: 37) else { return }
+            
+            var cardArtId = 0
+            let cardArtIdData = Data(bytes: &cardArtId, count: 2)
+            
+            var towId = 0
+            let towIdData = Data(bytes: &towId, count: 2)
+            
+            // card status
+            let cardStatusData = UInt8(0x07).data // TODO: map correct card status
+            
+            let towApduData = creditCard.topOfWalletAPDUCommands != nil ? self.buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
+            var towSize = towApduData.count
+            let towSizeData = Data(bytes: &towSize, count: 4)
+            
+            var cardArtSize = cardArtData.count
+            let cardArtSizeData = Data(bytes: &cardArtSize, count: 4)
+            
+            //split for compiler
+            let dataFirstHalf = lastFourData + expData + financialServiceData + cardIdData + cardArtIdData
+            let dataSecondHalf = cardArtSizeData + towIdData + towSizeData + cardStatusData + cardArtData + towApduData
+            let data = dataFirstHalf + dataSecondHalf
+            
+            // command data
+            var metaSize = 82
+            let metaSizeData = Data(bytes: &metaSize, count: 4)
+            
+            let commandData = cardIdData + metaSizeData + cardArtSizeData + towSizeData
+            
+            let bleCommand = BLECommandPackage(.addCard, commandData: commandData, data: data)
+            self.addCommandtoQueue(bleCommand)
+            
+        }
+    }
+    
     // MARK: - Private Functions
+    
+    private func addCommandtoFrontOfQueue(_ bleCommand: BLECommandPackage) {
+        commandQueue.insert(bleCommand, at: 0)
+        processNextCommand()
+    }
     
     private func runCommand() {
         guard currentCommand == nil else {
@@ -60,14 +114,18 @@ import CoreBluetooth
         }
         
         guard let wearablePeripheral = wearablePeripheral else { return }
-        guard let deviceService = wearablePeripheral.services?.filter({ $0.uuid == deviceServiceId }).first else { return }
+        guard let deviceService = wearablePeripheral.services?.first(where: { $0.uuid == deviceServiceId }) else { return }
         
-        guard let statusCharacteristic = deviceService.characteristics?.filter({ $0.uuid == statusCharacteristicId }).first else { return }
-        guard let commandCharacteristic = deviceService.characteristics?.filter({ $0.uuid == commandCharacteristicId }).first else { return }
-        guard let dataCharacteristic = deviceService.characteristics?.filter({ $0.uuid == dataCharacteristicId }).first else { return }
+        guard let statusCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == statusCharacteristicId }) else { return }
+        guard let commandCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == commandCharacteristicId }) else { return }
+        guard let dataCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == dataCharacteristicId }) else { return }
         
         log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
+        if command.command == .factoryReset {
+            wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        }
+
         // start
         wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
         
@@ -81,12 +139,29 @@ import CoreBluetooth
         wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
         
         if let data = command.data {
-            log.debug("HENDRICKS: putting data: \(data.hex)")
-            wearablePeripheral.writeValue(data, for: dataCharacteristic, type: .withResponse)
+            let maxLength = 182
+            var startIndex = 0
+            while startIndex < data.count {
+                let end = min(startIndex + maxLength, data.count)
+                let parsedData = data[startIndex ..< end]
+                log.verbose("HENDRICKS: putting parsed data: \(parsedData.hex) + \(parsedData.count)")
+                wearablePeripheral.writeValue(parsedData, for: dataCharacteristic, type: .withResponse)
+                startIndex += maxLength
+            }
         }
         
         // end
         wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
+        
+        timer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
+        
+    }
+    
+    @objc private func handleBleIssue() {
+        log.warning("HENDRICKS: Reseting due to no response or invalid response status")
+        
+        resetVariableState()
+        resetToDefaultState()
     }
     
     private func handlePingResponse() {
@@ -100,28 +175,32 @@ import CoreBluetooth
 
         while index < expectedDataSize {
             guard returnedData[index] == 0x24 else { return }
+            guard let type = PingResponse(rawValue: returnedData[index + 1]) else { return }
             
-            let type = PingResponse(rawValue: returnedData[index + 1])
             let length = Int(returnedData[index + 2])
             let nextIndex = index + 3 + length
             let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
             
-            if (type == .serial) {
+            switch type {
+            case .serial:
                 device.serialNumber = hex
-                
-            } else if (type == .version) {
+            case .version:
                 var version = "v"
                 for i in index + 3 ..< nextIndex {
                     version += String(returnedData[i]) + "."
                 }
                 device.firmwareRevision = String(version.dropLast())
-                
-            } else if (type == .deviceMode) {
+            case .deviceMode:
                 guard returnedData[index + 3 ..< nextIndex] == [0x02] else { return }
-
-            } else if (type == .bootVersion) {
+                
+            case .bootVersion:
                 device.hardwareRevision = hex
                 
+            case .bleMac:
+                device.bdAddress = hex
+                
+            default:
+                break
             }
             
             index = nextIndex
@@ -138,7 +217,7 @@ import CoreBluetooth
             let sequence = returnedData[index + 1] + returnedData[index + 2] << 8 // shift second bit
             let length = Int(returnedData[index + 4])
             let apduBytes = returnedData[index + 5 ..< index + length + 5]
-            index = index + 5 + length
+            index += 5 + length
             
             let packet = ApduResultMessage(responseData: Data(bytes: apduBytes))
             
@@ -151,10 +230,12 @@ import CoreBluetooth
         apduCommands = nil
     }
     
-    private func resetState() {
+    private func resetVariableState() {
         expectedDataSize = 0
         returnedData = []
         currentCommand = nil
+        timer?.invalidate()
+        timer = nil
         
         processNextCommand()
     }
@@ -170,22 +251,114 @@ import CoreBluetooth
         
         for apdu in apdus {
             guard let command = apdu.command else { continue }
-            let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
+            guard let commandData = command.hexToData() else { continue }
 
+            let continueInt: UInt8 = apdu.continueOnFailure ? 0x01 : 0x00
+            
             let groupIdData = UInt8(apdu.groupId).data
             let sequenceData = UInt16(apdu.sequence).data
             let continueData = continueInt.data
             let lengthData = UInt8(command.count / 2).data
-            guard let commandData = command.hexToData() else { continue }
             
             let fullCommandData = groupIdData + sequenceData + continueData + lengthData + commandData
-            print("\(groupIdData.hex) \(sequenceData.hex) \(continueData.hex) \(lengthData.hex) \(commandData.hex)")
+
             data.append(fullCommandData)
         }
         
         return data
     }
-
+    
+    private func processCreditCardImage(_ creditCard: FitpaySDK.CreditCard, completion: @escaping (_ data: Data) -> Void) {
+        let defaultCardWidth = 200
+        let defaultCardHeight = 125
+        let cardImage = creditCard.cardMetaData?.cardBackgroundCombined?.first
+        
+        cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight)]) { (asset, _) in
+            guard let image = asset?.image else {
+                completion(Data())
+                return
+            }
+            let pixelData = image.pixelData()!
+            
+            // determine if there is tranparency
+            var transparency = false
+            
+            for i in stride(from: 0, to: pixelData.count, by: 4) {
+                let a = pixelData[i + 3]
+                if a < 255 {
+                    transparency = true
+                    break
+                }
+            }
+            
+            // create main data
+            var previousColor: (color: UInt16, alpha: UInt16)?
+            var mainData = Data()
+            var pixelCounter: UInt16 = 0
+            let maxPixelCount = transparency ? 15 : 255
+            
+            for i in stride(from: 0, to: pixelData.count, by: 4) {
+                let r = UInt16(pixelData[i])
+                let g = UInt16(pixelData[i + 1])
+                let b = UInt16(pixelData[i + 2])
+                let a = UInt16(pixelData[i + 3])
+                
+                let red =   ((31 * (r + 4)) / 255)
+                let green = ((63 * (g + 2)) / 255)
+                let blue =  ((31 * (b + 4)) / 255)
+                let alpha = (((15 * (a + 8)) / 255) & 0x0F)
+                
+                var color: UInt16 = (red << 11) | (green << 5) | blue
+                
+                if i == 0 { // handle first case differently
+                    previousColor = (color: color, alpha: alpha)
+                } else {
+                    pixelCounter += 1
+                }
+                
+                if alpha == 0 { // if fully transparent wipe color
+                    color = 0
+                }
+                
+                let lastPixel = i + 4 == pixelData.count
+                
+                if (color: color, alpha: alpha) != previousColor! || pixelCounter >= maxPixelCount || lastPixel {
+                    if !lastPixel {
+                        pixelCounter -= 1
+                    }
+                    
+                    if transparency {
+                        let pixelPlusAlpha: UInt8 = (UInt8(pixelCounter) << 4) | (UInt8(previousColor!.alpha))
+                        mainData += pixelPlusAlpha.data + previousColor!.color.data
+                        
+                    } else {
+                        mainData += pixelCounter.data + previousColor!.color.data
+                    }
+                    
+                    pixelCounter = 0
+                }
+                
+                previousColor = (color: color, alpha: alpha)
+                
+            }
+            
+            // header
+            let imageVersion: UInt8 = 0x41
+            let imageMode: UInt8 = transparency ? 0x01 : 0x00
+            var width = Int(image.size.width)
+            let widthData = Data(bytes: &width, count: 2)
+            var height = Int(image.size.height)
+            let heightData = Data(bytes: &height, count: 2)
+            
+            var mainDataSize = mainData.count
+            let mainDataSizeData = Data(bytes: &mainDataSize, count: 2)
+            
+            let imageHeader = imageVersion.data + imageMode.data + widthData + heightData + mainDataSizeData
+            
+            completion(imageHeader + mainData)
+        }
+    }
+    
 }
 
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
@@ -233,7 +406,7 @@ import CoreBluetooth
     }
     
     public func resetToDefaultState() {
-        addCommandtoQueue(BLECommandPackage(.factoryReset))
+        addCommandtoFrontOfQueue(BLECommandPackage(.factoryReset))
     }
     
 }
@@ -276,6 +449,9 @@ import CoreBluetooth
         log.warning("HENDRICKS: Failed to Connect")
     }
     
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        log.debug("HENDRICKS: didDisconnect")
+    }
 }
 
 @objc extension HendricksPaymentDeviceConnector: CBPeripheralDelegate {
@@ -297,7 +473,6 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: dataCharacteristic)
 
         addCommandtoQueue(BLECommandPackage(.ping))
-//        addCommandtoQueue(BLECommandPackage(.factoryReset))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -309,22 +484,18 @@ import CoreBluetooth
             let status = Data(bytes: Array([value[0]]))
             guard status == BLEResponses.ok.rawValue.data else {
                 log.error("HENDRICKS: BLE Response Status not OK")
-                resetState()
+                handleBleIssue()
                 return
             }
             
-            if (value.count == 1) { //status
+            if value.count == 1 { //status
                 log.debug("HENDRICKS: BLE Response OK with no length")
-                resetState()
+                resetVariableState()
                 
-            } else if (value.count == 5) { //length
+            } else if value.count == 5 { //length
                 log.debug("HENDRICKS: BLE Response OK with length")
                 let lengthData = Data(bytes: Array(value[1...4])).hex
                 expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
-                
-                returnedData = []
-                
-                //todo add timeout
                 
             } else {
                 
@@ -333,7 +504,7 @@ import CoreBluetooth
         case dataCharacteristicId:
             returnedData.append(contentsOf: value)
 
-            if (returnedData.count == expectedDataSize) {
+            if returnedData.count == expectedDataSize {
                 let hexData = Data(bytes: returnedData).hex
                 log.verbose("HENDRICKS: all data received \(hexData)")
                 
@@ -341,19 +512,21 @@ import CoreBluetooth
                    handlePingResponse()
                 } else if currentCommand?.command == .apduPackage {
                     handleAPDUResponse()
+                } else if currentCommand?.command == .addCard {
+                    //handle add card response
                 }
                 
-                resetState()
+                resetVariableState()
             }
 
         default:
             log.warning("HENDRICKS: Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
     }
-    
+
 }
 
-// MARK - Nested Enums
+// MARK: - Nested Data
 
 extension HendricksPaymentDeviceConnector {
     
@@ -390,12 +563,19 @@ extension HendricksPaymentDeviceConnector {
     }
     
     enum PingResponse: UInt8 {
-        case serial         = 0x00
-        case version        = 0x01
-        case deviceId       = 0x02
-        case deviceMode     = 0x03
-        case bootVersion    = 0x04
-        case ack            = 0x06
+        case serial             = 0x00
+        case version            = 0x01
+        case deviceId           = 0x02
+        case deviceMode         = 0x03
+        case bootVersion        = 0x04
+        
+        case ack                = 0x06
+        
+        case bootloaderVersion  = 0x17
+        case appVersion         = 0x18
+        case d21BlVersion       = 0x19
+        case hardwareVersion    = 0x1A
+        case bleMac             = 0x1B
     }
     
     enum BLEResponses: UInt8 {

@@ -65,25 +65,7 @@ open class RestClient: NSObject {
     // MARK: - Functions
     
     func collectionItems<T>(_ url: String, completion: @escaping (_ resultCollection: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) -> T? {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                guard let strongSelf = self else { return }
-                let result = try? ResultCollection<T>(resultValue)
-                result?.client = self
-                result?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                completion(result, nil)
-            }
-        }
-        
+        makeGetCall(url, parameters: nil, completion: completion)
         return nil
     }
     
@@ -102,30 +84,12 @@ open class RestClient: NSObject {
     public typealias ConfirmHandler = (_ error: ErrorResponse?) -> Void
     
     public func confirm(_ url: String, executionResult: NonAPDUCommitState, completion: @escaping ConfirmHandler) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers  else {
-                DispatchQueue.main.async { completion(error) }
-                return
-            }
-            
-            let params = ["result": executionResult.description]
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                completion(error)
-            }
-        }
+        let params = ["result": executionResult.description]
+        makePostCall(url, parameters: params, completion: completion)
     }
     
     public func acknowledge(_ url: String, completion: @escaping ConfirmHandler) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers  else {
-                DispatchQueue.main.async { completion(error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                completion(error)
-            }
-        }
+        makePostCall(url, parameters: nil, completion: completion)
     }
     
     public func getPlatformConfig(completion: @escaping (_ platform: PlatformConfig?, _ error: ErrorResponse?) -> Void) {
@@ -149,88 +113,8 @@ open class RestClient: NSObject {
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .delete, parameters: nil, encoding: URLEncoding.default, headers: headers) { (_, error) in
                 completion(error)
-            }
-        }
-    }
-
-    func makeGetCall<T: Codable>(_ url: String, parameters: [String: Any]?, completion: @escaping ResultCollectionHandler<T>) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async {  completion(nil, error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-                guard let strongSelf = self else { return }
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let result = try? ResultCollection<T>(resultValue)
-                result?.client = self
-                result?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                completion(result, error)
-            }
-        }
-    }
-    
-    func makeGetCall<T: Serializable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                let result = try? T(resultValue)
-                completion(result, error)
-            }
-        }
-    }
-    
-    func makeGetCall<T: ClientModel & Serializable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-                var result = try? T(resultValue)
-                result?.client = self
-                completion(result, error)
-            }
-        }
-    }
-    
-    func makeGetCall<T: Serializable & ClientModel & SecretApplyable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
-        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(nil, error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-                guard let strongSelf = self else { return }
-                guard let resultValue = resultValue else {
-                    completion(nil, error)
-                    return
-                }
-
-                var result = try? T(resultValue)
-                result?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                result?.client = self
-                completion(result, error)
             }
         }
     }
@@ -240,39 +124,43 @@ open class RestClient: NSObject {
         makeGetCall(url, parameters: parameters, completion: completion)
     }
     
-    func makePostCall(_ url: String, parameters: [String: Any]?, completion: @escaping ConfirmHandler) {
-        self.prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(error) }
-                return
-            }
-            
-            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                completion(error)
-            }
-        }
-    }
-    
-    func makePatchCall<T: ClientModel & Serializable>(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding, completion: @escaping (T?, ErrorResponse?) -> Void) {
+    func makeGetCall<T: Serializable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
-                DispatchQueue.main.async {  completion(nil, error) }
+                DispatchQueue.main.async { completion(nil, error) }
                 return
             }
             
-            self?.restRequest.makeRequest(url: url, method: .patch, parameters: parameters, encoding: encoding, headers: headers) { (resultValue, error) in
+            self?.restRequest.makeRequest(url: url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
+                guard let strongSelf = self else { return }
                 guard let resultValue = resultValue else {
                     completion(nil, error)
                     return
                 }
-                var result = try? T(resultValue)
-                result?.client = self
+                
+                let result = try? T(resultValue)
+                (result as? ClientModel)?.client = self
+                (result as? SecretApplyable)?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
+                
                 completion(result, error)
             }
         }
     }
     
-    func makePatchCall<T: ClientModel & Serializable & SecretApplyable>(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding, completion: @escaping (T?, ErrorResponse?) -> Void) {
+    func makePostCall(_ url: String, parameters: [String: Any]?, completion: @escaping ConfirmHandler) {
+        prepareAuthAndKeyHeaders { [weak self] (headers, error) in
+            guard let headers = headers else {
+                DispatchQueue.main.async { completion(error) }
+                return
+            }
+            
+            self?.restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (_, error) in
+                completion(error)
+            }
+        }
+    }
+    
+    func makePatchCall<T: Serializable>(_ url: String, parameters: [String: Any]?, encoding: ParameterEncoding, completion: @escaping (T?, ErrorResponse?) -> Void) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
             guard let headers = headers else {
                 DispatchQueue.main.async {  completion(nil, error) }
@@ -285,13 +173,14 @@ open class RestClient: NSObject {
                     completion(nil, error)
                     return
                 }
-                var result = try? T(resultValue)
-                result?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
-                result?.client = self
+                
+                let result = try? T(resultValue)
+                (result as? ClientModel)?.client = self
+                (result as? SecretApplyable)?.applySecret(strongSelf.secret, expectedKeyId: headers[RestClient.fpKeyIdKey])
+                
                 completion(result, error)
             }
         }
-        
     }
     
 }
@@ -312,17 +201,7 @@ extension RestClient {
             return
         }
         
-        // encoding is different than standard post
-        self.prepareAuthAndKeyHeaders { (headers, error) in
-            guard let headers = headers else {
-                DispatchQueue.main.async { completion(error) }
-                return
-            }
-            
-            self.restRequest.makeRequest(url: url, method: .post, parameters: package.responseDictionary, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
-                completion(error)
-            }
-        }
+        makePostCall(url, parameters: package.responseDictionary, completion: completion)
     }
 }
 
@@ -350,10 +229,9 @@ extension RestClient {
      - parameter completion:      CreateEncryptionKeyHandler closure
      */
     func createEncryptionKey(clientPublicKey: String, completion: @escaping EncryptionKeyHandler) {
-        let headers = self.defaultHeaders
         let parameters = ["clientPublicKey": clientPublicKey]
         
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -377,8 +255,7 @@ extension RestClient {
      - parameter completion: EncryptionKeyHandler closure
      */
     func encryptionKey(_ keyId: String, completion: @escaping EncryptionKeyHandler) {
-        let headers = self.defaultHeaders
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -394,17 +271,16 @@ extension RestClient {
      - parameter completion: DeleteHandler
      */
     func deleteEncryptionKey(_ keyId: String, completion: @escaping DeleteHandler) {
-        let headers = self.defaultHeaders
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (response, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (_, error) in
             completion(error)
         }
     }
     
     func createKeyIfNeeded(_ completion: @escaping EncryptionKeyHandler) {
-        if let key = self.key, !key.isExpired() {
+        if let key = key, !key.isExpired {
             completion(key, nil)
         } else {
-            self.createEncryptionKey(clientPublicKey: self.keyPair.publicKey!) { [weak self] (encryptionKey, error) in
+            createEncryptionKey(clientPublicKey: keyPair.publicKey!) { [weak self] (encryptionKey, error) in
                 if let error = error {
                     completion(nil, error)
                 } else if let encryptionKey = encryptionKey {
@@ -424,15 +300,15 @@ extension RestClient {
     typealias AuthHeaderHandler = (_ headers: [String: String]?, _ error: ErrorResponse?) -> Void
     
     func createAuthHeaders(_ completion: AuthHeaderHandler) {
-        if self.session.isAuthorized {
-            completion(self.defaultHeaders + ["Authorization": "Bearer " + self.session.accessToken!], nil)
+        if session.isAuthorized {
+            completion(self.defaultHeaders + ["Authorization": "Bearer " + session.accessToken!], nil)
         } else {
             completion(nil, ErrorResponse(domain: RestClient.self, errorCode: ErrorCode.unauthorized.rawValue, errorMessage: "\(ErrorCode.unauthorized)"))
         }
     }
     
     func prepareAuthAndKeyHeaders(_ completion: @escaping AuthHeaderHandler) {
-        self.createAuthHeaders { [weak self] (headers, error) in
+        createAuthHeaders { [weak self] (headers, error) in
             if let error = error {
                 completion(nil, error)
             } else {
@@ -484,7 +360,7 @@ extension RestClient {
     public typealias AssetsHandler = (_ asset: Asset?, _ error: ErrorResponse?) -> Void
     
     func assets(_ url: String, completion: @escaping AssetsHandler) {
-        self.restRequest.makeDataRequest(url: url) { (resultValue, error) in
+        restRequest.makeDataRequest(url: url) { (resultValue, error) in
             guard let resultValue = resultValue as? Data else {
                 completion(nil, error)
                 return
@@ -505,41 +381,6 @@ extension RestClient {
     
 }
 
-// MARK: - Reset Device Tasks
-
-extension RestClient {
-    
-    /**
-     Completion handler
-     
-     - parameter error: Provides error object, or nil if no error occurs
-     */
-    public typealias ResetHandler = (_ resetDeviceTask: ResetDeviceResult?, _ error: ErrorResponse?) -> Void
-    
-    /**
-     Creates a request for resetting a device
-     
-     - parameter deviceId:  device id
-     - parameter userId: user id
-     - parameter completion:      ResetHandler closure
-     */
-
-    func resetDeviceTasks(_ url: String, completion: @escaping ResetHandler) {
-        makeGetCall(url, parameters: nil, completion: completion)
-    }
-    
-    /**
-     Creates a request for getting reset status
-     
-     - parameter resetId:  reset device task id
-     - parameter completion:   ResetHandler closure
-     */
-    func resetDeviceStatus(_ url: String, completion: @escaping ResetHandler) {
-        makeGetCall(url, parameters: nil, completion: completion)
-    }
-    
-}
-
 /**
  Retrieve an individual asset (i.e. terms and conditions)
  
@@ -550,4 +391,3 @@ public protocol AssetRetrivable {
     func retrieveAsset(_ completion: @escaping RestClient.AssetsHandler)
 
 }
-

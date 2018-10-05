@@ -38,4 +38,3 @@ open class RtmMessage: NSObject, Serializable {
         }
     }
 }
-

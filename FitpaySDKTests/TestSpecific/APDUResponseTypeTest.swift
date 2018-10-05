@@ -11,7 +11,7 @@ class APDUResponseTypeTest: XCTestCase {
     }
 
     func testWarningCode() {
-        let responseType = APDUResponseType(withCode:  [0x62, 0x63])
+        let responseType = APDUResponseType(withCode: [0x62, 0x63])
         expect(responseType).to(equal(APDUResponseType.warning))
 
     }

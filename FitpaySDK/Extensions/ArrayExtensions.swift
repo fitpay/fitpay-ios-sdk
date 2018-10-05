@@ -7,16 +7,17 @@ extension Array {
     }
     
     // MARK: - FIFO
+    
     mutating func enqueue(_ newElement: Element) {
-        self.append(newElement)
+        append(newElement)
     }
     
     mutating func dequeue() -> Element? {
-        return self.count > 0 ? self.remove(at: 0) : nil
+        return count > 0 ? remove(at: 0) : nil
     }
     
     func peekAtQueue() -> Element? {
-        return self.first
+        return first
     }
     
 }

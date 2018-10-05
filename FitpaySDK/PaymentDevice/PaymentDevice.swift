@@ -82,7 +82,7 @@ import Foundation
             DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
                 guard let strongSelf = self else { return }
                 
-                if (!strongSelf.isConnected || strongSelf.deviceInfo == nil) {
+                if !strongSelf.isConnected || strongSelf.deviceInfo == nil {
                     strongSelf.deviceInterface.resetToDefaultState()
                     strongSelf.callCompletionForEvent(PaymentDeviceEventTypes.onDeviceConnected, params: ["error": NSError.error(code: PaymentDevice.ErrorCode.operationTimeout, domain: PaymentDevice.self)])
                     strongSelf.connectionState = .disconnected
@@ -112,7 +112,7 @@ import Foundation
     /**
      Tries to validate connection.
      */
-    @objc open func validateConnection(completion: @escaping (_ isValid:Bool, _ error: NSError?) -> Void) {
+    @objc open func validateConnection(completion: @escaping (_ isValid: Bool, _ error: NSError?) -> Void) {
         self.deviceInterface.validateConnection(completion: completion)
     }
     
@@ -232,7 +232,7 @@ import Foundation
     
     func processNonAPDUCommit(commit: Commit, completion: @escaping (_ state: NonAPDUCommitState?, _ error: NSError?) -> Void) {
         if let processNonAPDUCommit = self.deviceInterface.processNonAPDUCommit {
-            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected) { (event) in
+            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected) { (_) in
                 log.error("APDU_DATA: Device is disconnected during process non-APDU commit.")
                 self.removeDisconnectedBinding()
                 completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
@@ -384,5 +384,3 @@ extension PaymentDevice {
     }
     
 }
-
-

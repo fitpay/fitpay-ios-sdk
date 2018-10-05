@@ -29,7 +29,7 @@ import Foundation
     /// SDK Version using semantic versioning MAJOR.MINOR.PATCH
     @objc public static let sdkVersion = Bundle(for: FitpayConfig.self).infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     
-    //MARK: - Functions
+    // MARK: - Functions
     
     /**
      Setup FitpaySDK quick method
@@ -167,7 +167,7 @@ extension FitpayConfig {
         var web: FitpayConfigWebModel?
     }
     
-    private struct FitpayConfigWebModel: Serializable  {
+    private struct FitpayConfigWebModel: Serializable {
         var demoMode: Bool?
         var demoCardGroup: String?
         var cssURL: String?

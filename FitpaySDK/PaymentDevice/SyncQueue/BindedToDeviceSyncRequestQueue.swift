@@ -5,7 +5,7 @@ class BindedToDeviceSyncRequestQueue {
     private var requestsQueue: [SyncRequest] = []
     private var syncManager: SyncManagerProtocol
     
-    // MARK - Lifecycle
+    // MARK: - Lifecycle
     
     init(syncManager: SyncManagerProtocol) {
         self.syncManager = syncManager
@@ -45,7 +45,7 @@ class BindedToDeviceSyncRequestQueue {
                     break
             }
             
-            let _ = requestsQueue.dequeue()
+            _ = requestsQueue.dequeue()
             outdateRequest.update(state: .done)
             outdateRequest.syncCompleteWith(status: status, error: error)
             
@@ -63,7 +63,7 @@ class BindedToDeviceSyncRequestQueue {
     private func startSyncFor(request: SyncRequest) -> NSError? {
         request.update(state: .inProgress)
         
-        var errorObj: NSError? = nil
+        var errorObj: NSError?
         if request.user != nil {
             do {
                 try self.syncManager.syncWith(request: request)

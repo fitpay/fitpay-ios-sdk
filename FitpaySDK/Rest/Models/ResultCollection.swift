@@ -1,3 +1,4 @@
+import Foundation
 
 open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, SecretApplyable {
     open var limit: Int?
@@ -12,15 +13,15 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     private let previousResourceKey = "previous"
 
     open var nextAvailable: Bool {
-        return self.links?.url(self.nextResourceKey) != nil
+        return links?.url(nextResourceKey) != nil
     }
 
     open var lastAvailable: Bool {
-        return self.links?.url(self.lastResourceKey) != nil
+        return links?.url(lastResourceKey) != nil
     }
 
     open var previousAvailable: Bool {
-        return self.links?.url(self.previousResourceKey) != nil
+        return links?.url(previousResourceKey) != nil
     }
 
     var client: RestClient? {
@@ -44,7 +45,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             _client = newValue
             if let results = self.results {
                 for result in results {
-                    if var result = result as? ClientModel {
+                    if let result = result as? ClientModel {
                         result.client = newValue
                     } else {
                         log.error("RESULT_COLLECTION: Failed to convert \(result) to ClientModel")
@@ -100,13 +101,13 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     public typealias CollectAllAvailableCompletion = (_ results: [T]?, _ error: ErrorResponse?) -> Void
 
     open func collectAllAvailable(_ completion: @escaping CollectAllAvailableCompletion) {
-        if let nextUrl = self.links?.url(self.nextResourceKey), let _ = self.results {
+        if let nextUrl = self.links?.url(self.nextResourceKey), self.results != nil {
             self.collectAllAvailable(self.results!, nextUrl: nextUrl) { (results, error) -> Void in
                 self.results = results
                 completion(self.results, error)
             }
         } else {
-            log.error("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
+            log.warning("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
             completion(self.results, nil)
         }
     }
@@ -174,6 +175,5 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             }
         }
     }
-
 
 }

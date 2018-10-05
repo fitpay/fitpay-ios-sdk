@@ -66,6 +66,7 @@ import Foundation
     
     open var pairing: String?
 
+    /// Representation of a Secure Element
     open var secureElement: SecureElement?
     
     /// Will be present if makeDefault is called on a Credit Card with this deviceId
@@ -76,21 +77,28 @@ import Foundation
 
     /// returns true if user link is returned on the model and available to call
     open var userAvailable: Bool {
-        return self.links?.url(Device.userResourceKey) != nil
+        return links?.url(Device.userResourceKey) != nil
     }
 
     /// returns true if commits link is returned on the model and available to call
     open var listCommitsAvailable: Bool {
-        return self.links?.url(Device.commitsResourceKey) != nil
+        return links?.url(Device.commitsResourceKey) != nil
+    }
+    
+    /// returns true if lastAckCommit link is returned on the model and available to call
+    open var lastAckCommitAvailable: Bool {
+        return links?.url(Device.lastAckCommitResourceKey) != nil
     }
     
     /// returns true if defaultCreditCard link is returned on the model and available to call
     open var defaultCreditCardAvailable: Bool {
-        return self.links?.url(Device.defaultCreditCardKey) != nil
+        return links?.url(Device.defaultCreditCardKey) != nil
     }
 
+    /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
+    @available(*, deprecated, message: "as of v1.2.1 - a reset method will be added in the future")
     open var deviceResetUrl: String? {
-        return self.links?.url(Device.deviceResetTasksKey)
+        return links?.url(Device.deviceResetTasksKey)
     }
     
     var links: [ResourceLink]?
@@ -105,28 +113,6 @@ import Foundation
     private static let deviceResetTasksKey = "deviceResetTasks"
     private static let defaultCreditCardKey = "defaultCreditCard"
     
-    // MARK: - Lifecycle
-    
-    override public init() {
-        super.init()
-    }
-
-    init(profileId: String? = nil, deviceType: String, manufacturerName: String, deviceName: String, serialNumber: String?, modelNumber: String?, hardwareRevision: String?, firmwareRevision: String?, softwareRevision: String?, notificationToken: String?, systemId: String?, osName: String?, secureElement: SecureElement?) {
-        self.profileId = profileId
-        self.deviceType = deviceType
-        self.manufacturerName = manufacturerName
-        self.deviceName = deviceName
-        self.serialNumber = serialNumber
-        self.modelNumber = modelNumber
-        self.hardwareRevision = hardwareRevision
-        self.firmwareRevision = firmwareRevision
-        self.softwareRevision = softwareRevision
-        self.notificationToken = notificationToken
-        self.systemId = systemId
-        self.osName = osName
-        self.secureElement = secureElement
-    }
-
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case created = "createdTs"
@@ -151,6 +137,28 @@ import Foundation
         case metadata
         case profileId
         case defaultCreditCardId
+    }
+
+    // MARK: - Lifecycle
+    
+    override public init() {
+        super.init()
+    }
+
+    init(profileId: String? = nil, deviceType: String, manufacturerName: String, deviceName: String, serialNumber: String?, modelNumber: String?, hardwareRevision: String?, firmwareRevision: String?, softwareRevision: String?, notificationToken: String?, systemId: String?, osName: String?, secureElement: SecureElement?) {
+        self.profileId = profileId
+        self.deviceType = deviceType
+        self.manufacturerName = manufacturerName
+        self.deviceName = deviceName
+        self.serialNumber = serialNumber
+        self.modelNumber = modelNumber
+        self.hardwareRevision = hardwareRevision
+        self.firmwareRevision = firmwareRevision
+        self.softwareRevision = softwareRevision
+        self.notificationToken = notificationToken
+        self.systemId = systemId
+        self.osName = osName
+        self.secureElement = secureElement
     }
 
     public required init(from decoder: Decoder) throws {
@@ -208,69 +216,8 @@ import Foundation
         try? container.encode(profileId, forKey: .profileId)
         try? container.encode(defaultCreditCardId, forKey: .defaultCreditCardId)
     }
-
-    var shortRTMRepersentation: String? {
-
-        var dic: [String: Any] = [:]
-
-        if let deviceType = self.deviceType {
-            dic["deviceType"] = deviceType
-        }
-
-        if let deviceName = self.deviceName {
-            dic["deviceName"] = deviceName
-        }
-
-        if let manufacturerName = self.manufacturerName {
-            dic["manufacturerName"] = manufacturerName
-        }
-
-        if let modelNumber = self.modelNumber {
-            dic["modelNumber"] = modelNumber
-        }
-
-        if let hardwareRevision = self.hardwareRevision {
-            dic["hardwareRevision"] = hardwareRevision
-        }
-
-        if let firmwareRevision = self.firmwareRevision {
-            dic["firmwareRevision"] = firmwareRevision
-        }
-
-        if let softwareRevision = self.softwareRevision {
-            dic["softwareRevision"] = softwareRevision
-        }
-
-        if let systemId = self.systemId {
-            dic["systemId"] = systemId
-        }
-
-        if let osName = self.osName {
-            dic["osName"] = osName
-        }
-
-        if let licenseKey = self.licenseKey {
-            dic["licenseKey"] = licenseKey
-        }
-
-        if let bdAddress = self.bdAddress {
-            dic["bdAddress"] = bdAddress
-        }
-
-        if let secureElementId = self.secureElement?.secureElementId {
-            dic["secureElement"] = ["secureElementId": secureElementId]
-        }
-
-        if let profileId = self.profileId {
-            dic["profileId"] = ["profileId": profileId]
-        }
-
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: dic, options: JSONSerialization.WritingOptions(rawValue: 0)) else { return nil }
-
-        return String(data: jsonData, encoding: String.Encoding.utf8)
-    }
     
-    // MARK: - Functions
+    // MARK: - Public Functions
     
     /**
      Delete a single device
@@ -279,17 +226,18 @@ import Foundation
      */
     @objc open func deleteDeviceInfo(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = Device.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeDeleteCall(url, completion: completion)
-        } else {
+       
+        guard let url = links?.url(resource), let client = client else {
             completion(composeError(resource))
+            return
         }
+        
+        client.makeDeleteCall(url, completion: completion)
     }
 
     /**
      Update the details of an existing device
-     (For optional? parameters use nil if field doesn't need to be updated)
+     (For optional parameters use nil if field doesn't need to be updated)
 
      - parameter firmwareRevision?: firmware revision
      - parameter softwareRevision?: software revision
@@ -299,7 +247,8 @@ import Foundation
     @available(*, deprecated, message: "as of v1.2")
     @objc open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
-        guard let url = self.links?.url(resource), let client = self.client else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -316,7 +265,8 @@ import Foundation
      */
     @objc open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
-        guard let url = self.links?.url(resource), let client = self.client else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -334,17 +284,24 @@ import Foundation
      */
     open func listCommits(commitsAfter: String?, limit: Int, offset: Int, completion: @escaping RestClient.CommitsHandler) {
         let resource = Device.commitsResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.commits(url, commitsAfter: commitsAfter, limit: limit, offset: offset, completion: completion)
-        } else {
-            completion(nil, ErrorResponse.clientUrlError(domain: Device.self, client: client, url: url, resource: resource))
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.commits(url, commitsAfter: commitsAfter, limit: limit, offset: offset, completion: completion)
     }
     
+    /// Gets the default CreditCard for this device
+    /// Corresponds to the card with defaultCreditCardId
+    /// Can be set by calling makeDefault on a credit card
+    ///
+    /// - Parameter completion: Credit Card or Error
     open func getDefaultCreditCard(completion: @escaping RestClient.CreditCardHandler) {
         let resource = Device.defaultCreditCardKey
-        guard let url = links?.url(resource), let client = self.client else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -359,38 +316,42 @@ import Foundation
      */
     open func lastAckCommit(completion: @escaping RestClient.CommitHandler) {
         let resource = Device.lastAckCommitResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
 
     @objc open func user(_ completion: @escaping RestClient.UserHandler) {
         let resource = Device.userResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
 
-    // MARK: - Internal
+    // MARK: - Internal Functions
     
     func addNotificationToken(_ token: String, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
-            client.addDeviceProperty(url, propertyPath: "/notificationToken", propertyValue: token, completion: completion)
-        } else {
+        
+        guard let url = links?.url(resource), let client = client else {
             completion(nil, composeError(resource))
+            return
         }
+        
+        client.addDeviceProperty(url, propertyPath: "/notificationToken", propertyValue: token, completion: completion)
     }
     
     func updateNotificationTokenIfNeeded(completion: NotificationTokenUpdateCompletion? = nil) {
         let newNotificationToken = FitpayNotificationsManager.sharedInstance.notificationToken
+        
         guard !newNotificationToken.isEmpty && newNotificationToken != notificationToken else {
             completion?(false, nil)
             return
@@ -405,14 +366,13 @@ import Foundation
                 log.error("NOTIFICATIONS_DATA: can't update notification token for device, error: \(String(describing: error))")
                 completion?(false, error)
             }
-            
         }
     }
     
     // MARK: - Private Functions
     
     func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: Device.self, client: self.client, url: self.links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: Device.self, client: client, url: links?.url(resource), resource: resource)
     }
     
 }

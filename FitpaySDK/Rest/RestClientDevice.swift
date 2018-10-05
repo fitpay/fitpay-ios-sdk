@@ -3,7 +3,7 @@ import Alamofire
 
 extension RestClient {
     
-    //MARK: - Completion Handlers
+    // MARK: - Completion Handlers
     
     /**
      Completion handler
@@ -118,7 +118,7 @@ extension RestClient {
     open func commits(_ url: String, commitsAfter: String?, limit: Int, offset: Int, completion: @escaping CommitsHandler) {
         var parameters = ["limit": "\(limit)", "offset": "\(offset)"]
         
-        if (commitsAfter != nil && commitsAfter!.isEmpty == false) {
+        if commitsAfter != nil && commitsAfter!.isEmpty == false {
             parameters["commitsAfter"] = commitsAfter!
         }
         makeGetCall(url, parameters: parameters, completion: completion)

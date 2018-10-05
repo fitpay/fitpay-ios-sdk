@@ -2,7 +2,7 @@ import Foundation
 
 open class FitpayBlockEventListener {
     
-    public typealias BlockCompletion = (_ event:FitpayEvent) -> Void
+    public typealias BlockCompletion = (_ event: FitpayEvent) -> Void
     
     var blockCompletion: BlockCompletion
     var completionQueue: DispatchQueue

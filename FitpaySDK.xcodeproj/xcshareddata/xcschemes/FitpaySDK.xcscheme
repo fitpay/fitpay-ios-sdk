@@ -49,16 +49,6 @@
                ReferencedContainer = "container:FitpaySDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9B4127CD1CD95A5A00B12187"
-               BuildableName = "CombinedUserCreateAndLoginTests.xctest"
-               BlueprintName = "CombinedUserCreateAndLoginTests"
-               ReferencedContainer = "container:FitpaySDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

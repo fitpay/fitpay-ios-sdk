@@ -55,7 +55,6 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
         }
     }
     
-    
     private var appToAppMessage: RtmMessage?
 
     // MARK: - Functions
@@ -93,7 +92,7 @@ class RtmMessageHandlerV5: RtmMessageHandlerV4 {
     // MARK: - Private
     
     private func handleIdVerificationRequest(_ message: RtmMessage) {
-        wvConfigStorage.paymentDevice?.handleIdVerificationRequest() { [weak self] (response) in
+        wvConfigStorage.paymentDevice?.handleIdVerificationRequest { [weak self] (response) in
             if let delegate = self?.outputDelegate {
                 delegate.send(rtmMessage: RtmMessageResponse(data: response.toJSON(), type: RtmMessageTypeVer5.idVerification.rawValue, success: true), retries: 3)
             }

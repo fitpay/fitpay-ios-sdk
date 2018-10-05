@@ -18,57 +18,16 @@ open class CardMetadata: NSObject, ClientModel, Serializable {
     open var coBrandLogo: [Image]?
     open var icon: [Image]?
     open var issuerLogo: [Image]?
-    
-    private var _client: RestClient?
-    
-    var client: RestClient? {
-        get {
-            return self._client
-        }
-        set {
-            self._client = newValue
-            
-            if let brandLogo = self.brandLogo {
-                for image in brandLogo {
-                    image.client = self.client
-                }
-            }
-            
-            if let cardBackground = self.cardBackground {
-                for image in cardBackground {
-                    image.client = self.client
-                }
-            }
-            
-            if let cardBackgroundCombined = self.cardBackgroundCombined {
-                for image in cardBackgroundCombined {
-                    image.client = self.client
-                }
-            }
-            
-            if let cardBackgroundCombinedEmbossed = self.cardBackgroundCombinedEmbossed {
-                for image in cardBackgroundCombinedEmbossed {
-                    image.client = self.client
-                }
-            }
-            
-            if let coBrandLogo = self.coBrandLogo {
-                for image in coBrandLogo {
-                    image.client = self.client
-                }
-            }
-            
-            if let icon = self.icon {
-                for image in icon {
-                    image.client = self.client
-                }
-            }
-            
-            if let issuerLogo = self.issuerLogo {
-                for image in issuerLogo {
-                    image.client = self.client
-                }
-            }
+        
+    weak var client: RestClient? {
+        didSet {
+            brandLogo?.forEach({ $0.client = client })
+            cardBackground?.forEach({ $0.client = client })
+            cardBackgroundCombined?.forEach({ $0.client = client })
+            cardBackgroundCombinedEmbossed?.forEach({ $0.client = client })
+            coBrandLogo?.forEach({ $0.client = client })
+            icon?.forEach({ $0.client = client })
+            issuerLogo?.forEach({ $0.client = client })
         }
     }
     
@@ -91,46 +50,4 @@ open class CardMetadata: NSObject, ClientModel, Serializable {
         case issuerLogo
     }
     
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        foregroundColor = try? container.decode(.foregroundColor)
-        issuerName = try? container.decode(.issuerName)
-        shortDescription = try? container.decode(.shortDescription)
-        longDescription = try? container.decode(.longDescription)
-        contactUrl = try? container.decode(.contactUrl)
-        contactPhone = try? container.decode(.contactPhone)
-        contactEmail = try? container.decode(.contactEmail)
-        termsAndConditionsUrl = try? container.decode(.termsAndConditionsUrl)
-        privacyPolicyUrl = try? container.decode(.privacyPolicyUrl)
-        brandLogo = try? container.decode(.brandLogo)
-        cardBackground = try? container.decode(.cardBackground)
-        cardBackgroundCombined = try? container.decode(.cardBackgroundCombined)
-        cardBackgroundCombinedEmbossed = try? container.decode(.cardBackgroundCombinedEmbossed)
-        coBrandLogo = try? container.decode(.coBrandLogo)
-        icon = try? container.decode(.icon)
-        issuerLogo = try? container.decode(.issuerLogo)
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        try? container.encode(foregroundColor, forKey: .foregroundColor)
-        try? container.encode(issuerName, forKey: .issuerName)
-        try? container.encode(shortDescription, forKey: .shortDescription)
-        try? container.encode(longDescription, forKey: .longDescription)
-        try? container.encode(contactUrl, forKey: .contactUrl)
-        try? container.encode(contactPhone, forKey: .contactPhone)
-        try? container.encode(contactEmail, forKey: .contactEmail)
-        try? container.encode(termsAndConditionsUrl, forKey: .termsAndConditionsUrl)
-        try? container.encode(privacyPolicyUrl, forKey: .privacyPolicyUrl)
-        try? container.encode(brandLogo, forKey: .brandLogo)
-        try? container.encode(cardBackground, forKey: .cardBackground)
-        try? container.encode(cardBackgroundCombined, forKey: .cardBackgroundCombined)
-        try? container.encode(cardBackgroundCombinedEmbossed, forKey: .cardBackgroundCombinedEmbossed)
-        try? container.encode(coBrandLogo, forKey: .coBrandLogo)
-        try? container.encode(icon, forKey: .icon)
-        try? container.encode(issuerLogo, forKey: .issuerLogo)
-    }
-
 }
