@@ -147,6 +147,15 @@
                 <a class="nav-group-task-link" href="../Classes/FitpayWeb.html">FitpayWeb</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector.html">HendricksPaymentDeviceConnector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/HendricksPaymentDeviceConnector/BLECommandPackage.html">– BLECommandPackage</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/IdVerification.html">IdVerification</a>
               </li>
               <li class="nav-group-task">
@@ -480,9 +489,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientCAcA0C7SessionC7session_AA0C11Requestable_pSg11restRequesttcfc"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7session11restRequestAcA0C7SessionC_AA0C11Requestable_pSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(session:restRequest:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientCAcA0C7SessionC7session_AA0C11Requestable_pSg11restRequesttcfc">init(session:restRequest:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7session11restRequestAcA0C7SessionC_AA0C11Requestable_pSgtcfc">init(session:restRequest:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -610,9 +619,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultyAA13ErrorResponseCSgc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7confirm_15executionResult10completionySS_AA18NonAPDUCommitStateOyAA13ErrorResponseCSgctF"></a>
                     <a name="//apple_ref/swift/Method/confirm(_:executionResult:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7confirmySS_AA18NonAPDUCommitStateO15executionResultyAA13ErrorResponseCSgc10completiontF">confirm(_:executionResult:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7confirm_15executionResult10completionySS_AA18NonAPDUCommitStateOyAA13ErrorResponseCSgctF">confirm(_:executionResult:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -637,9 +646,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC11acknowledgeySS_yAA13ErrorResponseCSgc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC11acknowledge_10completionySS_yAA13ErrorResponseCSgctF"></a>
                     <a name="//apple_ref/swift/Method/acknowledge(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC11acknowledgeySS_yAA13ErrorResponseCSgc10completiontF">acknowledge(_:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC11acknowledge_10completionySS_yAA13ErrorResponseCSgctF">acknowledge(_:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -664,9 +673,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC17getPlatformConfigyyAA0fG0VSg_AA13ErrorResponseCSgtc10completion_tF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC17getPlatformConfig10completionyyAA0fG0VSg_AA13ErrorResponseCSgtc_tF"></a>
                     <a name="//apple_ref/swift/Method/getPlatformConfig(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC17getPlatformConfigyyAA0fG0VSg_AA13ErrorResponseCSgtc10completion_tF">getPlatformConfig(completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC17getPlatformConfig10completionyyAA0fG0VSg_AA13ErrorResponseCSgtc_tF">getPlatformConfig(completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -940,7 +949,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateUser</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>  <span class="nv">firstName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">birthDate</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">originAccountCreated</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">termsAccepted</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">termsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateUser</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">firstName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">lastName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">birthDate</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">originAccountCreated</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">termsAccepted</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">termsVersion</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/RestClient.html#/s:9FitpaySDK10RestClientC11UserHandlera">UserHandler</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -1307,9 +1316,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7commits_0E5After5limit6offset10completionySS_SSSgS2iyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtctF"></a>
                     <a name="//apple_ref/swift/Method/commits(_:commitsAfter:limit:offset:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7commitsySS_SSSg0E5AfterSi5limitSi6offsetyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtc10completiontF">commits(_:commitsAfter:limit:offset:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7commits_0E5After5limit6offset10completionySS_SSSgS2iyAA16ResultCollectionCyAA6CommitCGSg_AA13ErrorResponseCSgtctF">commits(_:commitsAfter:limit:offset:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1338,9 +1347,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageyAA13ErrorResponseCSgc10completiontF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC18confirmAPDUPackage_7package10completionySS_AA11ApduPackageCyAA13ErrorResponseCSgctF"></a>
                     <a name="//apple_ref/swift/Method/confirmAPDUPackage(_:package:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC18confirmAPDUPackageySS_AA11ApduPackageC7packageyAA13ErrorResponseCSgc10completiontF">confirmAPDUPackage(_:package:completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC18confirmAPDUPackage_7package10completionySS_AA11ApduPackageCyAA13ErrorResponseCSgctF">confirmAPDUPackage(_:package:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1489,9 +1498,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_AA13ErrorResponseCSgtc10completion_tF"></a>
+                    <a name="/s:9FitpaySDK10RestClientC7issuers10completionyyAA7IssuersCSg_AA13ErrorResponseCSgtc_tF"></a>
                     <a name="//apple_ref/swift/Method/issuers(completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC7issuersyyAA7IssuersCSg_AA13ErrorResponseCSgtc10completion_tF">issuers(completion:)</a>
+                    <a class="token" href="#/s:9FitpaySDK10RestClientC7issuers10completionyyAA7IssuersCSg_AA13ErrorResponseCSgtc_tF">issuers(completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1578,56 +1587,13 @@
               </ul>
             </div>
             <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:9FitpaySDK10RestClientC12ResetHandlera"></a>
-                    <a name="//apple_ref/swift/Alias/ResetHandler" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK10RestClientC12ResetHandlera">ResetHandler</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Completion handler</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ResetHandler</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">resetDeviceTask</span><span class="p">:</span> <span class="kt"><a href="../Classes/ResetDeviceResult.html">ResetDeviceResult</a></span><span class="p">?,</span> <span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Classes/ErrorResponse.html">ErrorResponse</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>error</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Provides error object, or nil if no error occurs</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Completion%20Handlers3"></a>
+                <a name="//apple_ref/swift/Section/Completion Handlers" class="dashAnchor"></a>
+                <a href="#/Completion%20Handlers3">
+                  <h3 class="section-name">Completion Handlers</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
