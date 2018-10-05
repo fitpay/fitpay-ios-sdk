@@ -53,8 +53,11 @@ import CoreBluetooth
         }
     }
     
-    public func getCategories(completion: @escaping ([HendricksCategory]) -> Void) {
-        let package = BLEPackage(.getCategories, completion: completion as? RequestHandler)
+    public func getCategories(completion: @escaping ([HendricksCategory]?) -> Void) {
+        let package = BLEPackage(.getCategories) { result in
+            let categories = result as? [HendricksCategory]
+            completion(categories)
+        }
         addCommandtoQueue(package)
     }
     
@@ -513,7 +516,7 @@ extension HendricksPaymentDeviceConnector {
         case error  = 0x02
     }
     
-    public typealias RequestHandler = (_ results: [Any]) -> Void
+    public typealias RequestHandler = (Any?) -> Void
     
     public struct BLEPackage {
         var command: Command
