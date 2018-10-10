@@ -73,8 +73,8 @@
 		273D8CAE216572A9006AFC72 /* HendricksCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAC216572A9006AFC72 /* HendricksCategory.swift */; };
 		273D8CB021666523006AFC72 /* HendricksIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAF21666523006AFC72 /* HendricksIdentity.swift */; };
 		273D8CB121666523006AFC72 /* HendricksIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CAF21666523006AFC72 /* HendricksIdentity.swift */; };
-		273D8CB32166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */; };
-		273D8CB42166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */; };
+		273D8CB32166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendricksMiscellaneous.swift */; };
+		273D8CB42166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273D8CB22166657E006AFC72 /* HendricksMiscellaneous.swift */; };
 		2742E584212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E585212B5D0F006D19A6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E583212B5D0F006D19A6 /* StringExtensions.swift */; };
 		2742E587212B5D42006D19A6 /* UIntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2742E586212B5D42006D19A6 /* UIntExtensions.swift */; };
@@ -137,6 +137,8 @@
 		278B4BFE2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
 		27982EBC20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
+		279D98CC216D543A00B8C259 /* HendricksGuiLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */; };
+		279D98CD216D543A00B8C259 /* HendricksGuiLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */; };
 		27A21A10215564AC00052F36 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */; };
 		27A21A11215564AC00052F36 /* NotificationDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */; };
 		27A4AE76206D916A002255A1 /* UserEventStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */; };
@@ -587,7 +589,7 @@
 		273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAssetReferencesTests.swift; sourceTree = "<group>"; };
 		273D8CAC216572A9006AFC72 /* HendricksCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksCategory.swift; sourceTree = "<group>"; };
 		273D8CAF21666523006AFC72 /* HendricksIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksIdentity.swift; sourceTree = "<group>"; };
-		273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendrickMiscellaneous.swift; sourceTree = "<group>"; };
+		273D8CB22166657E006AFC72 /* HendricksMiscellaneous.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksMiscellaneous.swift; sourceTree = "<group>"; };
 		2742E583212B5D0F006D19A6 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2742E586212B5D42006D19A6 /* UIntExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntExtensions.swift; sourceTree = "<group>"; };
 		2745F3DE20A345B900EF46A4 /* FitpayWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpayWeb.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 		2786DB01207512410079ED15 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
 		278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRtmMessageHandler.swift; sourceTree = "<group>"; };
 		27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainerExtension.swift; sourceTree = "<group>"; };
+		279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksGuiLine.swift; sourceTree = "<group>"; };
 		27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailTests.swift; path = FitpaySDKTests/Notifications/NotificationDetailTests.swift; sourceTree = SOURCE_ROOT; };
 		27A4AE75206D916A002255A1 /* UserEventStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEventStreamManager.swift; sourceTree = "<group>"; };
 		27B131292134846E00B4A9CF /* JSONCodingKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeysTests.swift; sourceTree = "<group>"; };
@@ -941,13 +944,9 @@
 		270F47E92165421C00C97A77 /* Hendricks */ = {
 			isa = PBXGroup;
 			children = (
+				279D98CA216D51A300B8C259 /* Models */,
 				2746585B20B74B76001C13AA /* HendricksPaymentDeviceConnector.swift */,
-				270F47EA2165424300C97A77 /* HendricksCreditCard.swift */,
-				270F47ED2165425500C97A77 /* HendricksObject.swift */,
 				270F47F0216543B900C97A77 /* HendricksUtils.swift */,
-				273D8CAC216572A9006AFC72 /* HendricksCategory.swift */,
-				273D8CAF21666523006AFC72 /* HendricksIdentity.swift */,
-				273D8CB22166657E006AFC72 /* HendrickMiscellaneous.swift */,
 			);
 			path = Hendricks;
 			sourceTree = "<group>";
@@ -1250,6 +1249,19 @@
 				277C181620B33748003BD78B /* ResetDeviceResult.swift */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		279D98CA216D51A300B8C259 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				270F47EA2165424300C97A77 /* HendricksCreditCard.swift */,
+				270F47ED2165425500C97A77 /* HendricksObject.swift */,
+				273D8CAC216572A9006AFC72 /* HendricksCategory.swift */,
+				273D8CAF21666523006AFC72 /* HendricksIdentity.swift */,
+				273D8CB22166657E006AFC72 /* HendricksMiscellaneous.swift */,
+				279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		27A21A0E2155646300052F36 /* Notifications */ = {
@@ -2147,7 +2159,7 @@
 				CD0381C2A8FBB873B221A20F /* RawIntValue.swift in Sources */,
 				37D0CFF51EDDA27E0049B5AA /* RtmMessageHandlerV3.swift in Sources */,
 				3A640B471DDF110E008AD936 /* RtmMessage.swift in Sources */,
-				273D8CB32166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */,
+				273D8CB32166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */,
 				9A7C78831CC77F210097BAB9 /* FitpayEventListener.swift in Sources */,
 				2716908E2106739E0026B927 /* RestRequest.swift in Sources */,
 				3701AE581F16180000550890 /* FetchCommitsOperation.swift in Sources */,
@@ -2157,6 +2169,7 @@
 				8456437C1CAD7F7200351C8E /* CommitsApplyer.swift in Sources */,
 				371CB3031F45DA4F0019A766 /* RtmMessageHandlerV4.swift in Sources */,
 				37139BDB1F164695001EEE73 /* APDUConfirmOperation.swift in Sources */,
+				279D98CC216D543A00B8C259 /* HendricksGuiLine.swift in Sources */,
 				CD03864C52B317B02135FF7D /* DataExtensions.swift in Sources */,
 				2782F83E20F6BA4F004774E8 /* SyncInitiator.swift in Sources */,
 				270F47EE2165425500C97A77 /* HendricksObject.swift in Sources */,
@@ -2465,7 +2478,7 @@
 				3A93A0B01DB8CA2C00A9FEB4 /* Asset.swift in Sources */,
 				3A93A0B21DB8CA2C00A9FEB4 /* NSErrorExtensions.swift in Sources */,
 				3701AE591F16180000550890 /* FetchCommitsOperation.swift in Sources */,
-				273D8CB42166657E006AFC72 /* HendrickMiscellaneous.swift in Sources */,
+				273D8CB42166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */,
 				3A93A0B31DB8CA2C00A9FEB4 /* RawIntValue.swift in Sources */,
 				2716908F2106739E0026B927 /* RestRequest.swift in Sources */,
 				3A93A0B41DB8CA2C00A9FEB4 /* FitpayEventListener.swift in Sources */,
@@ -2475,6 +2488,7 @@
 				3A93A0B61DB8CA2C00A9FEB4 /* CommitsApplyer.swift in Sources */,
 				277380E420E57CFC00B84785 /* FitpayWeb.swift in Sources */,
 				3A93A0B71DB8CA2C00A9FEB4 /* DataExtensions.swift in Sources */,
+				279D98CD216D543A00B8C259 /* HendricksGuiLine.swift in Sources */,
 				3A93A0B91DB8CA2C00A9FEB4 /* SyncManager.swift in Sources */,
 				2782F83F20F6BA4F004774E8 /* SyncInitiator.swift in Sources */,
 				270F47EF2165425500C97A77 /* HendricksObject.swift in Sources */,

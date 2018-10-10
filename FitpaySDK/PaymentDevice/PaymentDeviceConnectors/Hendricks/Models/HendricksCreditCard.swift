@@ -2,10 +2,11 @@ import Foundation
 
 public class HendricksCard: HendricksObject {
     
+    public var cardId: String
+    
     var lastFour: String
     var expDate: String
     var type: String
-    var cardId: String
     var cardArtId = 0
     var towId = 0
     var cardStatus = 0x07
@@ -13,15 +14,16 @@ public class HendricksCard: HendricksObject {
     var artSize: Int?
     var towSize: Int?
     
+    let totalLength = 83
+    
     private var creditCard: CreditCard?
     
-    let totalLength = 83
     private let lastFourLength = 5
     private let expDateLength = 6
     private let typeLength = 21
     private let cardIdLength = 37
     private let metaSize = 82
-
+    
     public init(creditCard: CreditCard) {
         self.creditCard = creditCard
         
@@ -31,12 +33,12 @@ public class HendricksCard: HendricksObject {
         cardId = creditCard.creditCardId!
         
         super.init()
-
+        
     }
     
     init(categoryId: Int, objectId: Int, returnedData: [UInt8], index: Int) {
         var runningIndex = index
-
+        
         lastFour = String(bytes: Array(returnedData[runningIndex..<runningIndex + lastFourLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += lastFourLength
         expDate = String(bytes: Array(returnedData[runningIndex..<runningIndex + expDateLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
@@ -45,13 +47,12 @@ public class HendricksCard: HendricksObject {
         runningIndex += typeLength
         cardId = String(bytes: Array(returnedData[runningIndex..<runningIndex + cardIdLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += cardIdLength
-
         
         super.init()
         
         self.categoryId = categoryId
         self.objectId = objectId
-
+        
     }
     
     public func getCreditCardData(completion: @escaping (_ commandData: Data, _ data: Data) -> Void) {
@@ -103,7 +104,7 @@ public class HendricksCard: HendricksObject {
         let defaultCardHeight = 125
         let cardImage = creditCard.cardMetaData?.cardBackgroundCombined?.first
         
-        cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight)]) { (asset, _) in
+        cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight), ImageAssetOption.fontScale(20), ImageAssetOption.fontBold(false)]) { (asset, _) in
             guard let image = asset?.image else {
                 completion(Data())
                 return
@@ -188,7 +189,5 @@ public class HendricksCard: HendricksObject {
             completion(imageHeader + mainData)
         }
     }
-
     
 }
-

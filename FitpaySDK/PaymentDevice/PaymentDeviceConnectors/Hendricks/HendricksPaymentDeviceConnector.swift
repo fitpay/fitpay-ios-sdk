@@ -69,6 +69,7 @@ import CoreBluetooth
             let objects = result as? [HendricksObject]
             completion(objects)
         }
+        
         addPackagetoQueue(package)
     }
     
@@ -450,6 +451,7 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: dataCharacteristic)
         
         addPackagetoQueue(BLEPackage(.ping))
+//        addPackagetoQueue(BLEPackage(.factoryReset))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
