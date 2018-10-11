@@ -2,6 +2,10 @@ import Foundation
 import CoreBluetooth
 
 @objc open class HendricksPaymentDeviceConnector: NSObject {
+    
+    public var foundPeripherals: [CBPeripheral] = []
+    public var connectionPeripheralId: UUID?
+    
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
     private var _deviceInfo: Device?
@@ -46,10 +50,12 @@ import CoreBluetooth
         processNextCommand()
     }
     
-    public func addCreditCard(_ hendricksCard: HendricksCard) {
+    public func addCreditCard(_ hendricksCard: HendricksCard, completion: @escaping () -> Void) {
         hendricksCard.getCreditCardData { (commandData, data) in
-            let bleCommand = BLEPackage(.addCard, commandData: commandData, data: data)
-            self.addPackagetoQueue(bleCommand)
+            let package = BLEPackage(.addCard, commandData: commandData, data: data) { _ in
+                completion()
+            }
+            self.addPackagetoQueue(package)
         }
     }
     
@@ -79,11 +85,15 @@ import CoreBluetooth
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
         
-        let package = BLEPackage(.removeCat, commandData: catIdData + objIdData) { result in
+        let package = BLEPackage(.removeCat, commandData: catIdData + objIdData) { _ in
             completion()
         }
         
         addPackagetoQueue(package)
+    }
+    
+    public func startScan() {
+        centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
     // MARK: - Private Functions
@@ -216,7 +226,7 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatDataResponse()
             
-        case .removeCat:
+        case .removeCat, .addCard:
             currentPackage.completion?(nil)
             
         default:
@@ -341,7 +351,11 @@ import CoreBluetooth
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
     
     public func connect() {
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
+        wearablePeripheral = peripheral
+        wearablePeripheral?.delegate = self
+        centralManager.stopScan()
+        centralManager.connect(peripheral, options: nil)
     }
     
     public func isConnected() -> Bool {
@@ -410,11 +424,16 @@ import CoreBluetooth
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         log.verbose("HENDRICKS: didDiscover peripheral: \(peripheral)")
+        foundPeripherals.append(peripheral)
         
-        wearablePeripheral = peripheral
-        wearablePeripheral?.delegate = self
-        centralManager.stopScan()
-        centralManager.connect(peripheral, options: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "peripheralFound"), object: nil, userInfo: nil)
+
+        if peripheral.identifier == connectionPeripheralId {
+            wearablePeripheral = peripheral
+            wearablePeripheral?.delegate = self
+            centralManager.stopScan()
+            centralManager.connect(peripheral, options: nil)
+        }
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
