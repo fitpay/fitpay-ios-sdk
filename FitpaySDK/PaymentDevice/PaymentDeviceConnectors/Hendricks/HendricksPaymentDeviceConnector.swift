@@ -36,6 +36,8 @@ import CoreBluetooth
     
     private var timer: Timer?
     
+    private var connectedAndPinged = false
+    
     // MARK: - Lifecycle
     
     @objc public init(paymentDevice: PaymentDevice) {
@@ -93,6 +95,7 @@ import CoreBluetooth
     }
     
     public func startScan() {
+        foundPeripherals = []
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
@@ -125,38 +128,40 @@ import CoreBluetooth
         
         log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
         
-        if command.command == .factoryReset {
-            wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
-        }
-        
-        // start
-        wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
-        
-        // add data
-        var fullCommandData = command.command.rawValue.data
-        if let commandData = command.commandData {
-            fullCommandData += commandData
-        }
-        
-        log.debug("HENDRICKS: Running full command: \(fullCommandData.hex)")
-        wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
-        
-        if let data = command.data {
-            let maxLength = 182
-            var startIndex = 0
-            while startIndex < data.count {
-                let end = min(startIndex + maxLength, data.count)
-                let parsedData = data[startIndex ..< end]
-                log.verbose("HENDRICKS: putting parsed data: \(parsedData.hex) + \(parsedData.count)")
-                wearablePeripheral.writeValue(parsedData, for: dataCharacteristic, type: .withResponse)
-                startIndex += maxLength
+        DispatchQueue.global(qos: .background).async {
+            if command.command == .factoryReset {
+                wearablePeripheral.writeValue(StatusCommand.abort.rawValue.data, for: statusCharacteristic, type: .withResponse)
             }
+            
+            // start
+            wearablePeripheral.writeValue(StatusCommand.start.rawValue.data, for: statusCharacteristic, type: .withResponse)
+            
+            // add data
+            var fullCommandData = command.command.rawValue.data
+            if let commandData = command.commandData {
+                fullCommandData += commandData
+            }
+            
+            log.debug("HENDRICKS: Running full command: \(fullCommandData.hex)")
+            wearablePeripheral.writeValue(fullCommandData, for: commandCharacteristic, type: .withResponse)
+            
+            if let data = command.data {
+                let maxLength = 182
+                var startIndex = 0
+                while startIndex < data.count {
+                    let end = min(startIndex + maxLength, data.count)
+                    let parsedData = data[startIndex ..< end]
+                    log.verbose("HENDRICKS: putting parsed data: \(parsedData.hex) + \(parsedData.count)")
+                    wearablePeripheral.writeValue(parsedData, for: dataCharacteristic, type: .withResponse)
+                    startIndex += maxLength
+                }
+            }
+            
+            // end
+            wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
+            
+            self.timer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
         }
-        
-        // end
-        wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
-        
-        timer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
         
     }
     
@@ -280,6 +285,7 @@ import CoreBluetooth
         
         self._deviceInfo = device
         paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
+        connectedAndPinged = true
     }
     
     private func handleAPDUResponse() {
@@ -351,15 +357,26 @@ import CoreBluetooth
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
     
     public func connect() {
-        guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
-        wearablePeripheral = peripheral
+        if wearablePeripheral != nil {
+            centralManager.cancelPeripheralConnection(wearablePeripheral!)
+            wearablePeripheral = nil
+        }
+        
+        if centralManager == nil {
+            foundPeripherals = []
+            centralManager = CBCentralManager(delegate: self, queue: nil)
+        }
+        
+        guard let connectionPeripheralId = connectionPeripheralId else { return }
+        
+        wearablePeripheral = centralManager.retrievePeripherals(withIdentifiers: [connectionPeripheralId]).first //foundPeripherals[index]
         wearablePeripheral?.delegate = self
+        centralManager.connect(wearablePeripheral!, options: nil)
         centralManager.stopScan()
-        centralManager.connect(peripheral, options: nil)
     }
     
     public func isConnected() -> Bool {
-        return wearablePeripheral?.state == CBPeripheralState.connected
+        return wearablePeripheral?.state == CBPeripheralState.connected && connectedAndPinged
     }
     
     public func validateConnection(completion: @escaping (Bool, NSError?) -> Void) {
@@ -405,6 +422,8 @@ import CoreBluetooth
 @objc extension HendricksPaymentDeviceConnector: CBCentralManagerDelegate {
     
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        connectedAndPinged = false
+
         switch central.state {
         case .unknown:
             log.debug("HENDRICKS: central.state is .unknown")
@@ -418,6 +437,7 @@ import CoreBluetooth
             log.debug("HENDRICKS: central.state is .poweredOff")
         case .poweredOn:
             log.debug("HENDRICKS: central.state is .poweredOn")
+            
             centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
         }
     }
@@ -431,9 +451,10 @@ import CoreBluetooth
         if peripheral.identifier == connectionPeripheralId {
             wearablePeripheral = peripheral
             wearablePeripheral?.delegate = self
+            centralManager.connect(wearablePeripheral!, options: nil)
             centralManager.stopScan()
-            centralManager.connect(peripheral, options: nil)
         }
+        
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -447,6 +468,7 @@ import CoreBluetooth
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         log.debug("HENDRICKS: didDisconnect")
+        startScan()
     }
     
 }
