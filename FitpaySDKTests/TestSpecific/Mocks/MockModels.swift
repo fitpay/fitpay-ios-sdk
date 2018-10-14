@@ -186,11 +186,18 @@ class MockModels {
     
     func getResultCollection() -> ResultCollection<Device>? {
         let info = getDevice()?.toJSONString() ?? ""
-        let resultCollection = try? ResultCollection<Device>("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}, \"last\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}}, \"limit\":1, \"offset\":1, \"totalResults\":1, \"results\":[\(info)]}")
+        let resultCollection = try? ResultCollection<Device>("{\"_links\":{\"next\":{\"href\":\"https://api.fit-pay.com/\"}, \"last\":{\"href\":\"https://api.fit-pay.com/\"}, \"previous\":{\"href\":\"https://api.fit-pay.com/\"}}, \"limit\":1, \"offset\":1, \"totalResults\":1, \"results\":[\(info)]}")
         expect(resultCollection).toNot(beNil())
         return resultCollection
     }
     
+    func getResultVerificationMethodCollection() -> ResultCollection<Device>? {
+        let verificationMethod = getVerificationMethod()?.toJSONString() ?? ""
+        let resultCollection = try? ResultCollection<Device>("{\"totalResults\":1, \"verificationMethods\":[\(verificationMethod)]}")
+        expect(resultCollection).toNot(beNil())
+        return resultCollection
+    }
+
     func getIdVerification() -> IdVerification? {
         let idVerification = try? IdVerification("{\"oemAccountInfoUpdatedDate\": \"\(someDate2)\", \"oemAccountCreatedDate\": \"\(someDate2)\", \"suspendedCardsInAccount\": 1, \"daysSinceLastAccountActivity\": 6, \"deviceLostMode\": 7, \"deviceWithActiveTokens\": 2, \"activeTokenOnAllDevicesForAccount\": 3, \"accountScore\": 4, \"deviceScore\": 5, \"nfcCapable\": false, \"oemAccountCountryCode\": \"US\", \"deviceCountry\": \"US\", \"oemAccountUserName\": \"\(someName)\", \"devicePairedToOemAccountDate\": \"\(someDate2)\", \"deviceTimeZone\": \"CST\", \"deviceTimeZoneSetBy\": 0, \"deviceIMEI\": \"123456\"}")
         expect(idVerification).toNot(beNil())

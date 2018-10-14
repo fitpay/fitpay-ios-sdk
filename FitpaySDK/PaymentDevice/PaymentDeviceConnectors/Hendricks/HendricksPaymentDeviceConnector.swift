@@ -87,7 +87,7 @@ import CoreBluetooth
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
         
-        let package = BLEPackage(.removeCat, commandData: catIdData + objIdData) { _ in
+        let package = BLEPackage(.removeCatObj, commandData: catIdData + objIdData) { _ in
             completion()
         }
         
@@ -231,7 +231,7 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatDataResponse()
             
-        case .removeCat, .addCard:
+        case .addCard, .removeCatObj:
             currentPackage.completion?(nil)
             
         default:
@@ -534,13 +534,13 @@ extension HendricksPaymentDeviceConnector {
         case getUser        = 0x12
         case addCard        = 0x13
         case addCardCont    = 0x14
-        case deleteCard     = 0x15
+
         case activateCard   = 0x16
         case getCardInfo    = 0x17
         case deactivateCard = 0x18
         case reactivateCard = 0x19
         case addMiscCat     = 0x1A
-        case removeCat      = 0x1B
+        case removeCatObj   = 0x1B
         case getCategories  = 0x1C
         case getCatData     = 0x1D
         
