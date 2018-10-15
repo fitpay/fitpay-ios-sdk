@@ -14,7 +14,7 @@ public class HendricksCard: HendricksObject {
     var artSize: Int?
     var towSize: Int?
     
-    let totalLength = 83
+    let totalLength = 85
     
     private var creditCard: CreditCard?
     
@@ -22,7 +22,12 @@ public class HendricksCard: HendricksObject {
     private let expDateLength = 6
     private let typeLength = 21
     private let cardIdLength = 37
-    private let metaSize = 82
+    private let artIdLength = 2
+    private let artIdSizeLength = 4
+    private let towIdLength = 2
+    private let towSizeLength = 4
+    private let statusLength = 1
+    private let metaSizeLength = 84
     
     public init(creditCard: CreditCard) {
         self.creditCard = creditCard
@@ -75,20 +80,24 @@ public class HendricksCard: HendricksObject {
             // card status
             let cardStatusData = UInt8(self.cardStatus).data
             
-            let towApduData = creditCard.topOfWalletAPDUCommands != nil ? HendricksUtils.buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
-            var towSize = towApduData.count
-            let towSizeData = Data(bytes: &towSize, count: 4)
+            var padding = 0
+            let paddingData = Data(bytes: &padding, count: 2)
             
             var cardArtSize = cardArtData.count
             let cardArtSizeData = Data(bytes: &cardArtSize, count: 4)
             
+            let towApduData = creditCard.topOfWalletAPDUCommands != nil ? HendricksUtils.buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
+            var towSize = towApduData.count
+            let towSizeData = Data(bytes: &towSize, count: 4)
+            
             //split for compiler
             let dataFirstHalf = lastFourData + expData + financialServiceData + cardIdData + cardArtIdData
-            let dataSecondHalf = cardArtSizeData + towIdData + towSizeData + cardStatusData + cardArtData + towApduData
-            let data = dataFirstHalf + dataSecondHalf
+            let dataSecondHalf = cardArtSizeData + towIdData + towSizeData + cardStatusData + paddingData
+            let dataSection = cardArtData + towApduData
+            let data = dataFirstHalf + dataSecondHalf + dataSection
             
             // command data
-            var tempMetaSize = self.metaSize
+            var tempMetaSize = self.metaSizeLength
             let metaSizeData = Data(bytes: &tempMetaSize, count: 4)
             
             let commandData = cardIdData + metaSizeData + cardArtSizeData + towSizeData
@@ -101,7 +110,7 @@ public class HendricksCard: HendricksObject {
     
     private func processCreditCardImage(_ creditCard: FitpaySDK.CreditCard, completion: @escaping (_ data: Data) -> Void) {
         let defaultCardWidth = 200
-        let defaultCardHeight = 125
+        let defaultCardHeight = 126
         let cardImage = creditCard.cardMetaData?.cardBackgroundCombined?.first
         
         cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight), ImageAssetOption.fontScale(20), ImageAssetOption.fontBold(false)]) { (asset, _) in

@@ -126,7 +126,7 @@ import CoreBluetooth
         guard let commandCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == commandCharacteristicId }) else { return }
         guard let dataCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == dataCharacteristicId }) else { return }
         
-        log.debug("HENDRICKS: Running command: \(command.command.rawValue)")
+        log.debug("HENDRICKS: Running command: \(String(format:"%02X", command.command.rawValue))")
         
         DispatchQueue.global(qos: .background).async {
             if command.command == .factoryReset {
@@ -283,7 +283,7 @@ import CoreBluetooth
         }
         
         self._deviceInfo = device
-        paymentDevice?.callCompletionForEvent(PaymentDevice.PaymentDeviceEventTypes.onDeviceConnected)
+        paymentDevice?.callCompletionForEvent(.onDeviceConnected, params: ["deviceInfo": device])
         connectedAndPinged = true
     }
     
