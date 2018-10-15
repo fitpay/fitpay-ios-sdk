@@ -169,7 +169,6 @@ import CoreBluetooth
         log.warning("HENDRICKS: Reseting due to no response or invalid response status")
         
         resetVariableState()
-        resetToDefaultState()
     }
     
     private func resetVariableState() {
@@ -368,8 +367,9 @@ import CoreBluetooth
         }
         
         guard let connectionPeripheralId = connectionPeripheralId else { return }
+        guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
         
-        wearablePeripheral = centralManager.retrievePeripherals(withIdentifiers: [connectionPeripheralId]).first //foundPeripherals[index]
+        wearablePeripheral = peripheral
         wearablePeripheral?.delegate = self
         centralManager.connect(wearablePeripheral!, options: nil)
         centralManager.stopScan()
