@@ -51,15 +51,13 @@ import CoreBluetooth
         packageQueue.enqueue(blePackage)
         processNextCommand()
     }
-    
-    public func addCreditCard(_ hendricksCard: HendricksCard, completion: @escaping () -> Void) {
-        hendricksCard.getCreditCardData { (commandData, data) in
-            let package = BLEPackage(.addCard, commandData: commandData, data: data) { _ in
-                completion()
-            }
-            self.addPackagetoQueue(package)
-        }
+
+    public func startScan() {
+        foundPeripherals = []
+        centralManager = CBCentralManager(delegate: self, queue: nil)
     }
+    
+    // Categories
     
     public func getCategories(completion: @escaping ([HendricksCategory]?) -> Void) {
         let package = BLEPackage(.getCategories) { result in
@@ -94,9 +92,33 @@ import CoreBluetooth
         addPackagetoQueue(package)
     }
     
-    public func startScan() {
-        foundPeripherals = []
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+    // Credit Card
+    
+    public func addCreditCard(_ hendricksCard: HendricksCard, completion: @escaping () -> Void) {
+        hendricksCard.getCreditCardData { (commandData, data) in
+            let package = BLEPackage(.addCard, commandData: commandData, data: data) { _ in
+                completion()
+            }
+            self.addPackagetoQueue(package)
+        }
+    }
+    
+    public func activateCreditCard(cardId: String, completion: @escaping () -> Void) {
+        guard let cardIdData = cardId.data(using: .utf8)?.paddedTo(byteLength: 37) else { return }
+        
+        let package = BLEPackage(.activateCard, commandData: cardIdData, data: nil) { _ in
+            completion()
+        }
+        addPackagetoQueue(package)
+    }
+    
+    public func suspendCreditCard(cardId: String, completion: @escaping () -> Void) {
+        guard let cardIdData = cardId.data(using: .utf8)?.paddedTo(byteLength: 37) else { return }
+
+        let package = BLEPackage(.suspendCard, commandData: cardIdData, data: nil) { _ in
+            completion()
+        }
+        addPackagetoQueue(package)
     }
     
     // MARK: - Private Functions
@@ -126,7 +148,7 @@ import CoreBluetooth
         guard let commandCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == commandCharacteristicId }) else { return }
         guard let dataCharacteristic = deviceService.characteristics?.first(where: { $0.uuid == dataCharacteristicId }) else { return }
         
-        log.debug("HENDRICKS: Running command: \(String(format:"%02X", command.command.rawValue))")
+        log.debug("HENDRICKS: Running command: \(String(format: "%02X", command.command.rawValue))")
         
         DispatchQueue.global(qos: .background).async {
             if command.command == .factoryReset {
@@ -331,7 +353,10 @@ import CoreBluetooth
         var index = 1
         for _ in 0..<objectCount {
             let objectId = Int(returnedData[index] + returnedData[index + 1] << 8)
-            guard let type = HendricksObjectType(rawValue: Int(returnedData[index + 2])) else { return }
+            guard let type = HendricksObjectType(rawValue: Int(returnedData[index + 2])) else {
+                currentPackage?.completion?(nil)
+                return
+            }
             
             switch type {
             case .identity:
@@ -537,8 +562,8 @@ extension HendricksPaymentDeviceConnector {
 
         case activateCard   = 0x16
         case getCardInfo    = 0x17
-        case deactivateCard = 0x18
-        case reactivateCard = 0x19
+        case suspendCard    = 0x18
+
         case addMiscCat     = 0x1A
         case removeCatObj   = 0x1B
         case getCategories  = 0x1C

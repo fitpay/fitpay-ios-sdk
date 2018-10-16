@@ -14,7 +14,7 @@ public class HendricksCard: HendricksObject {
     var artSize: Int?
     var towSize: Int?
     
-    let totalLength = 85
+    let totalLength = 83
     
     private var creditCard: CreditCard?
     
