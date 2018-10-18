@@ -3,8 +3,8 @@ import CoreBluetooth
 
 @objc open class HendricksPaymentDeviceConnector: NSObject {
     
-    public var foundPeripherals: [CBPeripheral] = []
-    public var connectionPeripheralId: UUID?
+    public var foundPeripherals: [(peripheral: CBPeripheral, name: String)] = []
+    public var connectToName: String?
     
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
@@ -137,6 +137,7 @@ import CoreBluetooth
         currentPackage = packageQueue.dequeue()
         
         guard let command = currentPackage else {
+            // start timer
             log.debug("HENDRICKS: commandQueue is empty")
             return
         }
@@ -391,10 +392,10 @@ import CoreBluetooth
             centralManager = CBCentralManager(delegate: self, queue: nil)
         }
         
-        guard let connectionPeripheralId = connectionPeripheralId else { return }
-        guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
+        guard let connectToName = connectToName else { return }
+        guard let peripheral = foundPeripherals.first(where: { $0.name == connectToName }) else { return }
         
-        wearablePeripheral = peripheral
+        wearablePeripheral = peripheral.peripheral
         wearablePeripheral?.delegate = self
         centralManager.connect(wearablePeripheral!, options: nil)
         centralManager.stopScan()
@@ -469,11 +470,12 @@ import CoreBluetooth
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         log.verbose("HENDRICKS: didDiscover peripheral: \(peripheral)")
-        foundPeripherals.append(peripheral)
+        guard let name = advertisementData["kCBAdvDataLocalName"] as? String else { return }
+        foundPeripherals.append((peripheral, name))
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "peripheralFound"), object: nil, userInfo: nil)
 
-        if peripheral.identifier == connectionPeripheralId {
+        if peripheral.name == connectToName {
             wearablePeripheral = peripheral
             wearablePeripheral?.delegate = self
             centralManager.connect(wearablePeripheral!, options: nil)
