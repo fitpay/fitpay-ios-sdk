@@ -27,7 +27,8 @@ public class HendricksCard: HendricksObject {
     private let towIdLength = 2
     private let towSizeLength = 4
     private let statusLength = 1
-    private let metaSizeLength = 84
+    private let paddingLength: Int //2
+    private let metaSizeLength: Int //84
     
     public init(creditCard: CreditCard) {
         self.creditCard = creditCard
@@ -36,6 +37,9 @@ public class HendricksCard: HendricksObject {
         expDate = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
         type = creditCard.cardType!
         cardId = creditCard.creditCardId!
+        
+        paddingLength = 4 - ((lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength) % 4)
+        metaSizeLength = lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength + paddingLength
         
         super.init()
         
@@ -52,6 +56,9 @@ public class HendricksCard: HendricksObject {
         runningIndex += typeLength
         cardId = String(bytes: Array(returnedData[runningIndex..<runningIndex + cardIdLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += cardIdLength
+        
+        paddingLength = 4 - ((lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength) % 4)
+        metaSizeLength = lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength + paddingLength
         
         super.init()
         
@@ -114,10 +121,11 @@ public class HendricksCard: HendricksObject {
         let cardImage = creditCard.cardMetaData?.cardBackgroundCombined?.first
         
         cardImage?.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight), ImageAssetOption.fontScale(20), ImageAssetOption.fontBold(false)]) { (asset, _) in
-            guard let image = asset?.image else {
+            guard let image = asset?.image ?? UIImage(named: "mastercard") else {
                 completion(Data())
                 return
             }
+            
             let pixelData = image.pixelData()!
             
             // determine if there is tranparency
@@ -138,9 +146,9 @@ public class HendricksCard: HendricksObject {
             let maxPixelCount = transparency ? 15 : 255
             
             for i in stride(from: 0, to: pixelData.count, by: 4) {
-                let r = UInt16(pixelData[i])
-                let g = UInt16(pixelData[i + 1])
-                let b = UInt16(pixelData[i + 2])
+                let r = UInt16(pixelData[i]) & 0xF0
+                let g = UInt16(pixelData[i + 1]) & 0xF0
+                let b = UInt16(pixelData[i + 2]) & 0xF0
                 let a = UInt16(pixelData[i + 3])
                 
                 let red =   ((31 * (r + 4)) / 255)
