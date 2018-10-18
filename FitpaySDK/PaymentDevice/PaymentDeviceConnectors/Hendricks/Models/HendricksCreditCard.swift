@@ -129,7 +129,7 @@ public class HendricksCard: HendricksObject {
             let pixelData = image.pixelData()!
             
             // determine if there is tranparency
-            var transparency = false
+            var transparency = true // false - no transparency currently not working
             
             for i in stride(from: 0, to: pixelData.count, by: 4) {
                 let a = pixelData[i + 3]
