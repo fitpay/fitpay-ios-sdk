@@ -57,6 +57,13 @@ import CoreBluetooth
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
+    public func enterBootloader(completion: @escaping () -> Void) {
+        let package = BLEPackage(.bootLoader) { result in
+            completion()
+        }
+        addPackagetoQueue(package)
+    }
+    
     // Categories
     
     public func getCategories(completion: @escaping ([HendricksCategory]?) -> Void) {
@@ -222,6 +229,7 @@ import CoreBluetooth
         
         if value.count == 1 { //status
             log.debug("HENDRICKS: BLE Response OK with no length")
+            currentPackage?.completion?(nil)
             resetVariableState()
             
         } else if value.count == 5 { //length
@@ -253,11 +261,9 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatDataResponse()
             
-        case .addCard, .removeCatObj:
-            currentPackage.completion?(nil)
-            
         default:
-            break
+            currentPackage.completion?(nil)
+
         }
         
         resetVariableState()
