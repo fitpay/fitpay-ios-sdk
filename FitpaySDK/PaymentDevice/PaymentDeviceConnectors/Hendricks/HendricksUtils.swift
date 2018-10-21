@@ -24,9 +24,7 @@ struct HendricksUtils {
         return data
     }
     
-    static func buildTOWAPDUData(apdus: [APDUCommand]) -> Data {
-        var data = Data()
-        
+    static func buildTOWAPDUData(apdus: [APDUCommand]) -> Data {        
         guard let aidCommand = apdus.first(where: { $0.command?.uppercased().starts(with: "80F00202") == true }) else {
             return buildAPDUData(apdus: apdus)
         }
@@ -51,7 +49,7 @@ struct HendricksUtils {
         let setDefaultAID = APDUCommand()
         setDefaultAID.groupId = 0
         setDefaultAID.sequence = 2
-        setDefaultAID.command = "80C3010000" + aid
+        setDefaultAID.command = "80C10000" + aid
         setDefaultAID.type = "SET_DEFAULT_CARD"
         setDefaultAID.continueOnFailure = false
         
