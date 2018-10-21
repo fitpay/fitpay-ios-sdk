@@ -93,7 +93,7 @@ public class HendricksCard: HendricksObject {
             var cardArtSize = cardArtData.count
             let cardArtSizeData = Data(bytes: &cardArtSize, count: 4)
             
-            let towApduData = creditCard.topOfWalletAPDUCommands != nil ? HendricksUtils.buildAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
+            let towApduData = creditCard.topOfWalletAPDUCommands != nil ? HendricksUtils.buildTOWAPDUData(apdus: creditCard.topOfWalletAPDUCommands!) : Data()
             var towSize = towApduData.count
             let towSizeData = Data(bytes: &towSize, count: 4)
             
@@ -213,4 +213,5 @@ public class HendricksCard: HendricksObject {
         
         return imageHeader + mainData
     }
+
 }
