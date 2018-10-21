@@ -39,28 +39,28 @@ struct HendricksUtils {
         selectCRS.continueOnFailure = false
         
         let deactivateDefaultAID = APDUCommand()
-        selectCRS.groupId = 0
-        selectCRS.sequence = 1
-        selectCRS.command = "80C3010000"
-        selectCRS.type = "DEACTIVATE_DEFAULT_CARD"
-        selectCRS.continueOnFailure = true
+        deactivateDefaultAID.groupId = 0
+        deactivateDefaultAID.sequence = 1
+        deactivateDefaultAID.command = "80C3010000"
+        deactivateDefaultAID.type = "DEACTIVATE_DEFAULT_CARD"
+        deactivateDefaultAID.continueOnFailure = true
         
         let lowerBound = aidCommand.command!.index(aidCommand.command!.startIndex, offsetBy: 12)
         let aid = String(aidCommand.command![lowerBound...])
 
         let setDefaultAID = APDUCommand()
-        selectCRS.groupId = 0
-        selectCRS.sequence = 2
-        selectCRS.command = "80C3010000" + aid
-        selectCRS.type = "SET_DEFAULT_CARD"
-        selectCRS.continueOnFailure = false
+        setDefaultAID.groupId = 0
+        setDefaultAID.sequence = 2
+        setDefaultAID.command = "80C3010000" + aid
+        setDefaultAID.type = "SET_DEFAULT_CARD"
+        setDefaultAID.continueOnFailure = false
         
         let activateDefaultAID = APDUCommand()
-        selectCRS.groupId = 0
-        selectCRS.sequence = 3
-        selectCRS.command = "80C3010100"
-        selectCRS.type = "ACTIVATE_DEFAULT_CARD"
-        selectCRS.continueOnFailure = false
+        activateDefaultAID.groupId = 0
+        activateDefaultAID.sequence = 3
+        activateDefaultAID.command = "80C3010100"
+        activateDefaultAID.type = "ACTIVATE_DEFAULT_CARD"
+        activateDefaultAID.continueOnFailure = false
         
         let translatedAPDUs = [selectCRS, deactivateDefaultAID, setDefaultAID, activateDefaultAID]
         return buildAPDUData(apdus: translatedAPDUs)
