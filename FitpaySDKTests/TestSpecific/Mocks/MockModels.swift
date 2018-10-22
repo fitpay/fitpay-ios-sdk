@@ -179,7 +179,7 @@ class MockModels {
     }
     
     func getIssuers() -> Issuers? {
-        let issuers = try? Issuers("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices/677af018-01b1-47d9-9b08-0c18d89aa2e3/commits/57717bdb6d213e810137ee21adb7e883fe0904e9\"}}, \"countries\": {\"cardNetworks\":{\"issuers\":[\"someNetwork\"]}}}")
+        let issuers = try? Issuers("{\"countries\": {\"US\":{\"cardNetworks\":{\"VISA\":{\"issuers\":[\"Local Government Federal Credit Union\",\"Bank of America\",\"Commerce Bank\",\"U.S. Bank\",\"Capital One\"]}}}}}")
         expect(issuers).toNot(beNil())
         return issuers
     }

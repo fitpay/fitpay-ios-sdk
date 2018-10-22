@@ -7,10 +7,10 @@ import Foundation
     open var seStatus: DeviceResetStatus?
 
     open var deviceResetUrl: String? {
-        return self.links?.url(ResetDeviceResult.selfResourceKey)
+        return links?[ResetDeviceResult.selfResourceKey]?.href
     }
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
 
     private static let selfResourceKey = "self"
 
@@ -24,7 +24,7 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         resetId = try? container.decode(.resetId)
         status = try? container.decode(.status)
         seStatus = try? container.decode(.seStatus)
@@ -32,7 +32,7 @@ import Foundation
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(resetId, forKey: .resetId)
         try? container.encode(status, forKey: .status)
         try? container.encode(seStatus, forKey: .seStatus)

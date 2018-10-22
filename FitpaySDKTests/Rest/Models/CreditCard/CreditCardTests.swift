@@ -76,7 +76,7 @@ class CreditCardTests: XCTestCase {
     
     func testNotAvailable() {
         let creditCard = mockModels.getCreditCard()
-        creditCard?.links = []
+        creditCard?.links = [:]
         
         expect(creditCard?.acceptTermsAvailable).to(beFalse())
         expect(creditCard?.declineTermsAvailable).to(beFalse())
@@ -99,7 +99,7 @@ class CreditCardTests: XCTestCase {
         
         expect(creditCard?.getAcceptTermsUrl()).to(equal("newUrl"))
         
-        creditCard?.links = []
+        creditCard?.links = [:]
         creditCard?.setAcceptTermsUrl(acceptTermsUrl: "newNewUrl")
         expect(creditCard?.getAcceptTermsUrl()).to(beNil())
     }
