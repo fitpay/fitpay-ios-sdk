@@ -17,12 +17,7 @@ open class Transaction: NSObject, ClientModel, Serializable {
     
     weak var client: RestClient?
     
-    var links: [ResourceLink]?
-    
-    private static let selfResourceKey = "self"
-
     private enum CodingKeys: String, CodingKey {
-        case links = "_links"
         case transactionId
         case transactionType
         case amount
@@ -38,7 +33,6 @@ open class Transaction: NSObject, ClientModel, Serializable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
         transactionId = try? container.decode(.transactionId)
         transactionType = try? container.decode(.transactionType)
         if let stringNumber: String = try? container.decode(.amount) {
@@ -58,7 +52,6 @@ open class Transaction: NSObject, ClientModel, Serializable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
         try? container.encode(transactionId, forKey: .transactionId)
         try? container.encode(transactionType, forKey: .transactionType)
         try? container.encode(amount?.description, forKey: .amount)

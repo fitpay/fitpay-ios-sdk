@@ -17,18 +17,18 @@ import Foundation
 
     weak var client: RestClient?
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
 
     open var selectAvailable: Bool {
-        return links?.url(VerificationMethod.selectResourceKey) != nil
+        return links?[VerificationMethod.selectResourceKey] != nil
     }
 
     open var verifyAvailable: Bool {
-        return links?.url(VerificationMethod.verifyResourceKey) != nil
+        return links?[VerificationMethod.verifyResourceKey] != nil
     }
 
     open var cardAvailable: Bool {
-        return links?.url(VerificationMethod.cardResourceKey) != nil
+        return links?[VerificationMethod.cardResourceKey] != nil
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -56,7 +56,7 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         verificationId = try? container.decode(.verificationId)
         state = try? container.decode(.state)
         methodType = try? container.decode(.methodType)
@@ -75,7 +75,7 @@ import Foundation
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(verificationId, forKey: .verificationId)
         try? container.encode(state, forKey: .state)
         try? container.encode(methodType, forKey: .methodType)
@@ -99,7 +99,7 @@ import Foundation
     @objc open func selectVerificationType(_ completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.selectResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
              completion(false, nil, composeError(resource))
             return
         }
@@ -116,7 +116,7 @@ import Foundation
     @objc open func verify(_ verificationCode: String, completion: @escaping RestClient.VerifyHandler) {
         let resource = VerificationMethod.verifyResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
              completion(false, nil, composeError(resource))
             return
         }
@@ -130,7 +130,7 @@ import Foundation
     @objc open func retrieveCreditCard(_ completion: @escaping RestClient.CreditCardHandler) {
         let resource = VerificationMethod.cardResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -141,7 +141,7 @@ import Foundation
     // MARK: - Private Functions
     
     private func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: VerificationMethod.self, client: client, url: links?[resource]?.href, resource: resource)
     }
     
 }

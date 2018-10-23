@@ -7,22 +7,22 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open var totalResults: Int?
     open var results: [T]?
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
     
     private let lastResourceKey = "last"
     private let nextResourceKey = "next"
     private let previousResourceKey = "previous"
 
     open var nextAvailable: Bool {
-        return links?.url(nextResourceKey) != nil
+        return links?[nextResourceKey] != nil
     }
 
     open var lastAvailable: Bool {
-        return links?.url(lastResourceKey) != nil
+        return links?[lastResourceKey] != nil
     }
 
     open var previousAvailable: Bool {
-        return links?.url(previousResourceKey) != nil
+        return links?[previousResourceKey] != nil
     }
 
     var client: RestClient? {
@@ -59,7 +59,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         limit = try? container.decode(.limit)
         offset = try? container.decode(.offset)
         totalResults = try? container.decode(.totalResults)
@@ -72,7 +72,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(limit, forKey: .limit)
         try? container.encode(offset, forKey: .offset)
         try? container.encode(totalResults, forKey: .totalResults)
@@ -87,7 +87,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     // MARK: - Public Functions
 
     open func collectAllAvailable(_ completion: @escaping CollectAllAvailableCompletion) {
-        if let nextUrl = links?.url(nextResourceKey), results != nil {
+        if let nextUrl = links?[nextResourceKey]?.href, results != nil {
             self.collectAllAvailable(self.results!, nextUrl: nextUrl) { (results, error) -> Void in
                 self.results = results
                 completion(self.results, error)
@@ -101,8 +101,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func next<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = nextResourceKey
         
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
+        let url = links?[resource]?.href
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -113,8 +113,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func last<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = lastResourceKey
         
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
+        let url = links?[resource]?.href
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -125,8 +125,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func previous<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = previousResourceKey
         
-        let url = self.links?.url(resource)
-        if let url = url, let client = self.client {
+        let url = links?[resource]?.href
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -156,7 +156,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             let results = resultCollection.results ?? []
             let newStorage = storage + results
             
-            if let nextUrlItr = resultCollection.links?.url(self.nextResourceKey) {
+            if let nextUrlItr = resultCollection.links?[self.nextResourceKey]?.href {
                 self.collectAllAvailable(newStorage, nextUrl: nextUrlItr, completion: completion)
             } else {
                 completion(newStorage, nil)

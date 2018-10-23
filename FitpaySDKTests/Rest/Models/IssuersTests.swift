@@ -9,11 +9,13 @@ class IssuersTests: XCTestCase {
     func testIssuersParsing() {
         let issuers = mockModels.getIssuers()
 
-        expect(issuers?.links).toNot(beNil())
         expect(issuers?.countries).toNot(beNil())
-
+        expect(issuers?.countries?["US"]).toNot(beNil())
+        expect(issuers?.countries?["US"]?.cardNetworks).toNot(beNil())
+        expect(issuers?.countries?["US"]?.cardNetworks?["VISA"]).toNot(beNil())
+        expect(issuers?.countries?["US"]?.cardNetworks?["VISA"]?.issuers).to(contain("Capital One"))
+        
         let json = issuers?.toJSON()
-        expect(json?["_links"]).toNot(beNil())
         expect(json?["countries"]).toNot(beNil())
     }
 }
