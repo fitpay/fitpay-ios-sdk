@@ -78,22 +78,22 @@ import Foundation
 
     /// returns true if user link is returned on the model and available to call
     open var userAvailable: Bool {
-        return links?.url(Device.userResourceKey) != nil
+        return links?[Device.userResourceKey] != nil
     }
 
     /// returns true if commits link is returned on the model and available to call
     open var listCommitsAvailable: Bool {
-        return links?.url(Device.commitsResourceKey) != nil
+        return links?[Device.commitsResourceKey] != nil
     }
     
     /// returns true if lastAckCommit link is returned on the model and available to call
     open var lastAckCommitAvailable: Bool {
-        return links?.url(Device.lastAckCommitResourceKey) != nil
+        return links?[Device.lastAckCommitResourceKey] != nil
     }
     
     /// returns true if defaultCreditCard link is returned on the model and available to call
     open var defaultCreditCardAvailable: Bool {
-        return links?.url(Device.defaultCreditCardKey) != nil
+        return links?[Device.defaultCreditCardKey] != nil
     }
     
     /// returns true if deviceResetTasksKey link is returned on the model and available to call
@@ -104,10 +104,10 @@ import Foundation
     /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
     @available(*, deprecated, message: "as of v1.2.1 - a reset method will be added in the future")
     open var deviceResetUrl: String? {
-        return links?.url(Device.deviceResetTasksKey)
+        return links?[Device.deviceResetTasksKey]?.href
     }
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
     weak var client: RestClient?
 
     typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
@@ -168,9 +168,9 @@ import Foundation
     }
 
     public required init(from decoder: Decoder) throws {
-        super.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        
+        links = try? container.decode(.links)
         created = try? container.decode(.created)
         createdEpoch = try container.decode(.createdEpoch, transformer: NSTimeIntervalTypeTransform())
         _deviceIdentifier = try? container.decode(.deviceIdentifier)
@@ -198,7 +198,7 @@ import Foundation
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(created, forKey: .created)
         try container.encode(createdEpoch, forKey: .createdEpoch, transformer: NSTimeIntervalTypeTransform())
         try? container.encode(deviceIdentifier, forKey: .deviceIdentifier)
@@ -233,7 +233,7 @@ import Foundation
     @objc open func deleteDeviceInfo(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = Device.selfResourceKey
        
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(composeError(resource))
             return
         }
@@ -254,7 +254,7 @@ import Foundation
     open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -272,7 +272,7 @@ import Foundation
     open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -291,7 +291,7 @@ import Foundation
     open func listCommits(commitsAfter: String?, limit: Int, offset: Int, completion: @escaping RestClient.CommitsHandler) {
         let resource = Device.commitsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -307,7 +307,7 @@ import Foundation
     open func getDefaultCreditCard(completion: @escaping RestClient.CreditCardHandler) {
         let resource = Device.defaultCreditCardKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -321,7 +321,7 @@ import Foundation
     open func lastAckCommit(completion: @escaping RestClient.CommitHandler) {
         let resource = Device.lastAckCommitResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -335,7 +335,7 @@ import Foundation
     open func user(_ completion: @escaping RestClient.UserHandler) {
         let resource = Device.userResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -362,7 +362,7 @@ import Foundation
     func addNotificationToken(_ token: String, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -393,7 +393,7 @@ import Foundation
     // MARK: - Private Functions
     
     private func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: Device.self, client: client, url: links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: Device.self, client: client, url: links?[resource]?.href, resource: resource)
     }
     
 }

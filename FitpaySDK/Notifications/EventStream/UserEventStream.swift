@@ -4,7 +4,7 @@ import Alamofire
 class UserEventStream {
     
     init(user: User, client: RestClient, completion: @escaping UserEventStreamManager.userEventStreamHandler) {
-        guard let eventStreamLink = user.links?.url("eventStream") else { return }
+        guard let eventStreamLink = user.links?["eventStream"]?.href else { return }
         let jsonDecoder = JSONDecoder()
         
         client.prepareAuthAndKeyHeaders { (headers, error) in

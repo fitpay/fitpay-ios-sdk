@@ -8,12 +8,14 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
     
     open var links: [ResourceLink]?
     
+    var _links: [String: Link]?
+    
     weak var client: RestClient?
     
     private static let selfResourceKey = "self"
 
     private enum CodingKeys: String, CodingKey {
-        case links = "_links"
+        case _links
         case mimeType
         case height
         case width
@@ -24,16 +26,20 @@ open class Image: NSObject, ClientModel, Serializable, AssetRetrivable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        _links = try container.decode(._links)
         mimeType = try? container.decode(.mimeType)
         height = try? container.decode(.height)
         width = try? container.decode(.width)
+        
+        super.init()
+        
+        links = _links?.keys.map({ return ResourceLink(target: $0, href: self._links?[$0]?.href) })
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(_links, forKey: ._links)
         try? container.encode(mimeType, forKey: .mimeType)
         try? container.encode(height, forKey: .height)
         try? container.encode(width, forKey: .width)

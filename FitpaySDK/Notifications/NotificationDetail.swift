@@ -15,8 +15,9 @@ open class NotificationDetail: Serializable, ClientModel {
     open var creditCardId: String?
     
     weak var client: RestClient?
-    var links: [ResourceLink]?
     
+    var links: [String: Link]?
+
     private let creditCardResourceKey = "creditCard"
     private let deviceResourceKey = "device"
     private let ackSyncResourceKey = "ackSync"
@@ -37,7 +38,7 @@ open class NotificationDetail: Serializable, ClientModel {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         type = try? container.decode(.type)
         
         syncId = try? container.decode(.syncId)
@@ -54,7 +55,7 @@ open class NotificationDetail: Serializable, ClientModel {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(type, forKey: .type)
         try? container.encode(syncId, forKey: .syncId)
         try? container.encode(deviceId, forKey: .deviceId)
@@ -66,12 +67,12 @@ open class NotificationDetail: Serializable, ClientModel {
     // MARK: - Public Functions
 
     open func sendAckSync() {
-        guard let ackSyncUrl = self.links?.url(ackSyncResourceKey) else {
+        guard let ackSyncUrl = links?[ackSyncResourceKey]?.href else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without URL.")
             return
         }
 
-        guard let client = self.client else {
+        guard let client = client else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without rest client.")
             return
         }
@@ -87,12 +88,12 @@ open class NotificationDetail: Serializable, ClientModel {
     }
     
     open func getCreditCard(completion: @escaping RestClient.CreditCardHandler) {
-        guard let creditCardUrl = self.links?.url(creditCardResourceKey) else {
+        guard let creditCardUrl = links?[creditCardResourceKey]?.href else {
             log.error("GET_CREDIT_CARD: trying to get credit card without URL.")
             return
         }
         
-        guard let client = self.client else {
+        guard let client = client else {
             log.error("GET_CREDIT_CARD: trying to get credit card without rest client.")
             return
         }
@@ -101,12 +102,12 @@ open class NotificationDetail: Serializable, ClientModel {
     }
     
     open func getDevice(completion: @escaping RestClient.DeviceHandler) {
-        guard let deviceUrl = self.links?.url(deviceResourceKey) else {
+        guard let deviceUrl = links?[deviceResourceKey]?.href else {
             log.error("GET_DEVICE: trying to get device without URL.")
             return
         }
         
-        guard let client = self.client else {
+        guard let client = client else {
             log.error("GET_DEVICE: trying to get device without rest client.")
             return
         }

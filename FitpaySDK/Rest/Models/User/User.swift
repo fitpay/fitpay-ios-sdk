@@ -9,14 +9,14 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     open var lastModifiedEpoch: TimeInterval?
     
     open var listCreditCardsAvailable: Bool {
-        return self.links?.url(User.creditCardsResourceKey) != nil
+        return links?[User.creditCardsResourceKey] != nil
     }
     
     open var listDevicesAvailable: Bool {
-        return self.links?.url(User.devicesResourceKey) != nil
+        return links?[User.devicesResourceKey] != nil
     }
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
     var encryptedData: String?
     var info: UserInfo?
     
@@ -41,7 +41,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         id = try? container.decode(.id)
         created = try? container.decode(.created)
         createdEpoch = try container.decode(.createdEpoch, transformer: NSTimeIntervalTypeTransform())
@@ -52,7 +52,8 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(id, forKey: .id)
         try? container.encode(created, forKey: .created)
         try? container.encode(createdEpoch, forKey: .createdEpoch, transformer: NSTimeIntervalTypeTransform())
@@ -72,7 +73,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     @objc public func createCreditCard(cardInfo: CardInfo, deviceId: String? = nil, completion: @escaping RestClient.CreditCardHandler) {
         let resource = User.creditCardsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -91,7 +92,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     public func getCreditCards(excludeState: [String], limit: Int, offset: Int, deviceId: String? = nil, completion: @escaping RestClient.CreditCardsHandler) {
         let resource = User.creditCardsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -109,7 +110,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     public func getDevices(limit: Int, offset: Int, completion: @escaping RestClient.DevicesHandler) {
         let resource = User.devicesResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -125,7 +126,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     @objc public func createDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
         let resource = User.devicesResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -136,7 +137,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     @objc public func deleteUser(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = User.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(composeError(resource))
             return
         }
@@ -147,7 +148,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     @objc public func updateUser(firstName: String?, lastName: String?, birthDate: String?, originAccountCreated: String?, termsAccepted: String?, termsVersion: String?, completion: @escaping RestClient.UserHandler) {
         let resource = User.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -164,6 +165,6 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     // MARK: - Private Functions
     
     private func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: User.self, client: client, url: links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: User.self, client: client, url: links?[resource]?.href, resource: resource)
     }
 }
