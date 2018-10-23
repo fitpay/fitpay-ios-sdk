@@ -24,6 +24,14 @@ extension RestClient {
     /**
      Completion handler
      
+     - parameter device: Provides existing DeviceInfo object, or nil if error occurs
+     - parameter error: Provides error object, or nil if no error occurs
+     */
+    public typealias ResetDeviceHandler = (_ result: ResetDeviceResult?, _ error: ErrorResponse?) -> Void
+    
+    /**
+     Completion handler
+     
      - parameter commits: Provides ResultCollection<Commit> object, or nil if error occurs
      - parameter error:   Provides error object, or nil if no error occurs
      */

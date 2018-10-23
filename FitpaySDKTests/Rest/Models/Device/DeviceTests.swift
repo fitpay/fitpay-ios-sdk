@@ -137,6 +137,17 @@ class DeviceTests: XCTestCase {
         expect(defaultCreditCardNotAvailable).to(beFalse())
     }
     
+    func testDeviceResetAvailable() {
+        let device = mockModels.getDevice()
+        let deviceNoLinks = mockModels.getDeviceInfoNoLinks()
+        
+        let deviceResetAvailable = device?.deviceResetAvailable
+        expect(deviceResetAvailable).to(beTrue())
+        
+        let deviceResetNotAvailable = deviceNoLinks?.deviceResetAvailable
+        expect(deviceResetNotAvailable).to(beFalse())
+    }
+    
     func testDeleteDeviceInfoNoClient() {
         let device = mockModels.getDevice()
         
@@ -255,6 +266,26 @@ class DeviceTests: XCTestCase {
         device?.user { (user, error) in
             expect(error).to(beNil())
             expect(user).toNot(beNil())
+        }
+    }
+    
+    func testResetDeviceNoClient() {
+        let device = mockModels.getDevice()
+        
+        device?.resetDevice { (resetDeviceResult, error) in
+            expect(resetDeviceResult).to(beNil())
+            expect(error).toNot(beNil())
+            expect(error?.localizedDescription).to(equal("RestClient is not set."))
+        }
+    }
+    
+    func testResetDevice() {
+        let device = mockModels.getDevice()
+        device?.client = client
+        
+        device?.resetDevice { (resetDeviceResult, error) in
+            expect(error).to(beNil())
+            expect(resetDeviceResult).toNot(beNil())
         }
     }
     

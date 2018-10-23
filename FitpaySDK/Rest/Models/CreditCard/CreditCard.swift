@@ -128,7 +128,6 @@ import Foundation
         links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
         creditCardId = try? container.decode(.creditCardId)
         userId = try? container.decode(.userId)
-        isDefault = try? container.decode(.isDefault)
         created = try? container.decode(.created)
         createdEpoch = try container.decode(.createdEpoch, transformer: NSTimeIntervalTypeTransform())
         state = try? container.decode(.state)

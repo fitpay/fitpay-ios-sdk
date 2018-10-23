@@ -1,5 +1,6 @@
 import Foundation
 
+/// Payment Device Information
 @objcMembers open class Device: NSObject, ClientModel, Serializable {
 
     /// Unique identifier to platform asset that contains details about the embedded secure element for the device.
@@ -93,6 +94,11 @@ import Foundation
     /// returns true if defaultCreditCard link is returned on the model and available to call
     open var defaultCreditCardAvailable: Bool {
         return links?.url(Device.defaultCreditCardKey) != nil
+    }
+    
+    /// returns true if deviceResetTasksKey link is returned on the model and available to call
+    open var deviceResetAvailable: Bool {
+        return links?.url(Device.deviceResetTasksKey) != nil
     }
 
     /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
@@ -245,7 +251,7 @@ import Foundation
      - parameter completion:        UpdateDeviceHandler closure
      */
     @available(*, deprecated, message: "as of v1.2")
-    @objc open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
+    open func update(_ firmwareRevision: String? = nil, softwareRevision: String? = nil, notifcationToken: String? = nil, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
         
         guard let url = links?.url(resource), let client = client else {
@@ -257,13 +263,13 @@ import Foundation
     }
     
     /**
-     Update the details of an existing device use nil if field doesn't need to be updated
+     Update the details of an existing device. Use nil if field doesn't need to be updated.
      Cannot remove values with this function
-     Currently only supports firmwareRevision, softwareRevision and notificationToken but will support more properties in the future
+     Currently only supports firmwareRevision, softwareRevision and notificationToken but may support more properties in the future
      
      - parameter device: updated device
      */
-    @objc open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
+    open func updateDevice(_ device: Device, completion: @escaping RestClient.DeviceHandler) {
         let resource = Device.selfResourceKey
         
         guard let url = links?.url(resource), let client = client else {
@@ -309,11 +315,9 @@ import Foundation
         client.getDefaultCreditCard(url, completion: completion)
     }
     
-    /**
-     Retrieves last acknowledge commit for device
-     
-     - parameter completion: CommitHandler closure
-     */
+    /// Retrieves last acknowledge commit for device
+    ///
+    /// - Parameter completion: CommitHandler closure
     open func lastAckCommit(completion: @escaping RestClient.CommitHandler) {
         let resource = Device.lastAckCommitResourceKey
         
@@ -325,7 +329,10 @@ import Foundation
         client.makeGetCall(url, parameters: nil, completion: completion)
     }
 
-    @objc open func user(_ completion: @escaping RestClient.UserHandler) {
+    /// Retrieves user that device is associated with
+    ///
+    /// - Parameter completion: UserHandler closure
+    open func user(_ completion: @escaping RestClient.UserHandler) {
         let resource = Device.userResourceKey
         
         guard let url = links?.url(resource), let client = client else {
@@ -334,6 +341,20 @@ import Foundation
         }
         
         client.makeGetCall(url, parameters: nil, completion: completion)
+    }
+    
+    /// Retrieves user that device is associated with
+    ///
+    /// - Parameter completion: UserHandler closure
+    open func resetDevice(_ completion: @escaping RestClient.ResetDeviceHandler) {
+        let resource = Device.deviceResetTasksKey
+        
+        guard let url = links?.url(resource), let client = client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.makePostCall(url, parameters: nil, completion: completion)
     }
 
     // MARK: - Internal Functions
@@ -371,7 +392,7 @@ import Foundation
     
     // MARK: - Private Functions
     
-    func composeError(_ resource: String) -> ErrorResponse? {
+    private func composeError(_ resource: String) -> ErrorResponse? {
         return ErrorResponse.clientUrlError(domain: Device.self, client: client, url: links?.url(resource), resource: resource)
     }
     
