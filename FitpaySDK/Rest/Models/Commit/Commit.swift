@@ -18,7 +18,8 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
         }
     }
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
+    
     var encryptedData: String?
     
     private static let apduResponseResourceKey = "apduResponse"
@@ -38,7 +39,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         commitTypeString = try? container.decode(.commitTypeString)
         created = try? container.decode(.created)
         previousCommit = try? container.decode(.previousCommit)
@@ -49,7 +50,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(commitTypeString, forKey: .commitTypeString)
         try? container.encode(created, forKey: .created)
         try? container.encode(previousCommit, forKey: .previousCommit)
@@ -73,7 +74,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
             return
         }
         
-        guard let url = links?.url(resource) else {
+        guard let url = links?[resource]?.href else {
             completion(nil)
             return
         }
@@ -95,7 +96,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
             return
         }
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(composeError(resource))
             return
         }
@@ -107,7 +108,7 @@ open class Commit: NSObject, ClientModel, Serializable, SecretApplyable {
     // MARK: - Private Functions
     
     func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: Commit.self, client: client, url: links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: Commit.self, client: client, url: links?[resource]?.href, resource: resource)
     }
 
 }

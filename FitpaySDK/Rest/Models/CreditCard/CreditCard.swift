@@ -1,7 +1,7 @@
 import Foundation
 
 @objcMembers open class CreditCard: NSObject, ClientModel, Serializable, SecretApplyable {
-
+    
     open var creditCardId: String?
     open var userId: String?
     
@@ -33,38 +33,39 @@ import Foundation
     open var expYear: Int?
     
     open var acceptTermsAvailable: Bool {
-        return links?.url(CreditCard.acceptTermsResourceKey) != nil
+        return links?[CreditCard.acceptTermsResourceKey] != nil
     }
-
+    
     open var declineTermsAvailable: Bool {
-        return links?.url(CreditCard.declineTermsResourceKey) != nil
+        return links?[CreditCard.declineTermsResourceKey] != nil
     }
-
+    
     open var deactivateAvailable: Bool {
-        return links?.url(CreditCard.deactivateResourceKey) != nil
+        return links?[CreditCard.deactivateResourceKey] != nil
     }
-
+    
     open var reactivateAvailable: Bool {
-        return links?.url(CreditCard.reactivateResourceKey) != nil
+        return links?[CreditCard.reactivateResourceKey] != nil
     }
-
+    
     open var makeDefaultAvailable: Bool {
-        return links?.url(CreditCard.makeDefaultResourceKey) != nil
+        return links?[CreditCard.makeDefaultResourceKey] != nil
     }
-
+    
     open var listTransactionsAvailable: Bool {
-        return links?.url(CreditCard.transactionsResourceKey) != nil
+        return links?[CreditCard.transactionsResourceKey] != nil
     }
     
     open var verificationMethodsAvailable: Bool {
-        return links?.url(CreditCard.getVerificationMethodsKey) != nil
+        return links?[CreditCard.getVerificationMethodsKey] != nil
     }
     
     open var selectedVerificationMethodAvailable: Bool {
-        return links?.url(CreditCard.selectedVerificationKey) != nil
+        return links?[CreditCard.selectedVerificationKey] != nil
     }
     
-    var links: [ResourceLink]?
+    var links: [String: Link]?
+    
     var encryptedData: String?
     
     weak var client: RestClient? {
@@ -94,7 +95,7 @@ import Foundation
     private static let transactionsResourceKey      = "transactions"
     private static let getVerificationMethodsKey    = "verificationMethods"
     private static let selectedVerificationKey      = "selectedVerification"
-
+    
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case creditCardId
@@ -121,11 +122,11 @@ import Foundation
         case expMonth
         case expYear
     }
-
+    
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try container.decode(.links, transformer: ResourceLinkTypeTransform())
+        links = try? container.decode(.links)
         creditCardId = try? container.decode(.creditCardId)
         userId = try? container.decode(.userId)
         isDefault = try? container.decode(.isDefault)
@@ -147,16 +148,16 @@ import Foundation
         
         offlineSeActions = try? container.decode(.offlineSeActions)
         topOfWalletAPDUCommands = offlineSeActions?.topOfWallet?.apduCommands
-                
+        
         tokenLastFour = try? container.decode(.tokenLastFour)
         expMonth = try? container.decode(.expMonth)
         expYear = try? container.decode(.expYear)
     }
-
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encode(links, forKey: .links, transformer: ResourceLinkTypeTransform())
+        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(creditCardId, forKey: .creditCardId)
         try? container.encode(userId, forKey: .userId)
         try? container.encode(created, forKey: .created)
@@ -180,18 +181,18 @@ import Foundation
     }
     
     // MARK: - Public Functions
-
+    
     @available(*, deprecated, message: "as of v1.0.3")
     @objc open func getIsDefault() -> Bool {
         return isDefault ?? false
     }
-
+    
     /**
      Get acceptTerms url
      - return acceptTerms url
      */
     @objc open func getAcceptTermsUrl() -> String? {
-        return links?.url(CreditCard.acceptTermsResourceKey)
+        return links?[CreditCard.acceptTermsResourceKey]?.href
     }
     
     /**
@@ -199,7 +200,7 @@ import Foundation
      - param acceptTermsUrl url
      */
     @objc open func setAcceptTermsUrl(acceptTermsUrl: String) {
-        guard let link = links?.elementAt(CreditCard.acceptTermsResourceKey) else {
+        guard let link = links?[CreditCard.acceptTermsResourceKey] else {
             log.error("CREDIT_CARD: The card is not in a state to accept terms anymore")
             return
         }
@@ -215,7 +216,7 @@ import Foundation
     @objc open func getCard(_ completion: @escaping RestClient.CreditCardHandler) {
         let resource = CreditCard.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -231,14 +232,14 @@ import Foundation
     @objc open func deleteCard(_ completion: @escaping RestClient.DeleteHandler) {
         let resource = CreditCard.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(composeError(resource))
             return
         }
         
         client.makeDeleteCall(url, completion: completion)
     }
-
+    
     /**
      Update the details of an existing credit card
      
@@ -249,14 +250,14 @@ import Foundation
     @objc open func updateCard(name: String?, address: Address, completion: @escaping RestClient.CreditCardHandler) {
         let resource = CreditCard.selfResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
         
         client.updateCreditCard(url, name: name, address: address, completion: completion)
     }
-
+    
     /**
      Indicates a user has accepted the terms and conditions presented when the credit card was first added to the user's profile
      
@@ -265,14 +266,14 @@ import Foundation
     @objc open func acceptTerms(_ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.acceptTermsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
         
         client.acceptCall(url, completion: completion)
     }
-
+    
     /**
      Indicates a user has declined the terms and conditions. Once declined the credit card will be in a final state, no other actions may be taken
      
@@ -281,14 +282,14 @@ import Foundation
     @objc open func declineTerms(_ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.declineTermsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
         
         client.acceptCall(url, completion: completion)
     }
-
+    
     /**
      Transition the credit card into a deactived state so that it may not be utilized for payment. This link will only be available for qualified credit cards that are currently in an active state.
      
@@ -299,14 +300,14 @@ import Foundation
     open func deactivate(causedBy: CreditCardInitiator, reason: String, completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.deactivateResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
         
         client.activationCall(url, causedBy: causedBy, reason: reason, completion: completion)
     }
-
+    
     /**
      Transition the credit card into an active state where it can be utilized for payment. This link will only be available for qualified credit cards that are currently in a deactivated state.
      
@@ -317,7 +318,7 @@ import Foundation
     open func reactivate(causedBy: CreditCardInitiator, reason: String, completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.reactivateResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
@@ -333,7 +334,7 @@ import Foundation
     @objc open func makeDefault(deviceId: String? = nil, _ completion: @escaping RestClient.CreditCardTransitionHandler) {
         let resource = CreditCard.makeDefaultResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(false, nil, composeError(resource))
             return
         }
@@ -351,7 +352,7 @@ import Foundation
     open func listTransactions(limit: Int, offset: Int, completion: @escaping RestClient.TransactionsHandler) {
         let resource = CreditCard.transactionsResourceKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -367,7 +368,7 @@ import Foundation
     open func getVerificationMethods(_ completion: @escaping RestClient.VerifyMethodsHandler) {
         let resource = CreditCard.getVerificationMethodsKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
@@ -383,24 +384,24 @@ import Foundation
     open func getSelectedVerification(_ completion: @escaping RestClient.VerifyMethodHandler) {
         let resource = CreditCard.selectedVerificationKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
-
+        
         client.makeGetCall(url, parameters: nil, completion: completion)
     }
     
     // MARK: - Internal Functions
-
+    
     func applySecret(_ secret: Foundation.Data, expectedKeyId: String?) {
         info = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret)
     }
     
     // MARK: - Private Functions
-
+    
     private func composeError(_ resource: String) -> ErrorResponse? {
-        return ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: links?.url(resource), resource: resource)
+        return ErrorResponse.clientUrlError(domain: CreditCard.self, client: client, url: links?[resource]?.href, resource: resource)
     }
     
 }

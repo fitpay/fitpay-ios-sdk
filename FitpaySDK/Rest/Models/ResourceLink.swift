@@ -8,6 +8,15 @@ open class ResourceLink: CustomStringConvertible {
         return "\(ResourceLink.self)(\(target ?? "target nil"):\(href ?? "href nil"))"
     }
     
+    // MARK: - Lifecycle
+    
+    init() { }
+    
+    init(target: String, href: String?) {
+        self.target = target
+        self.href = href
+    }
+    
 }
 
 extension ResourceLink: Equatable {
@@ -17,3 +26,4 @@ extension ResourceLink: Equatable {
     }
     
 }
+
