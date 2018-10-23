@@ -10,6 +10,11 @@ import Alamofire
         return accessToken != nil
     }
     
+    let defaultHeaders = [
+        "Accept": "application/json",
+        "X-FitPay-SDK": "iOS-\(FitpayConfig.sdkVersion)"
+    ]
+    
     private var restRequest: RestRequestable = RestRequest()
     
     private typealias AcquireAccessTokenHandler = (AuthorizationDetails?, NSError?) -> Void
@@ -57,27 +62,17 @@ import Alamofire
     // MARK: - Private Functions
     
     private func acquireAccessToken(username: String, password: String, completion: @escaping AcquireAccessTokenHandler) {
-        let headers = ["Accept": "application/json"]
         let parameters: [String: String] = [
             "response_type": "token",
             "client_id": FitpayConfig.clientId,
             "redirect_uri": FitpayConfig.redirectURL,
             "credentials": ["username": username, "password": password].JSONString!
         ]
-
-        restRequest.makeRequest(url: FitpayConfig.authURL + "/oauth/authorize", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            let authorizationDetails = try? AuthorizationDetails(resultValue)
-            completion(authorizationDetails, nil)
-        }
+        
+        makeAuthorizeRequest(parameters: parameters, completion: completion)
     }
     
     private func acquireAccessToken(firebaseToken: String, completion: @escaping AcquireAccessTokenHandler) {
-        let headers = ["Accept": "application/json"]
         let parameters: [String: String] = [
             "response_type": "token",
             "client_id": FitpayConfig.clientId,
@@ -85,15 +80,7 @@ import Alamofire
             "firebase_token": firebaseToken
         ]
         
-        restRequest.makeRequest(url: FitpayConfig.authURL + "/oauth/token", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            let authorizationDetails = try? AuthorizationDetails(resultValue)
-            completion(authorizationDetails, nil)
-        }
+        makeAuthorizeRequest(parameters: parameters, completion: completion)
     }
 
     private func setIdAndToken(details: AuthorizationDetails?, completion: @escaping (_ error: NSError?) -> Void) {
@@ -115,6 +102,19 @@ import Alamofire
         self.accessToken = accessToken
         completion(nil)
     }
+
+    private func makeAuthorizeRequest(parameters: [String: String], completion: @escaping AcquireAccessTokenHandler) {
+        restRequest.makeRequest(url: FitpayConfig.authURL + "/oauth/authorize", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: defaultHeaders) { (resultValue, error) in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            let authorizationDetails = try? AuthorizationDetails(resultValue)
+            completion(authorizationDetails, nil)
+        }
+    }
+
 }
 
 extension RestSession {
@@ -123,7 +123,7 @@ extension RestSession {
     
     class func GetUserAndDeviceWith(sessionData: SessionData, completion: @escaping GetUserAndDeviceCompletion) -> RestClient? {
         guard let userId = sessionData.userId, let deviceId = sessionData.deviceId else {
-            completion(nil, nil, ErrorResponse(domain: RestSession.self, errorCode: RestSession.ErrorCode.userOrDeviceEmpty.rawValue, errorMessage: ""))
+            completion(nil, nil, ErrorResponse(domain: RestSession.self, errorCode: ErrorCode.userOrDeviceEmpty.rawValue, errorMessage: ""))
             return nil
         }
         
@@ -158,7 +158,7 @@ extension RestSession {
                         return
                     }
                     
-                    completion(nil, nil, ErrorResponse(domain: RestSession.self, errorCode: RestSession.ErrorCode.deviceNotFound.rawValue, errorMessage: ""))
+                    completion(nil, nil, ErrorResponse(domain: RestSession.self, errorCode: ErrorCode.deviceNotFound.rawValue, errorMessage: ""))
                 }
             }
         }

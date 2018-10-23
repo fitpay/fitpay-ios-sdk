@@ -32,11 +32,6 @@ open class RestClient: NSObject {
     
     static let fpKeyIdKey: String = "fp-key-id"
     
-    private let defaultHeaders = [
-        "Accept": "application/json",
-        "X-FitPay-SDK": "iOS-\(FitpayConfig.sdkVersion)"
-    ]
-    
     var session: RestSession
     var keyPair: SECP256R1KeyPair = SECP256R1KeyPair()
     
@@ -254,7 +249,7 @@ extension RestClient {
     func createEncryptionKey(clientPublicKey: String, completion: @escaping EncryptionKeyHandler) {
         let parameters = ["clientPublicKey": clientPublicKey]
         
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: session.defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -278,7 +273,7 @@ extension RestClient {
      - parameter completion: EncryptionKeyHandler closure
      */
     func encryptionKey(_ keyId: String, completion: @escaping EncryptionKeyHandler) {
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (resultValue, error) in
+        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: session.defaultHeaders) { (resultValue, error) in
             guard let resultValue = resultValue else {
                 completion(nil, error)
                 return
@@ -312,7 +307,7 @@ extension RestClient {
     
     func createAuthHeaders(_ completion: AuthHeaderHandler) {
         if session.isAuthorized {
-            completion(self.defaultHeaders + ["Authorization": "Bearer " + session.accessToken!], nil)
+            completion(session.defaultHeaders + ["Authorization": "Bearer " + session.accessToken!], nil)
         } else {
             completion(nil, ErrorResponse(domain: RestClient.self, errorCode: ErrorCode.unauthorized.rawValue, errorMessage: "\(ErrorCode.unauthorized)"))
         }
@@ -339,7 +334,7 @@ extension RestClient {
             if let keyError = keyError {
                 completion(nil, keyError)
             } else {
-                completion(self.defaultHeaders + [RestClient.fpKeyIdKey: encryptionKey!.keyId!], nil)
+                completion(self.session.defaultHeaders + [RestClient.fpKeyIdKey: encryptionKey!.keyId!], nil)
             }
         }
     }
