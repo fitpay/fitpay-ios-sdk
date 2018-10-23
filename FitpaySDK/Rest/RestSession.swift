@@ -30,12 +30,12 @@ import Alamofire
     // MARK: - Public Functions
     
     @objc open func setWebViewAuthorization(_ webViewSessionData: SessionData) {
-        self.accessToken = webViewSessionData.token
-        self.userId = webViewSessionData.userId
+        accessToken = webViewSessionData.token
+        userId = webViewSessionData.userId
     }
     
     @objc open func login(username: String, password: String, completion: @escaping (_ error: NSError?) -> Void) {
-        self.acquireAccessToken(username: username, password: password) { (details, error) in
+        acquireAccessToken(username: username, password: password) { (details, error) in
             if let error = error {
                 completion(error)
             } else {

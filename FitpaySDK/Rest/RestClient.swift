@@ -263,19 +263,7 @@ extension RestClient {
             completion(try? EncryptionKey(resultValue), error)
         }
     }
-    
-    /**
-     Deletes encryption key
-     
-     - parameter keyId:      key id
-     - parameter completion: DeleteHandler
-     */
-    func deleteEncryptionKey(_ keyId: String, completion: @escaping DeleteHandler) {
-        restRequest.makeRequest(url: FitpayConfig.apiURL + "/config/encryptionKeys/" + keyId, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: defaultHeaders) { (_, error) in
-            completion(error)
-        }
-    }
-    
+   
     func createKeyIfNeeded(_ completion: @escaping EncryptionKeyHandler) {
         if let key = key, !key.isExpired {
             completion(key, nil)
