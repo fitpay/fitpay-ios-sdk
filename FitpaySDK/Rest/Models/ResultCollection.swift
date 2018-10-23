@@ -99,7 +99,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     }
 
     open func next<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
-        let resource = self.nextResourceKey
+        let resource = nextResourceKey
+        
         let url = links?[resource]?.href
         if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
@@ -110,7 +111,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     }
 
     open func last<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
-        let resource = self.lastResourceKey
+        let resource = lastResourceKey
+        
         let url = links?[resource]?.href
         if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
@@ -121,7 +123,8 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     }
 
     open func previous<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
-        let resource = self.previousResourceKey
+        let resource = previousResourceKey
+        
         let url = links?[resource]?.href
         if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
