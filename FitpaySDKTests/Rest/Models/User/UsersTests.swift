@@ -5,13 +5,13 @@ import Nimble
 @testable import FitpaySDK
 
 class UsersTests: XCTestCase {
-    let mockModels = MockModels()
+    private let mockModels = MockModels()
     
-    var user: User!
-    var restClient: RestClient!
-    var testHelper: TestHelper!
+    private var user: User!
+    private var restClient: RestClient!
+    private var testHelper: TestHelper!
     
-    let restRequest = MockRestRequest()
+    private let restRequest = MockRestRequest()
     
     override func setUp() {
         let session = RestSession(restRequest: restRequest)
@@ -257,5 +257,4 @@ class UsersTests: XCTestCase {
         }
     }
 
-    
 }

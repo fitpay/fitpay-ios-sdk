@@ -1,6 +1,7 @@
 import Foundation
 
 open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, SecretApplyable {
+    
     open var limit: Int?
     open var offset: Int?
     open var totalResults: Int?
@@ -30,28 +31,13 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
                 return _client
             }
             
-            if let results = self.results {
-                for result in results {
-                    if let result = result as? ClientModel {
-                        return result.client
-                    }
-                }
-            }
-
-            return nil
+            let resultWithClient = results?.first(where: { ($0 as? ClientModel)?.client != nil })
+            return (resultWithClient as? ClientModel)?.client
         }
 
         set {
             _client = newValue
-            if let results = self.results {
-                for result in results {
-                    if let result = result as? ClientModel {
-                        result.client = newValue
-                    } else {
-                        log.error("RESULT_COLLECTION: Failed to convert \(result) to ClientModel")
-                    }
-                }
-            }
+            results?.forEach({ ($0 as? ClientModel)?.client = newValue })
         }
     }
     
@@ -65,6 +51,10 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         case results
         case verificationMethods
     }
+    
+    public typealias CollectAllAvailableCompletion = (_ results: [T]?, _ error: ErrorResponse?) -> Void
+    
+    // MARK: - Lifecycle
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -89,16 +79,12 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     }
 
     func applySecret(_ secret: Data, expectedKeyId: String?) {
-        if let results = self.results {
-            for modelObject in results {
-                if let objectWithEncryptedData = modelObject as? SecretApplyable {
-                    objectWithEncryptedData.applySecret(secret, expectedKeyId: expectedKeyId)
-                }
-            }
+        results?.forEach { object in
+            (object as? SecretApplyable)?.applySecret(secret, expectedKeyId: expectedKeyId)
         }
     }
-
-    public typealias CollectAllAvailableCompletion = (_ results: [T]?, _ error: ErrorResponse?) -> Void
+    
+    // MARK: - Public Functions
 
     open func collectAllAvailable(_ completion: @escaping CollectAllAvailableCompletion) {
         if let nextUrl = links?[nextResourceKey]?.href, results != nil {
@@ -108,14 +94,14 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
             }
         } else {
             log.warning("RESULT_COLLECTION: Can't collect all available data, probably there is no 'next' URL.")
-            completion(self.results, nil)
+            completion(results, nil)
         }
     }
 
     open func next<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = self.nextResourceKey
         let url = links?[resource]?.href
-        if let url = url, let client = self.client {
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -126,7 +112,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func last<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = self.lastResourceKey
         let url = links?[resource]?.href
-        if let url = url, let client = self.client {
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -137,7 +123,7 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func previous<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = self.previousResourceKey
         let url = links?[resource]?.href
-        if let url = url, let client = self.client {
+        if let url = url, let client = client {
             client.makeGetCall(url, parameters: nil, completion: completion)
         } else {
             let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
@@ -145,16 +131,15 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
         }
     }
 
-    // MARK: - Private
+    // MARK: - Private Functions
     
     private func collectAllAvailable(_ storage: [T], nextUrl: String, completion: @escaping CollectAllAvailableCompletion) {
-        guard let client = self.client else {
+        guard let client = client else {
             completion(nil, ErrorResponse.unhandledError(domain: ResultCollection.self))
             return
         }
         
         let _: T? = client.collectionItems(nextUrl) { (resultCollection, error) -> Void in
-            
             guard error == nil else {
                 completion(nil, error)
                 return

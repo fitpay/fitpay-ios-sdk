@@ -12,7 +12,6 @@ extension UInt16 {
     }
     
     private var twoBytes: [UInt8] {
-        let unsignedSelf = UInt16(bitPattern: Int16(self))
-        return [UInt8(truncatingIfNeeded: unsignedSelf), UInt8(truncatingIfNeeded: unsignedSelf >> 8)]
+        return [UInt8(truncatingIfNeeded: self), UInt8(truncatingIfNeeded: self >> 8)]
     }
 }

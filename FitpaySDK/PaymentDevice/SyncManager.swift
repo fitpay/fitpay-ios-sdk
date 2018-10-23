@@ -130,9 +130,9 @@ protocol SyncManagerProtocol {
             }
             
             if result!.nextAvailable {
-                result?.collectAllAvailable({ (results, error) in
+                result?.collectAllAvailable { (results, error) in
                     completion(results, error)
-                })
+                }
             } else {
                 completion(result?.results, error)
             }
