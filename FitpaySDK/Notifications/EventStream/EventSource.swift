@@ -19,7 +19,7 @@ class EventSource: NSObject {
     var readyState: EventSourceState
     private(set) var retryTime = 3000
     
-    private var eventListeners = Dictionary<String, (_ id: String?, _ event: String?, _ data: String?) -> Void>()
+    private var eventListeners: [String: (_ id: String?, _ event: String?, _ data: String?) -> Void] = [:]
     private var headers: [String: String]
     
     var urlSession: Foundation.URLSession?

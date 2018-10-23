@@ -10,4 +10,3 @@ class HendricksMiscellaneous: HendricksObject {
     }
     
 }
-
