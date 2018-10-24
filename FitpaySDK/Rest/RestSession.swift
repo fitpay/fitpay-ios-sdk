@@ -119,7 +119,7 @@ import Alamofire
 
 extension RestSession {
     
-    public typealias GetUserAndDeviceCompletion = (User?, Device?, ErrorResponse?) -> Void
+    typealias GetUserAndDeviceCompletion = (User?, Device?, ErrorResponse?) -> Void
     
     class func GetUserAndDeviceWith(sessionData: SessionData, completion: @escaping GetUserAndDeviceCompletion) -> RestClient? {
         guard let userId = sessionData.userId, let deviceId = sessionData.deviceId else {

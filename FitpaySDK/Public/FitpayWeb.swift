@@ -120,6 +120,23 @@ import WebKit
         wkWebView.load(request)
     }
     
+    /// Loads links returned from User and CreditCard object
+    open func load(link: Link) {
+        guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
+        var url = link.href
+        
+        if link.templated == true {
+            url = url.replacingOccurrences(of: "{config}", with: encodedConfig)
+        }
+        
+        log.verbose("WV: loading \(url)")
+        
+        let requestUrl = URL(string: url)
+        let request = URLRequest(url: requestUrl!)
+        
+        wkWebView.load(request)
+    }
+    
     /// Loads the correct url based on the issuers response
     ///
     /// You should still call respondToA2AWith(success:error:)

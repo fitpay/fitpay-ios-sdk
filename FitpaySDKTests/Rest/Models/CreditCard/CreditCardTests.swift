@@ -76,7 +76,7 @@ class CreditCardTests: XCTestCase {
     
     func testNotAvailable() {
         let creditCard = mockModels.getCreditCard()
-        creditCard?.links = [:]
+        creditCard?.links = nil
         
         expect(creditCard?.acceptTermsAvailable).to(beFalse())
         expect(creditCard?.declineTermsAvailable).to(beFalse())
@@ -86,6 +86,17 @@ class CreditCardTests: XCTestCase {
         expect(creditCard?.listTransactionsAvailable).to(beFalse())
         expect(creditCard?.verificationMethodsAvailable).to(beFalse())
         expect(creditCard?.selectedVerificationMethodAvailable).to(beFalse())
+    }
+    
+    func testwebappCardLink() {
+        let creditCard = mockModels.getCreditCard()
+
+        expect(creditCard?.webappCardLink?.templated).to(beTrue())
+        expect(creditCard?.webappCardLink?.href).to(equal("https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditcards/57717bdb6d213e810137ee21adb7e883fe0904e9/config={config}"))
+        
+        creditCard?.links = nil
+        
+        expect(creditCard?.webappCardLink).to(beNil())
     }
     
     func testGetAcceptTermsURL() {
@@ -99,7 +110,7 @@ class CreditCardTests: XCTestCase {
         
         expect(creditCard?.getAcceptTermsUrl()).to(equal("newUrl"))
         
-        creditCard?.links = [:]
+        creditCard?.links = nil
         creditCard?.setAcceptTermsUrl(acceptTermsUrl: "newNewUrl")
         expect(creditCard?.getAcceptTermsUrl()).to(beNil())
     }

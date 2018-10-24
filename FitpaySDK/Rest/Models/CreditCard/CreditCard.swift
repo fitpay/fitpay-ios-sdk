@@ -32,36 +32,49 @@ import Foundation
     /// The credit card expiration year in 4 digits - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
     open var expYear: Int?
     
+    /// returns true if acceptTermsResourceKey link is returned on the model and available to call
     open var acceptTermsAvailable: Bool {
         return links?[CreditCard.acceptTermsResourceKey] != nil
     }
     
+    /// returns true if declineTermsResourceKey link is returned on the model and available to call
     open var declineTermsAvailable: Bool {
         return links?[CreditCard.declineTermsResourceKey] != nil
     }
     
+    /// returns true if deactivateResourceKey link is returned on the model and available to call
     open var deactivateAvailable: Bool {
         return links?[CreditCard.deactivateResourceKey] != nil
     }
     
+    /// returns true if reactivateResourceKey link is returned on the model and available to call
     open var reactivateAvailable: Bool {
         return links?[CreditCard.reactivateResourceKey] != nil
     }
     
+    /// returns true if makeDefaultResourceKey link is returned on the model and available to call
     open var makeDefaultAvailable: Bool {
         return links?[CreditCard.makeDefaultResourceKey] != nil
     }
     
+    /// returns true if transactionsResourceKey link is returned on the model and available to call
     open var listTransactionsAvailable: Bool {
         return links?[CreditCard.transactionsResourceKey] != nil
     }
     
+    /// returns true if getVerificationMethodsKey link is returned on the model and available to call
     open var verificationMethodsAvailable: Bool {
         return links?[CreditCard.getVerificationMethodsKey] != nil
     }
     
+    /// returns true if selectedVerificationKey link is returned on the model and available to call
     open var selectedVerificationMethodAvailable: Bool {
         return links?[CreditCard.selectedVerificationKey] != nil
+    }
+    
+    /// returns the templated URL if webappCardKey link is returned on the model
+    open var webappCardLink: Link? {
+        return links?[CreditCard.webappCardKey]
     }
     
     var links: [String: Link]?
@@ -86,15 +99,16 @@ import Foundation
         }
     }
     
-    private static let selfResourceKey              = "self"
-    private static let acceptTermsResourceKey       = "acceptTerms"
-    private static let declineTermsResourceKey      = "declineTerms"
-    private static let deactivateResourceKey        = "deactivate"
-    private static let reactivateResourceKey        = "reactivate"
-    private static let makeDefaultResourceKey       = "makeDefault"
-    private static let transactionsResourceKey      = "transactions"
-    private static let getVerificationMethodsKey    = "verificationMethods"
-    private static let selectedVerificationKey      = "selectedVerification"
+    private static let selfResourceKey = "self"
+    private static let acceptTermsResourceKey = "acceptTerms"
+    private static let declineTermsResourceKey = "declineTerms"
+    private static let deactivateResourceKey = "deactivate"
+    private static let reactivateResourceKey = "reactivate"
+    private static let makeDefaultResourceKey = "makeDefault"
+    private static let transactionsResourceKey = "transactions"
+    private static let getVerificationMethodsKey = "verificationMethods"
+    private static let selectedVerificationKey = "selectedVerification"
+    private static let webappCardKey = "webapp.card"
     
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -122,6 +136,8 @@ import Foundation
         case expMonth
         case expYear
     }
+    
+    // MARK: - Lifecycle
     
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

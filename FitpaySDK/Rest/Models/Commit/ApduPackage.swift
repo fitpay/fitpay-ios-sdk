@@ -24,13 +24,10 @@ import Foundation
     
     open var metadata: [String: Any]?
     
-    var links: [String: Link]?
-   
     //Date format for date transformation
     private let dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
 
     private enum CodingKeys: String, CodingKey {
-        case links = "_links"
         case seIdType
         case targetDeviceType
         case targetDeviceId
@@ -51,7 +48,6 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try? container.decode(.links)
         seIdType = try? container.decode(.seIdType)
         targetDeviceType = try? container.decode(.targetDeviceType)
         targetDeviceId = try? container.decode(.targetDeviceId)
@@ -69,7 +65,6 @@ import Foundation
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(seIdType, forKey: .seIdType)
         try? container.encode(targetDeviceType, forKey: .targetDeviceType)
         try? container.encode(targetDeviceId, forKey: .targetDeviceId)

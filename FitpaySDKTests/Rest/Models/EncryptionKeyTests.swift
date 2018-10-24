@@ -9,7 +9,6 @@ class EncryptionKeyTests: XCTestCase {
     func testEncryptionKeyParsing() {
         let encryptionKey = mockModels.getEncryptionKey()
 
-        expect(encryptionKey?.links).toNot(beNil())
         expect(encryptionKey?.keyId).to(equal(mockModels.someId))
         expect(encryptionKey?.created).to(equal(mockModels.someDate))
         expect(encryptionKey?.createdEpoch).to(equal(NSTimeIntervalTypeTransform().transform(mockModels.timeEpoch)))
@@ -20,7 +19,6 @@ class EncryptionKeyTests: XCTestCase {
         expect(encryptionKey?.active).to(equal(true))
 
         let json = encryptionKey?.toJSON()
-        expect(json?["_links"]).toNot(beNil())
         expect(json?["keyId"] as? String).to(equal(mockModels.someId))
         expect(json?["createdTs"] as? String).to(equal(mockModels.someDate))
         expect(json?["createdTsEpoch"] as? Int64).to(equal(mockModels.timeEpoch))

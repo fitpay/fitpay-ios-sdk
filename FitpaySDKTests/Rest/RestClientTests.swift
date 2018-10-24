@@ -46,7 +46,6 @@ class RestClientTests: XCTestCase {
             
             XCTAssertNil(error)
             XCTAssertNotNil(encryptionKey)
-            XCTAssertNotNil(encryptionKey?.links)
             XCTAssertNotNil(encryptionKey?.keyId)
             XCTAssertNotNil(encryptionKey?.created)
             XCTAssertNotNil(encryptionKey?.createdEpoch)
@@ -54,7 +53,6 @@ class RestClientTests: XCTestCase {
             XCTAssertNotNil(encryptionKey?.serverPublicKey)
             XCTAssertNotNil(encryptionKey?.clientPublicKey)
             XCTAssertNotNil(encryptionKey?.active)
-            XCTAssertNotEqual(encryptionKey?.links?.count, 0)
             expectation.fulfill()
         }
         super.waitForExpectations(timeout: 10, handler: nil)
@@ -69,7 +67,6 @@ class RestClientTests: XCTestCase {
                 
                 XCTAssertNil(createdError)
                 XCTAssertNotNil(retrievedEncryptionKey)
-                XCTAssertNotNil(retrievedEncryptionKey?.links)
                 XCTAssertNotNil(retrievedEncryptionKey?.keyId)
                 XCTAssertNotNil(retrievedEncryptionKey?.created)
                 XCTAssertNotNil(retrievedEncryptionKey?.createdEpoch)
@@ -77,9 +74,7 @@ class RestClientTests: XCTestCase {
                 XCTAssertNotNil(retrievedEncryptionKey?.serverPublicKey)
                 XCTAssertNotNil(retrievedEncryptionKey?.clientPublicKey)
                 XCTAssertNotNil(retrievedEncryptionKey?.active)
-                XCTAssertNotEqual(retrievedEncryptionKey?.links?.count, 0)
                 
-                XCTAssertEqual(retrievedEncryptionKey?.links?.count, createdEncryptionKey?.links?.count)
                 XCTAssertEqual(retrievedEncryptionKey?.keyId, createdEncryptionKey?.keyId)
                 XCTAssertEqual(retrievedEncryptionKey?.created, createdEncryptionKey?.created)
                 XCTAssertEqual(retrievedEncryptionKey?.createdEpoch, createdEncryptionKey?.createdEpoch)

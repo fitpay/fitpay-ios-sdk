@@ -20,8 +20,6 @@ class DeviceTests: XCTestCase {
     func testDeviceParsing() {
         let device = mockModels.getDevice()
         
-        expect(device?.links).toNot(beNil())
-        
         expect(device?.deviceIdentifier).to(equal(mockModels.someId))
         expect(device?.deviceName).to(equal(mockModels.someName))
         expect(device?.deviceType).to(equal(mockModels.someType))
@@ -47,7 +45,6 @@ class DeviceTests: XCTestCase {
         
         let json = device?.toJSON()
         expect(json?["_links"]).toNot(beNil())
-        
         expect(json?["deviceIdentifier"] as? String).to(equal(mockModels.someId))
         expect(json?["deviceName"] as? String).to(equal(mockModels.someName))
         expect(json?["deviceType"] as? String).to(equal(mockModels.someType))

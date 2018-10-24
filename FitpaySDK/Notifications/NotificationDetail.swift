@@ -18,9 +18,9 @@ open class NotificationDetail: Serializable, ClientModel {
     
     var links: [String: Link]?
 
-    private let creditCardResourceKey = "creditCard"
-    private let deviceResourceKey = "device"
-    private let ackSyncResourceKey = "ackSync"
+    private static let creditCardResourceKey = "creditCard"
+    private static let deviceResourceKey = "device"
+    private static let ackSyncResourceKey = "ackSync"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -67,7 +67,7 @@ open class NotificationDetail: Serializable, ClientModel {
     // MARK: - Public Functions
 
     open func sendAckSync() {
-        guard let ackSyncUrl = links?[ackSyncResourceKey]?.href else {
+        guard let ackSyncUrl = links?[NotificationDetail.ackSyncResourceKey]?.href else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without URL.")
             return
         }
@@ -88,7 +88,7 @@ open class NotificationDetail: Serializable, ClientModel {
     }
     
     open func getCreditCard(completion: @escaping RestClient.CreditCardHandler) {
-        guard let creditCardUrl = links?[creditCardResourceKey]?.href else {
+        guard let creditCardUrl = links?[NotificationDetail.creditCardResourceKey]?.href else {
             log.error("GET_CREDIT_CARD: trying to get credit card without URL.")
             return
         }
@@ -102,7 +102,7 @@ open class NotificationDetail: Serializable, ClientModel {
     }
     
     open func getDevice(completion: @escaping RestClient.DeviceHandler) {
-        guard let deviceUrl = links?[deviceResourceKey]?.href else {
+        guard let deviceUrl = links?[NotificationDetail.deviceResourceKey]?.href else {
             log.error("GET_DEVICE: trying to get device without URL.")
             return
         }

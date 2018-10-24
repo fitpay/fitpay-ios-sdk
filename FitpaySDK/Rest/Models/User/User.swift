@@ -8,12 +8,24 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     open var lastModified: String?
     open var lastModifiedEpoch: TimeInterval?
     
+    /// returns true if creditCardsResourceKey link is returned on the model and available to call
     open var listCreditCardsAvailable: Bool {
         return links?[User.creditCardsResourceKey] != nil
     }
     
+    /// returns true if devicesResourceKey link is returned on the model and available to call
     open var listDevicesAvailable: Bool {
         return links?[User.devicesResourceKey] != nil
+    }
+    
+    /// returns the URL if eventStreamKey link is returned on the model
+    open var eventStreamLink: Link? {
+        return links?[User.eventStreamKey]
+    }
+    
+    /// returns the templated URL if webappWalletKey link is returned on the model
+    open var webappWalletLink: Link? {
+        return links?[User.webappWalletKey]
     }
     
     var links: [String: Link]?
@@ -25,7 +37,9 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     private static let creditCardsResourceKey = "creditCards"
     private static let devicesResourceKey = "devices"
     private static let selfResourceKey = "self"
-    
+    private static let eventStreamKey = "eventStream"
+    private static let webappWalletKey = "webapp.wallet"
+
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case id
