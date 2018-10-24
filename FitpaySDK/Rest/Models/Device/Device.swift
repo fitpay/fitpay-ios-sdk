@@ -98,7 +98,7 @@ import Foundation
     
     /// returns true if deviceResetTasksKey link is returned on the model and available to call
     open var deviceResetAvailable: Bool {
-        return links?.url(Device.deviceResetTasksKey) != nil
+        return links?[Device.deviceResetTasksKey] != nil
     }
 
     /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
@@ -349,7 +349,7 @@ import Foundation
     open func resetDevice(_ completion: @escaping RestClient.ResetDeviceHandler) {
         let resource = Device.deviceResetTasksKey
         
-        guard let url = links?.url(resource), let client = client else {
+        guard let url = links?[resource]?.href, let client = client else {
             completion(nil, composeError(resource))
             return
         }
