@@ -167,4 +167,5 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     private func composeError(_ resource: String) -> ErrorResponse? {
         return ErrorResponse.clientUrlError(domain: User.self, client: client, url: links?[resource]?.href, resource: resource)
     }
+
 }

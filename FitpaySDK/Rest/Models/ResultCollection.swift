@@ -7,24 +7,20 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open var totalResults: Int?
     open var results: [T]?
     
-    var links: [String: Link]?
-    
-    private let lastResourceKey = "last"
-    private let nextResourceKey = "next"
-    private let previousResourceKey = "previous"
-
     open var nextAvailable: Bool {
         return links?[nextResourceKey] != nil
     }
-
+    
     open var lastAvailable: Bool {
         return links?[lastResourceKey] != nil
     }
-
+    
     open var previousAvailable: Bool {
         return links?[previousResourceKey] != nil
     }
-
+    
+    var links: [String: Link]?
+    
     var client: RestClient? {
         get {
             if _client != nil {
@@ -42,6 +38,10 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     }
     
     private weak var _client: RestClient?
+    
+    private let lastResourceKey = "last"
+    private let nextResourceKey = "next"
+    private let previousResourceKey = "previous"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -101,37 +101,35 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
     open func next<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = nextResourceKey
         
-        let url = links?[resource]?.href
-        if let url = url, let client = client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+        guard let url = links?[resource]?.href, let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
+
     }
 
     open func last<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = lastResourceKey
         
-        let url = links?[resource]?.href
-        if let url = url, let client = client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+        guard let url = links?[resource]?.href, let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
 
     open func previous<T>(_ completion: @escaping  (_ result: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) {
         let resource = previousResourceKey
         
-        let url = links?[resource]?.href
-        if let url = url, let client = client {
-            client.makeGetCall(url, parameters: nil, completion: completion)
-        } else {
-            let error = ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: url, resource: resource)
-            completion(nil, error)
+        guard let url = links?[resource]?.href, let client = client else {
+            completion(nil, composeError(resource))
+            return
         }
+        
+        client.makeGetCall(url, parameters: nil, completion: completion)
     }
 
     // MARK: - Private Functions
@@ -162,6 +160,10 @@ open class ResultCollection<T: Codable>: NSObject, ClientModel, Serializable, Se
                 completion(newStorage, nil)
             }
         }
+    }
+        
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        return ErrorResponse.clientUrlError(domain: ResultCollection.self, client: client, url: links?[resource]?.href, resource: resource)
     }
 
 }

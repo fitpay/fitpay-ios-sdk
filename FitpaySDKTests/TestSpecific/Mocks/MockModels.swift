@@ -185,8 +185,8 @@ class MockModels {
     }
     
     func getResultCollection() -> ResultCollection<Device>? {
-        let info = getDevice()?.toJSONString() ?? ""
-        let resultCollection = try? ResultCollection<Device>("{\"_links\":{\"next\":{\"href\":\"https://api.fit-pay.com/\"}, \"last\":{\"href\":\"https://api.fit-pay.com/\"}, \"previous\":{\"href\":\"https://api.fit-pay.com/\"}}, \"limit\":1, \"offset\":1, \"totalResults\":1, \"results\":[\(info)]}")
+        let device = getDevice()?.toJSONString() ?? ""
+        let resultCollection = try? ResultCollection<Device>("{\"_links\":{\"next\":{\"href\":\"https://api.fit-pay.com/next\"}, \"last\":{\"href\":\"https://api.fit-pay.com/last\"}, \"previous\":{\"href\":\"https://api.fit-pay.com/previous\"}}, \"limit\":1, \"offset\":1, \"totalResults\":1, \"results\":[\(device)]}")
         expect(resultCollection).toNot(beNil())
         return resultCollection
     }
