@@ -65,6 +65,24 @@ class UsersTests: XCTestCase {
         expect(listDevicesNotAvailable).toNot(beTrue())
     }
     
+    func testEventStreamLink() {
+        expect(self.user.eventStreamLink?.templated).to(beNil())
+        expect(self.user.eventStreamLink?.href).to(equal("https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/eventStream"))
+        
+        user?.links = nil
+        
+        expect(self.user.eventStreamLink).to(beNil())
+    }
+    
+    func testWebappWalletLink() {
+        expect(self.user.webappWalletLink?.templated).to(beTrue())
+        expect(self.user.webappWalletLink?.href).to(equal("https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2?config={config}"))
+        
+        user?.links = nil
+        
+        expect(self.user.webappWalletLink).to(beNil())
+    }
+    
     func testCreateCreditCardNoClient() {
         let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "John Wick", address: address, riskData: nil)

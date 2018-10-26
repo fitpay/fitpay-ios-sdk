@@ -11,7 +11,6 @@ class ApduPackageTests: XCTestCase {
 
         let apduPackage = mockModels.getApduPackage()
 
-        expect(apduPackage?.links).toNot(beNil())
         expect(apduPackage?.seIdType).to(equal(mockModels.someType))
         expect(apduPackage?.targetDeviceType).to(equal(mockModels.someType))
         expect(apduPackage?.targetDeviceId).to(equal(mockModels.someId))
@@ -25,7 +24,6 @@ class ApduPackageTests: XCTestCase {
         expect(apduPackage?.isExpired).to(beTrue())
 
         let json = apduPackage?.toJSON()
-        expect(json?["_links"]).toNot(beNil())
         expect(json?["seIdType"] as? String).to(equal(mockModels.someType))
         expect(json?["targetDeviceType"] as? String).to(equal(mockModels.someType))
         expect(json?["targetDeviceId"] as? String).to(equal(mockModels.someId))

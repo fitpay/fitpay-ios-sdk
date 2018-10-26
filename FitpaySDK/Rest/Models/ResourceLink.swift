@@ -26,4 +26,3 @@ extension ResourceLink: Equatable {
     }
     
 }
-

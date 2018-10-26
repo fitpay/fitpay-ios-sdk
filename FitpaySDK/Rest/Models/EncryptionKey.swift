@@ -11,8 +11,6 @@ import Foundation
     open var clientPublicKey: String?
     open var active: Bool?
     
-    var links: [String: Link]?
-    
     var isExpired: Bool {
         guard let expirationEpoch = self.expirationEpoch else { return false }
         
@@ -22,7 +20,6 @@ import Foundation
     }
 
     private enum CodingKeys: String, CodingKey {
-        case links = "_links"
         case keyId
         case created = "createdTs"
         case createdEpoch = "createdTsEpoch"
@@ -36,7 +33,6 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        links = try? container.decode(.links)
         keyId = try? container.decode(.keyId)
         created = try? container.decode(.created)
         createdEpoch = try container.decode(.createdEpoch, transformer: NSTimeIntervalTypeTransform())
@@ -50,7 +46,6 @@ import Foundation
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(keyId, forKey: .keyId)
         try? container.encode(created, forKey: .created)
         try? container.encode(createdEpoch, forKey: .createdEpoch, transformer: NSTimeIntervalTypeTransform())

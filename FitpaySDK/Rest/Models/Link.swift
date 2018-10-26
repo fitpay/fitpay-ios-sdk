@@ -1,5 +1,6 @@
 import Foundation
 
-class Link: Decodable {
-    var href: String
+public class Link: Decodable {
+    public var href: String
+    public var templated: Bool?
 }
