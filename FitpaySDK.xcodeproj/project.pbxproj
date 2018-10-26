@@ -1434,10 +1434,10 @@
 		37139BDE1F177AE9001EEE73 /* SyncQueue */ = {
 			isa = PBXGroup;
 			children = (
-				4B8E3A2B213EA4A90003D6A9 /* PaymentDeviceStorage.swift */,
-				37139BDF1F177B04001EEE73 /* SyncRequestsQueue.swift */,
-				37139BE11F177B21001EEE73 /* SyncRequest.swift */,
 				37139BE41F177B8A001EEE73 /* BindedToDeviceSyncRequestQueue.swift */,
+				4B8E3A2B213EA4A90003D6A9 /* PaymentDeviceStorage.swift */,
+				37139BE11F177B21001EEE73 /* SyncRequest.swift */,
+				37139BDF1F177B04001EEE73 /* SyncRequestsQueue.swift */,
 				27F5E60821271998002ED57A /* SyncRequestState.swift */,
 			);
 			path = SyncQueue;
