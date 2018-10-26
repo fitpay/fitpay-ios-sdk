@@ -78,7 +78,15 @@ class ResultCollectionTests: XCTestCase {
         expect(previousNotAvailable).toNot(beTrue())
     }
     
-    func testClientGetSetsRestClient() {
+    func testClientGetReturnsClientIfClientPresent() {
+        let resultCollection = mockModels.getResultCollection()
+        let client = RestClient(session: RestSession())
+        
+        resultCollection?.client = client
+        expect(resultCollection?.client).to(equal(client))
+    }
+    
+    func testClientGetReturnsClientIfResultsHaveClient() {
         let resultCollection = mockModels.getResultCollection()
         let client = RestClient(session: RestSession())
 
@@ -105,6 +113,120 @@ class ResultCollectionTests: XCTestCase {
             resultCollection?.collectAllAvailable { (devices, error) in
                 expect(devices).to(beNil())
                 expect(error).toNot(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testCollectAllAvailableNoNext() {
+        let resultCollection = mockModels.getResultCollection()
+        resultCollection?.links?["next"] = nil
+        
+        waitUntil { done in
+            resultCollection?.collectAllAvailable { (devices, error) in
+                expect(devices).toNot(beNil())
+                expect(devices?.count).to(equal(1))
+                expect(error).to(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testCollectAllAvailable() {
+        let resultCollection = mockModels.getResultCollection()
+        resultCollection?.client = restClient
+        
+        waitUntil { done in
+            resultCollection?.collectAllAvailable { (devices, error) in
+                expect(devices).toNot(beNil())
+                expect(devices?.count).to(equal(2))
+                expect(error).to(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testNextNoClient() {
+        let resultCollection = mockModels.getResultCollection()
+        
+        waitUntil { done in
+            resultCollection?.next { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).to(beNil())
+                expect(error).toNot(beNil())
+
+                done()
+            }
+        }
+    }
+    
+    func testNext() {
+        let resultCollection = mockModels.getResultCollection()
+        resultCollection?.client = restClient
+        
+        waitUntil { done in
+            resultCollection?.next { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).toNot(beNil())
+                expect(collection?.results?.count).to(equal(1))
+                expect(error).to(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testLastNoClient() {
+        let resultCollection = mockModels.getResultCollection()
+        
+        waitUntil { done in
+            resultCollection?.last { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).to(beNil())
+                expect(error).toNot(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testLast() {
+        let resultCollection = mockModels.getResultCollection()
+        resultCollection?.client = restClient
+
+        waitUntil { done in
+            resultCollection?.last { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).toNot(beNil())
+                expect(collection?.results?.count).to(equal(1))
+                expect(error).to(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testPreviousNoClient() {
+        let resultCollection = mockModels.getResultCollection()
+        
+        waitUntil { done in
+            resultCollection?.previous { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).to(beNil())
+                expect(error).toNot(beNil())
+                
+                done()
+            }
+        }
+    }
+    
+    func testPrevious() {
+        let resultCollection = mockModels.getResultCollection()
+        resultCollection?.client = restClient
+
+        waitUntil { done in
+            resultCollection?.previous { (collection: ResultCollection<Device>?, error: ErrorResponse?) in
+                expect(collection).toNot(beNil())
+                expect(collection?.results?.count).to(equal(1))
+                expect(error).to(beNil())
                 
                 done()
             }

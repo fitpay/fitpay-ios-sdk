@@ -90,27 +90,6 @@ class RestClientTests: XCTestCase {
         super.waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testDeleteEncryptionKeyDeletesCreatedKey() {
-        let expectation = self.expectation(description: "'deleteEncryptionKey' deletes key")
-        
-        client.createEncryptionKey(clientPublicKey: self.client.keyPair.publicKey!) { [unowned self] (createdEncryptionKey, createdError) -> Void in
-            XCTAssertNil(createdError)
-            XCTAssertNotNil(createdEncryptionKey)
-            
-            self.client.encryptionKey(createdEncryptionKey!.keyId!) { (retrievedEncryptionKey, retrievedError) -> Void in
-                XCTAssertNil(retrievedError)
-                
-                self.client.deleteEncryptionKey((retrievedEncryptionKey?.keyId)!) { (error) -> Void in
-                    XCTAssertNil(error)
-                    expectation.fulfill()
-                }
-            }
-            
-        }
-        
-        waitForExpectations(timeout: 10, handler: nil)
-    }
-    
     func testUserCreate() {
         let expectation = super.expectation(description: "'user' created")
         
@@ -119,8 +98,8 @@ class RestClientTests: XCTestCase {
         
         self.client.createUser(email, password: pin, firstName: nil, lastName: nil, birthDate: nil, termsVersion: nil, termsAccepted: nil, origin: nil, originAccountCreated: nil) { (user, error) -> Void in
             XCTAssertNotNil(user, "user is nil")
-//            XCTAssertNotNil(user?.created)
-//            XCTAssertNotNil(user?.links)
+            XCTAssertNotNil(user?.created)
+            XCTAssertNotNil(user?.links)
             XCTAssertNotNil(user?.createdEpoch)
             XCTAssertNotNil(user?.encryptedData)
             
@@ -621,7 +600,7 @@ class RestClientTests: XCTestCase {
     func testCompareCreatedEpochToCreatedTS() {
         let expectation = super.expectation(description: "'createdEpoch' converted correctly to seconds from ms")
         
-        self.testHelper.createAndLoginUser(expectation) { [unowned self] (user) in
+        testHelper.createAndLoginUser(expectation) { [unowned self] (user) in
             
             let dateFormatter = DateFormatter()
             dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale

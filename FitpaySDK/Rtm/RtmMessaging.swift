@@ -46,13 +46,11 @@ class RtmMessaging {
         }
 
         defer {
-            if let delegate = self.rtmDelegate {
-                delegate.onWvMessageReceived?(message: rtmMessage)
-            }
+            rtmDelegate?.onWvMessageReceived?(message: rtmMessage)
         }
         
-        guard self.messageHandler == nil else {
-            self.messageHandler?.handle(message: message)
+        guard messageHandler == nil else {
+            messageHandler?.handle(message: message)
             completion?(true)
             return
         }
