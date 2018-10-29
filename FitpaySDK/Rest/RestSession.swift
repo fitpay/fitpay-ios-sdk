@@ -18,7 +18,7 @@ import Alamofire
     private var restRequest: RestRequestable = RestRequest()
     
     private typealias AcquireAccessTokenHandler = (AuthorizationDetails?, NSError?) -> Void
-
+    
     // MARK: - Lifecycle
     
     public init(sessionData: SessionData? = nil, restRequest: RestRequestable? = nil) {
@@ -69,7 +69,7 @@ import Alamofire
             "credentials": ["username": username, "password": password].JSONString!
         ]
         
-        makeAuthorizeRequest(parameters: parameters, completion: completion)
+        makeAuthorizeRequest(url: FitpayConfig.authURL + "/oauth/authorize", parameters: parameters, completion: completion)
     }
     
     private func acquireAccessToken(firebaseToken: String, completion: @escaping AcquireAccessTokenHandler) {
@@ -80,9 +80,9 @@ import Alamofire
             "firebase_token": firebaseToken
         ]
         
-        makeAuthorizeRequest(parameters: parameters, completion: completion)
+        makeAuthorizeRequest(url: FitpayConfig.authURL + "/oauth/token", parameters: parameters, completion: completion)
     }
-
+    
     private func setIdAndToken(details: AuthorizationDetails?, completion: @escaping (_ error: NSError?) -> Void) {
         guard let accessToken = details?.accessToken else {
             completion(NSError.error(code: ErrorEnum.accessTokenFailure, domain: RestSession.self, message: "Failed to retrieve access token"))
@@ -102,9 +102,9 @@ import Alamofire
         self.accessToken = accessToken
         completion(nil)
     }
-
-    private func makeAuthorizeRequest(parameters: [String: String], completion: @escaping AcquireAccessTokenHandler) {
-        restRequest.makeRequest(url: FitpayConfig.authURL + "/oauth/authorize", method: .post, parameters: parameters, encoding: URLEncoding.default, headers: defaultHeaders) { (resultValue, error) in
+    
+    private func makeAuthorizeRequest(url: String, parameters: [String: String], completion: @escaping AcquireAccessTokenHandler) {
+        restRequest.makeRequest(url: url, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: defaultHeaders) { (resultValue, error) in
             if let error = error {
                 completion(nil, error)
                 return
@@ -114,13 +114,14 @@ import Alamofire
             completion(authorizationDetails, nil)
         }
     }
-
+    
 }
 
 extension RestSession {
     
     typealias GetUserAndDeviceCompletion = (User?, Device?, ErrorResponse?) -> Void
     
+    // TODO: Refactor into instance for testability
     class func GetUserAndDeviceWith(sessionData: SessionData, completion: @escaping GetUserAndDeviceCompletion) -> RestClient? {
         guard let userId = sessionData.userId, let deviceId = sessionData.deviceId else {
             completion(nil, nil, ErrorResponse(domain: RestSession.self, errorCode: ErrorCode.userOrDeviceEmpty.rawValue, errorMessage: ""))

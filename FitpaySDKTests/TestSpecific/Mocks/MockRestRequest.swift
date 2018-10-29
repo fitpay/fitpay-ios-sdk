@@ -81,7 +81,7 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("issuers") {
             data = loadDataFromJSONFile(filename: "issuers")
             
-        } else if urlString.contains("/oauth/authorize") {
+        } else if urlString.contains("/oauth/authorize") || urlString.contains("/oauth/token") {
             data = loadDataFromJSONFile(filename: "AuthorizationDetails")
             
         } else if urlString.contains("transactions") {
