@@ -94,7 +94,7 @@ import WebKit
         wkWebView.load(wvConfig.getRequest())
     }
     
-    /// Loads a specific page on Fitpay based on passed in route
+    /// Loads a specific page on Fitpay based on `FitpayConfig.WebUrl` and passed in route
     open func load(relativePath: RelativeWebPath) {
         guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
         
@@ -110,7 +110,7 @@ import WebKit
     
     /// Loads any valid url - use with discretion
     ///
-    /// Can construct URL from `FitpayConfig.WebUrl` and config
+    /// Can construct URL from any valid string. Must include config manually.
     @objc open func load(absolutePath: String) {
         let requestUrl = URL(string: absolutePath)
         let request = URLRequest(url: requestUrl!)
