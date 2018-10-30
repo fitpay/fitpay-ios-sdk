@@ -21,7 +21,8 @@ if ! git diff-index --quiet HEAD --; then
 fi
 
 # update versions
-sed -i'.original' -e "s/$1/$2/g" FitpaySDK.podspec
+sed -i'.original' -e "s/s.version = '$1'/s.version = '$2'/g" FitpaySDK.podspec
+sed -i'.original' -e "s/:tag => 'v$1'/:tag => 'v$2'/g" FitpaySDK.podspec
 rm *.original
 cd FitpaySDK
 sed -i'.original' -e "s/$1/$2/g" Info.plist
