@@ -22,7 +22,7 @@ class UserEventStream {
                 guard let jwtBodyString = JWE.decryptSigned(data, expectedKeyId: client.key?.keyId, secret: client.secret) else { return }
                 guard let streamEvent = try? jsonDecoder.decode(StreamEvent.self, from: jwtBodyString.data(using: String.Encoding.utf8)!) else { return }
                 
-                log.debug("USER_EVENT_STREAM: message received: \(streamEvent.type)")
+                log.debug("USER_EVENT_STREAM: message received: \(String(describing: streamEvent.type))")
                 log.verbose("USER_EVENT_STREAM: payload: \(streamEvent.payload ?? [:])")
                 
                 completion(streamEvent)
