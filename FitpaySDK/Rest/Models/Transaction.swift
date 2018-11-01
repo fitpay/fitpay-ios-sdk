@@ -6,7 +6,7 @@ open class Transaction: NSObject, ClientModel, Serializable {
     
     open var transactionId: String?
     open var transactionType: String?
-    open var amount: NSDecimalNumber?
+    open var amount: NSDecimalNumber? // TODO: update to Decimal with V2
     open var currencyCode: String?
     open var authorizationStatus: String?
     open var transactionTime: String?
@@ -35,11 +35,11 @@ open class Transaction: NSObject, ClientModel, Serializable {
         
         transactionId = try? container.decode(.transactionId)
         transactionType = try? container.decode(.transactionType)
-        if let stringNumber: String = try? container.decode(.amount) {
-            amount = DecimalNumberTypeTransform().transform(stringNumber)
-        } else if let intNumber: Double = try? container.decode(.amount) {
-            amount = DecimalNumberTypeTransform().transform(intNumber)
+        
+        if let number: Double = try? container.decode(.amount) {
+            amount = NSDecimalNumber(value: number)
         }
+        
         currencyCode = try? container.decode(.currencyCode)
         authorizationStatus = try? container.decode(.authorizationStatus)
         transactionTime = try? container.decode(.transactionTime)

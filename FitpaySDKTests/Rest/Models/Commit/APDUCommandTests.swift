@@ -41,6 +41,16 @@ class APDUCommandTests: XCTestCase {
         
     }
     
+    func testInit() {
+        let command = APDUCommand()
+        expect(command.commandId).to(beNil())
+        expect(command.groupId).to(equal(0))
+        expect(command.sequence).to(equal(0))
+        expect(command.command).to(beNil())
+        expect(command.type).to(beNil())
+        expect(command.continueOnFailure).to(beFalse())
+    }
+    
     func testResponseDictionary() {
         let testResponseData = Data(base64Encoded: "eyJmb28iOiJiYXIyIn0=")
 

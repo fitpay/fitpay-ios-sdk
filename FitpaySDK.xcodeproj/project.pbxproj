@@ -967,14 +967,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		2714B06D20F417AB00321F22 /* Transforms */ = {
-			isa = PBXGroup;
-			children = (
-				8C870F161D00EC630048A1DF /* Transforms.swift */,
-			);
-			path = Transforms;
-			sourceTree = "<group>";
-		};
 		27257F44208160CF00633826 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
@@ -1611,12 +1603,12 @@
 				CD0387ACA27383C2A0D33CBC /* ResultCollection.swift */,
 				27F82A8A20D07CA8005FA54D /* SecureElement.swift */,
 				CD03815EA04C30427064A86B /* Transaction.swift */,
+				8C870F161D00EC630048A1DF /* Transforms.swift */,
 				2782F83120F6B749004774E8 /* Commit */,
 				27C34A3E20CEC5C5005EE649 /* CreditCard */,
 				2782F84320F6BB5E004774E8 /* Device */,
 				27B8884B20A4C9BD0027969D /* Images */,
 				276FE34820EC047500F71759 /* Protocols */,
-				2714B06D20F417AB00321F22 /* Transforms */,
 				27F47BA120EEB3760043B388 /* User */,
 				2782F82320F6B5D9004774E8 /* Verification */,
 			);
