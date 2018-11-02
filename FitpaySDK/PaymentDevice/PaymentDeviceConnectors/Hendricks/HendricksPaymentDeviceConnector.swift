@@ -500,6 +500,7 @@ import CoreBluetooth
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         log.debug("HENDRICKS: didDisconnect")
+        paymentDevice?.callCompletionForEvent(.onDeviceDisconnected, params: [:])
         startScan()
     }
     
