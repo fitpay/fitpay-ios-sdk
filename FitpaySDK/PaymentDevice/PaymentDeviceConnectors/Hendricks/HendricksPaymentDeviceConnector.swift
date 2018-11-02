@@ -58,7 +58,7 @@ import CoreBluetooth
     }
     
     public func enterBootloader(completion: @escaping () -> Void) {
-        let package = BLEPackage(.bootLoader) { result in
+        let package = BLEPackage(.bootLoader) { _ in
             completion()
         }
         addPackagetoQueue(package)
@@ -524,7 +524,6 @@ import CoreBluetooth
         peripheral.setNotifyValue(true, for: dataCharacteristic)
         
         addPackagetoQueue(BLEPackage(.ping))
-//        addPackagetoQueue(BLEPackage(.factoryReset))
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {

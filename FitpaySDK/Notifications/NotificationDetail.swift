@@ -5,6 +5,7 @@ import Alamofire
 /// Notification model parsed from push notification
 ///
 /// Equivalent to SyncInfo in Android
+// TODO: Replace with EventModel for SDK 2.x
 open class NotificationDetail: Serializable, ClientModel {
     
     open var type: String?
