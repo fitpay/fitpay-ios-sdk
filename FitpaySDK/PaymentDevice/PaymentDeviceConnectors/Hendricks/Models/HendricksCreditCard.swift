@@ -34,7 +34,7 @@ public class HendricksCard: HendricksObject {
         self.creditCard = creditCard
         
         lastFour = creditCard.info!.pan!.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
-        expDate = String(format: "%02d", creditCard.info!.expMonth!) + "/" + String(creditCard.info!.expYear!).dropFirst(2)
+        expDate = String(format: "%02d", creditCard.info!.expMonth ?? 00) + "/" + String(creditCard.info!.expYear ?? 0000).dropFirst(2)
         type = creditCard.cardType!
         cardId = creditCard.creditCardId!
         
