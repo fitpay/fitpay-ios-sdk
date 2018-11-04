@@ -11,30 +11,6 @@ open class APDUCommand: NSObject, Serializable, APDUResponseProtocol {
     
     open var responseData: Data?
     
-    private enum CodingKeys: String, CodingKey {
-        case commandId
-        case groupId
-        case sequence
-        case command
-        case type
-        case continueOnFailure 
-    }
-    
-    public override init() {
-        super.init()
-    }
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        commandId = try? container.decode(.commandId)
-        groupId = try container.decodeIfPresent(Int.self, forKey: .groupId) ?? 0
-        sequence = try container.decodeIfPresent(Int.self, forKey: .sequence) ?? 0
-        command = try? container.decode(.command)
-        type = try? container.decode(.type)
-        continueOnFailure = try container.decodeIfPresent(Bool.self, forKey: .continueOnFailure) ?? false
-    }
-
     open var responseDictionary: [String: Any] {
         var dic: [String: Any] = [:]
         
@@ -52,4 +28,31 @@ open class APDUCommand: NSObject, Serializable, APDUResponseProtocol {
         
         return dic
     }
+    
+    private enum CodingKeys: String, CodingKey {
+        case commandId
+        case groupId
+        case sequence
+        case command
+        case type
+        case continueOnFailure 
+    }
+    
+    // MARK: - Lifecycle
+    
+    public override init() {
+        super.init()
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        commandId = try? container.decode(.commandId)
+        groupId = try container.decodeIfPresent(Int.self, forKey: .groupId) ?? 0
+        sequence = try container.decodeIfPresent(Int.self, forKey: .sequence) ?? 0
+        command = try? container.decode(.command)
+        type = try? container.decode(.type)
+        continueOnFailure = try container.decodeIfPresent(Bool.self, forKey: .continueOnFailure) ?? false
+    }
+    
 }

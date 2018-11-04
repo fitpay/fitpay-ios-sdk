@@ -20,28 +20,6 @@ class NSTimeIntervalTypeTransform: CodingContainerTransformer {
     }
 }
 
-class DecimalNumberTypeTransform: CodingContainerTransformer {
-    typealias Output = NSDecimalNumber
-    typealias Input = Any
-
-    func transform(_ decoded: Input?) -> Output? {
-        if let string = decoded as? String {
-            return NSDecimalNumber(string: string)
-        } else if let number = decoded as? NSNumber {
-            let handler = NSDecimalNumberHandler(roundingMode: .plain, scale: 3, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
-            return NSDecimalNumber(decimal: number.decimalValue).rounding(accordingToBehavior: handler)
-        } else if let double = decoded as? Double {
-            return NSDecimalNumber(value: double)
-        }
-        return nil
-    }
-
-    func transform(_ encoded: Output?) -> Input? {
-        guard let value = encoded else { return nil }
-        return value.description
-    }
-}
-
 class CustomDateFormatTransform: CodingContainerTransformer {
     typealias Output = Date
     typealias Input = String
