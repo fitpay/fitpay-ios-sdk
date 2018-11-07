@@ -20,6 +20,7 @@ class NotificationDetailTests: XCTestCase {
     
     func testNotificationDetailParsingOldSync() {
         let notificationDetail = mockModels.getNotificationDetailOld()
+        
         expect(notificationDetail?.syncId).to(equal("12345fsd"))
         
         let json = notificationDetail?.toJSON()
@@ -28,6 +29,7 @@ class NotificationDetailTests: XCTestCase {
     
     func testNotificationDetailParsing() {
         let notificationDetail = mockModels.getNotificationDetail()
+        
         expect(notificationDetail?.type).to(equal("someType"))
         expect(notificationDetail?.syncId).to(equal("12345fsd"))
         expect(notificationDetail?.deviceId).to(equal("12345fsd"))
@@ -44,6 +46,66 @@ class NotificationDetailTests: XCTestCase {
         expect(json?["creditCardId"] as? String).to(equal("12345fsd"))
     }
     
+    func testSendAckSyncNoClient() {
+        let notificationDetail = mockModels.getNotificationDetail()
+
+        waitUntil { done in
+            notificationDetail?.sendAckSync { (error) in
+                expect(error).toNot(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testSendAckSync() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        notificationDetail?.client = restClient
+
+        waitUntil { done in
+            notificationDetail?.sendAckSync { (error) in
+                expect(error).to(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testSendCompleteSyncNoClient() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        let metrics = mockModels.getCommitMetrics()!
+        
+        waitUntil { done in
+            notificationDetail?.sendCompleteSync(commitMetrics: metrics) { (error) in
+                expect(error).toNot(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testSendCompleteSync() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        notificationDetail?.client = restClient
+        let metrics = mockModels.getCommitMetrics()!
+        
+        waitUntil { done in
+            notificationDetail?.sendCompleteSync(commitMetrics: metrics) { (error) in
+                expect(error).to(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testGetCreditCardNoClient() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        
+        waitUntil { done in
+            notificationDetail?.getCreditCard { (creditCard, error) in
+                expect(creditCard).to(beNil())
+                expect(error).toNot(beNil())
+                done()
+            }
+        }
+    }
+    
     func testGetCreditCard() {
         let notificationDetail = mockModels.getNotificationDetail()
         notificationDetail?.client = restClient
@@ -54,6 +116,18 @@ class NotificationDetailTests: XCTestCase {
                 expect(urlString).to(equal("https://api.fit-pay.com/creditCards/12345fsd"))
                 expect(creditCard).toNot(beNil())
                 expect(error).to(beNil())
+                done()
+            }
+        }
+    }
+    
+    func testGetDeviceNoClient() {
+        let notificationDetail = mockModels.getNotificationDetail()
+        
+        waitUntil { done in
+            notificationDetail?.getDevice { (device, error) in
+                expect(device).to(beNil())
+                expect(error).toNot(beNil())
                 done()
             }
         }
@@ -72,7 +146,6 @@ class NotificationDetailTests: XCTestCase {
                 done()
             }
         }
-        
     }
     
 }
