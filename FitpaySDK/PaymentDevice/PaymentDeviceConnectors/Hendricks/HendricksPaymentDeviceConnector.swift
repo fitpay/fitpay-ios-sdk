@@ -250,9 +250,9 @@ import CoreBluetooth
             wearablePeripheral = nil
         }
         
-        foundPeripherals = []
-        centralManager = CBCentralManager(delegate: self, queue: nil)
-        centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
+        paymentDevice?.connectionState = PaymentDevice.ConnectionState.disconnected
+
+       startScan()
     }
     
     @objc private func handleNoActiviy() {
@@ -443,6 +443,10 @@ import CoreBluetooth
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
     
     public func connect() {
+        if !centralManager.isScanning {
+            startScan()
+        }
+        
         guard let connectionPeripheralId = connectionPeripheralId else { return }
         guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
         
