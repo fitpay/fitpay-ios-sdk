@@ -77,7 +77,7 @@ import Foundation
     open var metadata: [String: Any]?
 
     /// Failed initialization code
-    open var lastStateTransitionReasonCode: Int?
+    open var lastStateTransitionReasonCode: String?
 
     /// Failed initialization reason
     open var lastStateTransitionReasonMessage: String?

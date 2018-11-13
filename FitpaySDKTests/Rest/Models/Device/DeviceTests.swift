@@ -73,7 +73,7 @@ class DeviceTests: XCTestCase {
         let device = mockModels.getFailedDevice()
 
         expect(device?.state).to(equal("FAILED_INITIALIZATION"))
-        expect(device?.lastStateTransitionReasonCode).to(equal(321))
+        expect(device?.lastStateTransitionReasonCode).to(equal("321"))
         expect(device?.lastStateTransitionReasonMessage).to(equal("SomeError"))
     }
     
