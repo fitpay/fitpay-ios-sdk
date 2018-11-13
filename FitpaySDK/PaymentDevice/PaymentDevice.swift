@@ -1,17 +1,34 @@
 import Foundation
+import CoreBluetooth
 
 @objcMembers open class PaymentDevice: NSObject {
+    
+    /**
+     Returns state of connection.
+     */
+    @objc open var connectionState: ConnectionState = ConnectionState.new {
+        didSet {
+            callCompletionForEvent(PaymentDeviceEventTypes.onConnectionStateChanged, params: ["state": NSNumber(value: connectionState.rawValue as Int)])
+        }
+    }
+    
+    /**
+     Returns true if phone connected to payment device and device info was collected.
+     */
+    @objc open var isConnected: Bool {
+        return deviceInterface.isConnected()
+    }
     
     var deviceInterface: PaymentDeviceConnectable!
     
     var commitProcessingTimeout: Double = 30
 
     private let eventsDispatcher = FitpayEventDispatcher()
-    
+
     private var paymentDeviceApduExecuter: PaymentDeviceApduExecuter!
     
     private weak var deviceDisconnectedBinding: FitpayEventBinding?    
-    
+        
     // MARK: - Lifecycle
     
     override public init() {
@@ -72,10 +89,10 @@ import Foundation
      */
     open func connect(_ secsTimeout: Int? = nil) {
         if isConnected {
-            self.deviceInterface.resetToDefaultState()
+            deviceInterface.resetToDefaultState()
         }
         
-        self.connectionState = ConnectionState.connecting
+        connectionState = ConnectionState.connecting
         
         if let secsTimeout = secsTimeout {
             let delayTime = DispatchTime.now() + Double(Int64(UInt64(secsTimeout) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
@@ -94,33 +111,17 @@ import Foundation
     }
     
     /**
-     Returns state of connection.
-     */
-    @objc open var connectionState: ConnectionState = ConnectionState.new {
-        didSet {
-            callCompletionForEvent(PaymentDeviceEventTypes.onConnectionStateChanged, params: ["state": NSNumber(value: connectionState.rawValue as Int)])
-        }
-    }
-    
-    /**
-     Returns true if phone connected to payment device and device info was collected.
-     */
-    @objc open var isConnected: Bool {
-        return self.deviceInterface.isConnected()
-    }
-    
-    /**
      Tries to validate connection.
      */
     @objc open func validateConnection(completion: @escaping (_ isValid: Bool, _ error: NSError?) -> Void) {
-        self.deviceInterface.validateConnection(completion: completion)
+        deviceInterface.validateConnection(completion: completion)
     }
     
     /**
      Returns DeviceInfo if phone already connected to payment device.
      */
     @objc open var deviceInfo: Device? {
-        return self.deviceInterface.deviceInfo()
+        return deviceInterface.deviceInfo()
     }
     
     /**
@@ -128,7 +129,7 @@ import Foundation
      Implementation should call PaymentDevice.callCompletionForEvent() for events.
      */
     @objc open func changeDeviceInterface(_ interface: PaymentDeviceConnectable) -> NSError? {
-        self.deviceInterface = interface
+        deviceInterface = interface
         return nil
     }
     
@@ -146,7 +147,7 @@ import Foundation
     ///
     /// - Parameter completion: when completion will be called, then the response will be sent to RTM
     public func handleIdVerificationRequest(completion: @escaping (IdVerification) -> Void) {
-        if let handleIdVerificationRequest = self.deviceInterface.handleIdVerificationRequest {
+        if let handleIdVerificationRequest = deviceInterface.handleIdVerificationRequest {
             handleIdVerificationRequest(completion)
         } else {
             let onlyLocationResponse = IdVerification()
@@ -163,7 +164,7 @@ import Foundation
     typealias APDUExecutionHandler = (_ apduCommand: APDUCommand?, _ state: APDUPackageResponseState?, _ error: Error?) -> Void
     
     func apduPackageProcessingStarted(_ package: ApduPackage, completion: @escaping (_ error: NSError?) -> Void) {
-        if let onPreApduPackageExecute = self.deviceInterface.onPreApduPackageExecute {
+        if let onPreApduPackageExecute = deviceInterface.onPreApduPackageExecute {
             onPreApduPackageExecute(package, completion)
         } else {
             completion(nil)
@@ -171,7 +172,7 @@ import Foundation
     }
     
     func apduPackageProcessingFinished(_ package: ApduPackage, completion: @escaping (_ error: NSError?) -> Void) {
-        if let onPostApduPackageExecute = self.deviceInterface.onPostApduPackageExecute {
+        if let onPostApduPackageExecute = deviceInterface.onPostApduPackageExecute {
             onPostApduPackageExecute(package, completion)
         } else {
             completion(nil)
@@ -179,14 +180,14 @@ import Foundation
     }
     
     func removeDisconnectedBinding() {
-        if let binding = self.deviceDisconnectedBinding {
-            self.removeBinding(binding: binding)
-            self.deviceDisconnectedBinding = nil
+        if let binding = deviceDisconnectedBinding {
+            removeBinding(binding: binding)
+            deviceDisconnectedBinding = nil
         }
     }
     
     func executeAPDUPackage(_ apduPackage: ApduPackage, completion: @escaping  (_ error: Error?) -> Void) {
-        if let executeAPDUPackage = self.deviceInterface.executeAPDUPackage {
+        if let executeAPDUPackage = deviceInterface.executeAPDUPackage {
             executeAPDUPackage(apduPackage, completion)
         } else {
             completion(nil)
@@ -218,7 +219,7 @@ import Foundation
                 strongSelf.deviceInterface.executeAPDUCommand(apduCommand)
             }
             
-            try self.paymentDeviceApduExecuter.execute(command: apduCommand, executionBlock: apduExecutionBlock) { [weak self] (apduCommand, state, error) in
+            try paymentDeviceApduExecuter.execute(command: apduCommand, executionBlock: apduExecutionBlock) { [weak self] (apduCommand, state, error) in
                 isCompleteExecute = true
                 self?.apduResponseHandler = nil
                 completion(apduCommand, state, error)
@@ -231,15 +232,15 @@ import Foundation
     }
     
     func processNonAPDUCommit(commit: Commit, completion: @escaping (_ state: NonAPDUCommitState?, _ error: NSError?) -> Void) {
-        if let processNonAPDUCommit = self.deviceInterface.processNonAPDUCommit {
-            self.deviceDisconnectedBinding = self.bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected) { (_) in
+        if let processNonAPDUCommit = deviceInterface.processNonAPDUCommit {
+            deviceDisconnectedBinding = bindToEvent(eventType: PaymentDeviceEventTypes.onDeviceDisconnected) { (_) in
                 log.error("APDU_DATA: Device is disconnected during process non-APDU commit.")
                 self.removeDisconnectedBinding()
                 completion(.failed, NSError.error(code: PaymentDevice.ErrorCode.nonApduProcessingTimeout, domain: PaymentDevice.self))
             }
             
             var isCompleteProcessing = false
-            DispatchQueue.global().asyncAfter(deadline: .now() + self.commitProcessingTimeout) {
+            DispatchQueue.global().asyncAfter(deadline: .now() + commitProcessingTimeout) {
                 if !isCompleteProcessing {
                     log.error("APDU_DATA: Received timeout during process non-APDU commit.")
                     self.removeDisconnectedBinding()

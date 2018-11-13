@@ -1,10 +1,13 @@
 import Foundation
 import CoreBluetooth
 
+/// Currently for internal use only and subject to breaking changes at any time.
 @objc open class HendricksPaymentDeviceConnector: NSObject {
     
     public var foundPeripherals: [CBPeripheral] = []
     public var connectionPeripheralId: UUID?
+    
+    public var bleState: CBManagerState = .unknown
     
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
@@ -34,8 +37,10 @@ import CoreBluetooth
     private var apduCompletion: ((Error?) -> Void)?
     private var apduCommands: [APDUCommand]?
     
-    private var timer: Timer?
-    
+    private var commandTimer: Timer?
+    private var connectTimer: Timer?
+    private var noactivityTimer: Timer?
+
     private var connectedAndPinged = false
     
     // MARK: - Lifecycle
@@ -43,6 +48,7 @@ import CoreBluetooth
     @objc public init(paymentDevice: PaymentDevice) {
         self.paymentDevice = paymentDevice
         super.init()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
     // MARK: - Public Functions
@@ -54,7 +60,14 @@ import CoreBluetooth
 
     public func startScan() {
         foundPeripherals = []
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
+    }
+    
+    public func disconnect() {
+        if wearablePeripheral != nil {
+            centralManager.cancelPeripheralConnection(wearablePeripheral!)
+            wearablePeripheral = nil
+        }
     }
     
     public func enterBootloader(completion: @escaping () -> Void) {
@@ -190,23 +203,17 @@ import CoreBluetooth
             // end
             wearablePeripheral.writeValue(StatusCommand.end.rawValue.data, for: statusCharacteristic, type: .withResponse)
             
-            self.timer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
+            self.commandTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleBleIssue), userInfo: nil, repeats: false)
         }
         
     }
-    
-    @objc private func handleBleIssue() {
-        log.warning("HENDRICKS: Reseting due to no response or invalid response status")
-        
-        resetVariableState()
-    }
-    
+
     private func resetVariableState() {
         expectedDataSize = 0
         returnedData = []
         currentPackage = nil
-        timer?.invalidate()
-        timer = nil
+        commandTimer?.invalidate()
+        commandTimer = nil
         
         processNextCommand()
     }
@@ -215,6 +222,48 @@ import CoreBluetooth
         if currentPackage == nil {
             runCommand()
         }
+    }
+    
+    private func connectTo(peripheral: CBPeripheral) {
+        wearablePeripheral = peripheral
+        wearablePeripheral?.delegate = self
+        centralManager.connect(wearablePeripheral!, options: nil)
+        connectTimer?.invalidate()
+        connectTimer = nil
+        connectTimer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleConnectionIssue), userInfo: nil, repeats: false)
+        centralManager.stopScan()
+        paymentDevice?.connectionState = PaymentDevice.ConnectionState.connecting
+    }
+    
+    // MARK: - Timer Functions
+    
+    @objc private func handleBleIssue() {
+        log.warning("HENDRICKS: Reseting due to no response or invalid response status")
+        
+        resetVariableState()
+    }
+    
+    @objc private func handleConnectionIssue() {
+        log.info("HENDRICKS: Timed out trying to connect to device")
+        if wearablePeripheral != nil {
+            centralManager.cancelPeripheralConnection(wearablePeripheral!)
+            wearablePeripheral = nil
+        }
+        
+        paymentDevice?.connectionState = PaymentDevice.ConnectionState.disconnected
+
+       startScan()
+    }
+    
+    @objc private func handleNoActiviy() {
+        log.info("HENDRICKS: Disconnecting due to no activity")
+        if wearablePeripheral != nil {
+            centralManager.cancelPeripheralConnection(wearablePeripheral!)
+            wearablePeripheral = nil
+        }
+        
+        foundPeripherals = []
+        centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
     // MARK: - Response Handlers
@@ -236,8 +285,11 @@ import CoreBluetooth
             log.debug("HENDRICKS: BLE Response OK with length")
             let lengthData = Data(bytes: Array(value[1...4])).hex
             expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
-            
         }
+        
+        noactivityTimer?.invalidate()
+        noactivityTimer = nil
+        noactivityTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
     }
     
     private func handleDataResponse(value: [UInt8]) {
@@ -312,8 +364,10 @@ import CoreBluetooth
         }
         
         self._deviceInfo = device
-        paymentDevice?.callCompletionForEvent(.onDeviceConnected, params: ["deviceInfo": device])
+        paymentDevice?.connectionState = PaymentDevice.ConnectionState.connected
         connectedAndPinged = true
+        connectTimer?.invalidate()
+        connectTimer = nil
     }
     
     private func handleAPDUResponse() {
@@ -383,28 +437,20 @@ import CoreBluetooth
         
         currentPackage?.completion?(objects)
     }
+    
 }
 
 @objc extension HendricksPaymentDeviceConnector: PaymentDeviceConnectable {
     
     public func connect() {
-        if wearablePeripheral != nil {
-            centralManager.cancelPeripheralConnection(wearablePeripheral!)
-            wearablePeripheral = nil
-        }
-        
-        if centralManager == nil {
-            foundPeripherals = []
-            centralManager = CBCentralManager(delegate: self, queue: nil)
+        if !centralManager.isScanning {
+            startScan()
         }
         
         guard let connectionPeripheralId = connectionPeripheralId else { return }
         guard let peripheral = foundPeripherals.first(where: { $0.identifier == connectionPeripheralId }) else { return }
         
-        wearablePeripheral = peripheral
-        wearablePeripheral?.delegate = self
-        centralManager.connect(wearablePeripheral!, options: nil)
-        centralManager.stopScan()
+        connectTo(peripheral: peripheral)
     }
     
     public func isConnected() -> Bool {
@@ -455,9 +501,11 @@ import CoreBluetooth
     
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         connectedAndPinged = false
+        bleState = central.state
 
         switch central.state {
         case .unknown:
+            
             log.debug("HENDRICKS: central.state is .unknown")
         case .resetting:
             log.debug("HENDRICKS: central.state is .resetting")
@@ -469,8 +517,6 @@ import CoreBluetooth
             log.debug("HENDRICKS: central.state is .poweredOff")
         case .poweredOn:
             log.debug("HENDRICKS: central.state is .poweredOn")
-            
-            centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
         }
     }
     
@@ -478,15 +524,12 @@ import CoreBluetooth
         log.verbose("HENDRICKS: didDiscover peripheral: \(peripheral)")
         foundPeripherals.append(peripheral)
         
+        // TODO: more elegant way with connection state?
         NotificationCenter.default.post(name: Notification.Name(rawValue: "peripheralFound"), object: nil, userInfo: nil)
 
         if peripheral.identifier == connectionPeripheralId {
-            wearablePeripheral = peripheral
-            wearablePeripheral?.delegate = self
-            centralManager.connect(wearablePeripheral!, options: nil)
-            centralManager.stopScan()
+            connectTo(peripheral: peripheral)
         }
-        
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -500,8 +543,7 @@ import CoreBluetooth
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         log.debug("HENDRICKS: didDisconnect")
-        paymentDevice?.callCompletionForEvent(.onDeviceDisconnected, params: [:])
-        startScan()
+        paymentDevice?.connectionState = PaymentDevice.ConnectionState.disconnected
     }
     
 }
