@@ -93,6 +93,8 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("next") || urlString.contains("last") || urlString.contains("previous") {
             data = loadDataFromJSONFile(filename: "ResultCollectionDevices")
             
+        } else if urlString.contains("ackSync") || urlString.contains("completeSync") {
+            data = Data()
         }
         
         if let data = data {

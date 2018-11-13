@@ -21,6 +21,7 @@ extension String {
     }
     
     // MARK: - Used in JWE
+    
     static func random(_ size: Int) -> String {
         var randomNum = ""
         var randomBytes = [UInt8](repeating: 0, count: size)
@@ -61,5 +62,5 @@ extension String {
         }
         return tempEncodedString
     }
-
+    
 }

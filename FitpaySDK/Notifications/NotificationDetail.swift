@@ -22,6 +22,7 @@ open class NotificationDetail: Serializable, ClientModel {
     private static let creditCardResourceKey = "creditCard"
     private static let deviceResourceKey = "device"
     private static let ackSyncResourceKey = "ackSync"
+    private static let completeSyncResourceKey = "completeSync"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
@@ -67,53 +68,72 @@ open class NotificationDetail: Serializable, ClientModel {
     
     // MARK: - Public Functions
 
-    open func sendAckSync() {
-        guard let ackSyncUrl = links?[NotificationDetail.ackSyncResourceKey]?.href else {
-            log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without URL.")
-            return
-        }
-
-        guard let client = client else {
-            log.error("SYNC_ACKNOWLEDGMENT: trying to send ackSync without rest client.")
+    open func sendAckSync(completion: RestClient.ConfirmHandler? = nil) {
+        let resource = NotificationDetail.ackSyncResourceKey
+        
+        guard let url = links?[resource]?.href, let client = client else {
+            completion?(composeError(resource))
             return
         }
         
-        client.acknowledge(ackSyncUrl) { error in
+        client.acknowledge(url) { error in
             if let error = error {
                 log.error("SYNC_ACKNOWLEDGMENT: ackSync failed to send. Error: \(error)")
                 
             } else if let syncId = self.syncId {
                 log.debug("SYNC_ACKNOWLEDGMENT: ackSync has been sent successfully. syncId: \(syncId)")
             }
+            completion?(error)
+        }
+    }
+    
+    open func sendCompleteSync(commitMetrics: CommitMetrics, completion: RestClient.ConfirmHandler? = nil) {
+        let resource = NotificationDetail.completeSyncResourceKey
+        
+        guard let url = links?[resource]?.href, let client = client else {
+            completion?(composeError(resource))
+            return
+        }
+        
+        let params: [String: Any]? = commitMetrics.toJSON() != nil ? ["params": commitMetrics.toJSON()!] : nil
+        client.makePostCall(url, parameters: params) { (error) in
+            if let error = error {
+                log.error("SYNC_ACKNOWLEDGMENT: completeSync failed to send. Error: \(error)")
+                
+            } else if let syncId = self.syncId {
+                log.debug("SYNC_ACKNOWLEDGMENT: completeSync has been sent successfully. \(syncId)")
+            }
+            completion?(error)
         }
     }
     
     open func getCreditCard(completion: @escaping RestClient.CreditCardHandler) {
-        guard let creditCardUrl = links?[NotificationDetail.creditCardResourceKey]?.href else {
-            log.error("GET_CREDIT_CARD: trying to get credit card without URL.")
-            return
-        }
+        let resource = NotificationDetail.creditCardResourceKey
         
-        guard let client = client else {
-            log.error("GET_CREDIT_CARD: trying to get credit card without rest client.")
+        guard let url = links?[resource]?.href, let client = client else {
+            completion(nil, composeError(resource))
             return
         }
 
-        client.getCreditCard(creditCardUrl, completion: completion)
+        client.getCreditCard(url, completion: completion)
     }
     
     open func getDevice(completion: @escaping RestClient.DeviceHandler) {
-        guard let deviceUrl = links?[NotificationDetail.deviceResourceKey]?.href else {
-            log.error("GET_DEVICE: trying to get device without URL.")
+        let resource = NotificationDetail.deviceResourceKey
+        
+        guard let url = links?[resource]?.href, let client = client else {
+            completion(nil, composeError(resource))
             return
         }
         
-        guard let client = client else {
-            log.error("GET_DEVICE: trying to get device without rest client.")
-            return
-        }
-        
-        client.getDevice(deviceUrl, completion: completion)
+        client.getDevice(url, completion: completion)
+    }
+    
+    // MARK: - Private Functions
+    
+    private func composeError(_ resource: String) -> ErrorResponse? {
+        log.error("SYNC: issue with \(resource) link: \(String(describing: links?[resource]?.href)) client: \(String(describing: client))")
+        return ErrorResponse.clientUrlError(domain: User.self, client: client, url: links?[resource]?.href, resource: resource)
     }
 
 }

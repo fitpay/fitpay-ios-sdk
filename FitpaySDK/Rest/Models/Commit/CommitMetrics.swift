@@ -39,18 +39,18 @@ open class CommitMetrics: Serializable {
     
     // MARK: - Functions
     
-    // TODO: should be moved to Notification object and have optional completion block to test
+    @available(*, deprecated, message: "as of v1.3.2")
     open func sendCompleteSync() {
         guard let completeSync = notification?.links?["completeSync"]?.href else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without URL.")
             return
         }
-        
+
         guard let client = notification?.client else {
             log.error("SYNC_ACKNOWLEDGMENT: trying to send completeSync without rest client.")
             return
         }
-        
+
         let params: [String: Any]? = self.toJSON() != nil ? ["params": self.toJSON()!] : nil
         client.makePostCall(completeSync, parameters: params) { (error) in
             if let error = error {

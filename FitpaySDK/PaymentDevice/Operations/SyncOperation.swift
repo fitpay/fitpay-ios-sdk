@@ -134,7 +134,7 @@ class SyncOperation {
     }
     
     private func sendCommitsMetric() {
-        guard self.syncRequest?.notification != nil else { return }
+        guard let notification = syncRequest?.notification else { return }
         
         let currentTimestamp = Date().timeIntervalSince1970
         
@@ -146,7 +146,7 @@ class SyncOperation {
         metric.notification = syncRequest?.notification
         metric.totalProcessingTimeMs = Int((currentTimestamp - (syncRequest?.syncStartTime?.timeIntervalSince1970)!)*1000)
         
-        metric.sendCompleteSync()
+        notification.sendCompleteSync(commitMetrics: metric)
     }
 
 }
