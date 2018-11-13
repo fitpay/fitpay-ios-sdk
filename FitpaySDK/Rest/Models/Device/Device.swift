@@ -76,6 +76,12 @@ import Foundation
     /// Extra metadata specific for a particular type of device
     open var metadata: [String: Any]?
 
+    /// Failed initialization code
+    open var lastStateTransitionReasonCode: Int?
+
+    /// Failed initialization reason
+    open var lastStateTransitionReasonMessage: String?
+
     /// returns true if user link is returned on the model and available to call
     open var userAvailable: Bool {
         return links?[Device.userResourceKey] != nil
@@ -143,6 +149,8 @@ import Foundation
         case metadata
         case profileId
         case defaultCreditCardId
+        case lastStateTransitionReasonCode
+        case lastStateTransitionReasonMessage
     }
 
     // MARK: - Lifecycle
@@ -193,6 +201,8 @@ import Foundation
         metadata = try? container.decode([String: Any].self)
         profileId = try? container.decode(.profileId)
         defaultCreditCardId = try? container.decode(.defaultCreditCardId)
+        lastStateTransitionReasonCode = try? container.decode(.lastStateTransitionReasonCode)
+        lastStateTransitionReasonMessage = try? container.decode(.lastStateTransitionReasonMessage)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -221,6 +231,8 @@ import Foundation
         try? container.encodeIfPresent(metadata, forKey: .metadata)
         try? container.encode(profileId, forKey: .profileId)
         try? container.encode(defaultCreditCardId, forKey: .defaultCreditCardId)
+        try? container.encode(lastStateTransitionReasonCode, forKey: .lastStateTransitionReasonCode)
+        try? container.encode(lastStateTransitionReasonMessage, forKey: .lastStateTransitionReasonMessage)
     }
     
     // MARK: - Public Functions

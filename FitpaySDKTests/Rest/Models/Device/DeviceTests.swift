@@ -68,6 +68,14 @@ class DeviceTests: XCTestCase {
         expect((json?["secureElement"] as? [String: Any])?["secureElementId"] as? String).to(equal(mockModels.someId))
         expect((json?["secureElement"] as? [String: Any])?["casdCert"] as? String).to(equal("casd"))
     }
+
+    func testFailedDeviceParsing() {
+        let device = mockModels.getFailedDevice()
+
+        expect(device?.state).to(equal("FAILED_INITIALIZATION"))
+        expect(device?.lastStateTransitionReasonCode).to(equal(321))
+        expect(device?.lastStateTransitionReasonMessage).to(equal("SomeError"))
+    }
     
     func testDeviceInit() {
         let se = SecureElement(secureElementId: "secureElementId", casdCert: "casdCert")
