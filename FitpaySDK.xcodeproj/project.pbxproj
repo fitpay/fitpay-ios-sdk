@@ -339,7 +339,7 @@
 		3A93A09F1DB8CA2C00A9FEB4 /* BLEPackets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472649E1CA53D0800DE801D /* BLEPackets.swift */; };
 		3A93A0A11DB8CA2C00A9FEB4 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A12277F1C89CF5C006968D7 /* ArrayExtensions.swift */; };
 		3A93A0A31DB8CA2C00A9FEB4 /* FitpayEventTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7C787E1CC77F210097BAB9 /* FitpayEventTypeProtocol.swift */; };
-		3A93A0A51DB8CA2C00A9FEB4 /* WebViewSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03843A84ED76B33DA758D4 /* WebViewSessionData.swift */; };
+		3A93A0A51DB8CA2C00A9FEB4 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03843A84ED76B33DA758D4 /* SessionData.swift */; };
 		3A93A0A61DB8CA2C00A9FEB4 /* ClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A58466C1C96B65B00E4ABDC /* ClientModel.swift */; };
 		3A93A0A71DB8CA2C00A9FEB4 /* FitpayNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A61A47E1D66F0710033256C /* FitpayNotificationsManager.swift */; };
 		3A93A0A91DB8CA2C00A9FEB4 /* RestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03892F10B569368C16273E /* RestSession.swift */; };
@@ -513,7 +513,7 @@
 		9AB68E441C84A25B00A0E172 /* JWETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB68E431C84A25B00A0E172 /* JWETests.swift */; };
 		A306B4CA1CEE457D007F093C /* ApduResultMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A306B4C91CEE457D007F093C /* ApduResultMessage.swift */; };
 		CD03811FA3F15932D1C0F66B /* RestSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03892F10B569368C16273E /* RestSession.swift */; };
-		CD038125B3958A9F8CF17E26 /* WebViewSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03843A84ED76B33DA758D4 /* WebViewSessionData.swift */; };
+		CD038125B3958A9F8CF17E26 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03843A84ED76B33DA758D4 /* SessionData.swift */; };
 		CD03814935D90886A777D9EF /* SecretApplyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD038189D3974D4BCE4A2509 /* SecretApplyable.swift */; };
 		CD038163A93FFC2353B572A0 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD03877A3C526340ECB9C853 /* DictionaryExtensions.swift */; };
 		CD0381C2A8FBB873B221A20F /* RawIntValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0385948875F054FFA4153B /* RawIntValue.swift */; };
@@ -811,7 +811,7 @@
 		CD038189D3974D4BCE4A2509 /* SecretApplyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecretApplyable.swift; sourceTree = "<group>"; };
 		CD0382E7C3731302B80C1CBE /* NSErrorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSErrorExtensions.swift; sourceTree = "<group>"; };
 		CD038321306A4D9DE1077241 /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
-		CD03843A84ED76B33DA758D4 /* WebViewSessionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewSessionData.swift; sourceTree = "<group>"; };
+		CD03843A84ED76B33DA758D4 /* SessionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionData.swift; sourceTree = "<group>"; };
 		CD0385770D2621125F59B8DD /* VerificationMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerificationMethod.swift; sourceTree = "<group>"; };
 		CD0385948875F054FFA4153B /* RawIntValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawIntValue.swift; sourceTree = "<group>"; };
 		CD0385B12671AFA04137F118 /* SECP256R1KeyPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SECP256R1KeyPair.swift; sourceTree = "<group>"; };
@@ -1669,7 +1669,7 @@
 				0A1B6A3C1CDBEBF700EBD014 /* RtmConfig.swift */,
 				3A640B451DDF110E008AD936 /* RtmMessage.swift */,
 				3A640B461DDF110E008AD936 /* RtmMessageResponse.swift */,
-				CD03843A84ED76B33DA758D4 /* WebViewSessionData.swift */,
+				CD03843A84ED76B33DA758D4 /* SessionData.swift */,
 				27D94AEF20B48107001DD434 /* WVDeviceStatus.swift */,
 			);
 			path = Models;
@@ -2094,7 +2094,7 @@
 				37139BE51F177B8A001EEE73 /* BindedToDeviceSyncRequestQueue.swift in Sources */,
 				3701AE491F14C29900550890 /* SyncOperation.swift in Sources */,
 				37327B9A1E9BAB5A003B8918 /* SwCrypt.swift in Sources */,
-				CD038125B3958A9F8CF17E26 /* WebViewSessionData.swift in Sources */,
+				CD038125B3958A9F8CF17E26 /* SessionData.swift in Sources */,
 				9A58466D1C96B65B00E4ABDC /* ClientModel.swift in Sources */,
 				27C0242F20A3940900681023 /* MockPaymentDeviceConnector.swift in Sources */,
 				27C34A4620CECBA8005EE649 /* TermsAssetReferences.swift in Sources */,
@@ -2417,7 +2417,7 @@
 				3701AE4A1F14C29900550890 /* SyncOperation.swift in Sources */,
 				3A93A0A11DB8CA2C00A9FEB4 /* ArrayExtensions.swift in Sources */,
 				3A93A0A31DB8CA2C00A9FEB4 /* FitpayEventTypeProtocol.swift in Sources */,
-				3A93A0A51DB8CA2C00A9FEB4 /* WebViewSessionData.swift in Sources */,
+				3A93A0A51DB8CA2C00A9FEB4 /* SessionData.swift in Sources */,
 				2782F83420F6B80E004774E8 /* CommitType.swift in Sources */,
 				3A640B4C1DDF1135008AD936 /* BaseOutput.swift in Sources */,
 				374B62651EC9DA3C00A7CE62 /* ApduCommand.swift in Sources */,
