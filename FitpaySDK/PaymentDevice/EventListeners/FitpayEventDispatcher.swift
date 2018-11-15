@@ -1,48 +1,47 @@
+import Foundation
+
 open class FitpayEventDispatcher {
-    var bindingsDictionary: [Int: [FitpayEventBinding]] = [:]
+    private var bindingsDictionary: [Int: [FitpayEventBinding]] = [:]
     
     public init() {
     }
     
     open func addListenerToEvent(_ listener: FitpayEventListener, eventId: FitpayEventTypeProtocol) -> FitpayEventBinding? {
-        var bindingsArray = self.bindingsDictionary[eventId.eventId()]
-        if bindingsArray == nil {
-            bindingsArray = []
-        }
+        var bindingsArray = bindingsDictionary[eventId.eventId()] ?? []
         
         let binding = FitpayEventBinding(eventId: eventId, listener: listener)
-        bindingsArray?.append(binding)
+        bindingsArray.append(binding)
         
-        self.bindingsDictionary[eventId.eventId()] = bindingsArray
+        bindingsDictionary[eventId.eventId()] = bindingsArray
         
         return binding
     }
     
     open func removeBinding(_ binding: FitpayEventBinding) {
-        if var bindingsArray = self.bindingsDictionary[binding.eventId.eventId()] {
-            if bindingsArray.contains(binding) {
-                binding.invalidate()
-                bindingsArray.removeObject(binding)
-                self.bindingsDictionary[binding.eventId.eventId()] = bindingsArray
-            }
+        guard var bindingsArray = bindingsDictionary[binding.eventId.eventId()] else { return }
+        
+        if bindingsArray.contains(binding) {
+            binding.invalidate()
+            bindingsArray.removeObject(binding)
+            bindingsDictionary[binding.eventId.eventId()] = bindingsArray
         }
     }
     
     open func removeAllBindings() {
-        for (_, bindingsArray) in self.bindingsDictionary {
+        for (_, bindingsArray) in bindingsDictionary {
             for binding in bindingsArray {
                 binding.invalidate()
             }
         }
         
-        self.bindingsDictionary.removeAll()
+        bindingsDictionary.removeAll()
     }
     
     open func dispatchEvent(_ event: FitpayEvent) {
-        if let bindingsArray = self.bindingsDictionary[event.eventId.eventId()] {
-            for binding in bindingsArray {
-                binding.dispatchEvent(event)
-            }
+        guard let bindingsArray = bindingsDictionary[event.eventId.eventId()] else { return }
+        
+        for binding in bindingsArray {
+            binding.dispatchEvent(event)
         }
     }
 }
