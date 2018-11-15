@@ -30,7 +30,7 @@ open class TermsAssetReferences: NSObject, ClientModel, Serializable, AssetRetri
         try? container.encode(mimeType, forKey: .mimeType)
     }
     
-    // MARK - Public Functions
+    // MARK: - Public Functions
     
     @objc open func retrieveAsset(_ completion: @escaping RestClient.AssetsHandler) {
         let resource = TermsAssetReferences.selfResourceKey

@@ -1,9 +1,12 @@
+import Foundation
+
 open class FitpayEventBinding: NSObject {
     
     open var eventId: FitpayEventTypeProtocol
     open var listener: FitpayEventListener
     
-    private static var bindingIdCounter: Int = 0
+    private static var bindingIdCounter = 0
+    
     private let bindingId: Int
     
     public init(eventId: FitpayEventTypeProtocol, listener: FitpayEventListener) {
