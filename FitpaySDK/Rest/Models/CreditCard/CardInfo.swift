@@ -18,6 +18,9 @@ import Foundation
     /// Card holder name
     @objc open var name: String?
     
+    /// Credit card language. Should use the format [language designator ISO-639-1]‌
+    @objc open var language: String?
+    
     /// Card holder billing address
     @objc open var address: Address?
     
@@ -25,7 +28,7 @@ import Foundation
     @objc open var riskData: IdVerification?
     
     /// Initialize class with all variables
-    public init(pan: String?, expMonth: Int?, expYear: Int?, cvv: String?, name: String?, address: Address?, riskData: IdVerification?) {
+    public init(pan: String?, expMonth: Int?, expYear: Int?, cvv: String?, name: String?, language: String? = nil, address: Address?, riskData: IdVerification?) {
         super.init()
         
         self.pan = pan
@@ -33,6 +36,7 @@ import Foundation
         self.expYear = expYear
         self.cvv = cvv
         self.name = name
+        self.language = language
         self.address = address
         self.riskData = riskData
     }

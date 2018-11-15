@@ -119,7 +119,7 @@ class MockModels {
     func getCreditCardInfo() -> CardInfo? {
         let address = getAddress()?.toJSONString() ?? ""
         let riskData = getIdVerification()?.toJSONString() ?? ""
-        let cardInfo = try? CardInfo("{\"pan\":\"pan\", \"expMonth\": 2, \"expYear\": 2018, \"cvv\":\"cvv\", \"creditCardId\": \"\(someId)\", \"name\": \"\(someName)\", \"address\": \(address), \"riskData\": \(riskData)}")
+        let cardInfo = try? CardInfo("{\"pan\":\"pan\", \"expMonth\": 2, \"expYear\": 2018, \"cvv\":\"cvv\", \"creditCardId\": \"\(someId)\", \"name\": \"\(someName)\", \"language\": \"en\", \"address\": \(address), \"riskData\": \(riskData)}")
         return cardInfo
     }
     

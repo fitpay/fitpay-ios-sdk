@@ -16,7 +16,8 @@ class CardInfoTests: XCTestCase {
         expect(cardInfo?.expYear).to(equal(2018))
         expect(cardInfo?.cvv).to(equal("cvv"))
         expect(cardInfo?.name).to(equal("someName"))
-        
+        expect(cardInfo?.language).to(equal("en"))
+
         let json = cardInfo?.toJSON()
         expect(json?["address"]).toNot(beNil())
         expect(json?["riskData"]).toNot(beNil())
@@ -25,6 +26,7 @@ class CardInfoTests: XCTestCase {
         expect(json?["expYear"] as? Int).to(equal(2018))
         expect(json?["cvv"] as? String).to(equal("cvv"))
         expect(json?["name"] as? String).to(equal("someName"))
+        expect(json?["language"] as? String).to(equal("en"))
     }
     
     func testCardInfoParsingWithNilValues() {
@@ -60,5 +62,8 @@ class CardInfoTests: XCTestCase {
         expect(cardInfo.expYear).to(equal(2020))
         expect(cardInfo.cvv).to(equal("123"))
         expect(cardInfo.name).to(equal("John Wick"))
+        
+        let cardInfo2 = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "John Wick", language: "en", address: address, riskData: riskData)
+        expect(cardInfo2.language).to(equal("en"))
     }
 }
