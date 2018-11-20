@@ -334,6 +334,9 @@
                 <a class="nav-group-task-link" href="Enums/NotificationsEventType.html">NotificationsEventType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/ProvisioningFailedReason.html">ProvisioningFailedReason</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/RelativeWebPath.html">RelativeWebPath</a>
               </li>
               <li class="nav-group-task">
@@ -641,6 +644,13 @@
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TODO:%20Deprecate%20/%20Remove%20in%20V2?"></a>
+                <a name="//apple_ref/swift/Section/TODO: Deprecate / Remove in V2?" class="dashAnchor"></a>
+                <a href="#/TODO:%20Deprecate%20/%20Remove%20in%20V2?">
+                  <h3 class="section-name">TODO: Deprecate / Remove in V2?</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
@@ -908,6 +918,53 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO"></a>
+                    <a name="//apple_ref/swift/Enum/ProvisioningFailedReason" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO">ProvisioningFailedReason</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reason a provisioning attempt failed</p>
+
+<ul>
+<li>paymentNetworkRejection: the provision request was declined</li>
+<li>noSecurityDomainAvailable: card network didn&rsquo;t have all of the information it needed to provision. might be because device didn&rsquo;t sync.</li>
+<li>failedCredentialPersonalization: the perso wasn&rsquo;t processed in time or resulted in an error</li>
+<li>sdCreateException: unexpected error, similar to a 400 http response</li>
+<li>provisioningLimitReached: max number of credentials for the pan has been reached</li>
+<li>userDeclinedTerms: user declined the issuer&rsquo;s terms and conditions document</li>
+<li>failedRetrievingKeys: unexpected error, similar to a 400 http response</li>
+<li>invalidDigitizationDecision: card network didn&rsquo;t provide a valid decision on the request</li>
+<li>missingActivationMethods: provisioning request was approved with additional verification but no verification methods were provided</li>
+<li>tokenStatusCompletionTimeout: card network didn&rsquo;t respond to the provision request</li>
+<li>tokenStatusError: card network responded with an error during the provisioning process</li>
+<li>unkown: unknown</li>
+</ul>
+
+                        <a href="Enums/ProvisioningFailedReason.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ProvisioningFailedReason</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9FitpaySDK16APDUResponseTypeO"></a>
                     <a name="//apple_ref/swift/Enum/APDUResponseType" class="dashAnchor"></a>
                     <a class="token" href="#/s:9FitpaySDK16APDUResponseTypeO">APDUResponseType</a>
@@ -1071,6 +1128,13 @@
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/TODO:%20Replace%20with%20EventModel%20for%20SDK%202.x"></a>
+                <a name="//apple_ref/swift/Section/TODO: Replace with EventModel for SDK 2.x" class="dashAnchor"></a>
+                <a href="#/TODO:%20Replace%20with%20EventModel%20for%20SDK%202.x">
+                  <h3 class="section-name">TODO: Replace with EventModel for SDK 2.x</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SyncInitiator Enumeration Reference</title>
+    <title>ProvisioningFailedReason Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/SyncInitiator" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/ProvisioningFailedReason" class="dashAnchor"></a>
 
-    <a title="SyncInitiator Enumeration Reference"></a>
+    <a title="ProvisioningFailedReason Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">FitpaySDK Reference</a>
       <img class="carat" src="../img/carat.png" />
-      SyncInitiator Enumeration Reference
+      ProvisioningFailedReason Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -438,14 +438,29 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>SyncInitiator</h1>
+            <h1>ProvisioningFailedReason</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SyncInitiator</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Serializable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ProvisioningFailedReason</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Reason a provisioning attempt failed</p>
+
+<ul>
+<li>paymentNetworkRejection: the provision request was declined</li>
+<li>noSecurityDomainAvailable: card network didn&rsquo;t have all of the information it needed to provision. might be because device didn&rsquo;t sync.</li>
+<li>failedCredentialPersonalization: the perso wasn&rsquo;t processed in time or resulted in an error</li>
+<li>sdCreateException: unexpected error, similar to a 400 http response</li>
+<li>provisioningLimitReached: max number of credentials for the pan has been reached</li>
+<li>userDeclinedTerms: user declined the issuer&rsquo;s terms and conditions document</li>
+<li>failedRetrievingKeys: unexpected error, similar to a 400 http response</li>
+<li>invalidDigitizationDecision: card network didn&rsquo;t provide a valid decision on the request</li>
+<li>missingActivationMethods: provisioning request was approved with additional verification but no verification methods were provided</li>
+<li>tokenStatusCompletionTimeout: card network didn&rsquo;t respond to the provision request</li>
+<li>tokenStatusError: card network responded with an error during the provisioning process</li>
+<li>unkown: unknown</li>
+</ul>
 
           </div>
         </section>
@@ -457,9 +472,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK13SyncInitiatorO8platformyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/platform" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13SyncInitiatorO8platformyA2CmF">platform</a>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO23paymentNetworkRejectionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/paymentNetworkRejection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO23paymentNetworkRejectionyA2CmF">paymentNetworkRejection</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -474,7 +489,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">platform</span>       <span class="o">=</span> <span class="s">"PLATFORM"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">paymentNetworkRejection</span>            <span class="o">=</span> <span class="s">"PAYMENT_NETWORK_REJECTION"</span></code></pre>
 
                         </div>
                       </div>
@@ -488,9 +503,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK13SyncInitiatorO12notificationyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/notification" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13SyncInitiatorO12notificationyA2CmF">notification</a>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO25noSecurityDomainAvailableyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/noSecurityDomainAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO25noSecurityDomainAvailableyA2CmF">noSecurityDomainAvailable</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -505,7 +520,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notification</span>   <span class="o">=</span> <span class="s">"NOTIFICATION"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noSecurityDomainAvailable</span>          <span class="o">=</span> <span class="s">"NO_SECURITY_DOMAIN_AVAILABLE"</span></code></pre>
 
                         </div>
                       </div>
@@ -519,9 +534,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK13SyncInitiatorO7webHookyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/webHook" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13SyncInitiatorO7webHookyA2CmF">webHook</a>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO31failedCredentialPersonalizationyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/failedCredentialPersonalization" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO31failedCredentialPersonalizationyA2CmF">failedCredentialPersonalization</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -536,7 +551,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">webHook</span>        <span class="o">=</span> <span class="s">"WEB_HOOK"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">failedCredentialPersonalization</span>    <span class="o">=</span> <span class="s">"FAILED_CREDENTIAL_PERSONALIZATION"</span></code></pre>
 
                         </div>
                       </div>
@@ -550,9 +565,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK13SyncInitiatorO11eventStreamyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/eventStream" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13SyncInitiatorO11eventStreamyA2CmF">eventStream</a>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO17sdCreateExceptionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/sdCreateException" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO17sdCreateExceptionyA2CmF">sdCreateException</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -567,7 +582,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">eventStream</span>    <span class="o">=</span> <span class="s">"EVENT_STREAM"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">sdCreateException</span>                  <span class="o">=</span> <span class="s">"SD_CREATE_EXCEPTION"</span></code></pre>
 
                         </div>
                       </div>
@@ -581,9 +596,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9FitpaySDK13SyncInitiatorO10notDefinedyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/notDefined" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9FitpaySDK13SyncInitiatorO10notDefinedyA2CmF">notDefined</a>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO24provisioningLimitReachedyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/provisioningLimitReached" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO24provisioningLimitReachedyA2CmF">provisioningLimitReached</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -598,7 +613,224 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">notDefined</span>     <span class="o">=</span> <span class="s">"NOT DEFINED"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">provisioningLimitReached</span>           <span class="o">=</span> <span class="s">"PROVISIONING_LIMIT_REACHED"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO17userDeclinedTermsyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/userDeclinedTerms" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO17userDeclinedTermsyA2CmF">userDeclinedTerms</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">userDeclinedTerms</span>                  <span class="o">=</span> <span class="s">"USER_DECLINED_TERMS"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO20failedRetrievingKeysyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/failedRetrievingKeys" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO20failedRetrievingKeysyA2CmF">failedRetrievingKeys</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">failedRetrievingKeys</span>               <span class="o">=</span> <span class="s">"FAILED_RETRIEVING_KEYS"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO27invalidDigitizationDecisionyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidDigitizationDecision" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO27invalidDigitizationDecisionyA2CmF">invalidDigitizationDecision</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidDigitizationDecision</span>        <span class="o">=</span> <span class="s">"INVALID_DIGITIZATION_DECISION"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO24missingActivationMethodsyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/missingActivationMethods" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO24missingActivationMethodsyA2CmF">missingActivationMethods</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">missingActivationMethods</span>           <span class="o">=</span> <span class="s">"MISSING_ACTIVATION_METHODS"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO28tokenStatusCompletionTimeoutyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/tokenStatusCompletionTimeout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO28tokenStatusCompletionTimeoutyA2CmF">tokenStatusCompletionTimeout</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">tokenStatusCompletionTimeout</span>       <span class="o">=</span> <span class="s">"TOKEN_STATUS_COMPLETION_TIMEOUT"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO16tokenStatusErroryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/tokenStatusError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO16tokenStatusErroryA2CmF">tokenStatusError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">tokenStatusError</span>                   <span class="o">=</span> <span class="s">"TOKEN_STATUS_ERROR"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK24ProvisioningFailedReasonO6unkownyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/unkown" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK24ProvisioningFailedReasonO6unkownyA2CmF">unkown</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unkown</span>                             <span class="o">=</span> <span class="s">"UNKNOWN"</span></code></pre>
 
                         </div>
                       </div>

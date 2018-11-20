@@ -335,6 +335,9 @@
                 <a class="nav-group-task-link" href="../Enums/NotificationsEventType.html">NotificationsEventType</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ProvisioningFailedReason.html">ProvisioningFailedReason</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/RelativeWebPath.html">RelativeWebPath</a>
               </li>
               <li class="nav-group-task">
@@ -449,6 +452,64 @@
 
         <section class="section">
           <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)connectionState"></a>
+                    <a name="//apple_ref/swift/Property/connectionState" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)connectionState">connectionState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns state of connection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">connectionState</span><span class="p">:</span> <span class="kt"><a href="../Classes/PaymentDevice/ConnectionState.html">ConnectionState</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/PaymentDevice/ConnectionState.html">ConnectionState</a></span><span class="o">.</span><span class="k">new</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)isConnected"></a>
+                    <a name="//apple_ref/swift/Property/isConnected" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)isConnected">isConnected</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns true if phone connected to payment device and device info was collected.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isConnected</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Lifecycle"></a>
@@ -767,60 +828,6 @@ Calls OnDeviceConnected event.</p>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)connectionState"></a>
-                    <a name="//apple_ref/swift/Property/connectionState" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)connectionState">connectionState</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns state of connection.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">connectionState</span><span class="p">:</span> <span class="kt"><a href="../Classes/PaymentDevice/ConnectionState.html">ConnectionState</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/PaymentDevice/ConnectionState.html">ConnectionState</a></span><span class="o">.</span><span class="k">new</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)isConnected"></a>
-                    <a name="//apple_ref/swift/Property/isConnected" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FitpaySDK@objc(cs)PaymentDevice(py)isConnected">isConnected</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns true if phone connected to payment device and device info was collected.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span> <span class="kd">open</span> <span class="k">var</span> <span class="nv">isConnected</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
