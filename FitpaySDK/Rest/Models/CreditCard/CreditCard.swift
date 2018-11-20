@@ -22,14 +22,24 @@ import Foundation
     open var targetDeviceType: String?
     open var verificationMethods: [VerificationMethod]?
     open var externalTokenReference: String?
+    
+    /// Card information
+    ///
+    /// parsed from encryptedData or top level object if card is from Commit
     open var info: CardInfo?
-    open var topOfWalletAPDUCommands: [APDUCommand]? 
+    
+    open var topOfWalletAPDUCommands: [APDUCommand]?
     open var tokenLastFour: String?
     
-    /// The credit card expiration month - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
+    /// The reason a card provisioning failed. Returned in the payload of a non-apdu commit
+    open var provisioningFailedReason: ProvisioningFailedReason?
+    
+    /// The credit card expiration month
+    @available(*, deprecated, message: "as of v1.3.2 - parsed into CardInfo always")
     open var expMonth: Int?
     
-    /// The credit card expiration year in 4 digits - placed directly on card in creditCardCreated Events (otherwise in CardInfo)
+    /// The credit card expiration year in 4 digits
+    @available(*, deprecated, message: "as of v1.3.2 - parsed into CardInfo always")
     open var expYear: Int?
     
     /// returns true if acceptTermsResourceKey link is returned on the model and available to call
@@ -133,6 +143,7 @@ import Foundation
         case externalTokenReference
         case offlineSeActions
         case tokenLastFour
+        case provisioningFailedReason = "reason"
         case expMonth
         case expYear
     }
@@ -165,8 +176,13 @@ import Foundation
         topOfWalletAPDUCommands = offlineSeActions?.topOfWallet?.apduCommands
         
         tokenLastFour = try? container.decode(.tokenLastFour)
+        provisioningFailedReason = try? container.decode(.provisioningFailedReason)
+        
+        info = try? CardInfo(from: decoder)
+        
         expMonth = try? container.decode(.expMonth)
         expYear = try? container.decode(.expYear)
+        
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -191,6 +207,7 @@ import Foundation
         try? container.encode(verificationMethods, forKey: .verificationMethods)
         try? container.encode(externalTokenReference, forKey: .externalTokenReference)
         try? container.encode(tokenLastFour, forKey: .tokenLastFour)
+        try? container.encode(provisioningFailedReason, forKey: .provisioningFailedReason)
         try? container.encode(expMonth, forKey: .expMonth)
         try? container.encode(expYear, forKey: .expYear)
     }

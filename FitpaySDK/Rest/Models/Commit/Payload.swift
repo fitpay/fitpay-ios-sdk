@@ -4,7 +4,6 @@ open class Payload: NSObject, Serializable {
     
     open var creditCard: CreditCard?
     
-    var payloadDictionary: [String: Any]?
     var apduPackage: ApduPackage?
     
     private enum CodingKeys: String, CodingKey {
@@ -13,11 +12,8 @@ open class Payload: NSObject, Serializable {
     }
     
     public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
         apduPackage = try? ApduPackage(from: decoder)
         creditCard = try? CreditCard(from: decoder)
-        
-        self.payloadDictionary = try? container.decode([String: Any].self)
     }
     
     public func encode(to encoder: Encoder) throws {

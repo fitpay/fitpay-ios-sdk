@@ -136,7 +136,15 @@ class MockModels {
         creditCard?.cardMetaData = getCreditCardMetadata()
         creditCard?.termsAssetReferences = [getTermsAssetReferences()!]
         creditCard?.verificationMethods = [getVerificationMethod()!]
-        creditCard?.info = getCreditCardInfo()
+        creditCard?.info = getCreditCardInfo() // normally grabbed from encrypted data
+        expect(creditCard).toNot(beNil())
+        return creditCard
+    }
+    
+    func getCreditCardCommit() -> CreditCard? {
+        let creditCard = try? CreditCard("{\"creditCardId\": \"\(someId)\",\"userId\": \"\(someId)\", \"createdTs\": \"\(someDate)\", \"createdTsEpoch\": \(timeEpoch), \"state\": \"NOT_ELIGIBLE\", \"cardType\": \"\(someType)\", \"termsAssetId\": \"\(someId)\", \"eligibilityExpiration\": \"\(someDate)\", \"eligibilityExpirationEpoch\": \(timeEpoch), \"encryptedData\":\"\(someEncryptionData)\", \"targetDeviceId\": \"\(someId)\", \"targetDeviceType\": \"\(someType)\", \"externalTokenReference\": \"someToken\", \"tokenLastFour\": \"4321\", \"reason\": \"PROVISIONING_LIMIT_REACHED\", \"expMonth\": 11, \"expYear\": 2022, \"name\": \"Bob\", \"pan\": \"############1134\", \"cvv\": \"###\"}")
+        
+        creditCard?.termsAssetReferences = [getTermsAssetReferences()!]
         expect(creditCard).toNot(beNil())
         return creditCard
     }
