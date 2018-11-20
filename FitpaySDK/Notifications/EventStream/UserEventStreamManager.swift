@@ -4,11 +4,11 @@ public class UserEventStreamManager {
     public static let sharedInstance = UserEventStreamManager()
     
     private var client: RestClient?
-    private var userEventStream: UserEventStream?
+    private var userEventStreams: [String: UserEventStream] = [:]
     
     public typealias userEventStreamHandler = (_ event: StreamEvent) -> Void
     
-    public func subscribe(userId: String, sessionData: SessionData, completion: @escaping userEventStreamHandler) {
+    public func subscribe(userId: String, sessionData: SessionData?, completion: @escaping userEventStreamHandler) {
         let session = RestSession(sessionData: sessionData)
         client = RestClient(session: session)
         
@@ -21,8 +21,16 @@ public class UserEventStreamManager {
             self.client!.user(id: userId) { (user, _) in
                 guard let user = user else { return }
                 
-                self.userEventStream = UserEventStream(user: user, client: self.client!, completion: completion)
+                if self.userEventStreams[userId] == nil {
+                    self.userEventStreams[userId] = UserEventStream(user: user, client: self.client!, completion: completion)
+                }
             }
         }
     }
+    
+    public func unsubscribe(userId: String) {
+        userEventStreams[userId]?.close()
+        userEventStreams[userId] = nil
+    }
+    
 }
