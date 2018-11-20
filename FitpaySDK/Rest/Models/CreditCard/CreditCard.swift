@@ -31,7 +31,7 @@ import Foundation
     open var topOfWalletAPDUCommands: [APDUCommand]?
     open var tokenLastFour: String?
     
-    /// The reason a commit failed when returned in the payload of a non-apdu commit.
+    /// The reason a card provisioning failed. Returned in the payload of a non-apdu commit
     open var provisioningFailedReason: ProvisioningFailedReason?
     
     /// The credit card expiration month
