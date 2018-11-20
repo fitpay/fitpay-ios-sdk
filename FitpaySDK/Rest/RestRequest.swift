@@ -13,6 +13,7 @@ class RestRequest: RestRequestable {
     lazy var manager: SessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = SessionManager.defaultHTTPHeaders
+        configuration.urlCache = nil // fix for caching issue. Should look for better solution in the future.
         return SessionManager(configuration: configuration)
     }()
     

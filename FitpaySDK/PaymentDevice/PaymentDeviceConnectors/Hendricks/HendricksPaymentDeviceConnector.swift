@@ -42,6 +42,7 @@ import CoreBluetooth
     private var noactivityTimer: Timer?
 
     private var connectedAndPinged = false
+    private var shouldScanOnConnect = false
     
     // MARK: - Lifecycle
     
@@ -60,7 +61,11 @@ import CoreBluetooth
 
     public func startScan() {
         foundPeripherals = []
-        centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
+        if bleState == .poweredOn {
+            centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
+        } else {
+            shouldScanOnConnect = true
+        }
     }
     
     public func disconnect() {
@@ -221,10 +226,19 @@ import CoreBluetooth
     private func processNextCommand() {
         if currentPackage == nil {
             runCommand()
+            
+            noactivityTimer?.invalidate()
+            noactivityTimer = nil
+            noactivityTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
         }
     }
     
     private func connectTo(peripheral: CBPeripheral) {
+        guard centralManager.retrieveConnectedPeripherals(withServices: [deviceServiceId]).isEmpty else {
+            //already connected
+            return
+        }
+        
         wearablePeripheral = peripheral
         wearablePeripheral?.delegate = self
         centralManager.connect(wearablePeripheral!, options: nil)
@@ -249,6 +263,7 @@ import CoreBluetooth
             centralManager.cancelPeripheralConnection(wearablePeripheral!)
             wearablePeripheral = nil
         }
+        centralManager = CBCentralManager(delegate: self, queue: nil)
         
         paymentDevice?.connectionState = PaymentDevice.ConnectionState.disconnected
 
@@ -287,9 +302,6 @@ import CoreBluetooth
             expectedDataSize = Int(UInt32(lengthData, radix: 16)!.bigEndian)
         }
         
-        noactivityTimer?.invalidate()
-        noactivityTimer = nil
-        noactivityTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
     }
     
     private func handleDataResponse(value: [UInt8]) {
@@ -517,6 +529,10 @@ import CoreBluetooth
             log.debug("HENDRICKS: central.state is .poweredOff")
         case .poweredOn:
             log.debug("HENDRICKS: central.state is .poweredOn")
+            if shouldScanOnConnect {
+                centralManager.scanForPeripherals(withServices: [deviceServiceId], options: nil)
+                shouldScanOnConnect = false
+            }
         }
     }
     
