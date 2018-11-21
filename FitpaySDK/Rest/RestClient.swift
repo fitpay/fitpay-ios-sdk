@@ -121,9 +121,13 @@ open class RestClient: NSObject {
     
     func makeGetCall<T: Serializable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
+            guard var headers = headers else {
                 DispatchQueue.main.async { completion(nil, error) }
                 return
+            }
+            
+            if url.contains("transactions") { // temporary until v2 upgrade
+                headers["Accept"] = "application/vnd.fitpay-v2+json"
             }
             
             self?.restRequest.makeRequest(url: url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
