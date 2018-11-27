@@ -106,7 +106,12 @@ import Foundation
     open var deviceResetAvailable: Bool {
         return links?[Device.deviceResetTasksKey] != nil
     }
-
+    
+    /// returns the templated URL if webappAddCredentialKey link is returned on the model
+    open var webappAddCredentialLink: Link? {
+        return links?[Device.webappAddCredentialKey]
+    }
+    
     /// returns the device reset URL if deviceResetTasksKey link is returned on the model and available to call
     @available(*, deprecated, message: "as of v1.2.1 - a reset method will be added in the future")
     open var deviceResetUrl: String? {
@@ -124,7 +129,8 @@ import Foundation
     private static let lastAckCommitResourceKey = "lastAckCommit"
     private static let deviceResetTasksKey = "deviceResetTasks"
     private static let defaultCreditCardKey = "defaultCreditCard"
-    
+    private static let webappAddCredentialKey = "webapp.addCredential"
+
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
         case created = "createdTs"
