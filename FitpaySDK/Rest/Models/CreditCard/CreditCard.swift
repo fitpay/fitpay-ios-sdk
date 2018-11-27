@@ -389,7 +389,7 @@ import Foundation
             return
         }
         
-        client.makeGetCall(url, limit: limit, offset: offset, completion: completion)
+        client.makeGetCall(url, limit: limit, offset: offset, overrideHeaders: ["Accept": "application/vnd.fitpay-v2+json"], completion: completion)
     }
     
     /**

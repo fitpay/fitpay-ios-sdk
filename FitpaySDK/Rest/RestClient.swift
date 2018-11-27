@@ -114,16 +114,22 @@ open class RestClient: NSObject {
         }
     }
 
-    func makeGetCall<T: Codable>(_ url: String, limit: Int, offset: Int, completion: @escaping ResultCollectionHandler<T>) {
+    func makeGetCall<T: Codable>(_ url: String, limit: Int, offset: Int, overrideHeaders: [String: String]? = nil, completion: @escaping ResultCollectionHandler<T>) {
         let parameters = ["limit": "\(limit)", "offset": "\(offset)"]
-        makeGetCall(url, parameters: parameters, completion: completion)
+        makeGetCall(url, parameters: parameters, overrideHeaders: overrideHeaders, completion: completion)
     }
     
-    func makeGetCall<T: Serializable>(_ url: String, parameters: [String: Any]?, completion: @escaping (T?, ErrorResponse?) -> Void) {
+    func makeGetCall<T: Serializable>(_ url: String, parameters: [String: Any]?, overrideHeaders: [String: String]? = nil, completion: @escaping (T?, ErrorResponse?) -> Void) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in
-            guard let headers = headers else {
+            guard var headers = headers else {
                 DispatchQueue.main.async { completion(nil, error) }
                 return
+            }
+            
+            if let overrideHeaders = overrideHeaders {
+                for key in overrideHeaders.keys {
+                    headers[key] = overrideHeaders[key]
+                }
             }
             
             self?.restRequest.makeRequest(url: url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers) { (resultValue, error) in
