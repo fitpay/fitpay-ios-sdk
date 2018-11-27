@@ -76,13 +76,11 @@ open class Transaction: NSObject, ClientModel, Serializable, SecretApplyable {
     func applySecret(_ secret: Data, expectedKeyId: String?) {
         guard let tmpTransaction: Transaction = JWE.decrypt(encryptedData, expectedKeyId: expectedKeyId, secret: secret) else { return }
 
-        transactionId = tmpTransaction.transactionId
+        // transactionId, transactionTime and transactionTimeEpoch are unencrypted
         transactionType = tmpTransaction.transactionType
         amount = tmpTransaction.amount
         currencyCode = tmpTransaction.currencyCode
         authorizationStatus = tmpTransaction.authorizationStatus
-        transactionTime = tmpTransaction.transactionTime
-        transactionTimeEpoch = tmpTransaction.transactionTimeEpoch
         merchantName = tmpTransaction.merchantName
         merchantCode = tmpTransaction.merchantCode
         merchantType = tmpTransaction.merchantType
