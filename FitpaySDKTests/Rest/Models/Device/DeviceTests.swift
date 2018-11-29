@@ -157,7 +157,7 @@ class DeviceTests: XCTestCase {
         let device = mockModels.getDevice()
 
         expect(device?.webappAddCredentialLink?.templated).to(beTrue())
-        expect(device?.webappAddCredentialLink?.href).to(equal("https://fit-pay.com/users/9469bfe0/devices/57717bdb6/addCredential?deviceId=123&config={config}"))
+        expect(device?.webappAddCredentialLink?.href).to(equal("https://webapp.fit-pay.com/addCredential?deviceId=123&config={config}"))
         
         device?.links = nil
         
