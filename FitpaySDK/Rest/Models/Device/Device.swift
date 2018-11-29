@@ -129,7 +129,7 @@ import Foundation
     private static let lastAckCommitResourceKey = "lastAckCommit"
     private static let deviceResetTasksKey = "deviceResetTasks"
     private static let defaultCreditCardKey = "defaultCreditCard"
-    private static let webappAddCredentialKey = "webapp.addCredential"
+    private static let webappAddCredentialKey = "webapp.add-credential"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
