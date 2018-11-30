@@ -13,8 +13,6 @@ extension UnkeyedEncodingContainer {
                 try encode(value)
             case let value as Double:
                 try encode(value)
-            case Optional<Any>.none:
-                try encodeNil()
             default:
                 let keys = JSONCodingKeys(intValue: index).map({ [ $0 ] }) ?? []
                 throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: codingPath + keys, debugDescription: "Invalid JSON value"))

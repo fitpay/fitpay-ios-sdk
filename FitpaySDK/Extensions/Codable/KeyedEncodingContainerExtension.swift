@@ -8,7 +8,7 @@ extension KeyedEncodingContainer {
     }
     
     mutating func encode(_ value: [String: Any], forKey key: Key) throws {
-        var container = self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
+        var container = nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         try container.encodeJSONDictionary(value)
     }
     
@@ -19,7 +19,7 @@ extension KeyedEncodingContainer {
     }
     
     mutating func encode(_ value: [Any], forKey key: Key) throws {
-        var container = self.nestedUnkeyedContainer(forKey: key)
+        var container = nestedUnkeyedContainer(forKey: key)
         try container.encodeJSONArray(value)
     }
     
@@ -45,10 +45,6 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
                 try encode(value, forKey: key)
             case let value as Double:
                 try encode(value, forKey: key)
-            case Optional<Any>.none:
-                try encodeNil(forKey: key)
-            case _ as NSNull:
-                try encodeNil(forKey: key)
             default:
                 throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: codingPath + [key], debugDescription: "Invalid JSON value"))
             }
