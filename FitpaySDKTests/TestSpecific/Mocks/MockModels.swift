@@ -237,7 +237,7 @@ class MockModels {
         return resetDeviceResult
     }
 
-    func getPayload() -> Payload? {
+    func getPayload() -> Payload? { // TODO: Credit Card in payload has a differnt format than from getCreditCard
         let creditCard = getCreditCard()?.toJSONString()
         let payload = try? Payload(creditCard)
         expect(payload).toNot(beNil())
@@ -248,6 +248,32 @@ class MockModels {
         let config = try? PlatformConfig("{\"userEventStreamsEnabled\": true}")
         expect(config).toNot(beNil())
         return config
+    }
+    
+    func getCountryCollection() -> CountryCollection? {
+        let country = getCountry()?.toJSONString() ?? ""
+        let countryCollection = try? CountryCollection("{\"countries\": {\"US\": \(country)}}")
+        expect(countryCollection).toNot(beNil())
+        return countryCollection
+    }
+    
+    func getCountry() -> Country? {
+        let country = try? Country("{\"name\": \"United States\", \"iso\": \"US\", \"_links\":{\"provinces\":{\"href\":\"https://api.fit-pay.com/provinces\"}}}")
+        expect(country).toNot(beNil())
+        return country
+    }
+    
+    func getProvinceCollection() -> ProvinceCollection? {
+        let province = getProvince()?.toJSONString() ?? ""
+        let provinceCollection = try? ProvinceCollection("{\"name\": \"United States\", \"iso\": \"US\", \"provinces\": {\"CO\": \(province)}}")
+        expect(provinceCollection).toNot(beNil())
+        return provinceCollection
+    }
+    
+    func getProvince() -> Province? {
+        let province = try? Province("{\"name\": \"Colorado\", \"iso\": \"CO\"}")
+        expect(province).toNot(beNil())
+        return province
     }
     
 }

@@ -47,23 +47,6 @@ open class RestClient: NSObject {
     
     var restRequest: RestRequestable = RestRequest()
     
-    // MARK: - Lifecycle
-    
-    public init(session: RestSession, restRequest: RestRequestable? = nil) {
-        self.session = session
-        
-        if let restRequest = restRequest {
-            self.restRequest = restRequest
-        }
-    }
-    
-    // MARK: - Functions
-    
-    func collectionItems<T>(_ url: String, completion: @escaping (_ resultCollection: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) -> T? {
-        makeGetCall(url, parameters: nil, completion: completion)
-        return nil
-    }
-    
     /**
      Completion handler
      
@@ -77,6 +60,18 @@ open class RestClient: NSObject {
      - parameter ErrorType?:   Provides error object, or nil if no error occurs
      */
     public typealias ConfirmHandler = (_ error: ErrorResponse?) -> Void
+    
+    // MARK: - Lifecycle
+    
+    public init(session: RestSession, restRequest: RestRequestable? = nil) {
+        self.session = session
+        
+        if let restRequest = restRequest {
+            self.restRequest = restRequest
+        }
+    }
+    
+    // MARK: - Public Functions
     
     public func confirm(_ url: String, executionResult: NonAPDUCommitState, completion: @escaping ConfirmHandler) {
         let params = ["result": executionResult.description]
@@ -99,7 +94,26 @@ open class RestClient: NSObject {
         }
     }
     
+    public func getCountries(completion: @escaping (_ countries: CountryCollection?, _ error: ErrorResponse?) -> Void) {
+        let url = FitpayConfig.apiURL + "/iso/countries"
+        restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil) { (resultValue, error) in
+            guard let resultValue = resultValue as? [String: Any] else {
+                completion(nil, error)
+                return
+            }
+            
+            let countryCollection = try? CountryCollection(["countries": resultValue])
+            countryCollection?.client = self
+            completion(countryCollection, error)
+        }
+    }
+    
     // MARK: - Internal
+    
+    func collectionItems<T>(_ url: String, completion: @escaping (_ resultCollection: ResultCollection<T>?, _ error: ErrorResponse?) -> Void) -> T? {
+        makeGetCall(url, parameters: nil, completion: completion)
+        return nil
+    }
     
     func makeDeleteCall(_ url: String, completion: @escaping DeleteHandler) {
         prepareAuthAndKeyHeaders { [weak self] (headers, error) in

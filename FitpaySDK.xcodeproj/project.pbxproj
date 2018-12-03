@@ -106,6 +106,18 @@
 		2773CD8F207BEE0800DFE113 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		2773CD91207BFA2100DFE113 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		2773CD96207D546400DFE113 /* IdVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2773CD94207D53A300DFE113 /* IdVerificationTests.swift */; };
+		277444A121B58F9E00CE6014 /* ProvinceCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A021B58F9E00CE6014 /* ProvinceCollection.swift */; };
+		277444A221B58F9E00CE6014 /* ProvinceCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A021B58F9E00CE6014 /* ProvinceCollection.swift */; };
+		277444AA21B59EE400CE6014 /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A421B59EC500CE6014 /* CountryTests.swift */; };
+		277444AB21B59EE400CE6014 /* CountryCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A721B59EDD00CE6014 /* CountryCollectionTests.swift */; };
+		277444AC21B59EE400CE6014 /* CountryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A421B59EC500CE6014 /* CountryTests.swift */; };
+		277444AD21B59EE400CE6014 /* CountryCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444A721B59EDD00CE6014 /* CountryCollectionTests.swift */; };
+		277444AF21B59EF400CE6014 /* ProvinceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444AE21B59EF400CE6014 /* ProvinceTests.swift */; };
+		277444B021B59EF400CE6014 /* ProvinceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444AE21B59EF400CE6014 /* ProvinceTests.swift */; };
+		277444B221B59EFF00CE6014 /* ProvinceCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444B121B59EFF00CE6014 /* ProvinceCollectionTests.swift */; };
+		277444B321B59EFF00CE6014 /* ProvinceCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277444B121B59EFF00CE6014 /* ProvinceCollectionTests.swift */; };
+		277444B821B5A92000CE6014 /* getProvinces.json in Resources */ = {isa = PBXBuildFile; fileRef = 277444B721B5A92000CE6014 /* getProvinces.json */; };
+		277444B921B5A92000CE6014 /* getProvinces.json in Resources */ = {isa = PBXBuildFile; fileRef = 277444B721B5A92000CE6014 /* getProvinces.json */; };
 		2778174B208E42A200FE2770 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27781746208E42A100FE2770 /* RxCocoa.framework */; };
 		2778174C208E42A200FE2770 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27781747208E42A200FE2770 /* RxSwift.framework */; };
 		2778175C208E731400FE2770 /* FitpaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD9229D1C1F7EFC007693AB /* FitpaySDK.framework */; };
@@ -137,6 +149,12 @@
 		2786DB03207512410079ED15 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2786DB01207512410079ED15 /* EventSource.swift */; };
 		278B4BFD2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
 		278B4BFE2122490A00599FB6 /* MockRtmMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */; };
+		279298D721B1AEC20047684D /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298D621B1AEC20047684D /* Country.swift */; };
+		279298D821B1AEC20047684D /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298D621B1AEC20047684D /* Country.swift */; };
+		279298DB21B1B0D30047684D /* CountryCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298DA21B1B0D30047684D /* CountryCollection.swift */; };
+		279298DC21B1B0D30047684D /* CountryCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298DA21B1B0D30047684D /* CountryCollection.swift */; };
+		279298E021B1BBC70047684D /* Province.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298DF21B1BBC70047684D /* Province.swift */; };
+		279298E121B1BBC70047684D /* Province.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279298DF21B1BBC70047684D /* Province.swift */; };
 		27982EBC20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		27982EBD20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */; };
 		279D98CC216D543A00B8C259 /* HendricksGuiLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */; };
@@ -607,6 +625,12 @@
 		277380DE20E572CE00B84785 /* fitpayconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fitpayconfig.json; sourceTree = "<group>"; };
 		277380E120E5730600B84785 /* fitpayconfigAlt.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fitpayconfigAlt.json; sourceTree = "<group>"; };
 		2773CD94207D53A300DFE113 /* IdVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdVerificationTests.swift; sourceTree = "<group>"; };
+		277444A021B58F9E00CE6014 /* ProvinceCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceCollection.swift; sourceTree = "<group>"; };
+		277444A421B59EC500CE6014 /* CountryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTests.swift; sourceTree = "<group>"; };
+		277444A721B59EDD00CE6014 /* CountryCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionTests.swift; sourceTree = "<group>"; };
+		277444AE21B59EF400CE6014 /* ProvinceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceTests.swift; sourceTree = "<group>"; };
+		277444B121B59EFF00CE6014 /* ProvinceCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceCollectionTests.swift; sourceTree = "<group>"; };
+		277444B721B5A92000CE6014 /* getProvinces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getProvinces.json; sourceTree = "<group>"; };
 		27781744208E42A100FE2770 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		27781745208E42A100FE2770 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		27781746208E42A100FE2770 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
@@ -626,6 +650,9 @@
 		2782F85220F7CE08004774E8 /* SyncOperationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncOperationState.swift; sourceTree = "<group>"; };
 		2786DB01207512410079ED15 /* EventSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
 		278B4BFC2122490A00599FB6 /* MockRtmMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRtmMessageHandler.swift; sourceTree = "<group>"; };
+		279298D621B1AEC20047684D /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		279298DA21B1B0D30047684D /* CountryCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollection.swift; sourceTree = "<group>"; };
+		279298DF21B1BBC70047684D /* Province.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Province.swift; sourceTree = "<group>"; };
 		27982EBB20D020C4000EED70 /* UnkeyedEncodingContainerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainerExtension.swift; sourceTree = "<group>"; };
 		279D98CB216D543A00B8C259 /* HendricksGuiLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HendricksGuiLine.swift; sourceTree = "<group>"; };
 		27A21A0F215564AC00052F36 /* NotificationDetailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDetailTests.swift; path = FitpaySDKTests/Notifications/NotificationDetailTests.swift; sourceTree = SOURCE_ROOT; };
@@ -1057,7 +1084,10 @@
 				27B6BCF92130588F005D6DEA /* CardInfoTests.swift */,
 				275B7295215E8F18009531A8 /* CardMetaDataTests.swift */,
 				91FD053B20D1653200092234 /* CreditCardTests.swift */,
+				91FD052F20D1652D00092234 /* IssuersTests.swift */,
 				273D5B3E215E9D95003C2E29 /* TermsAssetReferencesTests.swift */,
+				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
+				91FD053320D1652F00092234 /* VerificationMethodTests.swift */,
 			);
 			path = CreditCard;
 			sourceTree = "<group>";
@@ -1182,23 +1212,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		2782F82320F6B5D9004774E8 /* Verification */ = {
+		277444A321B59EAE00CE6014 /* Country */ = {
 			isa = PBXGroup;
 			children = (
-				CD0385770D2621125F59B8DD /* VerificationMethod.swift */,
-				2782F82D20F6B619004774E8 /* Enums */,
+				277444A721B59EDD00CE6014 /* CountryCollectionTests.swift */,
+				277444A421B59EC500CE6014 /* CountryTests.swift */,
+				277444B121B59EFF00CE6014 /* ProvinceCollectionTests.swift */,
+				277444AE21B59EF400CE6014 /* ProvinceTests.swift */,
 			);
-			path = Verification;
-			sourceTree = "<group>";
-		};
-		2782F82D20F6B619004774E8 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				2782F82420F6B600004774E8 /* VerificationMethodType.swift */,
-				2782F82720F6B60B004774E8 /* VerificationState.swift */,
-				2782F82A20F6B616004774E8 /* VerificationResult.swift */,
-			);
-			path = Enums;
+			path = Country;
 			sourceTree = "<group>";
 		};
 		2782F83120F6B749004774E8 /* Commit */ = {
@@ -1230,9 +1252,12 @@
 		2782F83920F6B873004774E8 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				2782F83620F6B86E004774E8 /* TokenizationState.swift */,
 				2782F83A20F6B8B9004774E8 /* CreditCardInitiator.swift */,
 				27C76B0221A30D260067E7CF /* ProvisioningFailedReason.swift */,
+				2782F83620F6B86E004774E8 /* TokenizationState.swift */,
+				2782F82420F6B600004774E8 /* VerificationMethodType.swift */,
+				2782F82A20F6B616004774E8 /* VerificationResult.swift */,
+				2782F82720F6B60B004774E8 /* VerificationState.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1243,8 +1268,20 @@
 				CD038A15D95F318EC41638F6 /* Device.swift */,
 				2782F84020F6BB28004774E8 /* DeviceResetStatus.swift */,
 				277C181620B33748003BD78B /* ResetDeviceResult.swift */,
+				27F82A8A20D07CA8005FA54D /* SecureElement.swift */,
 			);
 			path = Device;
+			sourceTree = "<group>";
+		};
+		279298DE21B1BBB30047684D /* Country */ = {
+			isa = PBXGroup;
+			children = (
+				279298D621B1AEC20047684D /* Country.swift */,
+				279298DA21B1B0D30047684D /* CountryCollection.swift */,
+				279298DF21B1BBC70047684D /* Province.swift */,
+				277444A021B58F9E00CE6014 /* ProvinceCollection.swift */,
+			);
+			path = Country;
 			sourceTree = "<group>";
 		};
 		279D98CA216D51A300B8C259 /* Models */ = {
@@ -1313,19 +1350,16 @@
 			children = (
 				272D12722162C864004811A3 /* AssetTests.swift */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
-				91FD052F20D1652D00092234 /* IssuersTests.swift */,
-				91300F7020ED066200ACD3E6 /* PayloadTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
 				271848652162D0A900FBB04C /* ResourceLinkTests.swift */,
 				91FD052920D1652A00092234 /* ResultCollectionTests.swift */,
-				37330EB420289DCF00948BC6 /* TransactionTests.swift */,
 				27C0243320A4A21500681023 /* TransformsTests.swift */,
 				27F938FD2127765D0003D7A3 /* Commit */,
+				277444A321B59EAE00CE6014 /* Country */,
 				275AB526212B794B00757849 /* CreditCard */,
 				275AB525212B793800757849 /* Device */,
 				275AB51D212B732600757849 /* Images */,
 				27F5E617212735A6002ED57A /* User */,
-				27F5E616212734DE002ED57A /* Verification */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1337,7 +1371,10 @@
 				27C34A4220CEC635005EE649 /* CardInfo.swift */,
 				27C34A3B20CEC5B1005EE649 /* CardMetaData.swift */,
 				CD038848A71603F14A4F8CD7 /* CreditCard.swift */,
+				37B85D591EF29FCB00B7616F /* Issuers.swift */,
 				27C34A4520CECBA8005EE649 /* TermsAssetReferences.swift */,
+				CD03815EA04C30427064A86B /* Transaction.swift */,
+				CD0385770D2621125F59B8DD /* VerificationMethod.swift */,
 				2782F83920F6B873004774E8 /* Enums */,
 			);
 			path = CreditCard;
@@ -1385,14 +1422,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		27F5E616212734DE002ED57A /* Verification */ = {
-			isa = PBXGroup;
-			children = (
-				91FD053320D1652F00092234 /* VerificationMethodTests.swift */,
-			);
-			path = Verification;
-			sourceTree = "<group>";
-		};
 		27F5E617212735A6002ED57A /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -1409,6 +1438,7 @@
 				91FD052A20D1652A00092234 /* CommitMetricsTests.swift */,
 				91FD052E20D1652C00092234 /* CommitStatisticTests.swift */,
 				91FD053A20D1653200092234 /* CommitTests.swift */,
+				91300F7020ED066200ACD3E6 /* PayloadTests.swift */,
 			);
 			path = Commit;
 			sourceTree = "<group>";
@@ -1509,6 +1539,7 @@
 		9194320320D024430086B39B /* RestJsons */ = {
 			isa = PBXGroup;
 			children = (
+				277444B721B5A92000CE6014 /* getProvinces.json */,
 				9194321420D024430086B39B /* acceptTermsForCreditCard.json */,
 				2709D5C52107BB8E00E2D6B9 /* AuthorizationDetails.json */,
 				9194321820D024430086B39B /* createCreditCard.json */,
@@ -1600,21 +1631,18 @@
 			children = (
 				9A62E6B51C8DCA20004ED6C0 /* Asset.swift */,
 				CD038D1774A53D9340CFCFBE /* EncryptionKey.swift */,
-				37B85D591EF29FCB00B7616F /* Issuers.swift */,
 				2755F78F217E5EBE00C95AFD /* Link.swift */,
 				2735864020E07021005EDA9D /* PlatformConfig.swift */,
 				CD038EC1AB0F5F167433FC52 /* ResourceLink.swift */,
 				CD0387ACA27383C2A0D33CBC /* ResultCollection.swift */,
-				27F82A8A20D07CA8005FA54D /* SecureElement.swift */,
-				CD03815EA04C30427064A86B /* Transaction.swift */,
 				8C870F161D00EC630048A1DF /* Transforms.swift */,
 				2782F83120F6B749004774E8 /* Commit */,
+				279298DE21B1BBB30047684D /* Country */,
 				27C34A3E20CEC5C5005EE649 /* CreditCard */,
 				2782F84320F6BB5E004774E8 /* Device */,
 				27B8884B20A4C9BD0027969D /* Images */,
 				276FE34820EC047500F71759 /* Protocols */,
 				27F47BA120EEB3760043B388 /* User */,
-				2782F82320F6B5D9004774E8 /* Verification */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1875,6 +1903,7 @@
 				9194324020D024700086B39B /* getRelationship.json in Resources */,
 				270800AB210E2AC70071E8B1 /* AuthorizationDetails.json in Resources */,
 				273E77BE218282B700DF885F /* ResultCollectionDevices.json in Resources */,
+				277444B821B5A92000CE6014 /* getProvinces.json in Resources */,
 				9194324420D024700086B39B /* updateDevice.json in Resources */,
 				9194324E20D024700086B39B /* makeCreditCardDefault.json in Resources */,
 				9194323820D024700086B39B /* selectVerificationType.json in Resources */,
@@ -1913,6 +1942,7 @@
 				9194325A20D024700086B39B /* getRelationship.json in Resources */,
 				270800AC210E2AC70071E8B1 /* AuthorizationDetails.json in Resources */,
 				273E77BF218282B700DF885F /* ResultCollectionDevices.json in Resources */,
+				277444B921B5A92000CE6014 /* getProvinces.json in Resources */,
 				9194325E20D024700086B39B /* updateDevice.json in Resources */,
 				9194326820D024700086B39B /* makeCreditCardDefault.json in Resources */,
 				9194325220D024700086B39B /* selectVerificationType.json in Resources */,
@@ -2030,6 +2060,7 @@
 				270F47F1216543B900C97A77 /* HendricksUtils.swift in Sources */,
 				2782F82520F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85020F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
+				277444A121B58F9E00CE6014 /* ProvinceCollection.swift in Sources */,
 				8C870F171D00EC630048A1DF /* Transforms.swift in Sources */,
 				27CFE12A21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				9AB68E3F1C84A1EC00A0E172 /* JWE.swift in Sources */,
@@ -2103,6 +2134,7 @@
 				27C0242F20A3940900681023 /* MockPaymentDeviceConnector.swift in Sources */,
 				27C34A4620CECBA8005EE649 /* TermsAssetReferences.swift in Sources */,
 				2786DB02207512410079ED15 /* EventSource.swift in Sources */,
+				279298E021B1BBC70047684D /* Province.swift in Sources */,
 				2782F83320F6B80E004774E8 /* CommitType.swift in Sources */,
 				1FE1479E201613CB005DEA29 /* CommitMetrics.swift in Sources */,
 				3A61A47F1D66F0710033256C /* FitpayNotificationsManager.swift in Sources */,
@@ -2158,6 +2190,7 @@
 				3A640B471DDF110E008AD936 /* RtmMessage.swift in Sources */,
 				273D8CB32166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */,
 				9A7C78831CC77F210097BAB9 /* FitpayEventListener.swift in Sources */,
+				279298D721B1AEC20047684D /* Country.swift in Sources */,
 				2716908E2106739E0026B927 /* RestRequest.swift in Sources */,
 				3701AE581F16180000550890 /* FetchCommitsOperation.swift in Sources */,
 				91185B7820615E0C00E5E1CE /* FitpayA2aVerrificationDelegate.swift in Sources */,
@@ -2174,6 +2207,7 @@
 				3A640B491DDF110E008AD936 /* RtmMessageResponse.swift in Sources */,
 				3AF3A8F11DDB15AE0037E105 /* ConsoleOutput.swift in Sources */,
 				8425931B1CAA605B0006FFA6 /* SyncManager.swift in Sources */,
+				279298DB21B1B0D30047684D /* CountryCollection.swift in Sources */,
 				27CFE1242123794000AE116B /* JWTUtils.swift in Sources */,
 				3701AE3B1F13BA1B00550890 /* SyncEvent.swift in Sources */,
 				2782F84120F6BB28004774E8 /* DeviceResetStatus.swift in Sources */,
@@ -2211,6 +2245,7 @@
 				2762F117215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				27F5E5FC21271207002ED57A /* MockAPDUConfirm.swift in Sources */,
 				273C75D72121F79B005B9047 /* PaymentDeviceUtilsTests.swift in Sources */,
+				277444B221B59EFF00CE6014 /* ProvinceCollectionTests.swift in Sources */,
 				1F5DE2C51FEA7E3B00BB0531 /* CommitsStorageTests.swift in Sources */,
 				91A4AC4B20EBD5AC005D057F /* APDUResponseTypeTest.swift in Sources */,
 				27F5E61321272B12002ED57A /* MockFailedSyncManger.swift in Sources */,
@@ -2231,6 +2266,7 @@
 				2714B06B20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
 				27FC9AF82124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */,
 				27C0243520A4A27F00681023 /* TransformsTests.swift in Sources */,
+				277444AF21B59EF400CE6014 /* ProvinceTests.swift in Sources */,
 				91FD056220D1653500092234 /* CommitTests.swift in Sources */,
 				27F5E5F7212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
 				273D5B3F215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */,
@@ -2248,9 +2284,11 @@
 				37C94AAE1FE15E96009C0FE7 /* SyncManagerTests.swift in Sources */,
 				272CDBEC2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */,
 				9AA50BDF1C7E096D000FA546 /* RestClientTests.swift in Sources */,
+				277444AA21B59EE400CE6014 /* CountryTests.swift in Sources */,
 				0A7EE11B1CFE0A2B00503BC8 /* TestHelper.swift in Sources */,
 				2733BC7121175153002B6102 /* PlatformConfigTests.swift in Sources */,
 				91FD054020D1653400092234 /* ResultCollectionTests.swift in Sources */,
+				277444AB21B59EE400CE6014 /* CountryCollectionTests.swift in Sources */,
 				91FD056420D1653500092234 /* CreditCardTests.swift in Sources */,
 				27F5E5FF21271217002ED57A /* MockNonAPDUConfirm.swift in Sources */,
 				91FD054220D1653400092234 /* CommitMetricsTests.swift in Sources */,
@@ -2289,6 +2327,7 @@
 				2762F118215ACC6E004E130B /* NSErrorExtensionsTests.swift in Sources */,
 				91FD054F20D1653400092234 /* AddressTests.swift in Sources */,
 				27C0243620A4A28100681023 /* TransformsTests.swift in Sources */,
+				277444B321B59EFF00CE6014 /* ProvinceCollectionTests.swift in Sources */,
 				3A46E14D1DF023F9002D0270 /* JWETests.swift in Sources */,
 				27F5E61521272B14002ED57A /* MockFailedSyncManger.swift in Sources */,
 				27F5E5F521263636002ED57A /* DictionaryExtensionsTests.swift in Sources */,
@@ -2309,6 +2348,7 @@
 				27FC9AF92124B5A400D748A4 /* JOSEHeaderTests.swift in Sources */,
 				91FD056920D1653500092234 /* UsersTests.swift in Sources */,
 				2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */,
+				277444B021B59EF400CE6014 /* ProvinceTests.swift in Sources */,
 				27F5E5F8212638C5002ED57A /* JSONSerializationExtensionsTests.swift in Sources */,
 				91FD056320D1653500092234 /* CommitTests.swift in Sources */,
 				273D5B40215E9D95003C2E29 /* TermsAssetReferencesTests.swift in Sources */,
@@ -2326,9 +2366,11 @@
 				3A46E14E1DF023F9002D0270 /* RestClientTests.swift in Sources */,
 				272CDBEB2142C1340080C371 /* RestClientCreditCardTests.swift in Sources */,
 				91A4AC4620EBBD46005D057F /* ResetDeviceResultTests.swift in Sources */,
+				277444AC21B59EE400CE6014 /* CountryTests.swift in Sources */,
 				91FD055720D1653400092234 /* ApduPackageTests.swift in Sources */,
 				275AB520212B733A00757849 /* ImageAssetOptionTests.swift in Sources */,
 				3A46E14F1DF023F9002D0270 /* TestHelper.swift in Sources */,
+				277444AD21B59EE400CE6014 /* CountryCollectionTests.swift in Sources */,
 				916C8ABF20EA587E00EEAD3A /* DataExtensionsTests.swift in Sources */,
 				27F5E60021271217002ED57A /* MockNonAPDUConfirm.swift in Sources */,
 				91FD054B20D1653400092234 /* CommitStatisticTests.swift in Sources */,
@@ -2350,6 +2392,7 @@
 				270F47F2216543B900C97A77 /* HendricksUtils.swift in Sources */,
 				2782F82620F6B600004774E8 /* VerificationMethodType.swift in Sources */,
 				2782F85120F7CDF4004774E8 /* SyncOperationError.swift in Sources */,
+				277444A221B58F9E00CE6014 /* ProvinceCollection.swift in Sources */,
 				27F47B9E20EEB1ED0043B388 /* User.swift in Sources */,
 				27CFE12B21237BD200AE116B /* JWTAlgorithm.swift in Sources */,
 				2735864620E13437005EDA9D /* CustomJSONArrayEncoding.swift in Sources */,
@@ -2423,6 +2466,7 @@
 				3A93A0A11DB8CA2C00A9FEB4 /* ArrayExtensions.swift in Sources */,
 				3A93A0A31DB8CA2C00A9FEB4 /* FitpayEventTypeProtocol.swift in Sources */,
 				3A93A0A51DB8CA2C00A9FEB4 /* SessionData.swift in Sources */,
+				279298E121B1BBC70047684D /* Province.swift in Sources */,
 				2782F83420F6B80E004774E8 /* CommitType.swift in Sources */,
 				3A640B4C1DDF1135008AD936 /* BaseOutput.swift in Sources */,
 				374B62651EC9DA3C00A7CE62 /* ApduCommand.swift in Sources */,
@@ -2478,6 +2522,7 @@
 				3701AE591F16180000550890 /* FetchCommitsOperation.swift in Sources */,
 				273D8CB42166657E006AFC72 /* HendricksMiscellaneous.swift in Sources */,
 				3A93A0B31DB8CA2C00A9FEB4 /* RawIntValue.swift in Sources */,
+				279298D821B1AEC20047684D /* Country.swift in Sources */,
 				2716908F2106739E0026B927 /* RestRequest.swift in Sources */,
 				3A93A0B41DB8CA2C00A9FEB4 /* FitpayEventListener.swift in Sources */,
 				37139BDC1F164695001EEE73 /* APDUConfirmOperation.swift in Sources */,
@@ -2494,6 +2539,7 @@
 				3701AE3C1F13BA1B00550890 /* SyncEvent.swift in Sources */,
 				3A93A0BA1DB8CA2C00A9FEB4 /* SecretApplyable.swift in Sources */,
 				2735864520E127CE005EDA9D /* Payload.swift in Sources */,
+				279298DC21B1B0D30047684D /* CountryCollection.swift in Sources */,
 				27CFE1252123794000AE116B /* JWTUtils.swift in Sources */,
 				3A93A0BB1DB8CA2C00A9FEB4 /* ApduResultMessage.swift in Sources */,
 				2782F84220F6BB28004774E8 /* DeviceResetStatus.swift in Sources */,

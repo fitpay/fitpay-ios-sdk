@@ -90,6 +90,9 @@ class MockRestRequest: RestRequestable {
         } else if urlString.contains("resetDeviceTasks") {
             data = loadDataFromJSONFile(filename: "resetDeviceTask")
             
+        } else if urlString.contains("provinces") {
+            data = loadDataFromJSONFile(filename: "getProvinces")
+            
         } else if urlString.contains("next") || urlString.contains("last") || urlString.contains("previous") {
             data = loadDataFromJSONFile(filename: "ResultCollectionDevices")
             
