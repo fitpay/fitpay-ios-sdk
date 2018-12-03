@@ -153,6 +153,17 @@ class DeviceTests: XCTestCase {
         expect(deviceResetNotAvailable).to(beFalse())
     }
     
+    func testwebappAddCredentialLink() {
+        let device = mockModels.getDevice()
+
+        expect(device?.webappAddCredentialLink?.templated).to(beTrue())
+        expect(device?.webappAddCredentialLink?.href).to(equal("https://webapp.fit-pay.com/addCredential?deviceId=123&config={config}"))
+        
+        device?.links = nil
+        
+        expect(device?.webappAddCredentialLink).to(beNil())
+    }
+    
     func testDeleteDeviceInfoNoClient() {
         let device = mockModels.getDevice()
         
