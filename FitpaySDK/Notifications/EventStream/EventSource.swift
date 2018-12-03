@@ -176,7 +176,7 @@ class EventSource: NSObject {
     }
     
     private func parseEventStream(_ events: [String]) {
-        var parsedEvents: [(id: String?, event: String?, data: String?)] = Array()
+        var parsedEvents: [Event] = []
         
         for event in events {
             if event.isEmpty { continue }
@@ -211,8 +211,8 @@ class EventSource: NSObject {
         }
     }
 
-    private func parseEvent(_ eventString: String) -> (id: String?, event: String?, data: String?) {
-        var event = [String: String]()
+    private func parseEvent(_ eventString: String) -> Event {
+        var events = [String: String]()
         
         for line in eventString.components(separatedBy: CharacterSet.newlines) as [String] {
             autoreleasepool {
@@ -220,18 +220,18 @@ class EventSource: NSObject {
                 guard let key = k else { return }
                 
                 if let value = value {
-                    if event[key] != nil {
-                        event[key] = "\(event[key]!)\n\(value)"
+                    if events[key] != nil {
+                        events[key] = "\(events[key]!)\n\(value)"
                     } else {
-                        event[key] = value
+                        events[key] = value
                     }
                 } else if value == nil {
-                    event[key] = ""
+                    events[key] = ""
                 }
             }
         }
         
-        return (event["id"], event["event"], event["data"])
+        return Event(id: event["id"], event: event["event"], data: event["data"])
     }
     
     private func parseKeyValuePair(_ line: String) -> (String?, String?) {
@@ -276,30 +276,30 @@ class EventSource: NSObject {
         return false
     }
     
+    private struct Event {
+        var id: String?
+        var event: String?
+        var data: String?
+    }
+    
 }
 
 extension EventSource: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
-            return
-        }
+        if receivedMessageToClose(dataTask.response as? HTTPURLResponse) { return }
         
-        if self.readyState != EventSourceState.open {
-            return
-        }
+        if readyState != EventSourceState.open { return }
         
-        self.receivedDataBuffer.append(data)
+        receivedDataBuffer.append(data)
         let eventStream = extractEventsFromBuffer()
-        self.parseEventStream(eventStream)
+        parseEventStream(eventStream)
     }
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         completionHandler(URLSession.ResponseDisposition.allow)
         
-        if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
-            return
-        }
+        if receivedMessageToClose(dataTask.response as? HTTPURLResponse) { return }
         
         self.readyState = EventSourceState.open
         if self.onOpenCallback != nil {
@@ -312,9 +312,7 @@ extension EventSource: URLSessionDataDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         self.readyState = EventSourceState.closed
         
-        if self.receivedMessageToClose(task.response as? HTTPURLResponse) {
-            return
-        }
+        if receivedMessageToClose(task.response as? HTTPURLResponse) { return }
         
         if error == nil || (error! as NSError).code != -999 {
             //could reconnect but we can't

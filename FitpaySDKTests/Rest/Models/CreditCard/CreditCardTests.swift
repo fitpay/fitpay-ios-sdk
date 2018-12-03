@@ -34,6 +34,7 @@ class CreditCardTests: XCTestCase {
         expect(creditCard?.externalTokenReference).to(equal("someToken"))
         
         expect(creditCard?.links).toNot(beNil())
+        expect(creditCard?.links?.count).to(equal(10))
         expect(creditCard?.cardMetaData).toNot(beNil())
         expect(creditCard?.termsAssetReferences).toNot(beNil())
         expect(creditCard?.verificationMethods).toNot(beNil())
