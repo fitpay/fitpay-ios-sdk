@@ -10,9 +10,13 @@ import Foundation
     /// Object containing information needed to pass into the issuer app
     @objc public var context: A2AContext?
     
-    // MARK: - Internal
-    
     /// Used to disable Mastercard since it is not supported
-    var cardType: String?
+    @objc public var cardType: String?
+
+    /// Card that is using app to app verification
+    @objc public var creditCardId: String?
+
+    /// ID for the app to app verification method
+    @objc public var verificationId: String?
 
 }
