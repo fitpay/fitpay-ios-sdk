@@ -6,7 +6,7 @@ import Foundation
 @objc public protocol FitpayA2AVerificationDelegate: NSObjectProtocol {
 
     /// Called when the user taps the app-to-app verification method
-    /// Should be used to open the issueing app programatically
+    /// Should be used to open the issuer's app programatically
     ///
     /// - Parameter verificationInfo: The Verification Information
     func verificationFinished(verificationInfo: A2AVerificationRequest?)
