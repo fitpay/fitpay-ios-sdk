@@ -102,6 +102,12 @@
                 <a class="nav-group-task-link" href="../Classes/ConnectDeviceOperation.html">ConnectDeviceOperation</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Country.html">Country</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CountryCollection.html">CountryCollection</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/CreditCard.html">CreditCard</a>
               </li>
               <li class="nav-group-task">
@@ -217,6 +223,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/PaymentDevice/PaymentDeviceEventTypes.html">– PaymentDeviceEventTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Province.html">Province</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ProvinceCollection.html">ProvinceCollection</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ResetDeviceResult.html">ResetDeviceResult</a>
@@ -441,11 +453,11 @@
             <h1>Transaction</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Transaction</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Transaction</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span><span class="p">,</span> <span class="kt">SecretApplyable</span></code></pre>
 
                 </div>
               </div>
-            <p>don&rsquo;t store / must have agreement to display outside of fitpay webview</p>
+            <p>Transactions - These can not be stored</p>
 
           </div>
         </section>
@@ -528,7 +540,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">?</span> <span class="c1">// TODO: update to Decimal with V2</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">?</span> <span class="c1">// TODO: update to Decimal or String with V2</span></code></pre>
 
                         </div>
                       </div>
@@ -539,10 +551,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/TODO:%20update%20to%20Decimal%20with%20V2"></a>
-                <a name="//apple_ref/swift/Section/TODO: update to Decimal with V2" class="dashAnchor"></a>
-                <a href="#/TODO:%20update%20to%20Decimal%20with%20V2">
-                  <h3 class="section-name">TODO: update to Decimal with V2</h3>
+                <a name="/TODO:%20update%20to%20Decimal%20or%20String%20with%20V2"></a>
+                <a name="//apple_ref/swift/Section/TODO: update to Decimal or String with V2" class="dashAnchor"></a>
+                <a href="#/TODO:%20update%20to%20Decimal%20or%20String%20with%20V2">
+                  <h3 class="section-name">TODO: update to Decimal or String with V2</h3>
                 </a>
               </div>
               <ul class="item-container">

@@ -101,6 +101,12 @@
                 <a class="nav-group-task-link" href="Classes/ConnectDeviceOperation.html">ConnectDeviceOperation</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Country.html">Country</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/CountryCollection.html">CountryCollection</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/CreditCard.html">CreditCard</a>
               </li>
               <li class="nav-group-task">
@@ -216,6 +222,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/PaymentDevice/PaymentDeviceEventTypes.html">– PaymentDeviceEventTypes</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Province.html">Province</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/ProvinceCollection.html">ProvinceCollection</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/ResetDeviceResult.html">ResetDeviceResult</a>
@@ -467,7 +479,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>don&rsquo;t store / must have agreement to display outside of fitpay webview</p>
+                        <p>Transactions - These can not be stored</p>
 
                         <a href="Classes/Transaction.html" class="slightly-smaller">See more</a>
                       </div>
@@ -475,7 +487,39 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Transaction</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">Transaction</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span><span class="p">,</span> <span class="kt">SecretApplyable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK18ProvinceCollectionC"></a>
+                    <a name="//apple_ref/swift/Class/ProvinceCollection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK18ProvinceCollectionC">ProvinceCollection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/ProvinceCollection.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ProvinceCollection</span><span class="p">:</span> <span class="kt">Serializable</span></code></pre>
 
                         </div>
                       </div>
@@ -1485,6 +1529,38 @@ Create in <code>application(_ app: UIApplication, open url: URL, options: [UIApp
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9FitpaySDK8ProvinceC"></a>
+                    <a name="//apple_ref/swift/Class/Province" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK8ProvinceC">Province</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/Province.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Province</span><span class="p">:</span> <span class="kt">Serializable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9FitpaySDK13CommitMetricsC"></a>
                     <a name="//apple_ref/swift/Class/CommitMetrics" class="dashAnchor"></a>
                     <a class="token" href="#/s:9FitpaySDK13CommitMetricsC">CommitMetrics</a>
@@ -1862,7 +1938,7 @@ Create in <code>application(_ app: UIApplication, open url: URL, options: [UIApp
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Link</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Link</span><span class="p">:</span> <span class="kt">Serializable</span></code></pre>
 
                         </div>
                       </div>
@@ -2274,6 +2350,38 @@ Create in <code>application(_ app: UIApplication, open url: URL, options: [UIApp
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9FitpaySDK7CountryC"></a>
+                    <a name="//apple_ref/swift/Class/Country" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK7CountryC">Country</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/Country.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Country</span><span class="p">:</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9FitpaySDK15HendricksObjectC"></a>
                     <a name="//apple_ref/swift/Class/HendricksObject" class="dashAnchor"></a>
                     <a class="token" href="#/s:9FitpaySDK15HendricksObjectC">HendricksObject</a>
@@ -2357,6 +2465,38 @@ Create in <code>application(_ app: UIApplication, open url: URL, options: [UIApp
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objcMembers</span> <span class="kd">open</span> <span class="kd">class</span> <span class="kt">SyncManager</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">SyncManagerProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9FitpaySDK17CountryCollectionC"></a>
+                    <a name="//apple_ref/swift/Class/CountryCollection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9FitpaySDK17CountryCollectionC">CountryCollection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/CountryCollection.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CountryCollection</span><span class="p">:</span> <span class="kt">ClientModel</span><span class="p">,</span> <span class="kt">Serializable</span></code></pre>
 
                         </div>
                       </div>
