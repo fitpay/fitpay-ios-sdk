@@ -8,9 +8,9 @@ open class HendricksObject {
         
     }
     
-    init(categoryId: Int, obectjId: Int) {
+    init(categoryId: Int, objectId: Int) {
         self.categoryId = categoryId
-        self.objectId = obectjId
+        self.objectId = objectId
     }
     
 }
@@ -21,4 +21,5 @@ enum HendricksObjectType: Int {
     case card
     case miscellaneous
     case image
+    case favorite
 }

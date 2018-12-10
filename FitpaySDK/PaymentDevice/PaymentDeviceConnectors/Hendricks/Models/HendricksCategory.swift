@@ -18,7 +18,7 @@ public class HendricksCategory {
         for _ in 0..<count {
             let objectId = Int(returnedData[runningIndex] + returnedData[runningIndex + 1] << 8)
             runningIndex += 2
-            let object = HendricksObject(categoryId: categoryId, obectjId: objectId)
+            let object = HendricksObject(categoryId: categoryId, objectId: objectId)
             objects.append(object)
         }
     }
