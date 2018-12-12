@@ -154,7 +154,7 @@ import CoreBluetooth
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
         
-        let package = BLEPackage(.addFavCatObj, commandData: catIdData + objIdData) { _ in
+        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { _ in
             completion()
         }
         

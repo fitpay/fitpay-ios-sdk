@@ -2,8 +2,8 @@ import Foundation
 
 public class HendricksFavorite: HendricksObject {
     
-    var favoriteCategoryId: Int
-    var favoriteObjectId: Int
+    public var favoriteCategoryId: Int
+    public var favoriteObjectId: Int
     
     let totalLength = 7
 
