@@ -37,7 +37,10 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         log.verbose("NOTIFICATIONS_DATA: handling notification")
         
         let notificationDetail = self.notificationDetailFromNotification(payload)
-        notificationDetail?.sendAckSync()
+        
+        if (notificationDetail?.type?.lowercased() == "sync") {
+            notificationDetail?.sendAckSync()
+        }
         
         notificationsQueue.enqueue(payload)
         
@@ -98,6 +101,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
             
         } else if notification?["source"] as? String == "FitPay" {
             notificationDetail = try? NotificationDetail(notification?["payload"])
+            notificationDetail?.type = notification?["type"] as? String
         }
         
         notificationDetail?.client = self.client
@@ -124,7 +128,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         
         var notificationType = NotificationType.withoutSync
         
-        if (currentNotification["fpField1"] as? String)?.lowercased() == "sync" {
+        if (currentNotification["fpField1"] as? String)?.lowercased() == "sync" || (currentNotification["type"] as? String)?.lowercased() == "sync" {
             log.debug("NOTIFICATIONS_DATA: notification was of type sync.")
             notificationType = NotificationType.withSync
         }
