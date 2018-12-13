@@ -146,6 +146,21 @@ import CoreBluetooth
         addPackagetoQueue(package)
     }
     
+    // Favorites
+    
+    public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping () -> Void) {
+        var catId = categoryId
+        let catIdData = Data(bytes: &catId, count: 2)
+        var objId = objectId
+        let objIdData = Data(bytes: &objId, count: 2)
+        
+        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { _ in
+            completion()
+        }
+        
+        addPackagetoQueue(package)
+    }
+    
     // MARK: - Private Functions
     
     private func addCommandtoFrontOfQueue(_ blePackage: BLEPackage) {
@@ -344,10 +359,15 @@ import CoreBluetooth
         
         while index < expectedDataSize {
             guard returnedData[index] == 0x24 else { return }
-            guard let type = PingResponse(rawValue: returnedData[index + 1]) else { return }
             
             let length = Int(returnedData[index + 2])
             let nextIndex = index + 3 + length
+            
+            guard let type = PingResponse(rawValue: returnedData[index + 1]) else {
+                index = nextIndex
+                continue
+            }
+            
             let hex = Data(bytes: Array(returnedData[index + 3 ..< nextIndex])).hex
             
             switch type {
@@ -442,6 +462,12 @@ import CoreBluetooth
                 objects.append(card)
 
                 index += card.totalLength + 4
+            case .favorite:
+                let favorite = HendricksFavorite(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+                print(returnedData)
+                objects.append(favorite)
+
+                index += 11
             default:
                 break
             }
@@ -633,6 +659,7 @@ extension HendricksPaymentDeviceConnector {
         case removeCatObj   = 0x1B
         case getCategories  = 0x1C
         case getCatData     = 0x1D
+        case addFavCatObj   = 0x1E
         
         case apduPackage    = 0x20 // + 0xXX - apdu count
     }
