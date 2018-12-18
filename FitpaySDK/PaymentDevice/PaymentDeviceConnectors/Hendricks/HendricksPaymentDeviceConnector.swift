@@ -244,7 +244,7 @@ import CoreBluetooth
             
             noactivityTimer?.invalidate()
             noactivityTimer = nil
-            noactivityTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
+            noactivityTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
         }
     }
     
