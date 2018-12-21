@@ -387,7 +387,7 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/Notifications/FitpayNotificationsManager.swift",
-      "line": 87,
+      "line": 90,
       "symbol": "FitpayNotificationsManager.updateRestClientForNotificationDetail(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1710,238 +1710,252 @@
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 514,
+      "line": 151,
+      "symbol": "HendricksPaymentDeviceConnector.favoriteObject(categoryId:objectId:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
+      "line": 540,
       "symbol": "HendricksPaymentDeviceConnector.centralManagerDidUpdateState(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 539,
+      "line": 565,
       "symbol": "HendricksPaymentDeviceConnector.centralManager(_:didDiscover:advertisementData:rssi:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 551,
+      "line": 577,
       "symbol": "HendricksPaymentDeviceConnector.centralManager(_:didConnect:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 556,
+      "line": 582,
       "symbol": "HendricksPaymentDeviceConnector.centralManager(_:didFailToConnect:error:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 560,
+      "line": 586,
       "symbol": "HendricksPaymentDeviceConnector.centralManager(_:didDisconnectPeripheral:error:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 569,
+      "line": 595,
       "symbol": "HendricksPaymentDeviceConnector.peripheral(_:didDiscoverServices:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 576,
+      "line": 602,
       "symbol": "HendricksPaymentDeviceConnector.peripheral(_:didDiscoverCharacteristicsFor:error:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 588,
+      "line": 614,
       "symbol": "HendricksPaymentDeviceConnector.peripheral(_:didUpdateValueFor:error:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 610,
+      "line": 636,
       "symbol": "HendricksPaymentDeviceConnector.Command",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 611,
+      "line": 637,
       "symbol": "HendricksPaymentDeviceConnector.Command.ping",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 612,
+      "line": 638,
       "symbol": "HendricksPaymentDeviceConnector.Command.restart",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 613,
+      "line": 639,
       "symbol": "HendricksPaymentDeviceConnector.Command.bootLoader",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 614,
+      "line": 640,
       "symbol": "HendricksPaymentDeviceConnector.Command.setDeviceId",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 615,
+      "line": 641,
       "symbol": "HendricksPaymentDeviceConnector.Command.unsetDeviceId",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 616,
+      "line": 642,
       "symbol": "HendricksPaymentDeviceConnector.Command.factoryReset",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 617,
+      "line": 643,
       "symbol": "HendricksPaymentDeviceConnector.Command.sleep",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 618,
+      "line": 644,
       "symbol": "HendricksPaymentDeviceConnector.Command.lock",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 619,
+      "line": 645,
       "symbol": "HendricksPaymentDeviceConnector.Command.unlock",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 620,
+      "line": 646,
       "symbol": "HendricksPaymentDeviceConnector.Command.heartbeat",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 622,
+      "line": 648,
       "symbol": "HendricksPaymentDeviceConnector.Command.addIdentity",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 624,
+      "line": 650,
       "symbol": "HendricksPaymentDeviceConnector.Command.getUser",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 625,
+      "line": 651,
       "symbol": "HendricksPaymentDeviceConnector.Command.addCard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 626,
+      "line": 652,
       "symbol": "HendricksPaymentDeviceConnector.Command.addCardCont",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 628,
+      "line": 654,
       "symbol": "HendricksPaymentDeviceConnector.Command.activateCard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 629,
+      "line": 655,
       "symbol": "HendricksPaymentDeviceConnector.Command.getCardInfo",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 630,
+      "line": 656,
       "symbol": "HendricksPaymentDeviceConnector.Command.suspendCard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 632,
+      "line": 658,
       "symbol": "HendricksPaymentDeviceConnector.Command.addMiscCat",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 633,
+      "line": 659,
       "symbol": "HendricksPaymentDeviceConnector.Command.removeCatObj",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 634,
+      "line": 660,
       "symbol": "HendricksPaymentDeviceConnector.Command.getCategories",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 635,
+      "line": 661,
       "symbol": "HendricksPaymentDeviceConnector.Command.getCatData",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 637,
+      "line": 662,
+      "symbol": "HendricksPaymentDeviceConnector.Command.addFavCatObj",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
+      "line": 664,
       "symbol": "HendricksPaymentDeviceConnector.Command.apduPackage",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 667,
+      "line": 694,
       "symbol": "HendricksPaymentDeviceConnector.RequestHandler",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 669,
+      "line": 696,
       "symbol": "HendricksPaymentDeviceConnector.BLEPackage",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/HendricksPaymentDeviceConnector.swift",
-      "line": 675,
+      "line": 702,
       "symbol": "HendricksPaymentDeviceConnector.BLEPackage.init(_:commandData:data:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -2007,6 +2021,27 @@
       "line": 70,
       "symbol": "HendricksCard.getCreditCardData(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/Models/HendricksFavorite.swift",
+      "line": 3,
+      "symbol": "HendricksFavorite",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/Models/HendricksFavorite.swift",
+      "line": 5,
+      "symbol": "HendricksFavorite.favoriteCategoryId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/jeremiah/workspace/fitpay-ios-sdk/FitpaySDK/PaymentDevice/PaymentDeviceConnectors/Hendricks/Models/HendricksFavorite.swift",
+      "line": 6,
+      "symbol": "HendricksFavorite.favoriteObjectId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
