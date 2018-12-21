@@ -20,9 +20,9 @@ public class StreamEvent: Decodable {
 }
 
 public enum StreamEventType: String, Decodable {
-    case streamConnected = "STREAM_CONNECTED"
-    case streamDisconnected = "STREAM_DISCONNECTED"
-    case streamHeartbeat = "STREAM_HEARTBEAT"
+    case connected = "STREAM_CONNECTED"
+    case disconnected = "STREAM_DISCONNECTED"
+    case heartbeat = "STREAM_HEARTBEAT"
     case sync = "SYNC"
     case cardCreated = "CREDITCARD_CREATED"
     case cardActivated = "CREDITCARD_ACTIVATED"
@@ -39,7 +39,6 @@ public enum StreamEventType: String, Decodable {
     case cardProvisionFailed = "CREDITCARD_PROVISION_FAILED"
     case cardProvisionSuccess = "CREDITCARD_PROVISION_SUCCESS"
     case cardMetadataUpdated = "CREDITCARD_METADATA_UPDATED"
-    case heartbeat = "HEARTBEAT"
     case deviceCreated = "DEVICE_CREATED"
     case deviceStateUpdated = "DEVICE_STATE_UPDATED"
     case deviceDeleted = "DEVICE_DELETED"
