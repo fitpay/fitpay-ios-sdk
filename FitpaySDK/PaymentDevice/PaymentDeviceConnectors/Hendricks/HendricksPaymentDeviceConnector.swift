@@ -9,6 +9,10 @@ import CoreBluetooth
     
     public var bleState: CBManagerState = .unknown
     
+    public static let favoritesCategoryId = 0
+    public static let identitiesCategoryId = 1
+    public static let creditCardCategoryId = 2
+
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
     private var _deviceInfo: Device?
@@ -148,14 +152,14 @@ import CoreBluetooth
     
     // Favorites
     
-    public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping () -> Void) {
+    public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping (HendricksObject?) -> Void) {
         var catId = categoryId
         let catIdData = Data(bytes: &catId, count: 2)
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
         
-        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { _ in
-            completion()
+        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { object in
+            completion(object as? HendricksObject)
         }
         
         addPackagetoQueue(package)
@@ -340,6 +344,12 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatDataResponse()
             
+        case .addIdentity:
+            handleAddResponse(categoryId: HendricksPaymentDeviceConnector.identitiesCategoryId)
+
+        case .addFavCatObj:
+            handleAddResponse(categoryId: HendricksPaymentDeviceConnector.favoritesCategoryId)
+            
         default:
             currentPackage.completion?(nil)
 
@@ -400,6 +410,13 @@ import CoreBluetooth
         connectedAndPinged = true
         connectTimer?.invalidate()
         connectTimer = nil
+    }
+    
+    private func handleAddResponse(categoryId: Int) {        
+        let objectId = Int(returnedData[0] + returnedData[1] << 8) // shift second bit
+        
+        let object = HendricksObject(categoryId: categoryId, objectId: objectId)
+        currentPackage?.completion?(object)
     }
     
     private func handleAPDUResponse() {
