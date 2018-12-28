@@ -28,6 +28,11 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
         return links?[User.webappWalletKey]
     }
     
+    // returns the URL if add-card link is returned on the model
+    open var webappAddCard: Link? {
+        return links?[User.webappAddCard]
+    }
+    
     var links: [String: Link]?
     var encryptedData: String?
     var info: UserInfo?
