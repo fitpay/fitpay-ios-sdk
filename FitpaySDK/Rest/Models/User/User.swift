@@ -39,6 +39,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     private static let selfResourceKey = "self"
     private static let eventStreamKey = "eventStream"
     private static let webappWalletKey = "webapp.wallet"
+    private static let webappAddCard = "webapp.add-card"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"
