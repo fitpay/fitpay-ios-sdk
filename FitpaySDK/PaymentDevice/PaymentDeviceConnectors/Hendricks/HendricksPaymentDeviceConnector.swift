@@ -465,7 +465,7 @@ import CoreBluetooth
             let objectId = Int(returnedData[index] + returnedData[index + 1] << 8)
             let type = HendricksObjectType(rawValue: Int(returnedData[index + 2]))
             let objectLength = Int(returnedData[index + 3] + returnedData[index + 4] << 8)
-            let _ = Array(returnedData[index + 5..<index + 37]) //hash
+            _ = Array(returnedData[index + 5..<index + 37]) //hash
             
             index += 37
             
