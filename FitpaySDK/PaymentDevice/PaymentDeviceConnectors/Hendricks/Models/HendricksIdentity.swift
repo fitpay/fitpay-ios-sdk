@@ -6,7 +6,6 @@ public class HendricksIdentity: HendricksObject {
     public var middleName: String?
     public var lastName: String?
     
-    let totalLength = 63
     private let nameLength = 21
     
     public init(firstName: String?, middleName: String?, lastName: String?) {

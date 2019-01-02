@@ -9,6 +9,10 @@ import CoreBluetooth
     
     public var bleState: CBManagerState = .unknown
     
+    public static let favoritesCategoryId = 0
+    public static let identitiesCategoryId = 1
+    public static let creditCardCategoryId = 2
+
     private var centralManager: CBCentralManager!
     private var wearablePeripheral: CBPeripheral?
     private var _deviceInfo: Device?
@@ -148,14 +152,14 @@ import CoreBluetooth
     
     // Favorites
     
-    public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping () -> Void) {
+    public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping (HendricksObject?) -> Void) {
         var catId = categoryId
         let catIdData = Data(bytes: &catId, count: 2)
         var objId = objectId
         let objIdData = Data(bytes: &objId, count: 2)
         
-        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { _ in
-            completion()
+        let package = BLEPackage(.addFavCatObj, data: catIdData + objIdData) { object in
+            completion(object as? HendricksObject)
         }
         
         addPackagetoQueue(package)
@@ -244,7 +248,7 @@ import CoreBluetooth
             
             noactivityTimer?.invalidate()
             noactivityTimer = nil
-            noactivityTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
+            noactivityTimer = Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(HendricksPaymentDeviceConnector.handleNoActiviy), userInfo: nil, repeats: false)
         }
     }
     
@@ -340,6 +344,12 @@ import CoreBluetooth
         case .getCatData:
             handleGetCatDataResponse()
             
+        case .addIdentity:
+            handleAddResponse(categoryId: HendricksPaymentDeviceConnector.identitiesCategoryId)
+
+        case .addFavCatObj:
+            handleAddResponse(categoryId: HendricksPaymentDeviceConnector.favoritesCategoryId)
+            
         default:
             currentPackage.completion?(nil)
 
@@ -402,6 +412,13 @@ import CoreBluetooth
         connectTimer = nil
     }
     
+    private func handleAddResponse(categoryId: Int) {        
+        let objectId = Int(returnedData[0] + returnedData[1] << 8) // shift second bit
+        
+        let object = HendricksObject(categoryId: categoryId, objectId: objectId)
+        currentPackage?.completion?(object)
+    }
+    
     private func handleAPDUResponse() {
         var index = 0
         while index < expectedDataSize {
@@ -446,31 +463,32 @@ import CoreBluetooth
         var index = 1
         for _ in 0..<objectCount {
             let objectId = Int(returnedData[index] + returnedData[index + 1] << 8)
-            guard let type = HendricksObjectType(rawValue: Int(returnedData[index + 2])) else {
-                currentPackage?.completion?(nil)
-                return
-            }
+            let type = HendricksObjectType(rawValue: Int(returnedData[index + 2]))
+            let objectLength = Int(returnedData[index + 3] + returnedData[index + 4] << 8)
+            _ = Array(returnedData[index + 5..<index + 37]) //hash
+            
+            index += 37
             
             switch type {
-            case .identity:
-                let identity = HendricksIdentity(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+            case .identity?:
+                let identity = HendricksIdentity(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(identity)
                 
-                index += identity.totalLength + 4
-            case .card:
-                let card = HendricksCard(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+            case .card?:
+                let card = HendricksCard(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(card)
-
-                index += card.totalLength + 4
-            case .favorite:
-                let favorite = HendricksFavorite(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
-                print(returnedData)
+                
+            case .favorite?:
+                let favorite = HendricksFavorite(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(favorite)
-
-                index += 11
+                
             default:
-                break
+                let object = HendricksObject(categoryId: categoryId, objectId: objectId)
+                objects.append(object)
+                
             }
+            
+            index += objectLength
         }
         
         currentPackage?.completion?(objects)

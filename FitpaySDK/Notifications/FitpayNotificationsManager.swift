@@ -20,7 +20,10 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     private var notificationsQueue = [NotificationsPayload]()
     private var currentNotification: NotificationsPayload?
     
+    private var noActivityTimer: Timer?
+    
     // MARK: - Public Functions
+
     public func setRestClient(_ client: RestClient?) {
         self.client = client
     }
@@ -116,14 +119,14 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
             log.verbose("NOTIFICATIONS_DATA: currentNotification was not nil returning.")
             return
         }
-        
+
         if notificationsQueue.peekAtQueue() == nil {
             log.verbose("NOTIFICATIONS_DATA: peeked at queue and found nothing.")
             callAllNotificationProcessedCompletion()
             return
         }
         
-        currentNotification = notificationsQueue.dequeue()
+        self.currentNotification = notificationsQueue.dequeue()
         guard let currentNotification = self.currentNotification else { return }
         
         var notificationType = NotificationType.withoutSync
@@ -134,13 +137,21 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         }
         
         callReceivedCompletion(currentNotification, notificationType: notificationType)
+        
         switch notificationType {
         case .withSync:
             let notificationDetail = notificationDetailFromNotification(currentNotification)
             SyncRequestQueue.sharedInstance.add(request: SyncRequest(notification: notificationDetail, initiator: .notification)) { (_, _) in
                 self.currentNotification = nil
+                self.noActivityTimer?.invalidate()
+                self.noActivityTimer = nil
                 self.processNextNotificationIfAvailable()
             }
+            
+            noActivityTimer?.invalidate()
+            noActivityTimer = nil
+            noActivityTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(FitpayNotificationsManager.handleNoActiviy), userInfo: nil, repeats: false)
+            
         case .withoutSync: // just call completion
             log.debug("NOTIFICATIONS_DATA: notification was non-sync.")
             self.currentNotification = nil
@@ -162,6 +173,13 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     
     private func callAllNotificationProcessedCompletion() {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: NotificationsEventType.allNotificationsProcessed, eventData: [:]))
+    }
+    
+    /// Clear current notification and process the next one if available if the current notification times out
+    @objc private func handleNoActiviy() {
+        log.verbose("NOTIFICATIONS_DATA: Notification Sync timed out. Sync Request Queue did not return in time, so we continue to the next notification.")
+        currentNotification = nil
+        processNextNotificationIfAvailable()
     }
     
 }

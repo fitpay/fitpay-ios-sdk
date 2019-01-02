@@ -40,11 +40,13 @@ class TransformTests: XCTestCase {
     func testCustomDateFormatTransformIn() {
         let calendar = Calendar.current
         let twoDaysAgo = calendar.date(byAdding: .day, value: -2, to: Date())!
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YY-DD-MM"
-        let transform = CustomDateFormatTransform(formatString: "YY-DD-MM")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let transform = CustomDateFormatTransform(formatString: "yyyy-MM-dd")
         
         let testDate = transform.transform(dateFormatter.string(from: twoDaysAgo))
+        
         expect(calendar.isDate(testDate!, inSameDayAs: twoDaysAgo)).to(beTrue())
         
         let nilString: String? = nil
@@ -56,8 +58,8 @@ class TransformTests: XCTestCase {
         let calendar = Calendar.current
         let twoDaysAgo = calendar.date(byAdding: .day, value: -2, to: Date())!
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YY-DD-MM"
-        let transform = CustomDateFormatTransform(formatString: "YY-DD-MM")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let transform = CustomDateFormatTransform(formatString: "yyyy-MM-dd")
         
         let testSring = transform.transform(twoDaysAgo)
         expect(testSring).to(equal(dateFormatter.string(from: twoDaysAgo)))
