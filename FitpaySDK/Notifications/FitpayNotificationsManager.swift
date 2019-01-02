@@ -20,7 +20,7 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
     private var notificationsQueue = [NotificationsPayload]()
     private var currentNotification: NotificationsPayload?
     
-    private var noactivityTimer: Timer?
+    private var noActivityTimer: Timer?
     
     // MARK: - Public Functions
 
@@ -143,14 +143,14 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
             let notificationDetail = notificationDetailFromNotification(currentNotification)
             SyncRequestQueue.sharedInstance.add(request: SyncRequest(notification: notificationDetail, initiator: .notification)) { (_, _) in
                 self.currentNotification = nil
-                self.noactivityTimer?.invalidate()
-                self.noactivityTimer = nil
+                self.noActivityTimer?.invalidate()
+                self.noActivityTimer = nil
                 self.processNextNotificationIfAvailable()
             }
             
-            noactivityTimer?.invalidate()
-            noactivityTimer = nil
-            noactivityTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(FitpayNotificationsManager.handleNoActiviy), userInfo: nil, repeats: false)
+            noActivityTimer?.invalidate()
+            noActivityTimer = nil
+            noActivityTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(FitpayNotificationsManager.handleNoActiviy), userInfo: nil, repeats: false)
             
         case .withoutSync: // just call completion
             log.debug("NOTIFICATIONS_DATA: notification was non-sync.")
@@ -175,8 +175,9 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         eventsDispatcher.dispatchEvent(FitpayEvent(eventId: NotificationsEventType.allNotificationsProcessed, eventData: [:]))
     }
     
+    /// Clear current notification and process the next one if available if the current notification times out
     @objc private func handleNoActiviy() {
-        log.verbose("NOTIFICATIONS_DATA: Notification Sync did not return in time")
+        log.verbose("NOTIFICATIONS_DATA: Notification Sync timed out. Sync Request Queue did not return in time, so we continue to the next notification.")
         currentNotification = nil
         processNextNotificationIfAvailable()
     }
