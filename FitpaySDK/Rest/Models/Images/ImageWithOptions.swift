@@ -21,8 +21,7 @@ open class ImageWithOptions: Image {
     // MARK: - Private Functions
     
     private func updateUrlAssetWith(urlString: String, options: [ImageAssetOption]) -> String? {
-        guard var url = URLComponents(string: urlString) else { return urlString }
-        guard url.queryItems != nil else { return urlString }
+        guard var url = URLComponents(string: urlString), url.queryItems != nil else { return urlString }
         
         for option in options {
             var optionFound = false

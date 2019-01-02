@@ -121,7 +121,7 @@ public class HendricksCard: HendricksObject {
             return
         }
         
-        cardImage.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight), ImageAssetOption.fontScale(20), ImageAssetOption.fontBold(false)]) { (asset, _) in
+        cardImage.retrieveAssetWith(options: [ImageAssetOption.width(defaultCardWidth), ImageAssetOption.height(defaultCardHeight), ImageAssetOption.fontScale(20), ImageAssetOption.fontBold(false), ImageAssetOption.roundedCorners(true)]) { (asset, _) in
             guard let image = asset?.image ?? UIImage(named: "mastercard") else {
                 completion(Data())
                 return
