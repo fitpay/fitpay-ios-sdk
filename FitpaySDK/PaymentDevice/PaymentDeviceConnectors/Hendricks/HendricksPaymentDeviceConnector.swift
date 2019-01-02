@@ -463,31 +463,32 @@ import CoreBluetooth
         var index = 1
         for _ in 0..<objectCount {
             let objectId = Int(returnedData[index] + returnedData[index + 1] << 8)
-            guard let type = HendricksObjectType(rawValue: Int(returnedData[index + 2])) else {
-                currentPackage?.completion?(nil)
-                return
-            }
+            let type = HendricksObjectType(rawValue: Int(returnedData[index + 2]))
+            let objectLength = Int(returnedData[index + 3] + returnedData[index + 4] << 8)
+            let _ = Array(returnedData[index + 5..<index + 37]) //hash
+            
+            index += 37
             
             switch type {
-            case .identity:
-                let identity = HendricksIdentity(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+            case .identity?:
+                let identity = HendricksIdentity(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(identity)
                 
-                index += identity.totalLength + 4
-            case .card:
-                let card = HendricksCard(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
+            case .card?:
+                let card = HendricksCard(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(card)
-
-                index += card.totalLength + 4
-            case .favorite:
-                let favorite = HendricksFavorite(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index + 3)
-                print(returnedData)
+                
+            case .favorite?:
+                let favorite = HendricksFavorite(categoryId: categoryId, objectId: objectId, returnedData: returnedData, index: index)
                 objects.append(favorite)
-
-                index += 11
+                
             default:
-                break
+                let object = HendricksObject(categoryId: categoryId, objectId: objectId)
+                objects.append(object)
+                
             }
+            
+            index += objectLength
         }
         
         currentPackage?.completion?(objects)
