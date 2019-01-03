@@ -29,8 +29,8 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
     // returns the URL if add-card link is returned on the model
-    open var webappAddCard: Link? {
-        return links?[User.webappAddCard]
+    open var webappAddCardLink: Link? {
+        return links?[User.webappAddCardKey]
     }
     
     var links: [String: Link]?
@@ -44,7 +44,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     private static let selfResourceKey = "self"
     private static let eventStreamKey = "eventStream"
     private static let webappWalletKey = "webapp.wallet"
-    private static let webappAddCard = "webapp.add-card"
+    private static let webappAddCardKey = "webapp.add-card"
 
     private enum CodingKeys: String, CodingKey {
         case links = "_links"

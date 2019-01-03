@@ -83,6 +83,16 @@ class UsersTests: XCTestCase {
         expect(self.user.webappWalletLink).to(beNil())
     }
     
+    func testWebappAddCardLink() {
+        expect(self.user.webappAddCardLink?.templated).to(beTrue())
+        // TODO: provide expected link
+        expect(self.user.webappAddCardLink?.href).to(equal(""))
+        
+        user?.links = nil
+        
+        expect(self.user.webappAddCardLink).to(beNil())
+    }
+    
     func testCreateCreditCardNoClient() {
         let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "John Wick", address: address, riskData: nil)
