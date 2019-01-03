@@ -1,6 +1,6 @@
 import Foundation
 
-open class RootLinks: NSObject, Serializable {
+open class RootLinks: Serializable {
     
     open var privacyPolicyResourceKeyLink: Link? {
         return links?[RootLinks.privacyPolicyResourceKey]

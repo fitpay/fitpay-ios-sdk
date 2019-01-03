@@ -84,7 +84,7 @@ class UsersTests: XCTestCase {
     }
     
     func testWebappAddCardLink() {
-        expect(self.user.webappAddCardLink?.templated).to(beTrue())
+        expect(self.user.webappAddCardLink?.templated).to(beNil())
         expect(self.user.webappAddCardLink?.href).to(equal("https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards"))
         
         user?.links = nil
