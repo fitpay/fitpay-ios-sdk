@@ -1,6 +1,6 @@
 import Foundation
 
-open class RootLinks: NSObject {
+open class RootLinks: NSObject, Serializable {
     
     open var privacyPolicyResourceKeyLink: Link? {
         return links?[RootLinks.privacyPolicyResourceKey]
@@ -13,7 +13,7 @@ open class RootLinks: NSObject {
     var links: [String: Link]?
     
     //    Resource Keys
-    private static let privacyPolicyResourceKey = "webapp.privacy-policy"
+    private static let privacyPolicyResourceKey = "webapp.privacyPolicy"
     private static let termsResourceKey         = "webapp.terms"
     
     private enum CodingKeys: String, CodingKey {

@@ -32,8 +32,7 @@ class MockModels {
     }
     
     func getRootLinks() -> RootLinks? {
-        // TODO: provide mock root api call
-        let rootLinks = try? RootLinks("")
+        let rootLinks = try? RootLinks("{\"_links\": { \"self\": {\"href\": \"https://api.fit-pay.com/\" },\"eventTypes\": { \"href\": \"https://api.fit-pay.com/eventTypes\" }, \"health\": { \"href\": \"https://api.fit-pay.com/health\" }, \"webapp.privacyPolicy\": { \"href\": \"https://webapp.fit-pay.com/privacy-policy\" }, \"webapp.terms\": { \"href\": \"https://webapp.fit-pay.com/terms\" }}}")
         expect(rootLinks).toNot(beNil())
         return rootLinks
     }

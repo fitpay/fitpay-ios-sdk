@@ -12,7 +12,7 @@
 		0AD922A11C1F7EFC007693AB /* FitpaySDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD922A01C1F7EFC007693AB /* FitpaySDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2B4111CDA6F410090CFCF /* WvConfig.swift */; };
 		13E4DC7321DE5E8E0088E242 /* RootLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7221DE5E8E0088E242 /* RootLinks.swift */; };
-		13E4DC7521DE5EC70088E242 /* RootLinksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */; };
+		13E4DC7721DE64440088E242 /* RootLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7621DE64440088E242 /* RootLinkTests.swift */; };
 		1F5BBD802017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
 		1F5BBD812017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
 		1F5DE2C51FEA7E3B00BB0531 /* CommitsStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */; };
@@ -580,7 +580,7 @@
 		0AD922AE1C1F7EFC007693AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF2B4111CDA6F410090CFCF /* WvConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WvConfig.swift; sourceTree = "<group>"; };
 		13E4DC7221DE5E8E0088E242 /* RootLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootLinks.swift; sourceTree = "<group>"; };
-		13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootLinksTests.swift; sourceTree = "<group>"; };
+		13E4DC7621DE64440088E242 /* RootLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootLinkTests.swift; sourceTree = "<group>"; };
 		1EE8952CCCD2C65FEF841C28 /* Pods-all-FitpaySDKTestsPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-all-FitpaySDKTestsPods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-all-FitpaySDKTestsPods/Pods-all-FitpaySDKTestsPods.debug.xcconfig"; sourceTree = "<group>"; };
 		1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetail.swift; sourceTree = "<group>"; };
 		1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitsStorageTests.swift; sourceTree = "<group>"; };
@@ -1345,7 +1345,7 @@
 		27C0243220A4A1F900681023 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */,
+				13E4DC7621DE64440088E242 /* RootLinkTests.swift */,
 				272D12722162C864004811A3 /* AssetTests.swift */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
@@ -2075,7 +2075,6 @@
 				CD038952A85B6214173CC785 /* Commit.swift in Sources */,
 				0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */,
 				2782F83720F6B86E004774E8 /* TokenizationState.swift in Sources */,
-				13E4DC7521DE5EC70088E242 /* RootLinksTests.swift in Sources */,
 				276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */,
 				CD038DC45BF133FC5A0D9A94 /* ResourceLink.swift in Sources */,
 				91185B7720615E0C00E5E1CE /* A2AIssuerResponse.swift in Sources */,
@@ -2227,6 +2226,7 @@
 				27B1312A2134846E00B4A9CF /* JSONCodingKeysTests.swift in Sources */,
 				91A4AC4820EBCD39005D057F /* RtmMessageTests.swift in Sources */,
 				27FC9AF22124A82C00D748A4 /* JWSTests.swift in Sources */,
+				13E4DC7721DE64440088E242 /* RootLinkTests.swift in Sources */,
 				275AB51F212B733A00757849 /* ImageAssetOptionTests.swift in Sources */,
 				27B6BCFA2130588F005D6DEA /* CardInfoTests.swift in Sources */,
 				27B3F204215A9E27003CADDC /* UIImageExtensionsTests.swift in Sources */,

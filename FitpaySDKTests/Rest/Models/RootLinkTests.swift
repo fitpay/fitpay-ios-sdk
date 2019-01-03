@@ -15,8 +15,7 @@ class RootLinksTest: XCTestCase {
     
     func testTermsResourceKeyLink() {
         expect(self.rootLinks.termsResourceKeyLink?.templated).to(beTrue())
-        // TODO: provide expected link
-        expect(self.rootLinks.termsResourceKeyLink?.href).to(equal(""))
+        expect(self.rootLinks.termsResourceKeyLink?.href).to(equal("https://api.fit-pay.com/terms"))
         
         rootLinks?.links = nil
         
@@ -24,9 +23,8 @@ class RootLinksTest: XCTestCase {
     }
     
     func testPrivacyPolicyResourceKeyLink() {
-        expect(self.rootLinks.privacyPolicyResourceKeyLink?.templaced).to(beTrue())
-        // TODO: provide expected link
-        expect(self.rootLinks.privacyPolicyResourceKeyLink?.href).to(equal(""))
+        expect(self.rootLinks.privacyPolicyResourceKeyLink?.templated).to(beTrue())
+        expect(self.rootLinks.privacyPolicyResourceKeyLink?.href).to(equal("https://api.fit-pay.com/privacy-policy"))
         
         rootLinks?.links = nil
         
