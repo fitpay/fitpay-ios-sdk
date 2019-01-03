@@ -11,6 +11,8 @@
 		0A7EE11B1CFE0A2B00503BC8 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EE11A1CFE0A2B00503BC8 /* TestHelper.swift */; };
 		0AD922A11C1F7EFC007693AB /* FitpaySDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD922A01C1F7EFC007693AB /* FitpaySDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2B4111CDA6F410090CFCF /* WvConfig.swift */; };
+		13E4DC7321DE5E8E0088E242 /* RootLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7221DE5E8E0088E242 /* RootLinks.swift */; };
+		13E4DC7521DE5EC70088E242 /* RootLinksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */; };
 		1F5BBD802017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
 		1F5BBD812017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
 		1F5DE2C51FEA7E3B00BB0531 /* CommitsStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */; };
@@ -579,6 +581,8 @@
 		0AD922A71C1F7EFC007693AB /* FitpaySDKTestsPods.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitpaySDKTestsPods.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD922AE1C1F7EFC007693AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF2B4111CDA6F410090CFCF /* WvConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WvConfig.swift; sourceTree = "<group>"; };
+		13E4DC7221DE5E8E0088E242 /* RootLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootLinks.swift; sourceTree = "<group>"; };
+		13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootLinksTests.swift; sourceTree = "<group>"; };
 		1EE8952CCCD2C65FEF841C28 /* Pods-all-FitpaySDKTestsPods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-all-FitpaySDKTestsPods.debug.xcconfig"; path = "Pods/Target Support Files/Pods-all-FitpaySDKTestsPods/Pods-all-FitpaySDKTestsPods.debug.xcconfig"; sourceTree = "<group>"; };
 		1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDetail.swift; sourceTree = "<group>"; };
 		1F5DE2C41FEA7E3B00BB0531 /* CommitsStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitsStorageTests.swift; sourceTree = "<group>"; };
@@ -1344,6 +1348,7 @@
 		27C0243220A4A1F900681023 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				13E4DC7421DE5EC70088E242 /* RootLinksTests.swift */,
 				272D12722162C864004811A3 /* AssetTests.swift */,
 				91FD053620D1653000092234 /* EncryptionKeyTests.swift */,
 				2733BC6E2117510E002B6102 /* PlatformConfigTests.swift */,
@@ -1625,6 +1630,7 @@
 		CD038466328E4608CC137268 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				13E4DC7221DE5E8E0088E242 /* RootLinks.swift */,
 				9A62E6B51C8DCA20004ED6C0 /* Asset.swift */,
 				CD038D1774A53D9340CFCFBE /* EncryptionKey.swift */,
 				2755F78F217E5EBE00C95AFD /* Link.swift */,
@@ -2073,6 +2079,7 @@
 				CD038952A85B6214173CC785 /* Commit.swift in Sources */,
 				0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */,
 				2782F83720F6B86E004774E8 /* TokenizationState.swift in Sources */,
+				13E4DC7521DE5EC70088E242 /* RootLinksTests.swift in Sources */,
 				276CD25F209A5D1700076648 /* FitpayConfig.swift in Sources */,
 				CD038DC45BF133FC5A0D9A94 /* ResourceLink.swift in Sources */,
 				91185B7720615E0C00E5E1CE /* A2AIssuerResponse.swift in Sources */,
@@ -2080,6 +2087,7 @@
 				2782F82B20F6B616004774E8 /* VerificationResult.swift in Sources */,
 				37139BE01F177B04001EEE73 /* SyncRequestsQueue.swift in Sources */,
 				374D0C971F56F8080060A4FC /* RtmMessageHandlerV5.swift in Sources */,
+				13E4DC7321DE5E8E0088E242 /* RootLinks.swift in Sources */,
 				CD03852C57B1C79751A86197 /* ApduPackage.swift in Sources */,
 				37DB88741F0F844B00B070DA /* ImageAssetOption.swift in Sources */,
 				8425931D1CAA613E0006FFA6 /* SyncStorage.swift in Sources */,
