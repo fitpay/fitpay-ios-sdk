@@ -12,6 +12,8 @@
 		0AD922A11C1F7EFC007693AB /* FitpaySDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD922A01C1F7EFC007693AB /* FitpaySDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AF2B4121CDA6F410090CFCF /* WvConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF2B4111CDA6F410090CFCF /* WvConfig.swift */; };
 		13D8BC4921DEB55400B7D9FB /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D8BC4821DEB55400B7D9FB /* RelativeWebPath.swift */; };
+		13DE3F3621DEC01B00F51195 /* RootLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7621DE64440088E242 /* RootLinkTests.swift */; };
+		13DE3F3721DEC02A00F51195 /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D8BC4821DEB55400B7D9FB /* RelativeWebPath.swift */; };
 		13E4DC7321DE5E8E0088E242 /* RootLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7221DE5E8E0088E242 /* RootLinks.swift */; };
 		13E4DC7721DE64440088E242 /* RootLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7621DE64440088E242 /* RootLinkTests.swift */; };
 		1F5BBD802017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
@@ -2313,6 +2315,7 @@
 				27B1312B2134846E00B4A9CF /* JSONCodingKeysTests.swift in Sources */,
 				91FD052220D1315000092234 /* MockSECP256R1KeyPair.swift in Sources */,
 				27FC9AF32124A82C00D748A4 /* JWSTests.swift in Sources */,
+				13DE3F3621DEC01B00F51195 /* RootLinkTests.swift in Sources */,
 				37D0CFE51ED599C00049B5AA /* SyncRequestsQueueTests.swift in Sources */,
 				27B6BCFB2130588F005D6DEA /* CardInfoTests.swift in Sources */,
 				27B3F205215A9E27003CADDC /* UIImageExtensionsTests.swift in Sources */,
@@ -2475,6 +2478,7 @@
 				27EA81DE208F96F700FFBB56 /* UserEventStream.swift in Sources */,
 				3767B8171ED31BC2007443D2 /* RestClientUser.swift in Sources */,
 				3767B81A1ED31D48007443D2 /* RestClientDevice.swift in Sources */,
+				13DE3F3721DEC02A00F51195 /* RelativeWebPath.swift in Sources */,
 				276CD260209A65C500076648 /* FitpayConfig.swift in Sources */,
 				27C76B0421A30D260067E7CF /* ProvisioningFailedReason.swift in Sources */,
 				3A93A0A71DB8CA2C00A9FEB4 /* FitpayNotificationsManager.swift in Sources */,
