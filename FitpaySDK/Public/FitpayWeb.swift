@@ -95,20 +95,6 @@ import WebKit
     }
     
     /// Loads a specific page on Fitpay based on `FitpayConfig.WebUrl` and passed in route
-    open func load(relativePath: String) {
-        guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
-        
-        let configuredUrl = "\(relativePath)?config=\(encodedConfig)"
-        
-        log.verbose("WV: loading \(configuredUrl)")
-        
-        let requestUrl = URL(string: configuredUrl)
-        let request = URLRequest(url: requestUrl!)
-        
-        wkWebView.load(request)
-    }
-    
-    /// Loads a specific page on Fitpay based on `FitpayConfig.WebUrl` and passed in route
     @available(*, deprecated, message: "as of v1.5.3 ...")
     open func load(relativePath: RelativeWebPath) {
         guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
