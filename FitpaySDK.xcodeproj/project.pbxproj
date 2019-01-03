@@ -14,6 +14,7 @@
 		13D8BC4921DEB55400B7D9FB /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D8BC4821DEB55400B7D9FB /* RelativeWebPath.swift */; };
 		13DE3F3621DEC01B00F51195 /* RootLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7621DE64440088E242 /* RootLinkTests.swift */; };
 		13DE3F3721DEC02A00F51195 /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D8BC4821DEB55400B7D9FB /* RelativeWebPath.swift */; };
+		13DE3F3921DEC8A800F51195 /* RootLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7221DE5E8E0088E242 /* RootLinks.swift */; };
 		13E4DC7321DE5E8E0088E242 /* RootLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7221DE5E8E0088E242 /* RootLinks.swift */; };
 		13E4DC7721DE64440088E242 /* RootLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E4DC7621DE64440088E242 /* RootLinkTests.swift */; };
 		1F5BBD802017450200F16B4F /* NotificationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5BBD7F2017450200F16B4F /* NotificationDetail.swift */; };
@@ -2421,6 +2422,7 @@
 				27F5085B20EEB9700010CE05 /* UserInfo.swift in Sources */,
 				3A93A08B1DB8CA2C00A9FEB4 /* Commit.swift in Sources */,
 				2782F82C20F6B616004774E8 /* VerificationResult.swift in Sources */,
+				13DE3F3921DEC8A800F51195 /* RootLinks.swift in Sources */,
 				91185B7B2061694400E5E1CE /* A2AContext.swift in Sources */,
 				3A93A08C1DB8CA2C00A9FEB4 /* WvConfig.swift in Sources */,
 				3A93A08D1DB8CA2C00A9FEB4 /* ResourceLink.swift in Sources */,
