@@ -150,6 +150,18 @@ import CoreBluetooth
         addPackagetoQueue(package)
     }
     
+    // Identity
+    
+    public func addIdentity(_ identity: HendricksIdentity, completion: @escaping (HendricksObject) -> Void) {
+        let identityData = identity.getData()
+        
+        let package = BLEPackage(.addIdentity, commandData: nil, data: identityData) { object -> Void in
+            guard let object = object as? HendricksObject else { return }
+            completion(object)
+        }
+        addPackagetoQueue(package)
+    }
+    
     // Favorites
     
     public func favoriteObject(categoryId: Int, objectId: Int, completion: @escaping (HendricksObject?) -> Void) {
