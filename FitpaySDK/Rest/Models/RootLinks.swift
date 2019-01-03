@@ -2,10 +2,12 @@ import Foundation
 
 open class RootLinks: Serializable {
     
+    /// returns the URL if privacyPolicyResourceKeyLink link is returned on the model
     open var privacyPolicyResourceKeyLink: Link? {
         return links?[RootLinks.privacyPolicyResourceKey]
     }
     
+    /// returns the URL if termsResourceKeyLink link is returned on the model
     open var termsResourceKeyLink: Link? {
         return links?[RootLinks.termsResourceKey]
     }
