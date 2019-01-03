@@ -26,9 +26,15 @@ class MockModels {
     }
     
     func getUser() -> User? {
-        let user = try? User("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/\"}, \"creditCards\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards\"}, \"devices\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices\"}, \"eventStream\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/eventStream\"}, \"webapp.wallet\":{\"href\":\"https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2?config={config}\", \"templated\": true}},\"id\":\"\(someId)\",\"createdTs\":\"\(someDate)\",\"createdTsEpoch\":\(timeEpoch),\"lastModifiedTs\":\"\(someDate)\",\"lastModifiedTsEpoch\":\(timeEpoch),\"encryptedData\":\"\(someEncryptionData)\"}")
+        let user = try? User("{\"_links\":{\"self\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/\"}, \"creditCards\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards\"}, \"devices\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/devices\"}, \"eventStream\":{\"href\":\"https://api.fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/eventStream\"}, \"webapp.addCard\": { \"href\":\"https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards\"}, \"webapp.wallet\":{\"href\":\"https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2?config={config}\", \"templated\": true}},\"id\":\"\(someId)\",\"createdTs\":\"\(someDate)\",\"createdTsEpoch\":\(timeEpoch),\"lastModifiedTs\":\"\(someDate)\",\"lastModifiedTsEpoch\":\(timeEpoch),\"encryptedData\":\"\(someEncryptionData)\"}")
         expect(user).toNot(beNil())
         return user
+    }
+    
+    func getRootLinks() -> RootLinks? {
+        let rootLinks = try? RootLinks("{\"_links\": { \"self\": {\"href\": \"https://api.fit-pay.com/\" },\"eventTypes\": { \"href\": \"https://api.fit-pay.com/eventTypes\" }, \"health\": { \"href\": \"https://api.fit-pay.com/health\" }, \"webapp.privacyPolicy\": { \"href\": \"https://webapp.fit-pay.com/privacy-policy\" }, \"webapp.terms\": { \"href\": \"https://webapp.fit-pay.com/terms\" }}}")
+        expect(rootLinks).toNot(beNil())
+        return rootLinks
     }
     
     func getDevice(deviceId: String? = nil) -> Device? {

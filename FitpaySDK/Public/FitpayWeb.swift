@@ -95,6 +95,7 @@ import WebKit
     }
     
     /// Loads a specific page on Fitpay based on `FitpayConfig.WebUrl` and passed in route
+    @available(*, deprecated, message: "as of v1.5.3 ...")
     open func load(relativePath: RelativeWebPath) {
         guard let encodedConfig = wvConfig.getEncodedConfig() else { return }
         

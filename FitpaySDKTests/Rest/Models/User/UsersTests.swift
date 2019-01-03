@@ -83,6 +83,15 @@ class UsersTests: XCTestCase {
         expect(self.user.webappWalletLink).to(beNil())
     }
     
+    func testWebappAddCardLink() {
+        expect(self.user.webappAddCardLink?.templated).to(beNil())
+        expect(self.user.webappAddCardLink?.href).to(equal("https://fit-pay.com/users/9469bfe0-3fa1-4465-9abf-f78cacc740b2/creditCards"))
+        
+        user?.links = nil
+        
+        expect(self.user.webappAddCardLink).to(beNil())
+    }
+    
     func testCreateCreditCardNoClient() {
         let address = Address(street1: "123 Lane", street2: nil, street3: nil, city: "Boulder", state: "Colorado", postalCode: "80401", countryCode: nil)
         let creditCardInfo = CardInfo(pan: "123456", expMonth: 12, expYear: 2020, cvv: "123", name: "John Wick", address: address, riskData: nil)
