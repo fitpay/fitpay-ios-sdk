@@ -205,8 +205,6 @@
 		27E0302D20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0302E20ADE55C009120AD /* UnkeyedDecodingContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */; };
 		27E0303020ADE58A009120AD /* JSONCodingKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */; };
-		27E5A31320F4118A00A97F33 /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */; };
-		27E5A31420F4118A00A97F33 /* RelativeWebPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */; };
 		27EA32B521014A8F001EE6F0 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA32B421014A8F001EE6F0 /* NotificationType.swift */; };
 		27EA32B621014A8F001EE6F0 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA32B421014A8F001EE6F0 /* NotificationType.swift */; };
 		27EA32B821014AF1001EE6F0 /* NotificationEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA32B721014AF1001EE6F0 /* NotificationEventType.swift */; };
@@ -680,7 +678,6 @@
 		27DE5B1821598C00009E75D7 /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		27E0302C20ADE557009120AD /* UnkeyedDecodingContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnkeyedDecodingContainerExtension.swift; sourceTree = "<group>"; };
 		27E0302F20ADE58A009120AD /* JSONCodingKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCodingKeys.swift; sourceTree = "<group>"; };
-		27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeWebPath.swift; sourceTree = "<group>"; };
 		27EA32B421014A8F001EE6F0 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		27EA32B721014AF1001EE6F0 /* NotificationEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventType.swift; sourceTree = "<group>"; };
 		27EA81D5208F8A3400FFBB56 /* PaymentDeviceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDeviceUtils.swift; sourceTree = "<group>"; };
@@ -1616,7 +1613,6 @@
 		CD038444AAB4BDB6FF14D2D7 /* Rtm */ = {
 			isa = PBXGroup;
 			children = (
-				27E5A31220F4118A00A97F33 /* RelativeWebPath.swift */,
 				272E04342093B3BA000EAA9D /* RTMDelegate.swift */,
 				3786F97E1F1E03BA00693B6A /* RtmMessaging.swift */,
 				0AF2B4111CDA6F410090CFCF /* WvConfig.swift */,
@@ -2120,7 +2116,6 @@
 				91AD8ED02105E913003E9090 /* APDUPackageOperation.swift in Sources */,
 				2735864420E127CE005EDA9D /* Payload.swift in Sources */,
 				CD03838AE5953B954AC82E50 /* ResultCollection.swift in Sources */,
-				27E5A31320F4118A00A97F33 /* RelativeWebPath.swift in Sources */,
 				847264A21CA53D0800DE801D /* BLEPackets.swift in Sources */,
 				272E04352093B3BA000EAA9D /* RTMDelegate.swift in Sources */,
 				27F5E60921271998002ED57A /* SyncRequestState.swift in Sources */,
@@ -2452,7 +2447,6 @@
 				91AD8ED12105E913003E9090 /* APDUPackageOperation.swift in Sources */,
 				3A93A09B1DB8CA2C00A9FEB4 /* FitpayEvent.swift in Sources */,
 				272C9343207E7FD800166820 /* (null) in Sources */,
-				27E5A31420F4118A00A97F33 /* RelativeWebPath.swift in Sources */,
 				272E04392093B40A000EAA9D /* WVConfigStorage.swift in Sources */,
 				3A93A09C1DB8CA2C00A9FEB4 /* CreditCard.swift in Sources */,
 				27F5E60A21271998002ED57A /* SyncRequestState.swift in Sources */,
