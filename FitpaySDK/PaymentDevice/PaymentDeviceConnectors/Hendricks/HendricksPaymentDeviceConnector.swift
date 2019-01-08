@@ -150,6 +150,18 @@ import CoreBluetooth
         addPackagetoQueue(package)
     }
     
+    public func getCreditCards(completion: @escaping ([HendricksCard]?) -> Void) {
+        getCategoryObjects(categoryId: HendricksPaymentDeviceConnector.creditCardsCategoryId) { (objects) in
+            guard let objects = objects else {
+                completion(nil)
+                return
+            }
+            
+            let creditCards = objects.map({ HendricksCard(categoryId: $0.categoryId!, objectId: $0.objectId!, data: $0.data) })
+            completion(creditCards)
+        }
+    }
+    
     // MARK: - Private Functions
     
     private func addCommandtoFrontOfQueue(_ blePackage: BLEPackage) {
@@ -448,9 +460,9 @@ import CoreBluetooth
         var index = 1
         for _ in 0..<objectCount {
             let objectId = Int(returnedData[index] + returnedData[index + 1] << 8)
-            let type = HendricksObjectType(rawValue: Int(returnedData[index + 2]))
+            _ = HendricksObjectType(rawValue: Int(returnedData[index + 2])) // type
             let objectLength = Int(returnedData[index + 3] + returnedData[index + 4] << 8)
-            _ = Array(returnedData[index + 5..<index + 37]) //hash
+            _ = Array(returnedData[index + 5..<index + 37]) // hash
             
             index += 37
             
