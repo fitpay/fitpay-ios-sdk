@@ -9,10 +9,12 @@ open class ImageWithOptions: Image {
     open func retrieveAssetWith(options: [ImageAssetOption] = [], completion: @escaping RestClient.AssetsHandler) {
         let resource = ImageWithOptions.selfResourceKey
 
-        guard let url = links?.url(resource), let client = client, let urlString = updateUrlAssetWith(urlString: url, options: options) else {
+        guard let url = links?.url(resource), let client = client, var urlString = updateUrlAssetWith(urlString: url, options: options) else {
             completion(nil, composeError(resource))
             return
         }
+        
+        urlString += "&embossedText=%E2%80%A2%E2%80%A2%E2%80%A2%E2%80%A2+1114"
         
         client.assets(urlString, completion: completion)
 
