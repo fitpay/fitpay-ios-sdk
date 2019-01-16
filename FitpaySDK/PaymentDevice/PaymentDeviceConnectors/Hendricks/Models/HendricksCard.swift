@@ -43,26 +43,22 @@ public class HendricksCard: HendricksObject {
         
     }
     
-    init(categoryId: Int, objectId: Int, returnedData: [UInt8], index: Int) {
-        var runningIndex = index
+    override public init(categoryId: Int, objectId: Int, data: [UInt8]) {
+        var runningIndex = 0
         
-        lastFour = String(bytes: Array(returnedData[runningIndex..<runningIndex + lastFourLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        lastFour = String(bytes: Array(data[runningIndex..<runningIndex + lastFourLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += lastFourLength
-        expDate = String(bytes: Array(returnedData[runningIndex..<runningIndex + expDateLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        expDate = String(bytes: Array(data[runningIndex..<runningIndex + expDateLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += expDateLength
-        type = String(bytes: Array(returnedData[runningIndex..<runningIndex + typeLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        type = String(bytes: Array(data[runningIndex..<runningIndex + typeLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += typeLength
-        cardId = String(bytes: Array(returnedData[runningIndex..<runningIndex + cardIdLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
+        cardId = String(bytes: Array(data[runningIndex..<runningIndex + cardIdLength]), encoding: .utf8)!.replacingOccurrences(of: "\0", with: "")
         runningIndex += cardIdLength
         
         paddingLength = 4 - ((lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength) % 4)
         metaSizeLength = lastFourLength + expDateLength + typeLength + cardIdLength + artIdLength + artIdSizeLength + towIdLength + towSizeLength + statusLength + paddingLength
         
-        super.init()
-        
-        self.categoryId = categoryId
-        self.objectId = objectId
-        
+        super.init(categoryId: categoryId, objectId: objectId, data: data)
     }
     
     public func getCreditCardData(completion: @escaping (_ commandData: Data, _ data: Data) -> Void) {
