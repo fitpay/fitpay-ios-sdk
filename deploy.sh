@@ -30,7 +30,7 @@ rm *.original
 cd ..
 
 # update docs
-jazzy
+# jazzy
 
 # commit and push develop
 git add -A

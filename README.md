@@ -14,7 +14,7 @@ By default the tests will run in the iPhone 7 simulator.
 ```
 ./bin/test
 ```
-To test on a different simulator, pass in a valid simulator same.
+To test on a different simulator, pass in a valid simulator name.
 ```
 ./bin/test "iPhone 5s"
 ``` 
@@ -34,8 +34,17 @@ Please contact [FitPay Support](https://support.fit-pay.com)
 
 
 # Fit Pay Internal Instructions 
-### Publishing Updated SDKs
-* Please add a name to each release using the following convention: `FitPay SDK for iOS vX.X.X`
-* Please also include notes using proper markdown about each major PR in the release.
-* [How-to publish (deploy) a new version of the iOS FitPay SDK](https://fitpay.atlassian.net/wiki/spaces/ENG/pages/92798977/How-to+publish+deploy+a+new+version+of+the+iOS+FitPay+SDK)
+### Releasing Updated SDK
+Note: You must have cocoapods permissions set up to deploy. [Learn more](https://guides.cocoapods.org/making/getting-setup-with-trunk.html)
+
+1. Run deploy script with old and new version numbers (maintain 3 digit semantic versioning)
+	* Example: `sh deploy.sh 1.2.0 1.2.1`
+	* You should be on develop branch
+	* The script will exit early if you don't supply two arguments or have uncommitted changed
+* Create a release in Github 
+	* Use the following convention for name: `FitPay SDK for iOS vX.X.X`
+	* Include notes using proper markdown about each major PR in the release.
+		* notes can be gathered from commit messages and from github releases page (commits since this release)
+* Confirm release was successful by running `pod update` in Pagare
+
 
