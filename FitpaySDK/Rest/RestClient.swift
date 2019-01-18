@@ -73,6 +73,19 @@ open class RestClient: NSObject {
     
     // MARK: - Public Functions
     
+    public func getRootLinks(completion: @escaping (_ rootLinks: RootLinks?, _ error: ErrorResponse?) -> Void) {
+        let url = FitpayConfig.apiURL
+        restRequest.makeRequest(url: url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil) { (resultValue, error) in
+            guard let resultValue = resultValue as? [String: Any] else {
+                completion(nil, error)
+                return
+            }
+            
+            let rootLinks = try? RootLinks(resultValue)
+            completion(rootLinks, error)
+        }
+    }
+    
     public func confirm(_ url: String, executionResult: NonAPDUCommitState, completion: @escaping ConfirmHandler) {
         let params = ["result": executionResult.description]
         makePostCall(url, parameters: params, completion: completion)
