@@ -63,14 +63,4 @@ class DataExtensionsTests: XCTestCase {
         expect(hexString).to(equal("D9EA91F550D6C462FB25CC364D3069E84E72E44E9F64351161E30012D450E527"))
     }
 
-    func testPaddedTo() {
-        let lastFour = "1234"
-        let lastFourData = lastFour.data(using: .utf8)!
-        expect(lastFourData.count).to(equal(4))
-        
-        let paddedLastFourData = lastFourData.paddedTo(byteLength: 5)
-        expect(paddedLastFourData.count).to(equal(5))
-        
-    }
-
 }
