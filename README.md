@@ -9,6 +9,14 @@ We are gradually moving content regarding consumption of this SDK to our [docume
 [![codecov](https://codecov.io/gh/fitpay/fitpay-ios-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/fitpay/fitpay-ios-sdk)
 [![Documentation coverage](docs/badge.svg)](docs/badge.svg)
 
+## Installation - Pod Install
+Your podfile should look something like this:
+```
+target 'YourApp' do
+pod 'FitpaySDK', '~>1.6.0'
+end
+```
+
 ## Running Tests From the Commandline
 By default the tests will run in the iPhone 7 simulator.
 ```
