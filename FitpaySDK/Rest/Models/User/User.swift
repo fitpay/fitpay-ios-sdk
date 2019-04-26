@@ -102,7 +102,7 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
     }
     
     /**
-     Retrieves the details of an existing credit card. You need only supply the unique identifier that was returned upon creation.
+     Retrieves a list of existing credit cards with the option to filter out certain card states.
      
      - parameter excludeState: Exclude all credit cards in the specified state. If you desire to specify multiple excludeState values, then repeat this query parameter multiple times.
      - parameter limit:        max number of profiles per page
@@ -119,6 +119,27 @@ open class User: NSObject, ClientModel, Serializable, SecretApplyable {
         
         client.creditCards(url, excludeState: excludeState, limit: limit, offset: offset, deviceId: deviceId, completion: completion)
     }
+
+    /**
+     Retrieves the details of an existing credit card. You need only supply the unique identifier that was returned upon creation.
+     
+     - parameter id:           Unique identifier of the credit card you want to fetch.
+     - parameter completion:   CreditCardHandler closure
+     */
+    public func getCreditCard(id: String, completion: @escaping RestClient.CreditCardHandler) {
+        let resource = User.creditCardsResourceKey
+
+        guard
+            let urlString = links?[resource]?.href,
+            let url = URL(string: urlString),
+            let client = client else {
+            completion(nil, composeError(resource))
+            return
+        }
+        
+        client.getCreditCard(url.appendingPathComponent(id).absoluteString, completion: completion)
+    }
+
     
     /**
      For a single user, retrieve a pageable collection of devices in their profile
