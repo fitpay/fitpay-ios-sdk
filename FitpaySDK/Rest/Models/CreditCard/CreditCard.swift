@@ -187,7 +187,7 @@ import Foundation
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+        try? container.encodeIfPresent(offlineSeActions, forKey: .offlineSeActions)
         try? container.encodeIfPresent(links, forKey: .links)
         try? container.encode(creditCardId, forKey: .creditCardId)
         try? container.encode(userId, forKey: .userId)
