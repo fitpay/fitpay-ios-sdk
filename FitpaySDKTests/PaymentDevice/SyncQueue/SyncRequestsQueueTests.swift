@@ -215,17 +215,20 @@ class SyncRequestsQueueTests: XCTestCase {
         let paymentDevice = PaymentDevice()
         
         requestsQueue.addPaymentDevice(user: user, deviceInfo: deviceInfo, paymentDevice: paymentDevice)
-        
+
         waitUntil { done in
-            self.requestsQueue.add(request: self.getSyncRequestNotification()) { (status, error) in
+            let request = self.getSyncRequestNotification()
+            request.user = user
+            self.requestsQueue.add(request: request) { (status, error) in
                 expect(status).to(equal(.success))
                 expect(error).to(beNil())
                 
                 self.requestsQueue.removePaymentDevice(deviceId: self.mockModels.someId)
                 
-                self.requestsQueue.add(request: self.getSyncRequestNotification()) { (status, error) in
+                let anotherRequest = self.getSyncRequestNotification()
+                anotherRequest.user = user
+                self.requestsQueue.add(request: anotherRequest) { (status, error) in
                     expect(status).to(equal(.failed))
-                    expect(error as? SyncRequestQueue.SyncRequestQueueError).to(equal(SyncRequestQueue.SyncRequestQueueError.cantCreateQueueForSyncRequest))
                     done()
                     
                 }

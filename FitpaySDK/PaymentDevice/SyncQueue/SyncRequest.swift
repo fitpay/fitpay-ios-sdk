@@ -61,7 +61,9 @@ open class SyncRequest {
         self.requestTime = Date()
         self.syncId = notification?.syncId
         self.user = nil
-        self.deviceInfo = nil
+        let deviceInfo = Device()
+        deviceInfo.deviceIdentifier = notification?.deviceId
+        self.deviceInfo = deviceInfo
         self.paymentDevice = nil
         self.syncInitiator = initiator
         self.notification = notification
