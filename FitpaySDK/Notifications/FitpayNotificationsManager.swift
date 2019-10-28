@@ -141,15 +141,29 @@ open class FitpayNotificationsManager: NSObject, ClientModel {
         switch notificationType {
         case .withSync:
             let notificationDetail = notificationDetailFromNotification(currentNotification)
-            SyncRequestQueue.sharedInstance.add(request: SyncRequest(notification: notificationDetail, initiator: .notification)) { (_, _) in
-                self.currentNotification = nil
-                self.noActivityTimer?.invalidate()
-                self.noActivityTimer = nil
-                self.processNextNotificationIfAvailable()
+            guard let userId = notificationDetail?.userId else {
+                log.error("NOTIFICATIONS_DATA: Recieved notification with no userId. Returning")
+                return
+            }
+            
+            client?.user(id: userId) { (user: User?, err: ErrorResponse?) in
+                guard let user = user, err == nil else {
+                    log.error("NOTIFICATIONS_DATA: Failed to retrieve user with ID \(userId). Continuing to next notification. Error: \(err!.description)")
+                    self.currentNotification = nil
+                    self.noActivityTimer?.invalidate()
+                    self.processNextNotificationIfAvailable()
+                    return
+                }
+                
+                SyncRequestQueue.sharedInstance.add(request: SyncRequest(notification: notificationDetail, initiator: .notification, user: user)) { (_, _) in
+                    self.currentNotification = nil
+                    self.noActivityTimer?.invalidate()
+                    self.noActivityTimer = nil
+                    self.processNextNotificationIfAvailable()
+                }
             }
             
             noActivityTimer?.invalidate()
-            noActivityTimer = nil
             noActivityTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(FitpayNotificationsManager.handleNoActiviy), userInfo: nil, repeats: false)
             
         case .withoutSync: // just call completion
