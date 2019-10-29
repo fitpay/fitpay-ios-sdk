@@ -57,10 +57,11 @@ open class SyncRequest {
     /// - Parameters:
     ///   - notification: Notification Detail created from a FitPay notification
     ///   - initiator: where the sync is coming from, defaulting to notification
-    public init(notification: NotificationDetail? = nil, initiator: SyncInitiator = .notification) {
+    ///   - user: The user associated with the notification, defaulting to nil
+    public init(notification: NotificationDetail? = nil, initiator: SyncInitiator = .notification, user: User? = nil) {
         self.requestTime = Date()
         self.syncId = notification?.syncId
-        self.user = nil
+        self.user = user
         let deviceInfo = Device()
         deviceInfo.deviceIdentifier = notification?.deviceId
         self.deviceInfo = deviceInfo
