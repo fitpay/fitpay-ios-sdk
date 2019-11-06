@@ -35,7 +35,6 @@
 		2714B06B20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */; };
 		2714B06C20F4174500321F22 /* ArrayExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2714B06A20F4174500321F22 /* ArrayExtensionsTests.swift */; };
 		2716908E2106739E0026B927 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716908D2106739E0026B927 /* RestRequest.swift */; };
-		2716908F2106739E0026B927 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716908D2106739E0026B927 /* RestRequest.swift */; };
 		271848632162CBE900FBB04C /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D12722162C864004811A3 /* AssetTests.swift */; };
 		271848642162CBE900FBB04C /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272D12722162C864004811A3 /* AssetTests.swift */; };
 		271848662162D0A900FBB04C /* ResourceLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271848652162D0A900FBB04C /* ResourceLinkTests.swift */; };
@@ -497,6 +496,7 @@
 		91FD056D20D1653500092234 /* DeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD053F20D1653400092234 /* DeviceTests.swift */; };
 		91FD056F20D1664000092234 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD056E20D1664000092234 /* MockModels.swift */; };
 		91FD057020D1664000092234 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FD056E20D1664000092234 /* MockModels.swift */; };
+		924459B6237334130090B133 /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2716908D2106739E0026B927 /* RestRequest.swift */; };
 		925E130A2371EA2600945B80 /* FitpayHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925E13092371EA2600945B80 /* FitpayHealth.swift */; };
 		9A1227801C89CF5C006968D7 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A12277F1C89CF5C006968D7 /* ArrayExtensions.swift */; };
 		9A58466D1C96B65B00E4ABDC /* ClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A58466C1C96B65B00E4ABDC /* ClientModel.swift */; };
@@ -2415,6 +2415,7 @@
 				3A93A0A61DB8CA2C00A9FEB4 /* ClientModel.swift in Sources */,
 				27EA81DE208F96F700FFBB56 /* UserEventStream.swift in Sources */,
 				3767B8171ED31BC2007443D2 /* RestClientUser.swift in Sources */,
+				924459B6237334130090B133 /* RestRequest.swift in Sources */,
 				3767B81A1ED31D48007443D2 /* RestClientDevice.swift in Sources */,
 				13DE3F3721DEC02A00F51195 /* RelativeWebPath.swift in Sources */,
 				276CD260209A65C500076648 /* FitpayConfig.swift in Sources */,
@@ -2462,7 +2463,6 @@
 				3701AE591F16180000550890 /* FetchCommitsOperation.swift in Sources */,
 				3A93A0B31DB8CA2C00A9FEB4 /* RawIntValue.swift in Sources */,
 				279298D821B1AEC20047684D /* Country.swift in Sources */,
-				2716908F2106739E0026B927 /* RestRequest.swift in Sources */,
 				3A93A0B41DB8CA2C00A9FEB4 /* FitpayEventListener.swift in Sources */,
 				37139BDC1F164695001EEE73 /* APDUConfirmOperation.swift in Sources */,
 				272C9342207E7FA600166820 /* (null) in Sources */,
