@@ -19,7 +19,7 @@ public class FitpayHealth {
     }()
 
     public static func getApiStatus(completion: @escaping StatusHandler) {
-        manager.request("\(FitpayConfig.apiURL)/health", headers: ["maintenance-mode":"true"])
+        manager.request("\(FitpayConfig.apiURL)/health")
             .validate()
             .responseJSON { response in
             switch response.result {
