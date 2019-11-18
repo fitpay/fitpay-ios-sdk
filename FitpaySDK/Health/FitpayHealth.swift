@@ -48,6 +48,8 @@ public class FitpayHealth {
                         (response.response?.allHeaderFields["Maintenance-Mode"] as? String) ?? "" == "true" {
                         log.error("FITPAY_HEALTH: API health check found that the API is in Maintenence Mode!")
                         completion(.MAINTENANCE, nil)
+                    } else {
+                        fallthrough
                     }
                 default:
                     log.error("FITPAY_HEALTH: Unable to check API health. Error: \(error)")
