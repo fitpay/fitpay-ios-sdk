@@ -44,7 +44,8 @@ public class FitpayHealth {
             case let .failure(error):
                 switch response.response?.statusCode {
                 case 503:
-                    if (response.response?.allHeaderFields["maintenance-mode"] as? String) ?? "" == "true" {
+                    if (response.response?.allHeaderFields["maintenance-mode"] as? String) ??
+                        (response.response?.allHeaderFields["Maintenance-Mode"] as? String) ?? "" == "true" {
                         log.error("FITPAY_HEALTH: API health check found that the API is in Maintenence Mode!")
                         completion(.MAINTENANCE, nil)
                     }
