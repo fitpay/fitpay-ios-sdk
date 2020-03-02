@@ -12,11 +12,11 @@ class UserEventStream {
         client.prepareAuthAndKeyHeaders { (headers, error) in
             self.eventSource = EventSource(url: eventStreamLink, headers: [:])
             
-            self.eventSource!.onOpen {
+            self.eventSource?.onOpen {
                 log.debug("USER_EVENT_STREAM: connected to event stream for user \(user.id ?? "no user")")
             }
             
-            self.eventSource!.onError { (error) in
+            self.eventSource?.onError { (error) in
                 guard let error = error else { return }
                 if error.code == -999 { //cancelled
                     log.debug("USER_EVENT_STREAM: connection closed for user \(user.id ?? "no user")")
@@ -25,7 +25,7 @@ class UserEventStream {
                 }
             }
             
-            self.eventSource!.onMessage { (_, _, data) in
+            self.eventSource?.onMessage { (_, _, data) in
                 guard let jwtBodyString = JWE.decryptSigned(data, expectedKeyId: client.key?.keyId, secret: client.secret) else { return }
                 guard let streamEvent = try? jsonDecoder.decode(StreamEvent.self, from: jwtBodyString.data(using: String.Encoding.utf8)!) else { return }
                 
