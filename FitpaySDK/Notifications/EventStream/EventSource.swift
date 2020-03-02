@@ -297,11 +297,22 @@ extension EventSource: URLSessionDataDelegate {
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         completionHandler(URLSession.ResponseDisposition.allow)
         
+        guard let httpResponse = response as? HTTPURLResponse else {
+            FitpaySDKLogger.sharedInstance.error("EVENT_STREAM_ERROR cannot cast urlResponse")
+            return
+        }
+        
+        //Any other codes that should allow sucess?
+        guard httpResponse.statusCode == 200 else {
+            FitpaySDKLogger.sharedInstance.error("EVENT_STREAM_ERROR status code: \(httpResponse.statusCode)")
+            return
+        }
+ 
         if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
             return
         }
         
-        self.readyState = EventSourceState.open
+        self.readyState = .open
         if self.onOpenCallback != nil {
             DispatchQueue.main.async {
                 self.onOpenCallback!()
