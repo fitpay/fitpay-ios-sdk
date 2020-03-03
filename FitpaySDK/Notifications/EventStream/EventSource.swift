@@ -286,6 +286,13 @@ class EventSource: NSObject {
         return true
     }
     
+    private func openCallbackAllocated() -> Bool{
+        if onOpenCallback == nil {
+            FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error onOpenCallback nil")
+            return false
+        }
+        return true
+    }
 }
 
 extension EventSource: URLSessionDataDelegate {
@@ -316,13 +323,11 @@ extension EventSource: URLSessionDataDelegate {
         }
         
         //Set ready state to open when the open when callback is known not to be nil
-        if self.onOpenCallback != nil {
+        if openCallbackAllocated() {
             self.readyState = .open
             DispatchQueue.main.async {
                 self.onOpenCallback!()
             }
-        } else {
-            FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error onOpenCallback nil")
         }
     }
     
