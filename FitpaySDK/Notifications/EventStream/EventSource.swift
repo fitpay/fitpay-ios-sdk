@@ -276,14 +276,14 @@ class EventSource: NSObject {
         return false
     }
     
-    private func receivedValidResponse(_ httpResponse: HTTPURLResponse?) -> Bool {
+    private func receivedInvalidResponse(_ httpResponse: HTTPURLResponse?) -> Bool {
         guard let response = httpResponse else { return false }
         
         if response.statusCode == 200 {
-            return true
+            return false
         }
         FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error status code: \(response.statusCode)")
-        return false
+        return true
     }
     
 }
@@ -311,7 +311,7 @@ extension EventSource: URLSessionDataDelegate {
             return
         }
         
-        if self.receivedValidResponse(dataTask.response as? HTTPURLResponse) {
+        if self.receivedInvalidResponse(dataTask.response as? HTTPURLResponse) {
             return
         }
         
