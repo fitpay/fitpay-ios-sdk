@@ -276,6 +276,16 @@ class EventSource: NSObject {
         return false
     }
     
+    private func receivedValidResponse(_ httpResponse: HTTPURLResponse?) -> Bool {
+        guard let response = httpResponse else { return false }
+        
+        if response.statusCode == 200 {
+            return true
+        }
+        FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error status code: \(response.statusCode)")
+        return false
+    }
+    
 }
 
 extension EventSource: URLSessionDataDelegate {
@@ -296,19 +306,12 @@ extension EventSource: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         completionHandler(URLSession.ResponseDisposition.allow)
-        
-        guard let httpResponse = response as? HTTPURLResponse else {
-            FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error cannot cast urlResponse")
-            return
-        }
-        
-        guard httpResponse.statusCode == 200 else {
-            FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error status code: \(httpResponse.statusCode)")
-            return
-        }
- 
-        //204
+
         if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
+            return
+        }
+        
+        if self.receivedValidResponse(dataTask.response as? HTTPURLResponse) {
             return
         }
         
