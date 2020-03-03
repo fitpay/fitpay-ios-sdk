@@ -312,6 +312,7 @@ extension EventSource: URLSessionDataDelegate {
             return
         }
         
+        //Set ready state to open when the open when callback is known not to be nil
         if self.onOpenCallback != nil {
             self.readyState = .open
             DispatchQueue.main.async {
