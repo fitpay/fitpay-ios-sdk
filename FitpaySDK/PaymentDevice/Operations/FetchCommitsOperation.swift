@@ -69,7 +69,6 @@ class FetchCommitsOperation: FetchCommitsOperationProtocol {
                 loadCommits(afterCommit: commit)
                 return
             case .completed:
-                self?.publisher.onCompleted()
                 break
             }
         }.disposed(by: disposeBag)
