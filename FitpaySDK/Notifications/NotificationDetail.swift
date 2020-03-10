@@ -15,7 +15,7 @@ open class NotificationDetail: Serializable, ClientModel {
     open var clientId: String?
     open var creditCardId: String?
     
-    weak var client: RestClient?
+    weak public var client: RestClient?
     
     var links: [String: Link]?
 
