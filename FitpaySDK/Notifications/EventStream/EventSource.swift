@@ -276,6 +276,16 @@ class EventSource: NSObject {
         return false
     }
     
+    private func receivedInvalidResponse(_ httpResponse: HTTPURLResponse?) -> Bool {
+        guard let response = httpResponse else { return false }
+        
+        if response.statusCode == 200 {
+            return false
+        }
+        FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error status code: \(response.statusCode)")
+        return true
+    }
+    
 }
 
 extension EventSource: URLSessionDataDelegate {
@@ -296,16 +306,23 @@ extension EventSource: URLSessionDataDelegate {
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
         completionHandler(URLSession.ResponseDisposition.allow)
-        
+
         if self.receivedMessageToClose(dataTask.response as? HTTPURLResponse) {
             return
         }
         
-        self.readyState = EventSourceState.open
+        if self.receivedInvalidResponse(dataTask.response as? HTTPURLResponse) {
+            return
+        }
+        
+        //Set ready state to open when the open when callback is known not to be nil
         if self.onOpenCallback != nil {
+            self.readyState = .open
             DispatchQueue.main.async {
                 self.onOpenCallback!()
             }
+        } else {
+            FitpaySDKLogger.sharedInstance.error("USER_EVENT_STREAM error onOpenCallback nil")
         }
     }
     

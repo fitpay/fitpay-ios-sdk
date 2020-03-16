@@ -100,6 +100,7 @@ class SyncOperation {
     }
     
     private func sync() {
+        self.syncRequest?.notification?.sendAckSync()
         self.fetchCommitsOperation.startWith(limit: 20, andOffset: 0).subscribe { [weak self] (e) in
             switch e {
             case .error(let error):
@@ -119,7 +120,6 @@ class SyncOperation {
                     
                     log.verbose("SYNC_DATA: Commit applier returned without errors.")
                     
-                    self?.sendCommitsMetric()
                     self?.state.value = .completed(nil)
                 }
                 
