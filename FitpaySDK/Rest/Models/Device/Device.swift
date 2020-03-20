@@ -119,7 +119,7 @@ import Foundation
     }
     
     var links: [String: Link]?
-    weak var client: RestClient?
+    public weak var client: RestClient?
 
     typealias NotificationTokenUpdateCompletion = (_ changed: Bool, _ error: ErrorResponse?) -> Void
     
