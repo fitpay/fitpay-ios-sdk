@@ -4,7 +4,7 @@ open class Issuers: Serializable, ClientModel {
     
     public var countries: [String: Country]?
     
-    weak var client: RestClient?
+    public weak var client: RestClient?
 
     private enum CodingKeys: String, CodingKey {
         case countries
