@@ -3,7 +3,7 @@ import Foundation
 public class UserEventStreamManager {
     public static let sharedInstance = UserEventStreamManager()
     
-    private var client: RestClient?
+    public var client: RestClient?
     private var userEventStreams: [String: UserEventStream] = [:]
     
     public typealias userEventStreamHandler = (_ event: StreamEvent) -> Void
