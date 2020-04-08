@@ -107,6 +107,11 @@ import Foundation
         return links?[Device.deviceResetTasksKey] != nil
     }
     
+    // returns the device statistics link if available
+    open var deviceStatisticsLink: String? {
+        return links?[Device.deviceStatistics]?.href ?? nil
+    }
+
     /// returns the templated URL if webappAddCredentialKey link is returned on the model
     open var webappAddCredentialLink: Link? {
         return links?[Device.webappAddCredentialKey]
@@ -126,6 +131,7 @@ import Foundation
     private static let userResourceKey = "user"
     private static let commitsResourceKey = "commits"
     private static let selfResourceKey = "self"
+    private static let deviceStatistics = "deviceStatistics"
     private static let lastAckCommitResourceKey = "lastAckCommit"
     private static let deviceResetTasksKey = "deviceResetTasks"
     private static let defaultCreditCardKey = "defaultCreditCard"
