@@ -7,7 +7,7 @@ directories:
 - Carthage
 
 before_install:
-- carthage update --platform iOS --cache-builds --no-use-binaries
+- carthage update --platform iOS
 - gem install cocoapods
 - pod repo update
 
